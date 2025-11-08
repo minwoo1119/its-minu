@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0;
+
+  .title {
+    font-size: 4rem;
+    font-weight: 600;
+
+    span {
+      color: #2a52be;
+    }
+  }
+
+  .sub {
+    font-size: 1.2rem;
+    color: gray;
+  }
+}
