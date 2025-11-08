@@ -1,0 +1,30 @@
+.container {
+  width: 20rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 2rem 1.4rem;
+  gap: 0.6rem;
+  border: 1px solid #f0f0f0;
+  background-color: white;
+  border-radius: 15px;
+
+  .icon {
+    width: 100%;
+    text-align: start;
+    font-size: 2rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .sub {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #e0e0e0;
+  }
+}
