@@ -20,20 +20,17 @@ export const Techs = () => {
       </div>
       <div className={styles.techStacks}>
         {selected === '프론트엔드' ? (
-          <img
-            src='src/assets/img/frontend_stack.jpg'
-            alt='프론트엔드 기술스택'
-          />
+          <img src='/img/frontend_stack.jpg' alt='프론트엔드 기술스택' />
         ) : (
           ''
         )}
         {selected === '백엔드' ? (
-          <img src='src/assets/img/backend_stack.jpg' alt='백엔드 기술스택' />
+          <img src='/img/backend_stack.jpg' alt='백엔드 기술스택' />
         ) : (
           ''
         )}
         {selected === 'AI' ? (
-          <img src='src/assets/img/ai_stack.jpg' alt='AI 기술스택' />
+          <img src='/img/ai_stack.jpg' alt='AI 기술스택' />
         ) : (
           ''
         )}
