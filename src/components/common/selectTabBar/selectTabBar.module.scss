@@ -24,9 +24,9 @@
     }
 
     &.active {
-      background-color: #2a52be;
+      color: #2a52be;
+      font-weight: 800;
       border: 1px solid #2a52be;
-      color: white;
     }
   }
 }
