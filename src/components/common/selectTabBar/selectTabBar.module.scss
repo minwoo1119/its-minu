@@ -1,0 +1,32 @@
+.container {
+  width: 30rem;
+  border: 1px solid #bdc3d4;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  .button {
+    width: 8rem;
+    padding: 1rem;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+
+    &:hover {
+      cursor: pointer;
+      color: #2a52be;
+      font-weight: 600;
+    }
+
+    &.active {
+      color: #2a52be;
+      font-weight: 800;
+      border: 1px solid #2a52be;
+    }
+  }
+}
