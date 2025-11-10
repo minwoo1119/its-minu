@@ -1,0 +1,44 @@
+.container {
+  width: 100%;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+
+  .subText {
+    font-size: 1.2em;
+    color: gray;
+  }
+
+  .titleText {
+    font-size: 2em;
+    font-weight: 600;
+  }
+
+  .projects {
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .moreBtn {
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: 0.2s ease;
+
+    &:hover {
+      background-color: #005ecb;
+    }
+  }
+}
