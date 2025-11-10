@@ -33,6 +33,7 @@
   }
 
   .title {
+    margin-top: 1rem;
     font-size: 1.2em;
     font-weight: 700;
   }
@@ -63,5 +64,9 @@
     margin-top: 1rem;
     font-size: 1.1em;
     font-weight: 600;
+  }
+
+  ul {
+    margin: 0;
   }
 }
