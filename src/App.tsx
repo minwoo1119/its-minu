@@ -1,4 +1,5 @@
 import { CoreCompetencies } from './components/coreCompetencies/CoreCompetencies';
+import { Footer } from './components/Footer/Footer';
 import { Header } from './components/header/Header';
 import { Intro } from './components/intro/Intro';
 import { Projects } from './components/projects/Projects';
@@ -13,6 +14,7 @@ function App() {
       <CoreCompetencies />
       <Techs />
       <Projects />
+      <Footer />
     </div>
   );
 }
