@@ -38,6 +38,8 @@
 
     .tab {
       cursor: pointer;
+      text-decoration: none;
+      color: gray;
 
       &:hover {
         color: #1150af;
