@@ -1,6 +1,11 @@
 .container {
-  width: 34rem;
-  height: 50rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  padding: 0 0.5rem;
+
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -9,6 +14,13 @@
 
   overflow-y: auto;
   overflow-x: hidden;
+
+  @media (min-width: 768px) {
+    width: 34rem;
+    height: 50rem;
+    max-height: 80vh;
+    padding: 0;
+  }
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -26,21 +38,42 @@
 
   img {
     width: 100%;
-    height: 22rem;
+    height: auto;
+    max-height: 14rem;
     border-radius: 12px;
     border: 1px solid #f0f0f0;
     object-fit: cover;
+
+    @media (min-width: 768px) {
+      height: 22rem;
+      max-height: none;
+    }
   }
 
   .title {
-    margin-top: 1rem;
-    font-size: 1.2em;
+    margin-top: 0.5rem;
+    font-size: 1.1em;
     font-weight: 700;
+
+    @media (min-width: 768px) {
+      margin-top: 1rem;
+      font-size: 1.2em;
+    }
+  }
+
+  .period {
+    font-size: 0.9em;
+    color: #666;
   }
 
   .description {
-    font-size: 1em;
+    font-size: 0.95em;
     color: gray;
+    line-height: 1.5;
+
+    @media (min-width: 768px) {
+      font-size: 1em;
+    }
   }
 
   .techRow {
@@ -49,7 +82,11 @@
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+
+    @media (min-width: 768px) {
+      gap: 0.5rem;
+    }
 
     span {
       padding: 0.2rem 0.5rem;
@@ -57,16 +94,33 @@
       color: #2a52be;
       font-weight: 500;
       background-color: #e3f2fd;
+      font-size: 0.85rem;
+
+      @media (min-width: 768px) {
+        font-size: 1rem;
+      }
     }
   }
 
   .subtitle {
-    margin-top: 1rem;
-    font-size: 1.1em;
+    margin-top: 0.5rem;
+    font-size: 1em;
     font-weight: 600;
+
+    @media (min-width: 768px) {
+      margin-top: 1rem;
+      font-size: 1.1em;
+    }
   }
 
   ul {
     margin: 0;
+    padding-left: 1.2rem;
+
+    li {
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
   }
 }
