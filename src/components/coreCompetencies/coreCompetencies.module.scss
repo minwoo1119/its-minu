@@ -1,29 +1,56 @@
 .container {
-  padding: 4rem 0;
+  padding: 3rem 1rem;
   background-color: #f9fafc;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 2rem;
+    gap: 1rem;
+  }
 
   .mini {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 400;
     color: gray;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      font-size: 1.1rem;
+    }
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
+    text-align: center;
+    word-break: keep-all;
+    line-height: 1.3;
+    padding: 0 1rem;
+
+    @media (min-width: 768px) {
+      font-size: 2rem;
+    }
   }
 
   .boxesWrapper {
+    width: 100%;
+    max-width: 1200px;
     padding: 2rem 0;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: 1.5rem;
+    }
   }
 }
