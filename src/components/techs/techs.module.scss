@@ -1,7 +1,13 @@
 .container {
+  box-sizing: border-box;
+
   width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+
   min-height: 28rem;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
+
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -15,7 +21,7 @@
 
   .text {
     margin-top: 0.5rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: gray;
     text-align: center;
     word-break: keep-all;
@@ -28,16 +34,19 @@
 
   .techStacks {
     width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     img {
+      width: 100%;
       max-width: 100%;
       height: auto;
       object-fit: contain;
 
       @media (min-width: 768px) {
+        width: auto;
         max-width: 80%;
       }
 
