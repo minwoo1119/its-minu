@@ -14,7 +14,7 @@ export const Projects = () => {
     null
   );
 
-  const visibleProjects = showAll ? projectsData : projectsData.slice(0, 3);
+  const visibleProjects = showAll ? projectsData : projectsData.slice(0, 6);
 
   const handleProjectClick = (project: ProjectInfo) => {
     setSelectedProjectId(project.id);
