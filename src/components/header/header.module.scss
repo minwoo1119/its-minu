@@ -1,17 +1,20 @@
+$tablet: 768px;
+
 .container {
-  margin: 1rem;
-  width: 100%;
+  width: 80%;
+  padding: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 100;
 
   .dots {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     gap: 0.5rem;
+
     & > :nth-child(1) {
       background-color: #ff5f57;
     }
@@ -29,21 +32,61 @@
     }
   }
 
+  .hamburger {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: gray;
+
+    @media (min-width: #{$tablet}) {
+      display: none;
+    }
+  }
+
   .selectTab {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &.open {
+      display: flex;
+    }
 
     .tab {
       cursor: pointer;
       text-decoration: none;
       color: gray;
+      padding: 1rem;
+      font-size: 1.1rem;
 
       &:hover {
         color: #1150af;
         font-weight: 700;
+      }
+    }
+
+    @media (min-width: #{$tablet}) {
+      display: flex;
+      position: static;
+      flex-direction: row;
+      width: auto;
+      background: none;
+      box-shadow: none;
+      padding: 0;
+      gap: 2rem;
+
+      .tab {
+        padding: 0;
+        font-size: 1rem;
       }
     }
   }
