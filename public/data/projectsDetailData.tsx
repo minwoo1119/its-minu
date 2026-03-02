@@ -1,5 +1,8 @@
+export type ProjectCategory = 'WEB' | 'MOBILE' | 'AI';
+
 export interface ProjectDetailInfo {
   id: number;
+  category: ProjectCategory;
   imgUrl: string;
   title: string;
   description: string;
@@ -7,6 +10,7 @@ export interface ProjectDetailInfo {
   projectOutline: string;
   do: string[];
   achievements: string[];
+  deployUrl?: { title: string; url: string }[] | null;
   startDate: Date;
   endDate: Date;
 }
@@ -14,6 +18,7 @@ export interface ProjectDetailInfo {
 export const projectDetailData: ProjectDetailInfo[] = [
   {
     id: 1,
+    category: 'MOBILE',
     imgUrl: '/img/tech/geumpumta.png',
     title: '금품타 : 대학생 학습 시간 기록 & 실시간 랭킹 서비스',
     description:
@@ -26,6 +31,16 @@ export const projectDetailData: ProjectDetailInfo[] = [
       'OAuth 2.0',
       'Google Play Console',
       'TestFlight',
+    ],
+    deployUrl: [
+      {
+        title: 'ios',
+        url: 'https://apps.apple.com/kr/app/%EA%B8%88%ED%92%88%ED%83%80/id6755481890',
+      },
+      {
+        title: 'android',
+        url: 'https://play.google.com/store/apps/details?id=com.geumpumgalchwi.geumpumta&hl=ko',
+      },
     ],
     projectOutline:
       '기존 학습 타이머 앱의 한계를 넘어, 정확한 시간 측정과 학교/학과별 랭킹 시스템을 도입하여 대학생들에게 강력한 학습 동기를 제공하고자 개발했습니다. 기획부터 Android/iOS 양대 마켓 배포까지 전 과정을 주도했습니다.',
@@ -41,11 +56,12 @@ export const projectDetailData: ProjectDetailInfo[] = [
       '안정적인 백그라운드 타이머 로직으로 사용자 신뢰도 확보',
       '복잡한 소셜 로그인 인증 프로세스를 모바일 환경에 맞게 최적화',
     ],
-    startDate: new Date('2024-09-01'), // 기간 확인 필요
-    endDate: new Date('2025-03-01'), // 기간 확인 필요
+    startDate: new Date('2024-09-01'),
+    endDate: new Date('2025-03-01'),
   },
   {
     id: 2,
+    category: 'AI',
     imgUrl: '/img/tech/pipet.jpg',
     title: '마이크로 피펫 분주량 자동 인식을 위한 OCR 시스템 개발',
     description:
@@ -69,6 +85,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 3,
+    category: 'MOBILE',
     imgUrl: '/img/tech/uhdyl.png',
     title: 'UhDyL(어글리 딜리셔스) : 못난이 농산물 직거래 커머스',
     description:
@@ -92,6 +109,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 4,
+    category: 'AI',
     imgUrl: '/img/tech/unsloth.png',
     title: '저속노화 지식 기반 LLM 파인튜닝 프로젝트',
     description:
@@ -114,6 +132,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 5,
+    category: 'WEB',
     imgUrl: '/img/tech/jobforeigner.png',
     title: 'JobForeigner : 외국인 전용 다국어 구인구직 플랫폼',
     description:
@@ -144,6 +163,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 6,
+    category: 'WEB',
     imgUrl: '/img/tech/joinus.png',
     title: 'JoinUs : 인터랙티브 동아리 트랙 추천 서비스',
     description:
@@ -161,11 +181,15 @@ export const projectDetailData: ProjectDetailInfo[] = [
       '흥미로운 사용자 경험(UX)을 제공하여 교내 홍보 박람회에서 높은 참여율 기록',
       '기획부터 배포, 홍보 활용까지 서비스의 실질적인 비즈니스 임팩트 경험',
     ],
+    deployUrl: [
+      { title: 'joinUs', url: 'https://joinus-kit-likelion.netlify.app/' },
+    ],
     startDate: new Date('2025-02-15'),
     endDate: new Date('2025-04-30'),
   },
   {
     id: 7,
+    category: 'MOBILE',
     imgUrl: '/img/tech/chripaid.png',
     title: 'Chrip-Aid : 투명한 후원 문화를 위한 기부 플랫폼',
     description:
@@ -188,6 +212,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 8,
+    category: 'WEB',
     imgUrl: '/img/tech/babzip.png',
     title: 'Babzip : 나만의 맛집 지도 아카이브',
     description:
@@ -212,11 +237,18 @@ export const projectDetailData: ProjectDetailInfo[] = [
       '전역 상태 관리 라이브러리(Zustand) 도입을 통한 성능 최적화 경험',
       '웹뷰 환경을 고려한 모달 디자인 및 모바일 친화적 UI 구현',
     ],
+    deployUrl: [
+      {
+        title: 'Babzip',
+        url: 'https://babzip.netlify.app/',
+      },
+    ],
     startDate: new Date('2025-06-01'),
     endDate: new Date('2025-07-15'),
   },
   {
     id: 9,
+    category: 'WEB',
     imgUrl: '/img/tech/cake.png',
     title: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
     description:
@@ -245,6 +277,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   // {
   //   id: 10,
+  //   category: 'WEB',
   //   imgUrl: '/img/tech/plate_picks.png',
   //   title: 'Plate Picks : 투명한 익명 회식 메뉴 선정 시스템',
   //   description:

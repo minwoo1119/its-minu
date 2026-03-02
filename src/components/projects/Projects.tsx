@@ -30,7 +30,11 @@ export const Projects = () => {
       <div className={styles.titleText}>프로젝트</div>
       <div className={styles.projects}>
         {visibleProjects.map((item) => (
-          <ProjectBox {...item} onClick={() => handleProjectClick(item)} />
+          <ProjectBox
+            key={item.id}
+            {...item}
+            onClick={() => handleProjectClick(item)}
+          />
         ))}
       </div>
 
@@ -41,13 +45,10 @@ export const Projects = () => {
         {showAll ? '접기' : '더보기'}
       </button>
 
-      {selectedProjectId && (
-        <>
-          <div className={styles.overlay} onClick={closeModal} />
-          <Modal onClose={closeModal}>
-            <DetailProjects projectId={selectedProjectId} />
-          </Modal>
-        </>
+      {selectedProjectId !== null && (
+        <Modal onClose={closeModal}>
+          <DetailProjects projectId={selectedProjectId} />
+        </Modal>
       )}
     </div>
   );
