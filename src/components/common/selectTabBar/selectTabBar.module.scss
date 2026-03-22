@@ -1,52 +1,48 @@
 .container {
-  box-sizing: border-box;
-  width: 95%;
-  max-width: 30rem;
-  border: 1px solid #bdc3d4;
-  border-radius: 20px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  margin: 0 auto;
+  background-color: #f1f3f9;
+  padding: 6px;
+  border-radius: 100px; /* 완전한 알약 형태 */
+  width: fit-content;
+  margin: 2rem auto;
+  gap: 6px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 
-  @media (min-width: 768px) {
-    width: 100%;
-    gap: 1rem;
-    padding: 0;
-    border: 1px solid #bdc3d4;
+  @media (max-width: 480px) {
+    width: 95%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    border-radius: 20px; /* 모바일 그리드 환경에서는 적절한 곡률 유지 */
+  }
+}
+
+.button {
+  border: none;
+  background: none;
+  padding: 10px 24px;
+  border-radius: 100px; /* 버튼도 완전한 알약 형태 */
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  user-select: none;
+
+  &:hover {
+    color: #1e293b;
+    background-color: rgba(255, 255, 255, 0.4);
   }
 
-  .button {
-    flex: 1;
-    padding: 0.8rem 0;
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    white-space: nowrap;
-    text-align: center;
+  &.active {
+    background-color: #ffffff;
+    color: #2a52be;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(42, 82, 190, 0.15), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
 
-    @media (min-width: 768px) {
-      padding: 1rem;
-      font-size: 1rem;
-      background-color: white;
-    }
-
-    &:hover {
-      cursor: pointer;
-      color: #2a52be;
-      font-weight: 600;
-    }
-
-    &.active {
-      color: #2a52be;
-      font-weight: 800;
-      background-color: white;
-      border: 1px solid #2a52be;
-    }
+  &:active {
+    transform: translateY(0);
   }
 }
