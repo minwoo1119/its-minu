@@ -1,5 +1,8 @@
+export type ProjectCategory = '웹 프론트엔드' | '백엔드' | '앱' | 'AI';
+
 export interface ProjectInfo {
   id: number;
+  category: ProjectCategory;
   imgUrl: string;
   title: string;
   description: string;
@@ -9,6 +12,7 @@ export interface ProjectInfo {
 export const projectsData: ProjectInfo[] = [
   {
     id: 1,
+    category: '앱',
     imgUrl: '/img/tech/geumpumta.png',
     title: '금품타 : 대학생 학습 시간 기록 & 실시간 랭킹 서비스',
     description:
@@ -17,6 +21,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 2,
+    category: 'AI',
     imgUrl: '/img/tech/pipet.jpg',
     title: '마이크로 피펫 분주량 자동 인식을 위한 OCR 시스템 개발',
     description:
@@ -25,6 +30,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 3,
+    category: '앱',
     imgUrl: '/img/tech/uhdyl.png',
     title: 'UhDyL(어글리딜리셔스) : 지역 기반 못난이 농산물 직거래 커머스',
     description:
@@ -33,6 +39,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 4,
+    category: 'AI',
     imgUrl: '/img/tech/unsloth.png',
     title: '저속노화 지식 기반 LLM 파인튜닝 프로젝트',
     description:
@@ -41,6 +48,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 5,
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/jobforeigner.png',
     title: 'JobForeigner : 외국인 전용 다국어 구인구직 플랫폼',
     description:
@@ -49,6 +57,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 6,
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/joinus.png',
     title: 'JoinUs : 동아리 트랙 추천 서비스',
     description:
@@ -57,6 +66,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 7,
+    category: '앱',
     imgUrl: '/img/tech/chripaid.png',
     title: 'Chrip-Aid : 투명한 후원 문화를 위한 기부 플랫폼',
     description:
@@ -65,6 +75,7 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 8,
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/babzip.png',
     title: 'Babzip : 나만의 맛집 지도 아카이브',
     description:
@@ -73,18 +84,20 @@ export const projectsData: ProjectInfo[] = [
   },
   {
     id: 9,
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/cake.png',
     title: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
     description:
       '케이크 메타포를 활용해 개인의 취향과 기분을 시각적으로 공유하는 SNS에요.',
     techs: ['React', 'TypeScript', 'Styled Components'],
   },
-  // {
-  //   id: 10,
-  //   imgUrl: '/img/tech/plate_picks.png',
-  //   title: 'Plate Picks : 투명한 익명 회식 메뉴 선정 시스템',
-  //   description:
-  //     '조직 내 공정한 메뉴 선정을 위해 익명 투표와 결과 통계를 제공하는 풀스택 웹이에요.',
-  //   techs: ['React', 'NestJS', 'MySQL', 'Docker'],
-  // },
+  {
+    id: 10,
+    category: '백엔드',
+    imgUrl: '/img/tech/plate_picks.png',
+    title: 'Plate Picks : 투명한 익명 회식 메뉴 선정 시스템',
+    description:
+      '조직 내 공정한 메뉴 선정을 위해 익명 투표와 결과 통계를 제공하는 풀스택 웹이에요.',
+    techs: ['React', 'NestJS', 'MySQL', 'Docker'],
+  },
 ];
