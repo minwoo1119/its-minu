@@ -12,9 +12,11 @@ export const ProjectBox = ({
   techs,
   onClick,
 }: Props) => {
+  const fullImgUrl = `${import.meta.env.BASE_URL}${imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl}`;
+  
   return (
     <div className={styles.container} onClick={onClick}>
-      <img src={imgUrl} alt={title} />
+      <img src={fullImgUrl} alt={title} />
       <div className={styles.title}>{title}</div>
       <div className={styles.description}>{description}</div>
       <div className={styles.techRow}>

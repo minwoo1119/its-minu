@@ -22,9 +22,11 @@ export const DetailProjects = ({ projectId }: Props) => {
 
   const periodData = `${formattedStartDate} - ${formattedEndDate}`;
 
+  const fullImgUrl = `${import.meta.env.BASE_URL}${projectDetailInfo.imgUrl.startsWith('/') ? projectDetailInfo.imgUrl.slice(1) : projectDetailInfo.imgUrl}`;
+
   return (
     <div className={styles.container}>
-      <img src={projectDetailInfo.imgUrl} alt={projectDetailInfo.title} />
+      <img src={fullImgUrl} alt={projectDetailInfo.title} />
       <div className={styles.title}>{projectDetailInfo.title}</div>
       <div className={styles.period}>{periodData}</div>
 

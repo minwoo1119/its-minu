@@ -1,35 +1,29 @@
-import type { TabBarOption } from '../../techs/Techs';
 import styles from './selectTabBar.module.scss';
 
-interface Props {
-  op1: TabBarOption;
-  op2: TabBarOption;
-  op3: TabBarOption;
-  selected: TabBarOption;
-  onSelect: (op: TabBarOption) => void;
+interface Props<T extends string> {
+  options: T[];
+  selected: T;
+  onSelect: (op: T) => void;
 }
 
-export const SelectTabBar = ({ op1, op2, op3, selected, onSelect }: Props) => {
+export const SelectTabBar = <T extends string>({
+  options,
+  selected,
+  onSelect,
+}: Props<T>) => {
   return (
     <div className={styles.container}>
-      <button
-        onClick={() => onSelect(op1)}
-        className={`${styles.button} ${selected === op1 ? styles.active : ''}`}
-      >
-        {op1}
-      </button>
-      <button
-        onClick={() => onSelect(op2)}
-        className={`${styles.button} ${selected === op2 ? styles.active : ''}`}
-      >
-        {op2}
-      </button>
-      <button
-        onClick={() => onSelect(op3)}
-        className={`${styles.button} ${selected === op3 ? styles.active : ''}`}
-      >
-        {op3}
-      </button>
+      {options.map((option) => (
+        <button
+          key={option}
+          onClick={() => onSelect(option)}
+          className={`${styles.button} ${
+            selected === option ? styles.active : ''
+          }`}
+        >
+          {option}
+        </button>
+      ))}
     </div>
   );
 };

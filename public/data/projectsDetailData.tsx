@@ -1,4 +1,4 @@
-export type ProjectCategory = 'WEB' | 'MOBILE' | 'AI';
+export type ProjectCategory = '웹 프론트엔드' | '백엔드' | '앱' | 'AI';
 
 export interface ProjectDetailInfo {
   id: number;
@@ -18,7 +18,7 @@ export interface ProjectDetailInfo {
 export const projectDetailData: ProjectDetailInfo[] = [
   {
     id: 1,
-    category: 'MOBILE',
+    category: '앱',
     imgUrl: '/img/tech/geumpumta.png',
     title: '금품타 : 대학생 학습 시간 기록 & 실시간 랭킹 서비스',
     description:
@@ -85,7 +85,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 3,
-    category: 'MOBILE',
+    category: '앱',
     imgUrl: '/img/tech/uhdyl.png',
     title: 'UhDyL(어글리 딜리셔스) : 못난이 농산물 직거래 커머스',
     description:
@@ -132,7 +132,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 5,
-    category: 'WEB',
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/jobforeigner.png',
     title: 'JobForeigner : 외국인 전용 다국어 구인구직 플랫폼',
     description:
@@ -163,7 +163,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 6,
-    category: 'WEB',
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/joinus.png',
     title: 'JoinUs : 인터랙티브 동아리 트랙 추천 서비스',
     description:
@@ -189,7 +189,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 7,
-    category: 'MOBILE',
+    category: '앱',
     imgUrl: '/img/tech/chripaid.png',
     title: 'Chrip-Aid : 투명한 후원 문화를 위한 기부 플랫폼',
     description:
@@ -212,7 +212,7 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 8,
-    category: 'WEB',
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/babzip.png',
     title: 'Babzip : 나만의 맛집 지도 아카이브',
     description:
@@ -237,18 +237,12 @@ export const projectDetailData: ProjectDetailInfo[] = [
       '전역 상태 관리 라이브러리(Zustand) 도입을 통한 성능 최적화 경험',
       '웹뷰 환경을 고려한 모달 디자인 및 모바일 친화적 UI 구현',
     ],
-    deployUrl: [
-      {
-        title: 'Babzip',
-        url: 'https://babzip.netlify.app/',
-      },
-    ],
     startDate: new Date('2025-06-01'),
     endDate: new Date('2025-07-15'),
   },
   {
     id: 9,
-    category: 'WEB',
+    category: '웹 프론트엔드',
     imgUrl: '/img/tech/cake.png',
     title: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
     description:
@@ -275,26 +269,26 @@ export const projectDetailData: ProjectDetailInfo[] = [
     startDate: new Date('2025-01-20'),
     endDate: new Date('2025-02-15'),
   },
-  // {
-  //   id: 10,
-  //   category: 'WEB',
-  //   imgUrl: '/img/tech/plate_picks.png',
-  //   title: 'Plate Picks : 투명한 익명 회식 메뉴 선정 시스템',
-  //   description:
-  //     '조직 내 눈치 보지 않는 메뉴 선정을 위해 익명 투표와 결과 통계를 제공하는 웹 서비스입니다.',
-  //   techs: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Docker', 'Ubuntu'],
-  //   projectOutline:
-  //     '수직적인 조직 문화에서 발생할 수 있는 메뉴 선정의 어려움을 해결하고자, 풀스택 개발을 통해 익명성이 보장되는 투표 시스템을 구축했습니다.',
-  //   do: [
-  //     'React로 직관적인 투표 인터페이스 및 실시간 결과 그래프 구현',
-  //     'NestJS와 MySQL을 사용하여 안정적인 REST API 백엔드 서버 구축',
-  //     'Docker 컨테이너 기술을 활용하여 Ubuntu 서버에 배포 및 운영 환경 구성',
-  //   ],
-  //   achievements: [
-  //     '프론트엔드부터 백엔드, 배포까지 웹 개발의 전 과정을 혼자 수행하며 풀스택 역량 배양',
-  //     '실제 사용 가능한 수준의 안정적인 투표 및 통계 시스템 완성',
-  //   ],
-  //   startDate: new Date('2025-02-01'),
-  //   endDate: new Date('2025-05-10'),
-  // },
+  {
+    id: 10,
+    category: '백엔드',
+    imgUrl: '/img/tech/plate_picks.png',
+    title: 'Plate Picks : 투명한 익명 회식 메뉴 선정 시스템',
+    description:
+      '조직 내 눈치 보지 않는 메뉴 선정을 위해 익명 투표와 결과 통계를 제공하는 웹 서비스입니다.',
+    techs: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Docker', 'Ubuntu'],
+    projectOutline:
+      '수직적인 조직 문화에서 발생할 수 있는 메뉴 선정의 어려움을 해결하고자, 풀스택 개발을 통해 익명성이 보장되는 투표 시스템을 구축했습니다.',
+    do: [
+      'React로 직관적인 투표 인터페이스 및 실시간 결과 그래프 구현',
+      'NestJS와 MySQL을 사용하여 안정적인 REST API 백엔드 서버 구축',
+      'Docker 컨테이너 기술을 활용하여 Ubuntu 서버에 배포 및 운영 환경 구성',
+    ],
+    achievements: [
+      '프론트엔드부터 백엔드, 배포까지 웹 개발의 전 과정을 혼자 수행하며 풀스택 역량 배양',
+      '실제 사용 가능한 수준의 안정적인 투표 및 통계 시스템 완성',
+    ],
+    startDate: new Date('2025-02-01'),
+    endDate: new Date('2025-05-10'),
+  },
 ];
