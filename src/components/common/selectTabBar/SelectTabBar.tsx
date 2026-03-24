@@ -4,12 +4,14 @@ interface Props<T extends string> {
   options: T[];
   selected: T;
   onSelect: (op: T) => void;
+  getLabel?: (option: T) => string;
 }
 
 export const SelectTabBar = <T extends string>({
   options,
   selected,
   onSelect,
+  getLabel,
 }: Props<T>) => {
   return (
     <div className={styles.container}>
@@ -21,7 +23,7 @@ export const SelectTabBar = <T extends string>({
             selected === option ? styles.active : ''
           }`}
         >
-          {option}
+          {getLabel ? getLabel(option) : option}
         </button>
       ))}
     </div>

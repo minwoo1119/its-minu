@@ -1,33 +1,52 @@
 import { projectDetailData } from '../../../public/data/projectsDetailData';
 import styles from './detailProjects.module.scss';
+import type { Language } from '../../i18n';
+import { getText } from '../../i18n';
 
 interface Props {
+  language: Language;
   projectId: number;
 }
 
-export const DetailProjects = ({ projectId }: Props) => {
+export const DetailProjects = ({ language, projectId }: Props) => {
   const projectDetailInfo = projectDetailData.find(
     (project) => project.id === projectId
   );
 
   if (!projectDetailInfo) {
-    return <div>해당 프로젝트 정보를 찾을 수 없습니다.</div>;
+    return (
+      <div>
+        {language === 'ko'
+          ? '해당 프로젝트 정보를 찾을 수 없습니다.'
+          : 'Project details could not be found.'}
+      </div>
+    );
   }
-  const formattedStartDate = `${projectDetailInfo.startDate.getFullYear()}년 ${
-    projectDetailInfo.startDate.getMonth() + 1
-  }월`;
-  const formattedEndDate = `${projectDetailInfo.endDate.getFullYear()}년 ${
-    projectDetailInfo.endDate.getMonth() + 1
-  }월`;
+  const formattedStartDate = projectDetailInfo.startDate.toLocaleDateString(
+    language === 'ko' ? 'ko-KR' : 'en-US',
+    {
+      year: 'numeric',
+      month: 'long',
+    }
+  );
+  const formattedEndDate = projectDetailInfo.endDate.toLocaleDateString(
+    language === 'ko' ? 'ko-KR' : 'en-US',
+    {
+      year: 'numeric',
+      month: 'long',
+    }
+  );
 
   const periodData = `${formattedStartDate} - ${formattedEndDate}`;
 
   const fullImgUrl = `${import.meta.env.BASE_URL}${projectDetailInfo.imgUrl.startsWith('/') ? projectDetailInfo.imgUrl.slice(1) : projectDetailInfo.imgUrl}`;
+  const localizedTitle = getText(language, projectDetailInfo.title);
+  const ctaSuffix = language === 'ko' ? '보러가기' : 'View';
 
   return (
     <div className={styles.container}>
-      <img src={fullImgUrl} alt={projectDetailInfo.title} />
-      <div className={styles.title}>{projectDetailInfo.title}</div>
+      <img src={fullImgUrl} alt={localizedTitle} />
+      <div className={styles.title}>{localizedTitle}</div>
       <div className={styles.period}>{periodData}</div>
 
       {projectDetailInfo.deployUrl && (
@@ -40,15 +59,19 @@ export const DetailProjects = ({ projectId }: Props) => {
               rel="noopener noreferrer"
               className={styles.deployBtn}
             >
-              {link.title} 보러가기
+              {link.title} {ctaSuffix}
             </a>
           ))}
         </div>
       )}
 
-      <div className={styles.description}>{projectDetailInfo.description}</div>
+      <div className={styles.description}>
+        {getText(language, projectDetailInfo.description)}
+      </div>
 
-      <div className={styles.subtitle}>기술 스택</div>
+      <div className={styles.subtitle}>
+        {language === 'ko' ? '기술 스택' : 'Tech Stack'}
+      </div>
       <div className={styles.techRow}>
         {projectDetailInfo.techs.map((ele) => (
           <span key={ele} className={styles.techItemBox}>
@@ -57,17 +80,21 @@ export const DetailProjects = ({ projectId }: Props) => {
         ))}
       </div>
 
-      <div className={styles.subtitle}>주요 업무</div>
+      <div className={styles.subtitle}>
+        {language === 'ko' ? '주요 업무' : 'Key Contributions'}
+      </div>
       <ul>
         {projectDetailInfo.do.map((d, index) => (
-          <li key={index}>{d}</li>
+          <li key={index}>{getText(language, d)}</li>
         ))}
       </ul>
 
-      <div className={styles.subtitle}>성취</div>
+      <div className={styles.subtitle}>
+        {language === 'ko' ? '성취' : 'Achievements'}
+      </div>
       <ul>
         {projectDetailInfo.achievements.map((a, index) => (
-          <li key={index}>{a}</li>
+          <li key={index}>{getText(language, a)}</li>
         ))}
       </ul>
     </div>

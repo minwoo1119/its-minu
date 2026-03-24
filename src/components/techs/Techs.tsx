@@ -1,12 +1,22 @@
 import { SelectTabBar } from '../common/selectTabBar/SelectTabBar';
 import styles from './techs.module.scss';
 import { useState } from 'react';
+import type { Language } from '../../i18n';
 
-export type TabBarOption = '프론트엔드' | '백엔드' | 'AI';
+export type TabBarOption = 'frontend' | 'backend' | 'ai';
 
-export const Techs = () => {
-  const [selected, setSelected] = useState<TabBarOption>('프론트엔드');
-  const options: TabBarOption[] = ['프론트엔드', '백엔드', 'AI'];
+interface TechsProps {
+  language: Language;
+}
+
+export const Techs = ({ language }: TechsProps) => {
+  const [selected, setSelected] = useState<TabBarOption>('frontend');
+  const options: TabBarOption[] = ['frontend', 'backend', 'ai'];
+  const labels = {
+    frontend: language === 'ko' ? '프론트엔드' : 'Frontend',
+    backend: language === 'ko' ? '백엔드' : 'Backend',
+    ai: 'AI',
+  };
 
   const getFullImgUrl = (path: string) => {
     return `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
@@ -18,23 +28,35 @@ export const Techs = () => {
         options={options}
         onSelect={(op: TabBarOption) => setSelected(op)}
         selected={selected}
+        getLabel={(option) => labels[option]}
       />
       <div className={styles.text}>
-        많이 부족하지만 열심히 깊이를 채워나가는 중이에요.
+        {language === 'ko'
+          ? '많이 부족하지만 열심히 깊이를 채워나가는 중이에요.'
+          : 'Still building depth every day, one layer at a time.'}
       </div>
       <div className={styles.techStacks}>
-        {selected === '프론트엔드' ? (
-          <img src={getFullImgUrl('/img/frontend_stack.jpg')} alt='프론트엔드 기술스택' />
+        {selected === 'frontend' ? (
+          <img
+            src={getFullImgUrl('/img/frontend_stack.jpg')}
+            alt={language === 'ko' ? '프론트엔드 기술스택' : 'Frontend tech stack'}
+          />
         ) : (
           ''
         )}
-        {selected === '백엔드' ? (
-          <img src={getFullImgUrl('/img/backend_stack.jpg')} alt='백엔드 기술스택' />
+        {selected === 'backend' ? (
+          <img
+            src={getFullImgUrl('/img/backend_stack.jpg')}
+            alt={language === 'ko' ? '백엔드 기술스택' : 'Backend tech stack'}
+          />
         ) : (
           ''
         )}
-        {selected === 'AI' ? (
-          <img src={getFullImgUrl('/img/ai_stack.jpg')} alt='AI 기술스택' />
+        {selected === 'ai' ? (
+          <img
+            src={getFullImgUrl('/img/ai_stack.jpg')}
+            alt={language === 'ko' ? 'AI 기술스택' : 'AI tech stack'}
+          />
         ) : (
           ''
         )}

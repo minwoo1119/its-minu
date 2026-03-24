@@ -9,27 +9,33 @@ import {
 import styles from './projects.module.scss';
 import { useState } from 'react';
 import { DetailProjects } from '../detailProjects/DetailProjects';
+import type { Language } from '../../i18n';
 
-type FilterCategory = ProjectCategory | '전체';
+type FilterCategory = ProjectCategory | 'all';
 
-export const Projects = () => {
+interface ProjectsProps {
+  language: Language;
+}
+
+export const Projects = ({ language }: ProjectsProps) => {
   const [showAll, setShowAll] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(
     null
   );
   const [selectedCategory, setSelectedCategory] =
-    useState<FilterCategory>('전체');
+    useState<FilterCategory>('all');
 
-  const categories: FilterCategory[] = [
-    '전체',
-    '웹 프론트엔드',
-    '백엔드',
-    '앱',
-    'AI',
-  ];
+  const categories: FilterCategory[] = ['all', 'webFrontend', 'backend', 'app', 'ai'];
+  const categoryLabels: Record<FilterCategory, string> = {
+    all: language === 'ko' ? '전체' : 'All',
+    webFrontend: language === 'ko' ? '웹 프론트엔드' : 'Web Frontend',
+    backend: language === 'ko' ? '백엔드' : 'Backend',
+    app: language === 'ko' ? '앱' : 'App',
+    ai: 'AI',
+  };
 
   const filteredProjects =
-    selectedCategory === '전체'
+    selectedCategory === 'all'
       ? projectsData
       : projectsData.filter((p) => p.category === selectedCategory);
 
@@ -47,15 +53,22 @@ export const Projects = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.subText}>애정이 담긴 프로젝트들이에요</div>
-      <div className={styles.titleText}>프로젝트</div>
+      <div className={styles.subText}>
+        {language === 'ko'
+          ? '애정이 담긴 프로젝트들이에요'
+          : 'Projects built with care and follow-through'}
+      </div>
+      <div className={styles.titleText}>
+        {language === 'ko' ? '프로젝트' : 'Projects'}
+      </div>
 
       <SelectTabBar
         options={categories}
         selected={selectedCategory}
+        getLabel={(category) => categoryLabels[category]}
         onSelect={(cat) => {
           setSelectedCategory(cat);
-          setShowAll(false); // 카테고리 변경 시 더보기 상태 초기화
+          setShowAll(false);
         }}
       />
 
@@ -64,6 +77,7 @@ export const Projects = () => {
           <ProjectBox
             key={item.id}
             {...item}
+            language={language}
             onClick={() => handleProjectClick(item)}
           />
         ))}
@@ -74,13 +88,19 @@ export const Projects = () => {
           className={styles.moreBtn}
           onClick={() => setShowAll((prev) => !prev)}
         >
-          {showAll ? '접기' : '더보기'}
+          {showAll
+            ? language === 'ko'
+              ? '접기'
+              : 'Show Less'
+            : language === 'ko'
+              ? '더보기'
+              : 'Show More'}
         </button>
       )}
 
       {selectedProjectId !== null && (
         <Modal onClose={closeModal}>
-          <DetailProjects projectId={selectedProjectId} />
+          <DetailProjects language={language} projectId={selectedProjectId} />
         </Modal>
       )}
     </div>
