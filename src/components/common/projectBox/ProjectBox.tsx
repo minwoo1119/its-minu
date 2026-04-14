@@ -20,7 +20,7 @@ export const ProjectBox = ({
   const localizedTitle = getText(language, title);
   
   return (
-    <div className={styles.container} onClick={onClick}>
+    <button type='button' className={styles.container} onClick={onClick}>
       <img src={fullImgUrl} alt={localizedTitle} />
       <div className={styles.title}>{localizedTitle}</div>
       <div className={styles.description}>{getText(language, description)}</div>
@@ -31,6 +31,6 @@ export const ProjectBox = ({
           </span>
         ))}
       </div>
-    </div>
+    </button>
   );
 };

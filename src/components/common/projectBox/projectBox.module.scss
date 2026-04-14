@@ -1,6 +1,10 @@
 .container {
   width: 20rem;
   height: 25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: start;

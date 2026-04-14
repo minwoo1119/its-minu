@@ -89,6 +89,19 @@
           color: #2a52be;
         }
       }
+
+      button {
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: gray;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover {
+          color: #2a52be;
+        }
+      }
     }
   }
 

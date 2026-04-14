@@ -1,27 +1,22 @@
-import { Modal } from '../common/modal/Modal';
 import { ProjectBox } from '../common/projectBox/ProjectBox';
 import { SelectTabBar } from '../common/selectTabBar/SelectTabBar';
 import {
   projectsData,
-  type ProjectInfo,
   type ProjectCategory,
 } from '../../../public/data/projectsData';
 import styles from './projects.module.scss';
 import { useState } from 'react';
-import { DetailProjects } from '../detailProjects/DetailProjects';
 import type { Language } from '../../i18n';
 
 type FilterCategory = ProjectCategory | 'all';
 
 interface ProjectsProps {
   language: Language;
+  onProjectClick: (projectId: number) => void;
 }
 
-export const Projects = ({ language }: ProjectsProps) => {
+export const Projects = ({ language, onProjectClick }: ProjectsProps) => {
   const [showAll, setShowAll] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(
-    null
-  );
   const [selectedCategory, setSelectedCategory] =
     useState<FilterCategory>('all');
 
@@ -42,14 +37,6 @@ export const Projects = ({ language }: ProjectsProps) => {
   const visibleProjects = showAll
     ? filteredProjects
     : filteredProjects.slice(0, 6);
-
-  const handleProjectClick = (project: ProjectInfo) => {
-    setSelectedProjectId(project.id);
-  };
-
-  const closeModal = () => {
-    setSelectedProjectId(null);
-  };
 
   return (
     <div className={styles.container}>
@@ -78,7 +65,7 @@ export const Projects = ({ language }: ProjectsProps) => {
             key={item.id}
             {...item}
             language={language}
-            onClick={() => handleProjectClick(item)}
+            onClick={() => onProjectClick(item.id)}
           />
         ))}
       </div>
@@ -96,12 +83,6 @@ export const Projects = ({ language }: ProjectsProps) => {
               ? '더보기'
               : 'Show More'}
         </button>
-      )}
-
-      {selectedProjectId !== null && (
-        <Modal onClose={closeModal}>
-          <DetailProjects language={language} projectId={selectedProjectId} />
-        </Modal>
       )}
     </div>
   );

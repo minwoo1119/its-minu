@@ -3,9 +3,10 @@ import type { Language } from '../../i18n';
 
 interface FooterProps {
   language: Language;
+  onProjectsClick: () => void;
 }
 
-export const Footer = ({ language }: FooterProps) => {
+export const Footer = ({ language, onProjectsClick }: FooterProps) => {
   const labels =
     language === 'ko'
       ? {
@@ -46,9 +47,9 @@ export const Footer = ({ language }: FooterProps) => {
         <div>
           <div className={styles.title}>{labels.quickLinks}</div>
           <div className={styles.links}>
-            <a href='#' target='_blank'>
+            <button type='button' onClick={onProjectsClick}>
               {labels.projects}
-            </a>
+            </button>
             <a href='https://lmw1119.tistory.com/' target='_blank'>
               {labels.blog}
             </a>
