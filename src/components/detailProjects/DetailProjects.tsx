@@ -1,4 +1,8 @@
-import { projectPageData } from '../../../public/data/projectPageData';
+import { useState } from 'react';
+import {
+  projectPageData,
+  type ProjectImage,
+} from '../../../public/data/projectPageData.updated';
 import styles from './detailProjects.module.scss';
 import type { Language } from '../../i18n';
 import { getText } from '../../i18n';
@@ -22,6 +26,71 @@ const categoryLabels = {
     ai: 'AI',
   },
 } as const;
+
+const resolveAssetUrl = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
+
+const ImageCard = ({
+  image,
+  language,
+  className,
+  imageClassName,
+  captionClassName,
+}: {
+  image: ProjectImage;
+  language: Language;
+  className: string;
+  imageClassName: string;
+  captionClassName: string;
+}) => {
+  const [hasError, setHasError] = useState(false);
+  const caption = getText(language, image.caption);
+
+  return (
+    <figure className={className}>
+      {hasError ? (
+        <div className={styles.imageFallback}>
+          <span>{language === 'ko' ? '이미지 준비 중' : 'Image coming soon'}</span>
+        </div>
+      ) : (
+        <img
+          src={resolveAssetUrl(image.imageUrl)}
+          alt={caption}
+          className={imageClassName}
+          onError={() => setHasError(true)}
+        />
+      )}
+      <figcaption className={captionClassName}>{caption}</figcaption>
+    </figure>
+  );
+};
+
+const ImageGallery = ({
+  images,
+  language,
+  cardClassName,
+  imageClassName,
+  captionClassName,
+}: {
+  images: ProjectImage[];
+  language: Language;
+  cardClassName: string;
+  imageClassName: string;
+  captionClassName: string;
+}) => (
+  <div className={styles.imageGallery}>
+    {images.map((image, index) => (
+      <ImageCard
+        key={`${image.imageUrl}-${index}`}
+        image={image}
+        language={language}
+        className={cardClassName}
+        imageClassName={imageClassName}
+        captionClassName={captionClassName}
+      />
+    ))}
+  </div>
+);
 
 export const DetailProjects = ({ language, projectId }: Props) => {
   const project = projectPageData.find((item) => item.id === projectId);
@@ -52,7 +121,6 @@ export const DetailProjects = ({ language, projectId }: Props) => {
   );
 
   const periodData = `${formattedStartDate} - ${formattedEndDate}`;
-  const fullImgUrl = `${import.meta.env.BASE_URL}${project.heroImageUrl.startsWith('/') ? project.heroImageUrl.slice(1) : project.heroImageUrl}`;
   const localizedTitle = getText(language, project.title);
 
   return (
@@ -66,7 +134,13 @@ export const DetailProjects = ({ language, projectId }: Props) => {
           <p className={styles.oneLiner}>{getText(language, project.oneLiner)}</p>
           <p className={styles.overview}>{getText(language, project.overview)}</p>
         </div>
-        <img src={fullImgUrl} alt={localizedTitle} className={styles.heroImage} />
+        <ImageGallery
+          images={project.images}
+          language={language}
+          cardClassName={styles.heroImageCard}
+          imageClassName={styles.heroImage}
+          captionClassName={styles.heroCaption}
+        />
       </section>
 
       <section className={styles.section}>
@@ -123,18 +197,15 @@ export const DetailProjects = ({ language, projectId }: Props) => {
 
         <div className={styles.featureGrid}>
           {project.keyFeatures.map((feature) => {
-            const featureImgUrl = `${import.meta.env.BASE_URL}${feature.visual.imageUrl.startsWith('/') ? feature.visual.imageUrl.slice(1) : feature.visual.imageUrl}`;
-
             return (
               <div key={getText(language, feature.title)} className={styles.featureCard}>
-                <img
-                  src={featureImgUrl}
-                  alt={getText(language, feature.title)}
-                  className={styles.featureImage}
+                <ImageGallery
+                  images={feature.images}
+                  language={language}
+                  cardClassName={styles.featureImageCard}
+                  imageClassName={styles.featureImage}
+                  captionClassName={styles.featureCaption}
                 />
-                <div className={styles.featureCaption}>
-                  {getText(language, feature.visual.caption)}
-                </div>
                 <div className={styles.featureTitle}>
                   {getText(language, feature.title)}
                 </div>

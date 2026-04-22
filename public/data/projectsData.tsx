@@ -78,27 +78,27 @@ export const projectsData: ProjectInfo[] = [
       'Expo Router',
     ],
   },
-  {
-    id: 4,
-    category: 'ai',
-    imgUrl: '/img/tech/unsloth.png',
-    title: {
-      ko: '저속노화 데이터셋 기반 LLM 파인튜닝',
-      en: 'LLM Fine-Tuning with a Slow-Aging Domain Dataset',
-    },
-    description: {
-      ko: '웹 기사와 PDF 매거진 기반 데이터를 재구성해 저속노화 도메인에 특화된 질의응답 LLM을 구축한 프로젝트입니다.',
-      en: 'A project that rebuilt web-article and PDF-magazine data into a dataset for a slow-aging domain-specific Q&A LLM.',
-    },
-    techs: [
-      'Python',
-      'Gemma',
-      'Unsloth',
-      'LoRA',
-      'JSONL',
-      'Data Preprocessing',
-    ],
-  },
+  // {
+  //   id: 4,
+  //   category: 'ai',
+  //   imgUrl: '/img/tech/unsloth.png',
+  //   title: {
+  //     ko: '저속노화 데이터셋 기반 LLM 파인튜닝',
+  //     en: 'LLM Fine-Tuning with a Slow-Aging Domain Dataset',
+  //   },
+  //   description: {
+  //     ko: '웹 기사와 PDF 매거진 기반 데이터를 재구성해 저속노화 도메인에 특화된 질의응답 LLM을 구축한 프로젝트입니다.',
+  //     en: 'A project that rebuilt web-article and PDF-magazine data into a dataset for a slow-aging domain-specific Q&A LLM.',
+  //   },
+  //   techs: [
+  //     'Python',
+  //     'Gemma',
+  //     'Unsloth',
+  //     'LoRA',
+  //     'JSONL',
+  //     'Data Preprocessing',
+  //   ],
+  // },
   {
     id: 5,
     category: 'webFrontend',
@@ -170,38 +170,38 @@ export const projectsData: ProjectInfo[] = [
       'Responsive UI',
     ],
   },
-  {
-    id: 9,
-    category: 'webFrontend',
-    imgUrl: '/img/tech/cake.png',
-    title: {
-      ko: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
-      en: 'Cake Workshop: Omnivore Trend Social Platform',
-    },
-    description: {
-      ko: '개인의 취향과 감정을 시각적 메타포로 표현하고 공유할 수 있도록 설계한 소셜 플랫폼입니다.',
-      en: 'A social platform designed for expressing and sharing personal taste and emotion through visual metaphors.',
-    },
-    techs: [
-      'React',
-      'TypeScript',
-      'Styled Components',
-      'React Calendar',
-      'GitHub Actions',
-    ],
-  },
-  {
-    id: 10,
-    category: 'backend',
-    imgUrl: '/img/tech/plate_picks.png',
-    title: {
-      ko: 'Plate Picks : 익명 회식 메뉴 선정 시스템',
-      en: 'Plate Picks: Anonymous Team Meal Selection System',
-    },
-    description: {
-      ko: '익명 투표와 결과 통계를 통해 조직 내 메뉴 선정 부담을 줄이는 웹 서비스입니다.',
-      en: 'A web service that reduces the burden of team meal selection through anonymous voting and result analytics.',
-    },
-    techs: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Docker', 'Ubuntu'],
-  },
+  // {
+  //   id: 9,
+  //   category: 'webFrontend',
+  //   imgUrl: '/img/tech/cake.png',
+  //   title: {
+  //     ko: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
+  //     en: 'Cake Workshop: Omnivore Trend Social Platform',
+  //   },
+  //   description: {
+  //     ko: '개인의 취향과 감정을 시각적 메타포로 표현하고 공유할 수 있도록 설계한 소셜 플랫폼입니다.',
+  //     en: 'A social platform designed for expressing and sharing personal taste and emotion through visual metaphors.',
+  //   },
+  //   techs: [
+  //     'React',
+  //     'TypeScript',
+  //     'Styled Components',
+  //     'React Calendar',
+  //     'GitHub Actions',
+  //   ],
+  // },
+  // {
+  //   id: 10,
+  //   category: 'backend',
+  //   imgUrl: '/img/tech/plate_picks.png',
+  //   title: {
+  //     ko: 'Plate Picks : 익명 회식 메뉴 선정 시스템',
+  //     en: 'Plate Picks: Anonymous Team Meal Selection System',
+  //   },
+  //   description: {
+  //     ko: '익명 투표와 결과 통계를 통해 조직 내 메뉴 선정 부담을 줄이는 웹 서비스입니다.',
+  //     en: 'A web service that reduces the burden of team meal selection through anonymous voting and result analytics.',
+  //   },
+  //   techs: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Docker', 'Ubuntu'],
+  // },
 ];
