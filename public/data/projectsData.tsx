@@ -138,7 +138,7 @@ export const projectsData: ProjectInfo[] = [
   {
     id: 7,
     category: 'app',
-    imgUrl: '/img/tech/chirpaid.png',
+    imgUrl: '/img/tech/chripaid.png',
     title: {
       ko: 'Chirp-aid : 투명성을 강조한 보육원 기부 앱',
       en: 'Chirp-aid: Donation App Focused on Transparency',
