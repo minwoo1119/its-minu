@@ -3,7 +3,12 @@ import styles from './techs.module.scss';
 import { useState } from 'react';
 import type { Language } from '../../i18n';
 
-export type TabBarOption = 'frontend' | 'backend' | 'ai';
+export type TabBarOption = 'frontend' | 'backend' | 'ai' | 'vision';
+
+interface TechStackItem {
+  name: string;
+  icon: string;
+}
 
 interface TechsProps {
   language: Language;
@@ -11,15 +16,60 @@ interface TechsProps {
 
 export const Techs = ({ language }: TechsProps) => {
   const [selected, setSelected] = useState<TabBarOption>('frontend');
-  const options: TabBarOption[] = ['frontend', 'backend', 'ai'];
+  const options: TabBarOption[] = ['frontend', 'backend', 'ai', 'vision'];
   const labels = {
     frontend: language === 'ko' ? '프론트엔드' : 'Frontend',
     backend: language === 'ko' ? '백엔드' : 'Backend',
     ai: 'AI',
+    vision: language === 'ko' ? '비전SW' : 'Computer Vision',
   };
 
-  const getFullImgUrl = (path: string) => {
-    return `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
+  const techStacks: Record<TabBarOption, TechStackItem[]> = {
+    frontend: [
+      ['React', 'react'],
+      ['HTML5', 'html5'],
+      ['CSS3', 'css3'],
+      ['JavaScript', 'javascript'],
+      ['TypeScript', 'typescript'],
+      ['TailwindCSS', 'tailwindcss'],
+      ['styled-components', 'styledcomponents'],
+      ['CSS Modules', 'cssmodules'],
+      ['Zustand', 'zustand'],
+      ['TanStack Query', 'tanstack'],
+      ['Flutter', 'flutter'],
+      ['React Native', 'react'],
+      ['Expo', 'expo'],
+    ].map(([name, icon]) => ({ name, icon })),
+    backend: [
+      ['NestJS', 'nestjs'],
+      ['MySQL', 'mysql'],
+      ['PostgreSQL', 'postgresql'],
+      ['Docker', 'docker'],
+      ['Ubuntu', 'ubuntu'],
+      ['Nginx', 'nginx'],
+    ].map(([name, icon]) => ({ name, icon })),
+    ai: [
+      ['Python', 'python'],
+      ['PyTorch', 'pytorch'],
+      ['ONNX', 'onnx'],
+      ['TensorRT', 'nvidia'],
+      ['YOLO', 'ultralytics'],
+      ['OCR', 'ocr'],
+      ['LLM', 'llm'],
+      ['Unsloth', 'unsloth'],
+      ['QLoRA', 'qlora'],
+      ['LoRA', 'lora'],
+      ['LangChain', 'langchain'],
+      ['RAG', 'rag'],
+    ].map(([name, icon]) => ({ name, icon })),
+    vision: [
+      ['C++', 'cplusplus'],
+      ['MFC', 'microsoft'],
+      ['C#', 'csharp'],
+      ['WPF', 'dotnet'],
+      ['OpenCV', 'opencv'],
+      ['HALCON', 'halcon'],
+    ].map(([name, icon]) => ({ name, icon })),
   };
 
   return (
@@ -36,30 +86,28 @@ export const Techs = ({ language }: TechsProps) => {
           : 'Still building depth every day, one layer at a time.'}
       </div>
       <div className={styles.techStacks}>
-        {selected === 'frontend' ? (
-          <img
-            src={getFullImgUrl('/img/frontend_stack.jpg')}
-            alt={language === 'ko' ? '프론트엔드 기술스택' : 'Frontend tech stack'}
-          />
-        ) : (
-          ''
-        )}
-        {selected === 'backend' ? (
-          <img
-            src={getFullImgUrl('/img/backend_stack.jpg')}
-            alt={language === 'ko' ? '백엔드 기술스택' : 'Backend tech stack'}
-          />
-        ) : (
-          ''
-        )}
-        {selected === 'ai' ? (
-          <img
-            src={getFullImgUrl('/img/ai_stack.jpg')}
-            alt={language === 'ko' ? 'AI 기술스택' : 'AI tech stack'}
-          />
-        ) : (
-          ''
-        )}
+        <div
+          className={styles.stackGrid}
+          aria-label={language === 'ko' ? `${labels[selected]} 기술 스택` : `${labels[selected]} tech stack`}
+        >
+          {techStacks[selected].map((tech) => (
+            <div className={styles.stackItem} key={tech.name}>
+              <img
+                src={`https://cdn.simpleicons.org/${tech.icon}`}
+                alt=""
+                loading="lazy"
+                onError={(event) => {
+                  const image = event.currentTarget;
+                  if (image.dataset.fallback === 'true') return;
+
+                  image.dataset.fallback = 'true';
+                  image.src = `https://img.shields.io/badge/${encodeURIComponent(tech.name)}-334155?style=flat-square`;
+                }}
+              />
+              <span>{tech.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
