@@ -20,12 +20,20 @@ export const Projects = ({ language, onProjectClick }: ProjectsProps) => {
   const [selectedCategory, setSelectedCategory] =
     useState<FilterCategory>('all');
 
-  const categories: FilterCategory[] = ['all', 'webFrontend', 'backend', 'app', 'ai'];
+  const categories: FilterCategory[] = [
+    'all',
+    'webFrontend',
+    'backend',
+    'app',
+    'desktop',
+    'ai',
+  ];
   const categoryLabels: Record<FilterCategory, string> = {
     all: language === 'ko' ? '전체' : 'All',
     webFrontend: language === 'ko' ? '웹 프론트엔드' : 'Web Frontend',
     backend: language === 'ko' ? '백엔드' : 'Backend',
     app: language === 'ko' ? '앱' : 'App',
+    desktop: language === 'ko' ? '데스크톱' : 'Desktop',
     ai: 'AI',
   };
 
