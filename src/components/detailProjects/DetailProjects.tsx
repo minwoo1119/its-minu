@@ -17,12 +17,14 @@ const categoryLabels = {
     webFrontend: '웹 프론트엔드',
     backend: '백엔드',
     app: '앱',
+    desktop: '데스크톱',
     ai: 'AI',
   },
   en: {
     webFrontend: 'Web Frontend',
     backend: 'Backend',
     app: 'App',
+    desktop: 'Desktop',
     ai: 'AI',
   },
 } as const;
@@ -105,22 +107,30 @@ export const DetailProjects = ({ language, projectId }: Props) => {
     );
   }
 
-  const formattedStartDate = project.startDate.toLocaleDateString(
-    language === 'ko' ? 'ko-KR' : 'en-US',
-    {
-      year: 'numeric',
-      month: 'long',
-    }
-  );
-  const formattedEndDate = project.endDate.toLocaleDateString(
-    language === 'ko' ? 'ko-KR' : 'en-US',
-    {
-      year: 'numeric',
-      month: 'long',
-    }
-  );
+  const formattedStartDate = project.startDate
+    ? project.startDate.toLocaleDateString(
+        language === 'ko' ? 'ko-KR' : 'en-US',
+        {
+          year: 'numeric',
+          month: 'long',
+        }
+      )
+    : '';
+  const formattedEndDate = project.endDate
+    ? project.endDate.toLocaleDateString(
+        language === 'ko' ? 'ko-KR' : 'en-US',
+        {
+          year: 'numeric',
+          month: 'long',
+        }
+      )
+    : language === 'ko'
+      ? '진행 중'
+      : 'Present';
 
-  const periodData = `${formattedStartDate} - ${formattedEndDate}`;
+  const periodData = formattedStartDate
+    ? `${formattedStartDate} - ${formattedEndDate}`
+    : (language === 'ko' ? '2026년 (한국정보기술학회 금상)' : '2026 (KIIT Gold Award)');
   const localizedTitle = getText(language, project.title);
 
   return (
@@ -150,7 +160,7 @@ export const DetailProjects = ({ language, projectId }: Props) => {
         </div>
 
         <div className={styles.overviewGrid}>
-          <div className={styles.infoCard}>
+          <div className={`${styles.infoCard} ${styles.infoCardFull}`}>
             <div className={styles.cardLabel}>
               {language === 'ko' ? '한 줄 소개' : 'One-liner'}
             </div>
@@ -168,9 +178,9 @@ export const DetailProjects = ({ language, projectId }: Props) => {
             </div>
             <div className={styles.cardValue}>{getText(language, project.teamInfo)}</div>
           </div>
-          <div className={styles.infoCard}>
+          <div className={`${styles.infoCard} ${styles.infoCardFull}`}>
             <div className={styles.cardLabel}>
-              {language === 'ko' ? '기여도' : 'Contribution'}
+              {language === 'ko' ? '기여도 및 역할' : 'Contribution & Role'}
             </div>
             <div className={styles.cardValue}>{getText(language, project.contribution)}</div>
           </div>
@@ -196,22 +206,35 @@ export const DetailProjects = ({ language, projectId }: Props) => {
         </div>
 
         <div className={styles.featureGrid}>
-          {project.keyFeatures.map((feature) => {
+          {project.keyFeatures.map((feature, index) => {
+            const hasImages = feature.images && feature.images.length > 0;
             return (
-              <div key={getText(language, feature.title)} className={styles.featureCard}>
-                <ImageGallery
-                  images={feature.images}
-                  language={language}
-                  cardClassName={styles.featureImageCard}
-                  imageClassName={styles.featureImage}
-                  captionClassName={styles.featureCaption}
-                />
-                <div className={styles.featureTitle}>
-                  {getText(language, feature.title)}
+              <div
+                key={getText(language, feature.title)}
+                className={`${styles.featureCard} ${hasImages ? styles.featureCardWithImage : ''}`}
+              >
+                <div className={styles.featureInfo}>
+                  <div className={styles.featureBadge}>
+                    Feature {String(index + 1).padStart(2, '0')}
+                  </div>
+                  <div className={styles.featureTitle}>
+                    {getText(language, feature.title)}
+                  </div>
+                  <p className={styles.featureDescription}>
+                    {getText(language, feature.description)}
+                  </p>
                 </div>
-                <p className={styles.featureDescription}>
-                  {getText(language, feature.description)}
-                </p>
+                {hasImages && (
+                  <div className={styles.featureVisual}>
+                    <ImageGallery
+                      images={feature.images}
+                      language={language}
+                      cardClassName={styles.featureImageCard}
+                      imageClassName={styles.featureImage}
+                      captionClassName={styles.featureCaption}
+                    />
+                  </div>
+                )}
               </div>
             );
           })}
