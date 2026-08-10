@@ -1,6 +1,6 @@
 import type { LocalizedText } from '../../src/i18n';
 
-export type ProjectCategory = 'webFrontend' | 'backend' | 'app' | 'ai';
+export type ProjectCategory = 'webFrontend' | 'backend' | 'app' | 'desktop' | 'ai';
 
 export interface ProjectInfo {
   id: number;
@@ -78,27 +78,27 @@ export const projectsData: ProjectInfo[] = [
       'Expo Router',
     ],
   },
-  // {
-  //   id: 4,
-  //   category: 'ai',
-  //   imgUrl: '/img/tech/unsloth.png',
-  //   title: {
-  //     ko: '저속노화 데이터셋 기반 LLM 파인튜닝',
-  //     en: 'LLM Fine-Tuning with a Slow-Aging Domain Dataset',
-  //   },
-  //   description: {
-  //     ko: '웹 기사와 PDF 매거진 기반 데이터를 재구성해 저속노화 도메인에 특화된 질의응답 LLM을 구축한 프로젝트입니다.',
-  //     en: 'A project that rebuilt web-article and PDF-magazine data into a dataset for a slow-aging domain-specific Q&A LLM.',
-  //   },
-  //   techs: [
-  //     'Python',
-  //     'Gemma',
-  //     'Unsloth',
-  //     'LoRA',
-  //     'JSONL',
-  //     'Data Preprocessing',
-  //   ],
-  // },
+  {
+    id: 4,
+    category: 'ai',
+    imgUrl: '/img/tech/unsloth.png',
+    title: {
+      ko: '저속노화 데이터셋 기반 LLM 파인튜닝',
+      en: 'LLM Fine-Tuning with a Slow-Aging Domain Dataset',
+    },
+    description: {
+      ko: '웹 기사와 PDF 매거진 기반 데이터를 재구성해 저속노화 도메인에 특화된 질의응답 LLM을 구축한 프로젝트입니다.',
+      en: 'A project that rebuilt web-article and PDF-magazine data into a dataset for a slow-aging domain-specific Q&A LLM.',
+    },
+    techs: [
+      'Python',
+      'Gemma',
+      'Unsloth',
+      'LoRA',
+      'JSONL',
+      'Data Preprocessing',
+    ],
+  },
   {
     id: 5,
     category: 'webFrontend',
@@ -170,38 +170,75 @@ export const projectsData: ProjectInfo[] = [
       'Responsive UI',
     ],
   },
-  // {
-  //   id: 9,
-  //   category: 'webFrontend',
-  //   imgUrl: '/img/tech/cake.png',
-  //   title: {
-  //     ko: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
-  //     en: 'Cake Workshop: Omnivore Trend Social Platform',
-  //   },
-  //   description: {
-  //     ko: '개인의 취향과 감정을 시각적 메타포로 표현하고 공유할 수 있도록 설계한 소셜 플랫폼입니다.',
-  //     en: 'A social platform designed for expressing and sharing personal taste and emotion through visual metaphors.',
-  //   },
-  //   techs: [
-  //     'React',
-  //     'TypeScript',
-  //     'Styled Components',
-  //     'React Calendar',
-  //     'GitHub Actions',
-  //   ],
-  // },
-  // {
-  //   id: 10,
-  //   category: 'backend',
-  //   imgUrl: '/img/tech/plate_picks.png',
-  //   title: {
-  //     ko: 'Plate Picks : 익명 회식 메뉴 선정 시스템',
-  //     en: 'Plate Picks: Anonymous Team Meal Selection System',
-  //   },
-  //   description: {
-  //     ko: '익명 투표와 결과 통계를 통해 조직 내 메뉴 선정 부담을 줄이는 웹 서비스입니다.',
-  //     en: 'A web service that reduces the burden of team meal selection through anonymous voting and result analytics.',
-  //   },
-  //   techs: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Docker', 'Ubuntu'],
-  // },
+  {
+    id: 9,
+    category: 'desktop',
+    imgUrl: '/img/tech/seven-segment-ocr.png',
+    title: {
+      ko: '7-Segment OCR : 영상 기반 숫자 인식·분석 프로그램',
+      en: '7-Segment OCR: Video-Based Numeric Recognition and Analysis Tool',
+    },
+    description: {
+      ko: '영상 내 7-Segment 디스플레이 영역을 지정하고 일정 시간 간격으로 숫자를 자동 인식해 결과와 변화 추이를 분석하는 WPF 기반 데스크톱 프로그램입니다.',
+      en: 'A WPF-based desktop application that recognizes numeric values from a selected seven-segment display region in video at configurable time intervals and visualizes the resulting trends.',
+    },
+    techs: [
+      'C#',
+      'WPF',
+      '.NET',
+      'MVVM',
+      'OpenCvSharp',
+      'ONNX Runtime',
+      'LightSVTR',
+      'CTC Decoder',
+    ],
+  },
+  {
+    id: 11,
+    category: 'desktop',
+    imgUrl: '/img/tech/sem-particle-analyzer.png',
+    title: {
+      ko: 'SEM Particle Analyzer : 미세 입자 분석 프로그램',
+      en: 'SEM Particle Analyzer: Microscopic Particle Analysis Application',
+    },
+    description: {
+      ko: 'SEM·현미경 이미지에서 ROI와 밝기·크기·형상 조건을 기반으로 미세 입자를 검출하고 측정하는 Windows 비전 분석 프로그램입니다.',
+      en: 'A Windows vision analysis application that detects and measures microscopic particles in SEM and microscope images using ROI, intensity, size, and shape criteria.',
+    },
+    techs: [
+      'C#',
+      '.NET 10',
+      'WPF',
+      'MVVM',
+      'OpenCvSharp',
+      'xUnit',
+    ],
+  },
+  {
+    id: 10,
+    category: 'ai',
+    imgUrl: '/img/tech/dpo-llm-analysis.png',
+    title: {
+      ko: 'Instruction-Tuned 언어모델에서 DPO의 효과와 한계에 대한 실험적 분석',
+      en: 'An Empirical Study on the Effectiveness and Limitations of DPO in Instruction-Tuned Language Models',
+    },
+    description: {
+      ko: '이미 높은 수준으로 정렬된 Instruction-Tuned 대형 언어모델에 SFT와 DPO를 순차적으로 적용하고, 추가적인 선호도 기반 학습이 실제 응답 성능 향상으로 이어지는지를 자동 평가와 LLM-as-a-Judge 방식으로 분석한 연구입니다.',
+      en: 'An empirical study examining whether additional preference-based training improves an already well-aligned instruction-tuned language model by sequentially applying SFT and DPO and evaluating the resulting models through automatic metrics and LLM-as-a-Judge evaluation.',
+    },
+    techs: [
+      'LLM',
+      'Gemma-4-E2B-it',
+      'Supervised Fine-Tuning',
+      'Direct Preference Optimization',
+      'LoRA',
+      'QLoRA',
+      '4-bit Quantization',
+      'LLM-as-a-Judge',
+      'GPT-5-mini',
+      'MMLU',
+      'MMMLU',
+      'KLUE',
+    ],
+  },
 ];

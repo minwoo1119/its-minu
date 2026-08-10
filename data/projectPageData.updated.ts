@@ -41,8 +41,8 @@ export interface ProjectPageInfo {
   title: LocalizedText;
   oneLiner: LocalizedText;
   overview: LocalizedText;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   teamInfo: LocalizedText;
   contribution: LocalizedText;
   images: ProjectImage[];
@@ -66,6 +66,16 @@ const noDocYetNote: LocalizedText = {
   ko: '관련 기록은 아직 정리 중입니다.',
   en: 'Related documentation is still being organized.',
 };
+
+const pImg = (
+  projectKey: string,
+  fileName: string,
+  ko: string,
+  en: string
+): ProjectImage => ({
+  imageUrl: `/img/projects/${projectKey}/${fileName}`,
+  caption: { ko, en },
+});
 
 const buildImages = (projectKey: string, captions: Array<[string, string]>): ProjectImage[] =>
   captions.map(([ko, en], index) => ({
@@ -93,11 +103,9 @@ export const projectPageData: ProjectPageInfo[] = [
       ko: 'Flutter 기반 앱 프론트엔드 구조 설계 및 핵심 기능 구현, 소셜 로그인 연동, Wi-Fi 인증 로직 구현, 배포 및 운영 수행',
       en: 'Designed the Flutter app frontend architecture, implemented core features, integrated social login, built Wi-Fi verification logic, and handled release and operation.',
     },
-    images: buildImages('geumpumta', [
-      ['메인 학습 타이머 화면', 'Main study timer screen'],
-      ['랭킹 및 학습 기록 화면', 'Ranking and study record screen'],
-      ['로그인 또는 집중 지원 관련 화면', 'Login or focus-support screen'],
-    ]),
+    images: [
+      pImg('geumpumta', 'hero.png', '메인 학습 타이머 화면', 'Main study timer screen'),
+    ],
     techChoices: [
       {
         name: 'Flutter',
@@ -135,10 +143,9 @@ export const projectPageData: ProjectPageInfo[] = [
           ko: '시작 시각과 현재 시각 차이를 기반으로 타이머를 계산해 앱 상태 변화 이후에도 실제 경과 시간이 반영되도록 개선했습니다. 또한 iOS Screen Time API를 적용해 사용자가 설정한 앱을 공부 시간 동안 제한했습니다.',
           en: 'Improved the timer by calculating elapsed time from the start timestamp and current time so real study time is preserved after app state changes. Also applied the iOS Screen Time API to block selected apps during study sessions.',
         },
-        images: buildImages('geumpumta', [
-          ['학습 타이머 메인 화면', 'Study timer main screen'],
-          ['집중 지원 설정 또는 제한 화면', 'Focus support or restriction screen'],
-        ]),
+        images: [
+          pImg('geumpumta', 'feature-1.png', '학습 타이머 및 집중 지원 화면', 'Study timer & focus support screen'),
+        ],
       },
       {
         title: { ko: '학교 Wi-Fi 기반 학습 인증', en: 'Campus Wi-Fi based study verification' },
@@ -146,9 +153,9 @@ export const projectPageData: ProjectPageInfo[] = [
           ko: '학교 Wi-Fi 환경을 기준으로 학습 기록의 유효성을 판단하는 Gateway IP 기반 인증 로직을 적용해 공정한 랭킹 데이터가 반영되도록 했습니다.',
           en: 'Applied Gateway-IP based verification against the campus Wi-Fi environment so only validated study records affect rankings.',
         },
-        images: buildImages('geumpumta', [
-          ['학습 인증 관련 흐름 화면', 'Study verification flow screen'],
-        ]),
+        images: [
+          pImg('geumpumta', 'feature-2.png', '학교 Wi-Fi 인증 흐름 화면', 'Campus Wi-Fi verification screen'),
+        ],
       },
       {
         title: { ko: '랭킹 및 API 호출 구조 개선', en: 'Ranking and API call optimization' },
@@ -156,9 +163,9 @@ export const projectPageData: ProjectPageInfo[] = [
           ko: 'Riverpod 캐싱 구조를 활용해 이미 조회한 랭킹 데이터를 재사용하도록 개선하여 화면 재진입 시 불필요한 API 재호출을 줄였습니다.',
           en: 'Improved the ranking flow to reuse already fetched data through Riverpod caching, reducing unnecessary API calls when re-entering the screen.',
         },
-        images: buildImages('geumpumta', [
-          ['개인 또는 학과 랭킹 화면', 'Personal or department ranking screen'],
-        ]),
+        images: [
+          pImg('geumpumta', 'feature-3.png', '실시간 랭킹 및 학습 기록 화면', 'Live ranking & study record screen'),
+        ],
       },
       {
         title: { ko: '소셜 로그인 및 사용자 상태 복원', en: 'Social login and user-state restoration' },
@@ -166,9 +173,9 @@ export const projectPageData: ProjectPageInfo[] = [
           ko: 'Kakao, Google, Apple 로그인을 지원하고, SharedPreferences를 통해 앱 재실행 시 로그인 상태를 복원하도록 구현했습니다.',
           en: 'Implemented Kakao, Google, and Apple login, and restored login state on app relaunch through SharedPreferences.',
         },
-        images: buildImages('geumpumta', [
-          ['소셜 로그인 또는 온보딩 화면', 'Social login or onboarding screen'],
-        ]),
+        images: [
+          pImg('geumpumta', 'feature-4.png', '소셜 로그인 및 온보딩 화면', 'Social login & onboarding screen'),
+        ],
       },
     ],
     roleDetails: [
@@ -1159,6 +1166,489 @@ export const projectPageData: ProjectPageInfo[] = [
       {
         ko: '관리자 액션 로그, 권한 세분화, 구조 문서화를 추가해 운영성과 유지보수성을 더 높일 계획입니다.',
         en: 'Plan to improve operations and maintainability further with admin action logs, finer permissions, and structural documentation.',
+      },
+    ],
+    links: [
+      { label: { ko: 'GitHub 저장소', en: 'GitHub Repository' }, note: privateRepoNote },
+    ],
+  },
+  {
+    id: 9,
+    category: 'desktop',
+    title: { ko: '7-Segment OCR', en: '7-Segment OCR' },
+    oneLiner: {
+      ko: '영상 내 7-Segment 디스플레이를 지정 간격으로 자동 인식·분석하는 WPF 데스크톱 프로그램',
+      en: 'A WPF desktop tool that automatically recognizes and analyzes 7-segment display values from video.',
+    },
+    overview: {
+      ko: '영상에 기록된 7-Segment 계측값을 사람이 직접 확인하고 기록하는 작업을 자동화하기 위해 개발했습니다. OpenCvSharp 기반 ROI 프레임 추출 파이프라인과 ONNX Runtime 기반 LightSVTR 전용 OCR 모델을 결합해, 별도 Python 추론 서버 없이 C# 내부에서 로컬 완결형으로 계측값 변화 추이를 분석하는 WPF 데스크톱 프로그램입니다.',
+      en: 'Developed to automate the manual recording of 7-segment display values from video. Combines an OpenCvSharp ROI extraction pipeline with an ONNX Runtime-powered LightSVTR OCR model, running fully local inference in C# without a separate Python server.',
+    },
+    startDate: new Date('2026-08-01'),
+    endDate: null,
+    teamInfo: { ko: 'C# / WPF 데스크톱 프로그램 단독 개발', en: 'Solo C# / WPF desktop application development' },
+    contribution: {
+      ko: 'WPF 애플리케이션 구조 설계 및 MVVM 기반 UI 개발, OpenCvSharp 기반 ROI 프레임 추출 파이프라인 구현, LightSVTR 모델 ONNX 변환 및 전/후처리(CTC Greedy Decoding) 개발, 다중 OCR 모델 벤치마크 수행',
+      en: 'Designed the WPF MVVM architecture, implemented the OpenCvSharp ROI extraction pipeline, integrated the LightSVTR ONNX model with CTC greedy decoding, and benchmarked multiple OCR models.',
+    },
+    images: [
+      pImg('seven-segment-ocr', 'hero.png', '7-Segment OCR 메인 분석 화면', '7-Segment OCR main analysis screen'),
+    ],
+    techChoices: [
+      {
+        name: 'C# / WPF',
+        reason: {
+          ko: '영상 로드, 재생, ROI 지정, DataGrid 및 차트 시각화가 결합된 고성능 데스크톱 분석 툴을 MVVM 패턴으로 구축하기 위해 선택했습니다.',
+          en: 'Chosen to build a high-performance desktop tool with video playback, ROI selection, and DataGrid/chart visualization using MVVM.',
+        },
+      },
+      {
+        name: 'ONNX Runtime',
+        reason: {
+          ko: 'Python 추론 서버에 의존하지 않고 C# 데스크톱 프로그램 내부에서 로컬 완결형으로 빠른 딥러닝 추론을 수행하기 위해 도입했습니다.',
+          en: 'Introduced to achieve fast, fully local deep learning inference inside the C# application without a separate Python server.',
+        },
+      },
+      {
+        name: 'OpenCvSharp',
+        reason: {
+          ko: '영상 로드, 프레임 단위 탐색 및 사용자 지정 ROI 영역을 효율적으로 추출해 전처리 텐서로 변환하기 위해 사용했습니다.',
+          en: 'Used to handle video loading, frame-by-frame seeking, and efficient ROI extraction for tensor preprocessing.',
+        },
+      },
+      {
+        name: 'LightSVTR',
+        reason: {
+          ko: '다양한 공개 모델 벤치마크 결과, 7-Segment 숫자 인식에서 가장 가볍고 안정적인 인식 성능을 보여 최종 모델로 선정했습니다.',
+          en: 'Selected as the primary model after benchmarking public models, showing the most lightweight and reliable 7-segment recognition.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: { ko: '영상 로드 및 ROI 기반 프레임 추출 파이프라인', en: 'Video loading and ROI frame extraction pipeline' },
+        description: {
+          ko: 'OpenCvSharp를 활용해 영상에서 사용자가 지정한 7-Segment 디스플레이 영역을 추출하고, 설정된 시간 간격으로 프레임을 샘플링해 OCR 입력 데이터로 변환합니다.',
+          en: 'Extracts the user-defined 7-segment ROI from video using OpenCvSharp and samples frames at configurable intervals for OCR input.',
+        },
+        images: [
+          pImg('seven-segment-ocr', 'feature-1.png', 'ROI 지정 및 영상 프레임 추출 화면', 'ROI selection and frame extraction screen'),
+        ],
+      },
+      {
+        title: { ko: 'LightSVTR 기반 7-Segment OCR 및 ONNX Runtime 통합', en: 'LightSVTR 7-segment OCR & ONNX Runtime integration' },
+        description: {
+          ko: 'Grayscale 변환, 비율 유지 Resize, Padding, Normalization을 거쳐 ONNX Runtime으로 모델을 추론하고 CTC Greedy Decoding을 통해 최종 숫자를 인식합니다.',
+          en: 'Runs ONNX Runtime inference through grayscale conversion, aspect-ratio-preserving resize, padding, and normalization, recognizing digits via CTC greedy decoding.',
+        },
+        images: [
+          pImg('seven-segment-ocr', 'feature-2.png', 'OCR 추론 및 CTC 디코딩 화면', 'OCR inference and CTC decoding screen'),
+        ],
+      },
+      {
+        title: { ko: '시계열 데이터 시각화 및 결과 분석 (DataGrid & Chart)', en: 'Time-series data visualization & trend analysis' },
+        description: {
+          ko: '시간별 OCR 인식값, Confidence 스코어, 추론 속도 및 오류 상태를 기록하고 DataGrid와 그래프를 통해 계측값 변화 추이를 실시간으로 확인할 수 있도록 구성했습니다.',
+          en: 'Records timestamped OCR values, confidence, latency, and error states, visualizing trends in real time through DataGrid and charts.',
+        },
+        images: [
+          pImg('seven-segment-ocr', 'feature-3.png', '시간별 계측값 그래프 및 DataGrid 화면', 'Time-series chart and DataGrid screen'),
+        ],
+      },
+      {
+        title: { ko: '다중 모델 벤치마크 및 추론 엔진 추상화', en: 'Multi-model benchmarking & engine abstraction' },
+        description: {
+          ko: 'Google Colab에서 LightSVTR, CRNN, TFLite 등 여러 모델을 동일 조건으로 비교 검증했으며, OCR 인터페이스 추상화를 통해 향후 다른 ONNX 모델로 손쉽게 교체 가능한 구조를 설계했습니다.',
+          en: 'Benchmarked LightSVTR, CRNN, and TFLite under identical conditions in Colab, designing an abstracted OCR interface for easy future model replacement.',
+        },
+        images: [
+          pImg('seven-segment-ocr', 'feature-4.png', '모델 비교 벤치마크 및 엔진 구조', 'Model benchmarking and engine architecture'),
+        ],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: 'WPF와 MVVM 구조를 기반으로 영상 로드, 재생, ROI 지정, OCR 분석, 결과 조회 및 내보내기까지 연결되는 전체 데스크톱 프로그램을 단독으로 개발했습니다.',
+        en: 'Independently developed the full desktop application using WPF and MVVM, covering video playback, ROI selection, OCR analysis, and result export.',
+      },
+      {
+        ko: 'Python Colab 환경과 C# WPF 환경의 추론 결과를 단계별로 비교 분석하며 텐서 전처리와 디코딩 오차를 정밀하게 디버깅했습니다.',
+        en: 'Step-by-step analyzed and debugged inference discrepancies between Python Colab and C# WPF across tensor preprocessing and decoding stages.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: 'Colab Python 환경과 WPF C# 환경에서 동일 모델을 실행했음에도 특정 프레임에서 OCR 인식 결과 편차가 발생하는 문제가 있었습니다.',
+          en: 'Inference discrepancies occurred on specific frames between Python Colab and C# WPF despite running the same model.',
+        },
+        solution: {
+          ko: '프레임 추출 시점, ROI 좌표 계산, Resize 보간 방식, Tensor 정규화 계수 및 CTC 출력값 디코딩 과정을 단계별로 비교하며 전처리 오차를 정밀하게 보정했습니다.',
+          en: 'Compared frame timestamps, ROI coordinates, resize interpolation, tensor normalization factors, and CTC decoding step by step to calibrate preprocessing differences.',
+        },
+        result: {
+          ko: 'Colab 추론 결과와 C# ONNX Runtime 추론 결과의 일치성을 확보하고 인식 신뢰도를 크게 높였습니다.',
+          en: 'Achieved complete parity between Colab and C# ONNX Runtime inference outputs, ensuring high recognition reliability.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '로컬 완결형 추론', en: 'Local inference' },
+        value: { ko: 'No Python Server', en: 'No Python Server' },
+        description: {
+          ko: '외부 파이썬 추론 서버 없이 C# WPF 애플리케이션 내부에서 온디바이스로 OCR 추론을 완결했습니다.',
+          en: 'Completed on-device OCR inference locally within C# WPF without an external Python server.',
+        },
+      },
+      {
+        label: { ko: '모델 최적화', en: 'Model optimization' },
+        value: { ko: 'LightSVTR 탑재', en: 'LightSVTR embedded' },
+        description: {
+          ko: '실제 7-Segment 영상 벤치마크를 통해 특화된 경량 모델을 선정하고 통합했습니다.',
+          en: 'Selected and embedded a specialized lightweight model through real 7-segment video benchmarking.',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: 'Python 연구 환경에서 검증된 딥러닝 모델을 실제 C# 데스크톱 프로그램으로 이식할 때, 영상 전처리와 텐서 변환 단계의 정밀한 일치가 모델 성능에 결정적임을 배웠습니다.',
+        en: 'Learned that exact parity in image preprocessing and tensor transformation is critical when porting deep learning models from Python to C# desktop apps.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '극심한 조명 반사나 디스플레이 기울어짐이 큰 영상의 경우 원근 보정(Perspective Transform) 기능이 추가로 보완될 수 있습니다.',
+        en: 'Perspective transformation can be further added for footage with severe glare or angled display perspectives.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: '자동 원근 보정 및 다중 ROI 동시 계측 기능과 엑셀/CSV 내보내기 자동화 리포트 기능을 추가할 계획입니다.',
+        en: 'Plan to add automatic perspective correction, multi-ROI simultaneous tracking, and automated Excel/CSV export reporting.',
+      },
+    ],
+    links: [
+      { label: { ko: 'GitHub 저장소', en: 'GitHub Repository' }, note: privateRepoNote },
+    ],
+  },
+  {
+    id: 11,
+    category: 'desktop',
+    title: { ko: 'SEM Particle Analyzer', en: 'SEM Particle Analyzer' },
+    oneLiner: {
+      ko: 'SEM·현미경 이미지에서 ROI와 크기·형상·밝기 조건으로 미세 입자를 자동 검출·측정하는 Windows 비전 분석 프로그램',
+      en: 'A Windows vision analysis application that detects and measures microscopic particles in SEM images using ROI, size, shape, and intensity criteria.',
+    },
+    overview: {
+      ko: 'SEM 및 현미경 이미지의 미세 입자를 상용 비전 SDK 없이 분석할 수 있도록 개발한 Windows 데스크톱 프로그램입니다. 사용자가 지정한 ROI 안에서 입자를 검출하고 크기·형상·밝기 특성을 측정하며, 분석 설정과 결과를 함께 저장해 동일 조건의 분석을 재현할 수 있도록 설계했습니다.',
+      en: 'Developed a Windows desktop application for analyzing microscopic particles in SEM and microscope images without relying on commercial vision SDKs. It detects particles within a user-defined ROI, measures their size, shape, and intensity properties, and preserves both settings and results for reproducible analysis.',
+    },
+    startDate: new Date('2026-07-24'),
+    endDate: new Date('2026-08-09'),
+    teamInfo: { ko: 'Windows 데스크톱 비전 분석 프로그램 단독 개발', en: 'Solo Windows desktop vision analysis application development' },
+    contribution: {
+      ko: '.NET 10 / WPF / MVVM 기반 애플리케이션 아키텍처 설계, OpenCvSharp 기반 입자 검출·Watershed 분리 파이프라인 구현, 9종 기하·통계 파라미터 계산 엔진 개발, 히스토그램 및 Overlay UI 구현, xUnit 기반 34개 자동화 테스트 구축',
+      en: 'Designed .NET 10 / WPF / MVVM architecture, implemented OpenCvSharp particle detection & watershed pipeline, built 9 geometric/statistical measurement engine, created histogram & overlay UI, and authored 34 xUnit automated tests.',
+    },
+    images: [
+      pImg('sem-particle-analyzer', 'hero.png', 'SEM Particle Analyzer 메인 분석 화면', 'SEM Particle Analyzer main analysis screen'),
+    ],
+    techChoices: [
+      {
+        name: 'C# / .NET 10 & WPF',
+        reason: {
+          ko: '고해상도 SEM 이미지 렌더링, 실시간 ROI 조작, DataGrid 및 오버레이 시각화를 MVVM 패턴으로 안정적으로 구축하기 위해 선택했습니다.',
+          en: 'Chosen to build a high-performance desktop UI with high-resolution SEM rendering, real-time ROI manipulation, and overlay visualization using MVVM.',
+        },
+      },
+      {
+        name: 'OpenCvSharp',
+        reason: {
+          ko: '상용 비전 SDK 없이 CLAHE, Threshold, Morphology, Watershed 등 정밀 영상 처리 파이프라인을 네이티브 성능으로 구현하기 위해 사용했습니다.',
+          en: 'Used to implement precise image-processing pipelines—CLAHE, thresholding, morphology, watershed—with native performance without commercial vision SDKs.',
+        },
+      },
+      {
+        name: 'xUnit',
+        reason: {
+          ko: '형상 계산 공식, 축척 변환, Watershed 분리 등 핵심 분석 알고리즘의 신뢰성을 합성 이미지 기반 34개 단위·분석 테스트로 검증하기 위해 도입했습니다.',
+          en: 'Introduced to verify geometric formulas, scale conversions, and watershed separation through 34 automated unit and analysis tests on synthetic images.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: { ko: '영상 전처리 및 입자 검출·Watershed 분리 파이프라인', en: 'Image preprocessing, particle detection & watershed pipeline' },
+        description: {
+          ko: 'Rectangle ROI, GV Threshold, Gaussian Blur, CLAHE, Morphology 및 Watershed를 조합해 뭉쳐진 입자까지 정밀하게 분리·검출하는 비전 파이프라인을 구현했습니다.',
+          en: 'Implemented a particle detection and separation pipeline combining rectangular ROI, GV thresholding, Gaussian blur, CLAHE, morphology, and watershed to accurately separate touching particles.',
+        },
+        images: [
+          pImg('sem-particle-analyzer', 'feature-1.png', '입자 검출 및 Watershed 분리 화면', 'Particle detection and watershed separation screen'),
+        ],
+      },
+      {
+        title: { ko: '다각도 기하·형상·밝기 파라미터 측정 엔진', en: 'Multi-parametric geometric, shape & intensity measurement engine' },
+        description: {
+          ko: '면적, 둘레, 등가원 직경, Feret 직경, 장·단축, 종횡비, 원형도, Solidity 및 GV 통계를 계산하고 실제 길이 단위(μm, nm)로 자동 변환합니다.',
+          en: 'Calculates area, perimeter, equivalent diameter, Feret diameters, major/minor axes, aspect ratio, circularity, solidity, and GV statistics with automatic real-world unit conversion.',
+        },
+        images: [
+          pImg('sem-particle-analyzer', 'feature-2.png', '입자 측정 파라미터 및 통계 화면', 'Particle measurement parameters and statistics screen'),
+        ],
+      },
+      {
+        title: { ko: '대화형 객체 검토 및 히스토그램/오버레이 UI', en: 'Interactive object inspection, histogram & overlay UI' },
+        description: {
+          ko: '검출된 객체 선택·확대, 수동 포함/제외(Override), 탈락 사유 추적 기능과 함께 크기 분포 Histogram 및 Accepted/Rejected 오버레이 뷰를 제공합니다.',
+          en: 'Provides object selection/zooming, manual inclusion/exclusion override, rejection-reason tracking, size-distribution histogram, and accepted/rejected overlay views.',
+        },
+        images: [
+          pImg('sem-particle-analyzer', 'feature-3.png', '히스토그램 및 검출 오버레이 화면', 'Histogram and detection overlay screen'),
+        ],
+      },
+      {
+        title: { ko: '재현 가능한 프리셋 및 다중 포맷 보고서 내보내기', en: 'Reproducible presets & multi-format report export' },
+        description: {
+          ko: '분석 조건 Preset과 원본·ROI·Mask·Overlay 이미지, CSV, JSON 데이터 및 독립 실행 가능한 로컬 HTML 종합 분석 보고서를 저장합니다.',
+          en: 'Exports analysis presets, source/ROI/mask/overlay images, CSV/JSON data, and a standalone local HTML comprehensive analysis report.',
+        },
+        images: [
+          pImg('sem-particle-analyzer', 'feature-4.png', '분석 프리셋 및 HTML 보고서 내보내기', 'Analysis preset and HTML report export'),
+        ],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: '.NET 10, WPF, MVVM 구조를 기반으로 이미지 로드부터 분석·검토·보고서 내보내기까지 이어지는 전체 워크플로우를 단독으로 설계하고 개발했습니다.',
+        en: 'Independently designed and built the complete desktop analysis workflow from image loading and processing to review and reporting with .NET 10, WPF, and MVVM.',
+      },
+      {
+        ko: '비동기 처리와 CancellationToken, 명시적 OpenCV 리소스 수명 관리를 적용해 대용량 이미지 반복 분석 시에도 메모리 누수와 UI 멈춤이 없는 구조를 구축했습니다.',
+        en: 'Applied asynchronous processing, CancellationToken support, and explicit OpenCV memory management to ensure zero memory leaks and responsive UI during batch analysis.',
+      },
+      {
+        ko: '형상 공식, 축척 변환, 경계 객체 판정, Watershed 분리 등 핵심 분석 기능을 합성 이미지 기반 34개 단위·분석 테스트로 100% 검증했습니다.',
+        en: 'Verified geometric formulas, scale conversion, border handling, and watershed separation with 34 automated xUnit tests on synthetic test images.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: '인접한 미세 입자들이 하나의 덩어리로 병합되어 개별 입자의 크기와 개수가 왜곡되는 과소 검출 문제가 있었습니다.',
+          en: 'Touching microscopic particles merged into single blobs, distorting individual particle size and count statistics.',
+        },
+        solution: {
+          ko: '거리 변환(Distance Transform)과 마커 기반 Watershed 알고리즘을 연계하고, 전처리로 CLAHE와 Morphological 연산을 조합해 경계 분리력을 강화했습니다.',
+          en: 'Combined distance transforms with marker-controlled watershed segmentation and layered CLAHE with morphological operations for enhanced edge separation.',
+        },
+        result: {
+          ko: '접촉 입자의 개별 분리율을 크게 높이고 정확한 입도 분포 측정을 가능하게 했습니다.',
+          en: 'Significantly improved the separation of clustered particles and achieved accurate particle size distribution measurements.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '자동화 테스트', en: 'Automated tests' },
+        value: { ko: '34 Tests Passing', en: '34 Tests Passing' },
+        description: {
+          ko: '형상 공식, 축척 변환, Watershed 분리 등 핵심 분석 기능에 대해 34개의 xUnit 테스트를 100% 통과했습니다.',
+          en: 'Achieved 100% pass rate across 34 xUnit tests covering geometry, scale conversion, and watershed separation.',
+        },
+      },
+      {
+        label: { ko: 'SDK 독립성', en: 'SDK independence' },
+        value: { ko: '100% Open Source', en: '100% Open Source' },
+        description: {
+          ko: '상용 유료 라이브러리 없이 OpenCvSharp와 .NET 10만으로 상용 수준의 분석 파이프라인을 구축했습니다.',
+          en: 'Built a production-grade vision analysis pipeline using only OpenCvSharp and .NET 10 without commercial SDKs.',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: '정밀 비전 분석 프로그램에서는 영상 처리 알고리즘 구현뿐 아니라 분석 조건의 재현성(Preset/Hash)과 자동화된 단위 테스트를 통한 신뢰성 확보가 필수적임을 배웠습니다.',
+        en: 'Learned that precision vision tools require not just algorithms, but condition reproducibility (presets/hashes) and automated unit testing for trustworthiness.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '비정형 타원이나 복잡하게 얽힌 응집체 입자의 경우 딥러닝 기반 인스턴스 세그멘테이션(Mask R-CNN 등) 결합을 통해 추가 고도화될 수 있습니다.',
+        en: 'Irregular or heavily agglomerated particles can be further improved by incorporating deep learning instance segmentation models.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: '배치(Batch) 일괄 이미지 분석 모드와 딥러닝 기반 불량 입자 자동 분류 기능을 추가할 계획입니다.',
+        en: 'Plan to add batch multi-image analysis mode and deep-learning-based defective particle classification.',
+      },
+    ],
+    links: [
+      { label: { ko: 'GitHub 저장소', en: 'GitHub Repository' }, note: privateRepoNote },
+    ],
+  },
+  {
+    id: 10,
+    category: 'ai',
+    title: {
+      ko: 'Instruction-Tuned 언어모델에서 DPO의 효과와 한계에 대한 실험적 분석',
+      en: 'An Empirical Study on the Effectiveness and Limitations of DPO in Instruction-Tuned Language Models',
+    },
+    oneLiner: {
+      ko: 'Instruction-Tuned 언어모델에 SFT와 DPO를 적용해 추가 정렬의 실효성과 한계를 다각도로 규명한 LLM 연구 (한국정보기술학회 금상)',
+      en: 'An empirical LLM study evaluating the effectiveness and limitations of additional SFT and DPO alignment on instruction-tuned models (KIIT Gold Award).',
+    },
+    overview: {
+      ko: '최근 공개되는 대형 언어모델은 이미 Instruction Tuning을 통해 높은 수준으로 정렬되어 있어, 이러한 모델에 추가적인 DPO를 적용하는 것이 실제 성능 향상으로 이어지는지는 명확하지 않습니다. 이를 검증하기 위해 Gemma-4-E2B-it을 기반 모델로 선정하고, 한국어 Instruction 데이터 기반 SFT와 Preference Pair 기반 DPO를 순차적으로 적용했습니다. 이후 Base, SFT, DPO 세 모델을 200개의 평가 문항에 대해 문자열 기반 자동 평가와 GPT-5-mini 기반 LLM-as-a-Judge 평가로 비교하여, 초기 모델의 정렬 수준과 Preference 데이터 품질이 DPO 효과에 미치는 영향을 실증적으로 분석했습니다.',
+      en: 'Modern large language models are often released after extensive instruction tuning, making it unclear whether applying additional DPO provides meaningful gains. Gemma-4-E2B-it was used as the base model and sequentially trained with Korean SFT and preference DPO. The Base, SFT, and DPO models were evaluated on 200 samples using automatic metrics and GPT-5-mini LLM-as-a-Judge to analyze the effects of initial alignment and preference data quality.',
+    },
+    startDate: null,
+    endDate: null,
+    teamInfo: {
+      ko: 'LLM 정렬(Alignment) 연구 프로젝트 · 2026 한국정보기술학회 하계대학생논문경진대회 금상 수상',
+      en: 'LLM Alignment Research Project · Won Gold Prize at 2026 KIIT Summer Undergraduate Paper Competition',
+    },
+    contribution: {
+      ko: 'Gemma-4-E2B-it 기반 SFT → DPO 순차 학습 파이프라인 구축, 4-bit QLoRA 경량 파인튜닝 환경 설계, 200문항 벤치마크 데이터셋 구축, Exact/Contains Match 자동 평가 및 GPT-5-mini 기반 LLM-as-a-Judge 다차원 평가 프레임워크 구축, 학술 논문 작성',
+      en: 'Constructed sequential SFT-to-DPO pipeline on Gemma-4-E2B-it, designed 4-bit QLoRA fine-tuning, curated 200-sample benchmark, developed automatic & GPT-5-mini LLM-as-a-Judge evaluation framework, and authored the research paper.',
+    },
+    images: [
+      pImg('dpo-llm-analysis', 'hero.png', 'DPO 연구 파이프라인 및 평가 결과 요약', 'DPO research pipeline and evaluation summary'),
+    ],
+    techChoices: [
+      {
+        name: 'Gemma-4-E2B-it & QLoRA',
+        reason: {
+          ko: '사전 정렬된 고성능 소형 LLM을 대상으로 4-bit 양자화와 LoRA를 적용해 단일 GPU 자원에서도 효율적인 SFT 및 DPO 정렬 학습을 수행하기 위해 선택했습니다.',
+          en: 'Chosen to perform efficient SFT and DPO alignment on a pre-aligned instruction model under resource constraints using 4-bit quantization and LoRA.',
+        },
+      },
+      {
+        name: 'Direct Preference Optimization (DPO)',
+        reason: {
+          ko: '별도의 Reward Model 학습 없이 선호도(Prompt-Chosen-Rejected) 데이터를 직접 최적화하여 정렬 효과를 정밀하게 분석하기 위해 도입했습니다.',
+          en: 'Introduced to directly optimize preference pairs without separate reward modeling and examine fine-grained alignment behavior.',
+        },
+      },
+      {
+        name: 'LLM-as-a-Judge (GPT-5-mini)',
+        reason: {
+          ko: '단순 문자열 매칭의 한계를 넘어 정확성, 자연스러움, 유용성, 종합 품질의 4가지 차원에서 모델 응답을 정밀하게 다면 평가하기 위해 구축했습니다.',
+          en: 'Built to evaluate model responses multidimensionally across accuracy, fluency, helpfulness, and overall quality beyond simple string matching.',
+        },
+      },
+      {
+        name: '다각도 벤치마크 (MMLU / MMMLU / KLUE)',
+        reason: {
+          ko: '지식, 추론, 한국어 이해 및 일반 지시 이행 능력을 균형 있게 측정하기 위해 200개의 평가 데이터셋을 종합 설계했습니다.',
+          en: 'Designed a 200-sample benchmark combining MMLU, MMMLU, KLUE, and open-ended instructions to balance knowledge, reasoning, and Korean comprehension.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: { ko: 'SFT 및 DPO 2단계 정렬 파이프라인 구축', en: 'Two-stage SFT & DPO alignment pipeline' },
+        description: {
+          ko: '7,000개 이상의 한국어 Instruction 데이터 기반 SFT와 약 1,200개의 Prompt-Chosen-Rejected 선호도 쌍을 활용한 DPO를 순차적으로 적용하는 학습 파이프라인을 구축했습니다.',
+          en: 'Built a sequential training pipeline applying SFT on 7,000+ Korean instruction samples followed by DPO on ~1,200 prompt-chosen-rejected pairs.',
+        },
+        images: [
+          pImg('dpo-llm-analysis', 'feature-1.png', 'SFT 및 DPO 학습 파이프라인 구성도', 'SFT and DPO training pipeline diagram'),
+        ],
+      },
+      {
+        title: { ko: '4-bit QLoRA 기반 고효율 정렬 학습 환경', en: 'High-efficiency 4-bit QLoRA training environment' },
+        description: {
+          ko: 'LoRA 파라미터 효율적 파인튜닝과 4-bit 양자화 및 bfloat16 정밀도를 조합해 단일 GPU 환경에서도 안정적인 대규모 언어모델 정렬 실험을 완결했습니다.',
+          en: 'Combined LoRA PEFT with 4-bit quantization and bfloat16 precision to achieve stable LLM alignment experiments on a single GPU.',
+        },
+        images: [
+          pImg('dpo-llm-analysis', 'feature-2.png', 'QLoRA 학습 하이퍼파라미터 및 손실 곡선', 'QLoRA training hyperparameters and loss curves'),
+        ],
+      },
+      {
+        title: { ko: 'LLM-as-a-Judge 및 자동 평가 프레임워크', en: 'LLM-as-a-Judge & automated evaluation framework' },
+        description: {
+          ko: 'Exact Match, Contains Match 등 문자열 기반 자동 평가와 함께 GPT-5-mini를 활용한 LLM-as-a-Judge로 정확성, 자연스러움, 유용성, 종합 품질을 다면 평가했습니다.',
+          en: 'Combined string-based exact/contains match with GPT-5-mini LLM-as-a-Judge to evaluate accuracy, fluency, helpfulness, and overall quality.',
+        },
+        images: [
+          pImg('dpo-llm-analysis', 'feature-3.png', 'LLM-as-a-Judge 평가 차원 및 결과 비교', 'LLM-as-a-Judge evaluation dimensions and comparison'),
+        ],
+      },
+      {
+        title: { ko: '정렬 효과와 데이터 품질 한계 실증 분석', en: 'Empirical analysis on alignment effects & data limits' },
+        description: {
+          ko: '이미 충분히 정렬된 모델에서는 추가 SFT/DPO가 성능 향상으로 직결되지 않으며, 선호 데이터 품질과 태스크 분포 차이가 정렬 효과를 좌우한다는 핵심 인사이트를 도출했습니다.',
+          en: 'Empirically revealed that additional SFT/DPO does not guarantee gains on well-aligned models, highlighting the impact of preference quality and distribution mismatch.',
+        },
+        images: [
+          pImg('dpo-llm-analysis', 'feature-4.png', '모델별 성능 비교 및 분포 차이 분석 그래프', 'Model performance comparison and distribution analysis'),
+        ],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: 'Gemma-4-E2B-it 기반 SFT 및 DPO 학습 파이프라인 구축과 데이터 전처리, 평가 프레임워크 구축 및 논문 작성을 전담했습니다.',
+        en: 'Independently handled dataset preprocessing, SFT and DPO training pipeline development on Gemma-4-E2B-it, evaluation framework design, and paper authoring.',
+      },
+      {
+        ko: '단순 성능 수치 측정을 넘어, 선호도 데이터 품질과 초기 정렬 수준이 DPO에 미치는 한계점을 실증적으로 밝혀 학술적 가치를 인정받아 금상을 수상했습니다.',
+        en: 'Awarded Gold Prize for providing meaningful empirical insights into how initial alignment levels and preference pair quality constrain DPO effectiveness.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: '이미 높은 수준으로 튜닝된 Instruction 모델에 추가 DPO를 적용했을 때, 일반 지시 수행 능력은 유지되나 특정 지식·추론 태스크에서 응답 품질이 저하되는 현상이 발생했습니다.',
+          en: 'Applying additional DPO to a well-tuned instruction model retained general instruction following but caused degradation in specific knowledge and reasoning tasks.',
+        },
+        solution: {
+          ko: 'Base, SFT, DPO 모델의 출력을 MMLU, KLUE, 생성 문항 등 문항 카테고리별로 분리하고 문자열 매칭과 LLM-as-a-Judge 결과를 교차 검증하여, 학습 데이터(대화형 지시)와 평가 데이터(지식·추론) 간의 분포 불일치 및 Chosen-Rejected 품질 격차 부족을 원인으로 규명했습니다.',
+          en: 'Cross-validated string matching and LLM-as-a-Judge across MMLU, KLUE, and open-ended sets, identifying distribution mismatch and narrow chosen-rejected margins as root causes.',
+        },
+        result: {
+          ko: 'DPO의 맹목적 적용 한계를 밝히고, 선호도 데이터 정제 기준과 도메인 맞춤형 정렬 전략의 필요성을 학술 논문으로 정립했습니다.',
+          en: 'Demonstrated the boundaries of blind DPO adoption and established requirements for high-quality preference filtering and domain-tailored alignment.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '학술 경진대회 성과', en: 'Competition outcome' },
+        value: { ko: '2026 KIIT 금상 수상', en: '2026 KIIT Gold Prize' },
+        description: {
+          ko: '2026 한국정보기술학회 하계대학생논문경진대회에서 연구 우수성을 인정받아 금상을 수상했습니다.',
+          en: 'Awarded Gold Prize at the 2026 KIIT Summer Undergraduate Paper Competition for empirical research excellence.',
+        },
+      },
+      {
+        label: { ko: '평가 데이터셋', en: 'Evaluation dataset' },
+        value: { ko: '200 Samples / 4 Dimensions', en: '200 Samples / 4 Dimensions' },
+        description: {
+          ko: 'MMLU, MMMLU, KLUE 및 생성 문항을 망라한 200문항 벤치마크와 4대 지표 평가를 완결했습니다.',
+          en: 'Evaluated models across 200 benchmark questions combining MMLU, MMMLU, KLUE, and open-ended queries.',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: '최신 LLM 파인튜닝 및 정렬 기법에서는 무조건적인 추가 학습보다 기반 모델의 기존 정렬 수준과 데이터셋 간의 분포 정합성을 파악하는 것이 훨씬 중요하다는 점을 깊이 체득했습니다.',
+        en: 'Learned that understanding base model alignment status and training-evaluation distribution alignment is far more critical than unconditionally applying additional fine-tuning.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '더 큰 파라미터 규모(7B 이상)의 모델과 Direct Preference Optimization 외의 KTO, ORPO, SimPO 등 최신 정렬 알고리즘과의 비교 연구로 확장될 수 있습니다.',
+        en: 'Can be further extended to larger scale models (7B+) and newer preference optimization algorithms like KTO, ORPO, and SimPO.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: '다양한 정렬 기법(ORPO, SimPO) 비교 및 도메인 특화 선호도 데이터셋 자동 합성 파이프라인 연구로 발전시킬 계획입니다.',
+        en: 'Plan to compare ORPO/SimPO alignment methods and develop automated domain-specific preference synthetic data pipelines.',
       },
     ],
     links: [

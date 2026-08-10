@@ -12,8 +12,8 @@ export interface ProjectDetailInfo {
   do: LocalizedText[];
   achievements: LocalizedText[];
   deployUrl?: { title: string; url: string }[] | null;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
 }
 
 export const projectDetailData: ProjectDetailInfo[] = [
@@ -502,112 +502,217 @@ export const projectDetailData: ProjectDetailInfo[] = [
   },
   {
     id: 9,
-    category: 'webFrontend',
-    imgUrl: '/img/tech/cake.png',
+    category: 'desktop',
+    imgUrl: '/img/tech/seven-segment-ocr.png',
     title: {
-      ko: '케이크공작소 : 옴니보어 트렌드 소셜 플랫폼',
-      en: 'Cake Workshop: Omnivore Trend Social Platform',
+      ko: '7-Segment OCR : 영상 기반 숫자 인식·분석 프로그램',
+      en: '7-Segment OCR: Video-Based Numeric Recognition and Analysis Tool',
     },
     description: {
-      ko: '개인의 취향과 감정을 시각적 메타포로 표현하고 공유할 수 있도록 설계한 소셜 플랫폼입니다.',
-      en: 'A social platform designed for expressing and sharing personal taste and emotion through visual metaphors.',
+      ko: '영상 내 7-Segment 디스플레이 영역을 지정하고 일정 시간 간격으로 숫자를 자동 인식해 결과와 변화 추이를 분석하는 WPF 기반 데스크톱 프로그램입니다.',
+      en: 'A WPF-based desktop application that recognizes numeric values from a selected seven-segment display region in video at configurable time intervals and visualizes the resulting trends.',
     },
     techs: [
-      'React',
-      'TypeScript',
-      'Styled Components',
-      'React Calendar',
-      'GitHub Actions',
+      'C#',
+      'WPF',
+      '.NET',
+      'MVVM',
+      'OpenCvSharp',
+      'ONNX Runtime',
+      'LightSVTR',
+      'CTC Decoder',
     ],
     projectOutline: {
-      ko: '해커톤 환경에서 2025년 트렌드인 옴니보어를 주제로, 텍스트 중심이 아닌 시각적 경험 중심의 SNS를 구현했습니다. 짧은 개발 기간 안에 차별화된 콘셉트와 완성도 있는 인터랙션을 동시에 보여주는 데 집중했습니다.',
-      en: 'Built a visually driven social platform around the 2025 omnivore trend in a hackathon setting. The focus was on delivering both a differentiated concept and polished interactions within a short development cycle.',
+      ko: '영상에 기록된 7-Segment 계측값을 사람이 직접 확인하고 기록해야 하는 작업을 자동화하기 위해 개발했습니다. 사용자가 영상에서 ROI를 지정하면 일정 시간 간격으로 프레임을 추출하고, 7-Segment 전용 OCR 모델을 통해 숫자를 인식한 뒤 시간별 결과를 표와 그래프로 확인할 수 있도록 구성했습니다. 실제 적용에 앞서 Colab 환경에서 여러 공개 OCR 모델을 동일 영상으로 비교하고, 가장 안정적인 LightSVTR 기반 모델을 선정해 ONNX Runtime으로 WPF에 통합했습니다.',
+      en: 'Developed to automate the manual process of reading and recording seven-segment measurements from video. Users select an ROI, frames are sampled at configurable intervals, and a seven-segment-specific OCR model recognizes numeric values that are displayed as tables and time-series graphs. Multiple public OCR models were benchmarked in Google Colab before selecting a LightSVTR-based model and integrating it into WPF through ONNX Runtime.',
     },
     do: [
       {
-        ko: 'React Calendar를 커스터마이징해 감정 기록에 특화된 캘린더 기반 UI를 구현',
-        en: 'Customized React Calendar to build a calendar-based UI tailored to emotion tracking.',
+        ko: 'WPF와 MVVM 구조를 기반으로 영상 로드, 재생, ROI 지정, OCR 분석, 결과 조회 및 내보내기까지 연결되는 데스크톱 분석 프로그램을 개발',
+        en: 'Developed a WPF desktop analysis application using MVVM, covering video loading, playback, ROI selection, OCR analysis, result inspection, and export.',
       },
       {
-        ko: 'Styled Components 기반 동적 스타일링으로 일관된 디자인 시스템과 인터랙션을 설계',
-        en: 'Designed a consistent design system and interactions using Styled Components-based dynamic styling.',
+        ko: 'OpenCvSharp를 활용해 사용자가 지정한 ROI를 기준으로 영상 프레임을 일정 시간 간격으로 추출하고 OCR 입력 데이터로 변환하는 영상 처리 파이프라인을 구현',
+        en: 'Built a video-processing pipeline with OpenCvSharp that samples frames at configurable intervals and extracts the user-defined ROI for OCR input.',
       },
       {
-        ko: '복잡한 모달 및 오버레이 상태 로직을 분리해 사용자 흐름을 안정적으로 구현',
-        en: 'Separated complex modal and overlay state logic to implement a stable user flow.',
+        ko: 'Tinnci LightSVTR 기반 7-Segment OCR 모델을 ONNX Runtime으로 통합하고 Grayscale, 비율 유지 Resize, Padding, Normalization 및 CTC Greedy Decoding 과정을 구현',
+        en: 'Integrated a Tinnci LightSVTR seven-segment OCR model through ONNX Runtime and implemented grayscale conversion, aspect-ratio-preserving resize, padding, normalization, and CTC greedy decoding.',
       },
       {
-        ko: 'GitHub Issue 템플릿과 PR 규칙을 도입해 협업 프로세스를 정리',
-        en: 'Organized the collaboration process by introducing GitHub issue templates and PR rules.',
+        ko: 'Google Colab에서 Tinnci LightSVTR, CRNN, TensorFlow Lite 및 이미지 분류 기반 모델을 동일 영상과 ROI 조건으로 비교해 실제 영상에 적합한 모델을 검증',
+        en: 'Benchmarked LightSVTR, CRNN, TensorFlow Lite, and image-classification-based models under identical video and ROI conditions in Google Colab to validate the most suitable model for real footage.',
+      },
+      {
+        ko: '시간별 OCR 결과, Confidence, 추론 시간 및 오류 상태를 기록하고 DataGrid와 그래프를 통해 계측값 변화 추이를 확인할 수 있도록 구성',
+        en: 'Recorded OCR values, confidence scores, inference latency, and error states over time and visualized measurement trends through a DataGrid and charts.',
       },
     ],
     achievements: [
       {
-        ko: '제한된 해커톤 기간 안에 차별화된 콘셉트와 높은 완성도의 UI/UX를 구현',
-        en: 'Delivered a differentiated concept and polished UI/UX within hackathon time constraints.',
+        ko: '실제 7-Segment 영상에 대한 모델 비교를 통해 범용 OCR이 아닌 경량 LightSVTR 기반 전용 OCR 모델을 선정하고 WPF 애플리케이션에 직접 탑재',
+        en: 'Selected a lightweight LightSVTR-based specialized OCR model through real seven-segment video benchmarking and embedded it directly into the WPF application.',
       },
       {
-        ko: '시각적 메타포 기반 서비스 기획과 프론트엔드 구현 역량을 함께 보여준 프로젝트',
-        en: 'Demonstrated both service planning and frontend execution skills through a visual-metaphor-based product.',
+        ko: 'Python 기반 별도 추론 서버 없이 ONNX Runtime을 활용해 C# 데스크톱 프로그램 내부에서 OCR 추론이 완결되는 구조를 구현',
+        en: 'Implemented fully local OCR inference inside the C# desktop application with ONNX Runtime, eliminating the need for a separate Python inference server.',
       },
       {
-        ko: '협업 규칙과 리뷰 문화를 정리하며 팀 개발 생산성을 높인 경험 확보',
-        en: 'Gained experience improving team productivity by organizing collaboration rules and review culture.',
+        ko: 'Colab과 WPF의 OCR 결과를 프레임, ROI, 전처리, Tensor 및 CTC 출력 단계별로 비교하며 동일 모델에서도 발생할 수 있는 추론 편차를 분석하고 디버깅',
+        en: 'Analyzed and debugged inference discrepancies between Colab and WPF by comparing frame selection, ROI, preprocessing, tensor inputs, and CTC outputs step by step.',
+      },
+      {
+        ko: 'OCR 모델을 인터페이스로 추상화하고 모델 파일과 전처리 메타데이터를 분리해 향후 다른 ONNX OCR 모델로 교체할 수 있는 구조를 설계',
+        en: 'Designed a replaceable OCR architecture by abstracting recognizers behind interfaces and separating model files from preprocessing metadata for future ONNX model replacement.',
       },
     ],
-    startDate: new Date('2025-01-20'),
-    endDate: new Date('2025-02-15'),
+    startDate: new Date('2026-08-01'),
+  {
+    id: 11,
+    category: 'desktop',
+    imgUrl: '/img/tech/sem-particle-analyzer.png',
+    title: {
+      ko: 'SEM Particle Analyzer : 미세 입자 분석 프로그램',
+      en: 'SEM Particle Analyzer: Microscopic Particle Analysis Application',
+    },
+    description: {
+      ko: 'SEM·현미경 이미지에서 ROI와 밝기·크기·형상 조건을 기반으로 미세 입자를 검출하고 측정하는 Windows 비전 분석 프로그램입니다.',
+      en: 'A Windows vision analysis application that detects and measures microscopic particles in SEM and microscope images using ROI, intensity, size, and shape criteria.',
+    },
+    techs: [
+      'C#',
+      '.NET 10',
+      'WPF',
+      'MVVM',
+      'OpenCvSharp',
+      'xUnit',
+    ],
+    projectOutline: {
+      ko: 'SEM 및 현미경 이미지의 미세 입자를 상용 비전 SDK 없이 분석할 수 있도록 개발한 Windows 데스크톱 프로그램입니다. 사용자가 지정한 ROI 안에서 입자를 검출하고 크기·형상·밝기 특성을 측정하며, 분석 설정과 결과를 함께 저장해 동일 조건의 분석을 재현할 수 있도록 설계했습니다.',
+      en: 'Developed a Windows desktop application for analyzing microscopic particles in SEM and microscope images without relying on commercial vision SDKs. It detects particles within a user-defined ROI, measures their size, shape, and intensity properties, and preserves both settings and results for reproducible analysis.',
+    },
+    do: [
+      {
+        ko: '.NET 10, WPF, MVVM, OpenCvSharp 기반으로 이미지 로드부터 분석·검토·내보내기까지 이어지는 데스크톱 분석 워크플로우를 구현',
+        en: 'Built an end-to-end desktop analysis workflow—from image loading and processing to review and export—using .NET 10, WPF, MVVM, and OpenCvSharp.',
+      },
+      {
+        ko: 'Rectangle ROI, GV Threshold, Gaussian Blur, CLAHE, Morphology 및 Watershed를 조합한 입자 검출·분리 파이프라인을 구현',
+        en: 'Implemented a particle detection and separation pipeline combining rectangular ROI, GV thresholding, Gaussian blur, CLAHE, morphology, and watershed.',
+      },
+      {
+        ko: '면적, 둘레, 등가원 직경, Feret 직경, 장·단축, 종횡비, 원형도, Solidity 및 GV 통계를 계산하고 실제 길이 단위로 변환',
+        en: 'Calculated area, perimeter, equivalent diameter, Feret diameters, major and minor axes, aspect ratio, circularity, solidity, and GV statistics with real-world unit conversion.',
+      },
+      {
+        ko: '검출 객체 선택·확대, 수동 포함/제외, 탈락 사유 추적, 크기 분포 Histogram과 Accepted/Rejected Overlay UI를 구현',
+        en: 'Implemented object selection and zooming, manual inclusion or exclusion, rejection-reason tracking, size-distribution histograms, and accepted/rejected overlays.',
+      },
+      {
+        ko: '분석 설정 Preset과 원본·ROI·Mask·Overlay 이미지, CSV, JSON, 로컬 HTML 보고서를 포함하는 재현 가능한 결과 저장 기능을 구현',
+        en: 'Implemented reproducible result export containing analysis presets, source/ROI/mask/overlay images, CSV and JSON data, and a standalone local HTML report.',
+      },
+    ],
+    achievements: [
+      {
+        ko: '비동기 분석과 CancellationToken 기반 작업 취소, OpenCV 리소스 수명 관리를 적용해 반복 분석 시 UI 응답성과 안정성을 확보',
+        en: 'Improved UI responsiveness and repeated-analysis stability through asynchronous processing, CancellationToken support, and explicit OpenCV resource lifecycle management.',
+      },
+      {
+        ko: '분석 조건, 객체별 판정 결과, 수동 Override 및 원본 이미지 SHA-256을 함께 저장해 분석 결과의 추적성과 재현성을 강화',
+        en: 'Improved analysis traceability and reproducibility by storing processing conditions, per-object decisions, manual overrides, and the source image SHA-256 hash.',
+      },
+      {
+        ko: '형상 공식, 축척 변환, 경계 객체 판정, Watershed 분리, 객체 선택 및 통계 기능을 합성 이미지 기반 자동 테스트로 검증',
+        en: 'Validated geometry formulas, scale conversion, border-object handling, watershed separation, object selection, and statistics through automated synthetic-image tests.',
+      },
+      {
+        ko: '현재 34개의 단위·분석 테스트가 모두 통과하는 검증 기반의 영상 분석 구조를 구축',
+        en: 'Established a verification-driven image analysis architecture with all 34 unit and analysis tests passing.',
+      },
+    ],
+    startDate: new Date('2026-07-24'),
+    endDate: new Date('2026-08-09'),
   },
   {
     id: 10,
-    category: 'backend',
-    imgUrl: '/img/tech/plate_picks.png',
+    category: 'ai',
+    imgUrl: '/img/tech/dpo-llm-analysis.png',
     title: {
-      ko: 'Plate Picks : 익명 회식 메뉴 선정 시스템',
-      en: 'Plate Picks: Anonymous Team Meal Selection System',
+      ko: 'Instruction-Tuned 언어모델에서 DPO의 효과와 한계에 대한 실험적 분석',
+      en: 'An Empirical Study on the Effectiveness and Limitations of DPO in Instruction-Tuned Language Models',
     },
     description: {
-      ko: '익명 투표와 결과 통계를 통해 조직 내 메뉴 선정 부담을 줄이는 웹 서비스입니다.',
-      en: 'A web service that reduces the burden of team meal selection through anonymous voting and result analytics.',
+      ko: '이미 높은 수준으로 정렬된 Instruction-Tuned 대형 언어모델에 SFT와 DPO를 순차적으로 적용하고, 추가적인 선호도 기반 학습이 실제 응답 성능 향상으로 이어지는지를 자동 평가와 LLM-as-a-Judge 방식으로 분석한 연구입니다.',
+      en: 'An empirical study examining whether additional preference-based training improves an already well-aligned instruction-tuned language model by sequentially applying SFT and DPO and evaluating the resulting models through automatic metrics and LLM-as-a-Judge evaluation.',
     },
-    techs: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Docker', 'Ubuntu'],
+    techs: [
+      'LLM',
+      'Gemma-4-E2B-it',
+      'Supervised Fine-Tuning',
+      'Direct Preference Optimization',
+      'LoRA',
+      'QLoRA',
+      '4-bit Quantization',
+      'LLM-as-a-Judge',
+      'GPT-5-mini',
+      'MMLU',
+      'MMMLU',
+      'KLUE',
+    ],
     projectOutline: {
-      ko: '조직 내 회식 메뉴 선정 과정에서 발생하는 눈치와 비효율을 줄이기 위해, 익명 투표 기반 의사결정 시스템을 구축했습니다. 프론트엔드, 백엔드, 배포를 모두 직접 다루며 풀스택 개발 역량을 확장한 프로젝트입니다.',
-      en: 'Built an anonymous voting-based decision-making system to reduce pressure and inefficiency in team meal selection. This project expanded my full-stack capability by covering frontend, backend, and deployment end to end.',
+      ko: '최근 공개되는 대형 언어모델은 이미 Instruction Tuning을 통해 높은 수준으로 정렬되어 있어, 이러한 모델에 추가적인 DPO를 적용하는 것이 실제 성능 향상으로 이어지는지는 명확하지 않습니다. 이를 검증하기 위해 Gemma-4-E2B-it을 기반 모델로 선정하고, 한국어 Instruction 데이터 기반 SFT와 Preference Pair 기반 DPO를 순차적으로 적용했습니다. 이후 Base, SFT, DPO 세 모델을 200개의 평가 문항에 대해 문자열 기반 자동 평가와 GPT-5-mini 기반 LLM-as-a-Judge 평가로 비교하여, 초기 모델의 정렬 수준과 Preference 데이터 품질이 DPO 효과에 미치는 영향을 분석했습니다.',
+      en: 'Modern large language models are often released after extensive instruction tuning, making it unclear whether applying additional DPO to an already well-aligned model provides meaningful performance gains. To investigate this, Gemma-4-E2B-it was used as the base model and sequentially trained with Korean instruction data through SFT and preference pairs through DPO. The Base, SFT, and DPO models were then evaluated on 200 samples using both string-based automatic metrics and GPT-5-mini-based LLM-as-a-Judge evaluation to analyze how initial alignment level and preference-data quality affect the effectiveness of DPO.',
     },
     do: [
       {
-        ko: 'React 기반으로 직관적인 투표 인터페이스와 결과 확인 UI를 구현',
-        en: 'Implemented an intuitive voting interface and result-checking UI with React.',
+        ko: 'Gemma-4-E2B-it을 기반 모델로 선정하고 SFT → DPO의 단계적 학습 파이프라인을 구성하여 추가 정렬에 따른 모델 성능 변화를 비교',
+        en: 'Built a sequential SFT-to-DPO training pipeline on top of Gemma-4-E2B-it to compare performance changes caused by additional alignment.',
       },
       {
-        ko: 'NestJS와 MySQL을 활용해 익명 투표 처리 및 결과 집계용 REST API를 구축',
-        en: 'Built REST APIs for anonymous voting and result aggregation using NestJS and MySQL.',
+        ko: '공개 한국어 Instruction 데이터와 생성 데이터를 결합한 7,000개 이상의 데이터로 SFT를 수행하고, 약 1,200개의 Prompt-Chosen-Rejected Preference Pair를 이용해 DPO를 수행',
+        en: 'Performed SFT using more than 7,000 public and generated Korean instruction samples and conducted DPO with approximately 1,200 prompt-chosen-rejected preference pairs.',
       },
       {
-        ko: 'Docker 기반으로 서비스를 컨테이너화하고 Ubuntu 서버 배포 환경을 구성',
-        en: 'Containerized the service with Docker and configured the deployment environment on Ubuntu.',
+        ko: 'LoRA 기반 Parameter-Efficient Fine-Tuning 구조와 4-bit QLoRA 및 bfloat16 정밀도를 적용하여 제한된 학습 자원에서도 SFT와 DPO 실험이 가능하도록 구성',
+        en: 'Applied LoRA-based parameter-efficient fine-tuning with 4-bit QLoRA and bfloat16 precision to enable SFT and DPO experiments under limited computational resources.',
       },
       {
-        ko: '프론트엔드, 백엔드, 배포 단계를 하나의 흐름으로 연결해 실제 운영 가능한 구조를 설계',
-        en: 'Connected frontend, backend, and deployment into one flow to design an operationally viable architecture.',
+        ko: 'MMLU 30개, MMMLU 20개, KLUE 50개, 생성 문항 100개로 총 200개의 평가 데이터셋을 구성하고 Base, SFT, DPO 모델의 응답을 동일 조건에서 비교',
+        en: 'Constructed a 200-sample evaluation dataset consisting of 30 MMLU, 20 MMMLU, 50 KLUE, and 100 generated questions and compared Base, SFT, and DPO responses under identical conditions.',
+      },
+      {
+        ko: 'Exact Match, Contains Match 등의 자동 평가와 GPT-5-mini 기반 LLM-as-a-Judge를 병행하여 정확성, 자연스러움, 유용성, 종합 품질 관점에서 모델을 다각적으로 평가',
+        en: 'Combined automatic metrics such as exact and contains match with GPT-5-mini-based LLM-as-a-Judge evaluation to assess accuracy, fluency, helpfulness, and overall response quality.',
       },
     ],
     achievements: [
       {
-        ko: '프론트엔드부터 백엔드, 배포까지 전 과정을 직접 수행하며 풀스택 개발 경험을 확보',
-        en: 'Gained full-stack development experience by handling frontend, backend, and deployment end to end.',
+        ko: '2026 한국정보기술학회(KIIT) 하계대학생논문경진대회 금상 수상',
+        en: 'Won Gold Prize at the 2026 KIIT Summer Undergraduate Paper Competition.',
       },
       {
-        ko: '익명성 보장과 결과 시각화를 결합한 실사용형 웹 서비스 구조를 구현',
-        en: 'Built a practical web service structure that combines anonymity with result visualization.',
+        ko: '자동 평가에서 Contains Match 기준 Base 8건 대비 SFT와 DPO가 각각 15건을 기록했으나, SFT 이후 DPO를 추가했을 때 별도의 추가 향상은 나타나지 않음을 확인',
+        en: 'Observed that SFT and DPO each achieved 15 contains-match results compared with 8 for the Base model, while DPO provided no additional improvement over SFT on this metric.',
       },
       {
-        ko: 'NestJS, MySQL, Docker, Ubuntu를 연계한 서비스 운영 흐름을 직접 경험',
-        en: 'Built hands-on experience operating a service workflow connecting NestJS, MySQL, Docker, and Ubuntu.',
+        ko: 'GPT 기반 평가에서 정확성 124개 문항이 세 모델 간 동점으로 나타났으며, 자연스러움·유용성·종합 평가에서는 오히려 Base 모델이 각각 140개, 128개, 128개 문항에서 가장 우수한 결과를 보임을 확인',
+        en: 'Found that 124 evaluation samples resulted in ties for accuracy, while the Base model outperformed the fine-tuned variants on 140 fluency, 128 helpfulness, and 128 overall-quality samples.',
+      },
+      {
+        ko: '이미 충분히 정렬된 Instruction-Tuned 모델에서는 추가적인 SFT와 DPO가 반드시 성능 향상으로 이어지지 않으며, 일부 응답 품질은 오히려 저하될 수 있음을 실험적으로 확인',
+        en: 'Empirically demonstrated that additional SFT and DPO do not necessarily improve an already well-aligned instruction-tuned model and may even degrade certain aspects of response quality.',
+      },
+      {
+        ko: 'DPO의 효과가 모델의 초기 정렬 수준뿐 아니라 Chosen-Rejected 응답 간 품질 차이와 Preference 데이터의 품질에 크게 의존한다는 적용상의 한계를 도출',
+        en: 'Identified that DPO effectiveness depends heavily not only on the model’s initial alignment but also on preference-data quality and a sufficiently clear quality gap between chosen and rejected responses.',
+      },
+      {
+        ko: 'Instruction 응답 개선 중심의 학습 데이터와 지식·추론 문제를 포함한 평가 데이터 사이의 분포 차이가 Fine-Tuning 성능 평가에 영향을 줄 수 있음을 분석',
+        en: 'Analyzed how distribution mismatch between instruction-focused training data and evaluation data containing knowledge and reasoning tasks can affect fine-tuning performance.',
       },
     ],
-    startDate: new Date('2025-02-01'),
-    endDate: new Date('2025-05-10'),
+    startDate: null,
+    endDate: null,
   },
 ];
