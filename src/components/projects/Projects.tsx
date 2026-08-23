@@ -22,19 +22,16 @@ export const Projects = ({ language, onProjectClick }: ProjectsProps) => {
 
   const categories: FilterCategory[] = [
     'all',
-    'webFrontend',
-    'backend',
-    'app',
-    'desktop',
-    'ai',
+    'featuredVision',
+    'other',
+    'research',
   ];
   const categoryLabels: Record<FilterCategory, string> = {
     all: language === 'ko' ? '전체' : 'All',
-    webFrontend: language === 'ko' ? '웹 프론트엔드' : 'Web Frontend',
-    backend: language === 'ko' ? '백엔드' : 'Backend',
-    app: language === 'ko' ? '앱' : 'App',
-    desktop: language === 'ko' ? '데스크톱' : 'Desktop',
-    ai: 'AI',
+    featuredVision:
+      language === 'ko' ? 'Featured Vision Projects' : 'Featured Vision Projects',
+    other: language === 'ko' ? 'Other Projects' : 'Other Projects',
+    research: language === 'ko' ? 'Research & Awards' : 'Research & Awards',
   };
 
   const filteredProjects =
@@ -50,11 +47,11 @@ export const Projects = ({ language, onProjectClick }: ProjectsProps) => {
     <div className={styles.container}>
       <div className={styles.subText}>
         {language === 'ko'
-          ? '애정이 담긴 프로젝트들이에요'
-          : 'Projects built with care and follow-through'}
+          ? 'Computer Vision & Image Processing 중심 프로젝트'
+          : 'Computer Vision & Image Processing focused work'}
       </div>
       <div className={styles.titleText}>
-        {language === 'ko' ? '프로젝트' : 'Projects'}
+        {language === 'ko' ? 'Featured Projects' : 'Featured Projects'}
       </div>
 
       <SelectTabBar

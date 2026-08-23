@@ -16,12 +16,30 @@
     transition: 0.2s ease;
   }
 
-  img {
+  img,
+  .imageFallback {
     width: 100%;
     height: 12rem;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid #f0f0f0;
+  }
+
+  img {
     object-fit: cover;
+  }
+
+  .imageFallback {
+    box-sizing: border-box;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    color: #2a52be;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
   }
 
   .title {
@@ -43,11 +61,13 @@
     gap: 0.5rem;
 
     span {
-      padding: 0.2rem 0.5rem;
-      border-radius: 12px;
+      padding: 0.28rem 0.62rem;
+      border-radius: 8px;
       color: #2a52be;
-      font-weight: 500;
-      background-color: #e3f2fd;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background-color: #eaf2ff;
+      border: 1px solid #bfd7ff;
     }
   }
 }

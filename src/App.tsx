@@ -3,6 +3,7 @@ import { DetailProjects } from './components/detailProjects/DetailProjects';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/header/Header';
 import { Intro } from './components/intro/Intro';
+import { PrintableResume } from './components/printableResume/PrintableResume';
 import { Projects } from './components/projects/Projects';
 import { Techs } from './components/techs/Techs';
 import styles from './App.module.scss';
@@ -71,6 +72,16 @@ function App() {
     navigateTo({ name: 'projectDetail', projectId });
   };
 
+  const handlePdfDownload = () => {
+    const previousTitle = document.title;
+    document.title =
+      language === 'ko'
+        ? '이민우_Computer_Vision_Image_Processing_Engineer'
+        : 'Minwoo_Lee_Computer_Vision_Image_Processing_Engineer';
+    window.print();
+    document.title = previousTitle;
+  };
+
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
@@ -98,49 +109,53 @@ function App() {
 
   return (
     <div className={styles.container}>
-      <Header
-        language={language}
-        onLanguageChange={setLanguage}
-        onTechClick={() =>
-          route.name === 'home'
-            ? scrollToSection(techsRef)
-            : navigateHome('techs')
-        }
-        onProjectClick={() =>
-          route.name === 'home'
-            ? scrollToSection(projectsRef)
-            : navigateHome('projects')
-        }
-      />
+      <div className={styles.screenContent}>
+        <Header
+          language={language}
+          onLanguageChange={setLanguage}
+          onPdfClick={handlePdfDownload}
+          onTechClick={() =>
+            route.name === 'home'
+              ? scrollToSection(techsRef)
+              : navigateHome('techs')
+          }
+          onProjectClick={() =>
+            route.name === 'home'
+              ? scrollToSection(projectsRef)
+              : navigateHome('projects')
+          }
+        />
 
-      {route.name === 'home' ? (
-        <>
-          <Intro language={language} />
-          <CoreCompetencies language={language} />
-          <div ref={techsRef}>
-            <Techs language={language} />
-          </div>
-          <div ref={projectsRef}>
-            <Projects language={language} onProjectClick={handleProjectOpen} />
-          </div>
-        </>
-      ) : (
-        <main className={styles.detailPage}>
-          <button
-            type='button'
-            className={styles.backButton}
-            onClick={() => window.history.back()}
-          >
-            {language === 'ko' ? '프로젝트 목록으로' : 'Back to Projects'}
-          </button>
-          <DetailProjects language={language} projectId={route.projectId} />
-        </main>
-      )}
+        {route.name === 'home' ? (
+          <>
+            <Intro language={language} />
+            <CoreCompetencies language={language} />
+            <div ref={techsRef}>
+              <Techs language={language} />
+            </div>
+            <div ref={projectsRef}>
+              <Projects language={language} onProjectClick={handleProjectOpen} />
+            </div>
+          </>
+        ) : (
+          <main className={styles.detailPage}>
+            <button
+              type='button'
+              className={styles.backButton}
+              onClick={() => window.history.back()}
+            >
+              {language === 'ko' ? '프로젝트 목록으로' : 'Back to Projects'}
+            </button>
+            <DetailProjects language={language} projectId={route.projectId} />
+          </main>
+        )}
 
-      <Footer
-        language={language}
-        onProjectsClick={() => navigateHome('projects')}
-      />
+        <Footer
+          language={language}
+          onProjectsClick={() => navigateHome('projects')}
+        />
+      </div>
+      <PrintableResume language={language} />
     </div>
   );
 }

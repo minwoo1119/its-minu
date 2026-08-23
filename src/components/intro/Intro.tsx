@@ -10,15 +10,15 @@ export const Intro = ({ language }: IntroProps) => {
     language === 'ko'
       ? {
           title: '안녕하세요, ',
-          role: '소프트웨어 엔지니어',
+          role: 'Computer Vision & Image Processing Engineer',
           name: ' 이민우입니다.',
-          sub: '웹 프론트엔드, 백엔드, 앱, AI, 비전SW까지 다양한 분야에 관심을 갖고 개발해나가고 있습니다.',
+          sub: '전통적 영상처리 알고리즘과 최신 AI/딥러닝을 결합하여 산업용 비전 검사 시스템 및 고성능 정량 분석 솔루션을 구축하는 컴퓨터비전 엔지니어 이민우입니다.',
         }
       : {
           title: 'Hello, I am ',
-          role: 'a software engineer',
+          role: 'a Computer Vision & Image Processing Engineer',
           name: ' Minwoo Lee.',
-          sub: 'I am interested in a wide range of fields, from web frontend and backend development to apps, AI, and computer vision software, and I keep building across them.',
+          sub: 'I build industrial vision inspection systems and high-performance quantitative analysis solutions by combining classical image processing with modern AI and deep learning.',
         };
 
   return (

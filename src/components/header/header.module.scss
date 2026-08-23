@@ -74,6 +74,12 @@ $tablet: 768px;
       }
     }
 
+    .pdfButton {
+      border: 0;
+      background: transparent;
+      font-family: inherit;
+    }
+
     .languageSelector {
       display: flex;
       align-items: center;

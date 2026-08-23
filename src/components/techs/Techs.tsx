@@ -3,7 +3,7 @@ import styles from './techs.module.scss';
 import { useState } from 'react';
 import type { Language } from '../../i18n';
 
-export type TabBarOption = 'frontend' | 'backend' | 'ai' | 'vision';
+export type TabBarOption = 'visionAi' | 'visionSw' | 'supplementary';
 
 interface TechStackItem {
   name: string;
@@ -15,60 +15,45 @@ interface TechsProps {
 }
 
 export const Techs = ({ language }: TechsProps) => {
-  const [selected, setSelected] = useState<TabBarOption>('frontend');
-  const options: TabBarOption[] = ['frontend', 'backend', 'ai', 'vision'];
+  const [selected, setSelected] = useState<TabBarOption>('visionAi');
+  const options: TabBarOption[] = ['visionAi', 'visionSw', 'supplementary'];
   const labels = {
-    frontend: language === 'ko' ? '프론트엔드' : 'Frontend',
-    backend: language === 'ko' ? '백엔드' : 'Backend',
-    ai: 'AI',
-    vision: language === 'ko' ? '비전SW' : 'Computer Vision',
+    visionAi: language === 'ko' ? 'Computer Vision & AI' : 'Computer Vision & AI',
+    visionSw: language === 'ko' ? 'Vision SW Engineering' : 'Vision SW Engineering',
+    supplementary:
+      language === 'ko'
+        ? 'Supplementary Engineering'
+        : 'Supplementary Engineering',
   };
 
   const techStacks: Record<TabBarOption, TechStackItem[]> = {
-    frontend: [
-      ['React', 'react'],
-      ['HTML5', 'html5'],
-      ['CSS3', 'css3'],
-      ['JavaScript', 'javascript'],
-      ['TypeScript', 'typescript'],
-      ['TailwindCSS', 'tailwindcss'],
-      ['styled-components', 'styledcomponents'],
-      ['CSS Modules', 'cssmodules'],
-      ['Zustand', 'zustand'],
-      ['TanStack Query', 'tanstack'],
-      ['Flutter', 'flutter'],
-      ['React Native', 'react'],
-      ['Expo', 'expo'],
-    ].map(([name, icon]) => ({ name, icon })),
-    backend: [
-      ['NestJS', 'nestjs'],
-      ['MySQL', 'mysql'],
-      ['PostgreSQL', 'postgresql'],
-      ['Docker', 'docker'],
-      ['Ubuntu', 'ubuntu'],
-      ['Nginx', 'nginx'],
-    ].map(([name, icon]) => ({ name, icon })),
-    ai: [
-      ['Python', 'python'],
-      ['PyTorch', 'pytorch'],
-      ['ONNX', 'onnx'],
+    visionAi: [
+      ['OpenCV', 'opencv'],
+      ['OpenCvSharp', 'opencv'],
+      ['HALCON', 'halcon'],
       ['TensorRT', 'nvidia'],
+      ['ONNX Runtime', 'onnx'],
       ['YOLO', 'ultralytics'],
-      ['OCR', 'ocr'],
-      ['LLM', 'llm'],
-      ['Unsloth', 'unsloth'],
-      ['QLoRA', 'qlora'],
-      ['LoRA', 'lora'],
-      ['LangChain', 'langchain'],
-      ['RAG', 'rag'],
+      ['PyTorch', 'pytorch'],
+      ['C++ CUDA', 'nvidia'],
     ].map(([name, icon]) => ({ name, icon })),
-    vision: [
+    visionSw: [
       ['C++', 'cplusplus'],
       ['MFC', 'microsoft'],
       ['C#', 'csharp'],
-      ['WPF', 'dotnet'],
-      ['OpenCV', 'opencv'],
-      ['HALCON', 'halcon'],
+      ['.NET 8 WPF', 'dotnet'],
+      ['MVVM', 'dotnet'],
+      ['Async / CancellationToken', 'dotnet'],
+      ['Clean Architecture', 'dotnet'],
+      ['Memory Management', 'cplusplus'],
+    ].map(([name, icon]) => ({ name, icon })),
+    supplementary: [
+      ['Python', 'python'],
+      ['FastAPI', 'fastapi'],
+      ['Docker', 'docker'],
+      ['React', 'react'],
+      ['TypeScript', 'typescript'],
+      ['Flutter', 'flutter'],
     ].map(([name, icon]) => ({ name, icon })),
   };
 
@@ -82,8 +67,8 @@ export const Techs = ({ language }: TechsProps) => {
       />
       <div className={styles.text}>
         {language === 'ko'
-          ? '많이 부족하지만 열심히 깊이를 채워나가는 중이에요.'
-          : 'Still building depth every day, one layer at a time.'}
+          ? '비전 검사, 영상 정량 분석, AI 추론 최적화에 바로 연결되는 기술을 우선합니다.'
+          : 'Prioritizing skills that directly support vision inspection, quantitative image analysis, and optimized AI inference.'}
       </div>
       <div className={styles.techStacks}>
         <div

@@ -7,6 +7,7 @@ interface HeaderProps {
   onLanguageChange: (language: Language) => void;
   onTechClick: () => void;
   onProjectClick: () => void;
+  onPdfClick: () => void;
 }
 
 export const Header = ({
@@ -14,12 +15,14 @@ export const Header = ({
   onLanguageChange,
   onTechClick,
   onProjectClick,
+  onPdfClick,
 }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const labels = {
     tech: language === 'ko' ? '기술' : 'Tech',
     project: language === 'ko' ? '프로젝트' : 'Projects',
+    pdf: language === 'ko' ? 'PDF 다운로드' : 'Download PDF',
     blog: language === 'ko' ? '블로그' : 'Blog',
     menu: language === 'ko' ? '메뉴 토글' : 'Toggle menu',
     language: language === 'ko' ? '언어' : 'Language',
@@ -69,6 +72,13 @@ export const Header = ({
         >
           {labels.project}
         </div>
+        <button
+          type='button'
+          className={`${styles.tab} ${styles.pdfButton}`}
+          onClick={() => handleMenuClick(onPdfClick)}
+        >
+          {labels.pdf}
+        </button>
         <a
           className={styles.tab}
           href='https://lmw1119.tistory.com/'

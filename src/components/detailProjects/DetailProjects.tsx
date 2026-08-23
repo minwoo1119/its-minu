@@ -14,18 +14,14 @@ interface Props {
 
 const categoryLabels = {
   ko: {
-    webFrontend: '웹 프론트엔드',
-    backend: '백엔드',
-    app: '앱',
-    desktop: '데스크톱',
-    ai: 'AI',
+    featuredVision: 'Featured Vision Project',
+    other: 'Other Project',
+    research: 'Research & Awards',
   },
   en: {
-    webFrontend: 'Web Frontend',
-    backend: 'Backend',
-    app: 'App',
-    desktop: 'Desktop',
-    ai: 'AI',
+    featuredVision: 'Featured Vision Project',
+    other: 'Other Project',
+    research: 'Research & Awards',
   },
 } as const;
 

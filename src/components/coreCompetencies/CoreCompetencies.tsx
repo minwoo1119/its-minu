@@ -10,50 +10,50 @@ export const CoreCompetencies = ({ language }: CoreCompetenciesProps) => {
   const content =
     language === 'ko'
       ? {
-          mini: '핵심 역량',
-          title: '겁없이 뛰어들고 집요하게 탐구합니다.',
+          mini: 'About Me',
+          title: '비전 알고리즘을 실시간 제품 소프트웨어로 구현합니다.',
           items: [
             {
-              title: '견고한 프론트엔드 개발',
+              title: '실시간 비전 SW 아키텍처',
               description:
-                'Typescript 기반 웹 애플리케이션 개발을 합니다. css는 Module Scss를 즐겨 사용하고, Tanstack Query도 공부하고 있어요.',
-              icon: '💡',
+                'C++ MFC와 C# .NET WPF(MVVM) 기반으로 카메라, ROI, 비동기 분석, CancellationToken, OpenCV Mat 수명 관리가 포함된 실시간 비전 시스템을 설계합니다.',
+              icon: '⚙️',
             },
             {
-              title: '다양한 기술에 대한 경험',
+              title: '정밀 분할과 정량 분석',
               description:
-                'React 외에 React Native, Flutter 의 개발 경험을 보유했습니다. 타 분야와의 원활한 소통을 위해 NestJS 를 공부하고 있으며, AI 연구 경험도 있어요.',
-              icon: '🚀',
+                'CLAHE, Adaptive Threshold, Morphology, Distance Transform, Watershed 기반의 이미지 분할 파이프라인과 면적, Feret 직경, Circularity 등 형상 지표 산출을 구현합니다.',
+              icon: '📐',
             },
             {
-              title: '성과를 만드는 사용자 중심 협업',
+              title: 'AI 모델 최적화와 확장 역량',
               description:
-                '기본적으로 사람을 좋아합니다. 피드백 혹은 의견도 최대한 반영하려 노력하는 편이에요. 사용자는 중요하니까요.',
-              icon: '🤝',
+                'YOLO, Custom CNN, LightSVTR 모델 학습 및 ONNX Runtime/TensorRT 변환을 수행했고, TensorRT 최적화로 추론 지연 시간을 300ms에서 80ms로 줄였습니다. 웹/앱/LLM 경험은 비전 솔루션을 확장하는 소프트웨어 기반 역량으로 활용합니다.',
+              icon: '🧠',
             },
           ],
         }
       : {
-          mini: 'Core Competencies',
-          title: 'I move fast into new domains and stay stubborn about depth.',
+          mini: 'About Me',
+          title: 'I turn vision algorithms into real-time product software.',
           items: [
             {
-              title: 'Solid Frontend Engineering',
+              title: 'Real-Time Vision Software Architecture',
               description:
-                'I build TypeScript-based web applications, prefer CSS Modules with SCSS, and keep expanding my depth with tools like TanStack Query.',
-              icon: '💡',
+                'I design C++ MFC and C# .NET WPF(MVVM) vision systems with camera control, ROI workflows, asynchronous analysis, CancellationToken support, and explicit OpenCV Mat lifecycle management.',
+              icon: '⚙️',
             },
             {
-              title: 'Range Across Technologies',
+              title: 'Precise Segmentation and Quantitative Analysis',
               description:
-                'Beyond React, I have experience with React Native and Flutter. I am also studying NestJS for stronger cross-functional collaboration and have AI research experience.',
-              icon: '🚀',
+                'I implement CLAHE, adaptive thresholding, morphology, distance transform, and watershed pipelines, then convert segmented objects into calibrated metrics such as area, Feret diameter, and circularity.',
+              icon: '📐',
             },
             {
-              title: 'User-Centered Collaboration',
+              title: 'AI Optimization and Software Range',
               description:
-                'I work well with people and make a real effort to absorb feedback and context, because products only matter if they work for users.',
-              icon: '🤝',
+                'I train and deploy YOLO, custom CNN, and LightSVTR models through ONNX Runtime and TensorRT, reducing inference latency from 300ms to 80ms. My web, app, and LLM experience supports the full software foundation around vision solutions.',
+              icon: '🧠',
             },
           ],
         };
