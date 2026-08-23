@@ -567,6 +567,8 @@ export const projectDetailData: ProjectDetailInfo[] = [
       },
     ],
     startDate: new Date('2026-08-01'),
+    endDate: null,
+  },
   {
     id: 11,
     category: 'desktop',
