@@ -694,8 +694,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Instruction-Tuned LLM DPO Alignment Research',
     },
     oneLiner: {
-      ko: 'Gemma 기반 SFT/DPO 및 QLoRA 경량 Fine-tuning을 통한 선호도 학습 효과 분석 연구 (KIIT 금상/은상)',
-      en: 'Research on Gemma SFT/DPO and QLoRA fine-tuning for preference alignment, winning KIIT Gold and Silver awards.',
+      ko: 'Gemma 기반 SFT/DPO 및 QLoRA 경량 Fine-tuning을 통한 선호도 학습 효과 분석 연구',
+      en: 'Research on Gemma SFT/DPO and QLoRA fine-tuning for preference alignment.',
     },
     overview: {
       ko: 'Instruction-Tuned 언어모델에 SFT와 Direct Preference Optimization(DPO)을 순차 적용하고, 선호도 데이터셋 정렬이 실제 추론 및 지시 이행 능력에 미치는 영향을 LLM-as-a-Judge와 벤치마크로 정량 분석한 연구입니다. 2026 KIIT 하계 학술대회 금상 및 2025 KIIT 추계 은상을 수상했습니다.',
@@ -709,7 +709,9 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Led dataset pipeline, Unsloth QLoRA 4-bit SFT/DPO training, LLM-as-a-Judge evaluation, and paper authorship.',
     },
     images: [
-      image('/img/tech/unsloth.png', 'LLM Alignment 파이프라인', 'LLM Alignment pipeline overview'),
+      image('/img/tech/llm_alignment_pipeline.png', 'LLM Alignment 파이프라인', 'LLM Alignment pipeline overview'),
+      image('/img/tech/llm_sft_dpo_flow.png', 'SFT/DPO 학습 흐름', 'SFT/DPO training architecture'),
+      image('/img/tech/llm_eval_matrix.png', '자동 평가 결과 매트릭스', 'Automated evaluation result matrix'),
     ],
     techChoices: [
       {
@@ -742,7 +744,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Executed two-stage alignment consisting of SFT on domain instruction data followed by DPO on chosen/rejected preference pairs.',
         },
         images: [
-          image('/img/tech/unsloth.png', 'SFT/DPO 학습 흐름', 'SFT/DPO training architecture'),
+          image('/img/tech/llm_sft_dpo_flow.png', 'SFT/DPO 학습 흐름', 'SFT/DPO training architecture'),
         ],
       },
       {
@@ -752,7 +754,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Built a blind scoring pipeline evaluating model response pairs systematically across accuracy, logic, and safety.',
         },
         images: [
-          image('/img/tech/unsloth.png', '자동 평가 결과 매트릭스', 'Automated evaluation result matrix'),
+          image('/img/tech/llm_eval_matrix.png', '자동 평가 결과 매트릭스', 'Automated evaluation result matrix'),
         ],
       },
     ],
@@ -987,7 +989,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: '100% ownership of planning, Flutter development, Riverpod state design, Wi-Fi verification, timer precision, and dual store release.',
     },
     images: [
-      image('/img/tech/geumpumta.png', '금품타 타이머 및 랭킹 메인 화면', 'Geumpumta timer and ranking main screen'),
+      image('/img/tech/geumpumta_wifi_ranking.png', 'Wi-Fi 인증 및 랭킹 화면', 'Wi-Fi verification and ranking view'),
+      image('/img/tech/geumpumta_timer.png', '타이머 측정 화면', 'Timer measurement screen'),
+      image('/img/tech/geumpumta_stats.png', '통계 화면', 'Statistics screen'),
+      image('/img/tech/geumpumta_more.png', '더보기 화면', 'Settings and more screen'),
     ],
     techChoices: [
       {
@@ -1020,7 +1025,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Guarantees zero timer drift across app switches, terminations, and system sleeps using server heartbeat offset calculations.',
         },
         images: [
-          image('/img/tech/geumpumta.png', '타이머 측정 화면', 'Timer measurement screen'),
+          image('/img/tech/geumpumta_timer.png', '타이머 측정 화면', 'Timer measurement screen'),
         ],
       },
       {
@@ -1030,7 +1035,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Validates on-campus study presence by verifying network gateway IPs to eliminate fake study records.',
         },
         images: [
-          image('/img/tech/geumpumta.png', 'Wi-Fi 인증 및 랭킹 화면', 'Wi-Fi verification and ranking view'),
+          image('/img/tech/geumpumta_wifi_ranking.png', 'Wi-Fi 인증 및 랭킹 화면', 'Wi-Fi verification and ranking view'),
         ],
       },
       {
@@ -1040,7 +1045,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Aggregates daily, weekly, and monthly study stats with live department leaderboards to boost motivation.',
         },
         images: [
-          image('/img/tech/geumpumta.png', '실시간 랭킹 대시보드', 'Real-time leaderboard dashboard'),
+          image('/img/tech/geumpumta_stats.png', '통계 화면', 'Statistics screen'),
         ],
       },
     ],
@@ -1112,12 +1117,11 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     ],
     links: [
       {
-        label: { ko: 'App Store', en: 'App Store' },
-        url: 'https://apps.apple.com/kr/app/%EA%B8%88%ED%92%88%ED%83%80/id6755481890',
-      },
-      {
-        label: { ko: 'Google Play', en: 'Google Play' },
-        url: 'https://play.google.com/store/apps/details?id=com.geumpumgalchwi.geumpumta&hl=ko',
+        label: { ko: '마켓 배포 현황', en: 'Release Status' },
+        note: {
+          ko: 'App Store 및 Google Play 양대 마켓 정식 출시 후 현재는 서비스 운영이 종료(중단)되었습니다.',
+          en: 'Officially shipped to App Store and Google Play; the live service is currently discontinued.',
+        },
       },
       {
         label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
@@ -2034,8 +2038,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Slow-Aging Domain LLM Fine-Tuning',
     },
     oneLiner: {
-      ko: '도메인 전문 지식 부족을 해결하기 위해 저속노화 문헌 데이터를 학습한 Q&A AI (KIIT 은상 수상)',
-      en: 'A domain-specialized Q&A AI trained on slow-aging literature data, winning KIIT Silver Award.',
+      ko: '도메인 전문 지식 부족을 해결하기 위해 저속노화 문헌 데이터를 학습한 Q&A AI',
+      en: 'A domain-specialized Q&A AI trained on slow-aging literature data.',
     },
     overview: {
       ko: '웹 의학 기사와 PDF 전문 매거진을 크롤링 및 정제하여 JSONL 포맷의 도메인 특화 질의응답 데이터셋을 구축하고, Unsloth와 LoRA 기법을 통해 적은 자원으로 Gemma 모델을 효율적으로 파인튜닝한 프로젝트입니다. 2025 한국정보기술학회(KIIT) 추계 학술대회에서 은상을 수상했습니다.',
@@ -2049,6 +2053,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Led data collection/cleaning, JSONL construction, Unsloth fine-tuning pipeline, and evaluation experiments.',
     },
     images: [
+      image('/img/tech/unsloth.png', 'LLM 파인튜닝 파이프라인', 'LLM Fine-tuning pipeline overview'),
       image('/img/tech/slowaging_dataset_flow.png', '데이터셋 구축 흐름', 'Dataset pipeline flow'),
       image('/img/tech/slowaging_response_comparison.png', '학습 전후 응답 비교', 'Pre- and post-fine-tuning comparison'),
     ],
@@ -2174,7 +2179,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Architected the React Native & Expo Router codebase, implemented Zustand + SecureStore guest persistence, TanStack Query caching, Axios interceptor token refresh, Zod form validations, and AdMob monetization.',
     },
     images: [
-      image('/img/tech/geumpumta.png', '예상(Yesang) 홈 및 캘린더 화면', 'Yesang Home and Event Calendar screen'),
+      image('/img/tech/yesang_main.png', '예상(Yesang) 홈 및 캘린더 화면', 'Yesang Home and Event Calendar screen'),
+      image('/img/tech/yesang_person_detail.png', '사람 상세 및 금액 내역', 'Person detail and transaction log'),
+      image('/img/tech/yesang_calendar.png', '캘린더 일정 관리 화면', 'Calendar event management screen'),
+      image('/img/tech/yesang_dashboard.png', '홈 대시보드 요약', 'Home dashboard summary'),
     ],
     techChoices: [
       {
@@ -2221,7 +2229,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Supports Kakao, Google, Apple OAuth and guest mode, automatically routing calls between local SecureStore and backend APIs.',
         },
         images: [
-          image('/img/tech/geumpumta.png', '인증 및 게스트 모드 화면', 'Auth and Guest Mode screen'),
+          image('/img/tech/yesang_main.png', '인증 및 메인 화면', 'Auth and Main screen'),
         ],
       },
       {
@@ -2231,7 +2239,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Manages relationship tags, notes, and automatically computes total given, received, and net balance per contact.',
         },
         images: [
-          image('/img/tech/geumpumta.png', '사람 상세 및 금액 내역', 'Person detail and transaction log'),
+          image('/img/tech/yesang_person_detail.png', '사람 상세 및 금액 내역', 'Person detail and transaction log'),
         ],
       },
       {
@@ -2241,7 +2249,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Marks scheduled events on interactive calendars with bottom sheet/modal flows for swift creation and edits.',
         },
         images: [
-          image('/img/tech/geumpumta.png', '캘린더 일정 관리 화면', 'Calendar event management screen'),
+          image('/img/tech/yesang_calendar.png', '캘린더 일정 관리 화면', 'Calendar event management screen'),
         ],
       },
       {
@@ -2251,7 +2259,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Provides yearly summary statistics, upcoming events, recent logs on home dashboard, with complete dark mode support.',
         },
         images: [
-          image('/img/tech/geumpumta.png', '홈 대시보드 요약', 'Home dashboard summary'),
+          image('/img/tech/yesang_dashboard.png', '홈 대시보드 요약', 'Home dashboard summary'),
         ],
       },
     ],

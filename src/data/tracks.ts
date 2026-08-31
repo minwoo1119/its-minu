@@ -142,14 +142,14 @@ const allCards = {
   llmAlignment: (category: string): ProjectCardInfo => ({
     id: 5,
     category,
-    imgUrl: '/img/tech/unsloth.png',
+    imgUrl: '/img/tech/llm_alignment_pipeline.png',
     title: {
-      ko: 'Instruction-Tuned 언어모델에서 DPO의 효과와 한계 연구 (KIIT 금상)',
-      en: 'DPO Effectiveness & Limits in Instruction-Tuned LLMs (KIIT Gold)',
+      ko: 'Instruction-Tuned 언어모델에서 DPO의 효과와 한계 연구',
+      en: 'DPO Effectiveness & Limits in Instruction-Tuned LLMs',
     },
     description: {
-      ko: 'Gemma 모델 기반 SFT와 DPO 정렬 효과를 MMLU, KLUE 및 LLM-as-a-Judge로 정량 검증한 연구 (2026 KIIT 금상 수상)',
-      en: 'Empirical research analyzing SFT and DPO alignment boundaries using Gemma, KLUE, and LLM-as-a-Judge (2026 KIIT Gold).',
+      ko: 'Gemma 모델 기반 SFT와 DPO 정렬 효과를 MMLU, KLUE 및 LLM-as-a-Judge로 정량 검증한 연구',
+      en: 'Empirical research analyzing SFT and DPO alignment boundaries using Gemma, KLUE, and LLM-as-a-Judge.',
     },
     techs: ['Python', 'PyTorch', 'Gemma', 'Unsloth', 'DPO', 'SFT', 'HuggingFace'],
   }),
@@ -157,14 +157,14 @@ const allCards = {
   slowAgingLlm: (category: string): ProjectCardInfo => ({
     id: 15,
     category,
-    imgUrl: '/img/tech/slowaging_dataset_flow.png',
+    imgUrl: '/img/tech/unsloth.png',
     title: {
-      ko: '저속노화 데이터셋 기반 LLM 파인튜닝 (KIIT 은상)',
-      en: 'Slow-Aging Domain LLM Fine-Tuning (KIIT Silver)',
+      ko: '저속노화 데이터셋 기반 LLM 파인튜닝',
+      en: 'Slow-Aging Domain LLM Fine-Tuning',
     },
     description: {
-      ko: '의학·건강 문헌을 정제한 도메인 특화 JSONL 데이터셋 구축 및 Unsloth LoRA 경량 파인튜닝 연구 (2025 KIIT 은상 수상)',
-      en: 'Domain Q&A dataset pipeline and lightweight LoRA fine-tuning for health literature, winning 2025 KIIT Silver.',
+      ko: '의학·건강 문헌을 정제한 도메인 특화 JSONL 데이터셋 구축 및 Unsloth LoRA 경량 파인튜닝 연구',
+      en: 'Domain Q&A dataset pipeline and lightweight LoRA fine-tuning for health literature.',
     },
     techs: ['Python', 'Gemma', 'Unsloth', 'LoRA', 'JSONL', 'PyTorch'],
   }),
@@ -173,7 +173,7 @@ const allCards = {
   geumpumta: (category: string): ProjectCardInfo => ({
     id: 7,
     category,
-    imgUrl: '/img/tech/geumpumta.png',
+    imgUrl: '/img/tech/geumpumta_wifi_ranking.png',
     title: {
       ko: '금품타 : 대학생 학습시간 인증 및 실시간 랭킹 모바일 앱',
       en: 'Geumpumta: Study Time Tracker & Live Leaderboard App',
@@ -218,7 +218,7 @@ const allCards = {
   yeSang: (category: string): ProjectCardInfo => ({
     id: 16,
     category,
-    imgUrl: '/img/tech/geumpumta.png',
+    imgUrl: '/img/tech/yesang_main.png',
     title: {
       ko: '예상 (Yesang) : 경조사 금전 기록 및 일정 관리 모바일 장부 앱',
       en: 'Yesang: Family Event Expense & Schedule Management Mobile App',
