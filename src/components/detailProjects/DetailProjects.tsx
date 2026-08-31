@@ -76,19 +76,30 @@ const ImageCard = ({
   captionClassName: string;
 }) => {
   const [hasError, setHasError] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
   const caption = getText(language, image.caption);
 
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    if (img.naturalHeight > img.naturalWidth * 1.1) {
+      setIsPortrait(true);
+    }
+  };
+
   return (
-    <figure className={className}>
+    <figure className={`${className} ${isPortrait ? styles.portraitCard : ''}`}>
       {hasError ? (
-        <div className={styles.imageFallback}>
+        <div
+          className={`${styles.imageFallback} ${isPortrait ? styles.portraitFallback : ''}`}
+        >
           <span>{language === 'ko' ? '이미지 준비 중' : 'Image coming soon'}</span>
         </div>
       ) : (
         <img
           src={resolveAssetUrl(image.imageUrl)}
           alt={caption}
-          className={imageClassName}
+          className={`${imageClassName} ${isPortrait ? styles.portraitImage : ''}`}
+          onLoad={handleImageLoad}
           onError={() => setHasError(true)}
         />
       )}
