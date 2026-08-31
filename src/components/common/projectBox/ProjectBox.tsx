@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import type { ProjectInfo } from '../../../../public/data/projectsData';
 import styles from './projectBox.module.scss';
-import type { Language } from '../../../i18n';
+import type { Language, LocalizedText } from '../../../i18n';
 import { getText } from '../../../i18n';
 
-interface Props extends ProjectInfo {
+export interface ProjectBoxProps {
+  id?: number;
+  category?: string;
+  imgUrl: string;
+  title: LocalizedText;
+  description: LocalizedText;
+  techs: string[];
   language: Language;
   onClick: () => void;
 }
@@ -16,11 +21,13 @@ export const ProjectBox = ({
   techs,
   language,
   onClick,
-}: Props) => {
+}: ProjectBoxProps) => {
   const [hasImageError, setHasImageError] = useState(false);
-  const fullImgUrl = `${import.meta.env.BASE_URL}${imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl}`;
+  const fullImgUrl = `${import.meta.env.BASE_URL}${
+    imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl
+  }`;
   const localizedTitle = getText(language, title);
-  
+
   return (
     <button type='button' className={styles.container} onClick={onClick}>
       {hasImageError ? (

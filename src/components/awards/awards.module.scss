@@ -1,0 +1,132 @@
+$tablet: 768px;
+$desktop: 1024px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+.container {
+  width: 90%;
+  max-width: 76rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+.subText {
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.titleText {
+  color: #0f172a;
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+
+  @include tablet {
+    font-size: 2.6rem;
+  }
+}
+
+.awardsList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.awardRow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.8rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  gap: 0.75rem;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: #94a3b8;
+  }
+
+  @include tablet {
+    padding: 1.8rem 2.2rem;
+  }
+}
+
+.rowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.badgeAndOrg {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  .typeBadge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.35rem;
+    background: #f1f5f9;
+    color: #334155;
+  }
+
+  .orgText {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+}
+
+.yearText {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.awardTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.paperTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}

@@ -1,43 +1,35 @@
 import { ProjectBox } from '../common/projectBox/ProjectBox';
 import { SelectTabBar } from '../common/selectTabBar/SelectTabBar';
-import {
-  projectsData,
-  type ProjectCategory,
-} from '../../../public/data/projectsData';
 import styles from './projects.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Language } from '../../i18n';
-
-type FilterCategory = ProjectCategory | 'all';
+import { getText } from '../../i18n';
+import type { TrackData } from '../../data/tracks';
 
 interface ProjectsProps {
   language: Language;
+  trackData: TrackData;
   onProjectClick: (projectId: number) => void;
 }
 
-export const Projects = ({ language, onProjectClick }: ProjectsProps) => {
+export const Projects = ({
+  language,
+  trackData,
+  onProjectClick,
+}: ProjectsProps) => {
+  const { projects } = trackData;
   const [showAll, setShowAll] = useState(false);
-  const [selectedCategory, setSelectedCategory] =
-    useState<FilterCategory>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories: FilterCategory[] = [
-    'all',
-    'featuredVision',
-    'other',
-    'research',
-  ];
-  const categoryLabels: Record<FilterCategory, string> = {
-    all: language === 'ko' ? '전체' : 'All',
-    featuredVision:
-      language === 'ko' ? 'Featured Vision Projects' : 'Featured Vision Projects',
-    other: language === 'ko' ? 'Other Projects' : 'Other Projects',
-    research: language === 'ko' ? 'Research & Awards' : 'Research & Awards',
-  };
+  useEffect(() => {
+    setSelectedCategory('all');
+    setShowAll(false);
+  }, [trackData.id]);
 
   const filteredProjects =
     selectedCategory === 'all'
-      ? projectsData
-      : projectsData.filter((p) => p.category === selectedCategory);
+      ? projects.items
+      : projects.items.filter((p) => p.category === selectedCategory);
 
   const visibleProjects = showAll
     ? filteredProjects
@@ -46,18 +38,20 @@ export const Projects = ({ language, onProjectClick }: ProjectsProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.subText}>
-        {language === 'ko'
-          ? 'Computer Vision & Image Processing 중심 프로젝트'
-          : 'Computer Vision & Image Processing focused work'}
+        {getText(language, projects.subText)}
       </div>
       <div className={styles.titleText}>
-        {language === 'ko' ? 'Featured Projects' : 'Featured Projects'}
+        {getText(language, projects.titleText)}
       </div>
 
       <SelectTabBar
-        options={categories}
+        options={projects.categoryOptions}
         selected={selectedCategory}
-        getLabel={(category) => categoryLabels[category]}
+        getLabel={(category) =>
+          projects.categoryLabels[category]
+            ? getText(language, projects.categoryLabels[category])
+            : category
+        }
         onSelect={(cat) => {
           setSelectedCategory(cat);
           setShowAll(false);

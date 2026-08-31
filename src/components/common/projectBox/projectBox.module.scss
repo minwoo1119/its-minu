@@ -25,7 +25,10 @@
   }
 
   img {
-    object-fit: cover;
+    object-fit: contain;
+    background: #f8fafc;
+    padding: 0.2rem;
+    box-sizing: border-box;
   }
 
   .imageFallback {

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import {
-  projectPageData,
+  projectsDetailData,
   type ProjectImage,
-} from '../../../public/data/projectPageData.updated';
+} from '../../data/projectsDetail';
 import styles from './detailProjects.module.scss';
-import type { Language } from '../../i18n';
+import type { Language, LocalizedText } from '../../i18n';
 import { getText } from '../../i18n';
 
 interface Props {
@@ -12,18 +12,52 @@ interface Props {
   projectId: number;
 }
 
-const categoryLabels = {
-  ko: {
-    featuredVision: 'Featured Vision Project',
-    other: 'Other Project',
-    research: 'Research & Awards',
+const categoryLabels: Record<string, LocalizedText> = {
+  featuredVision: {
+    ko: 'Featured Vision Project',
+    en: 'Featured Vision Project',
   },
-  en: {
-    featuredVision: 'Featured Vision Project',
-    other: 'Other Project',
-    research: 'Research & Awards',
+  app: {
+    ko: 'Mobile App Project',
+    en: 'Mobile App Project',
   },
-} as const;
+  cross: {
+    ko: 'Cross-Platform Project',
+    en: 'Cross-Platform Project',
+  },
+  fullstack: {
+    ko: 'Full-Stack Project',
+    en: 'Full-Stack Project',
+  },
+  frontend: {
+    ko: 'Frontend & Web Project',
+    en: 'Frontend & Web Project',
+  },
+  webFrontend: {
+    ko: 'Web Frontend Project',
+    en: 'Web Frontend Project',
+  },
+  backend: {
+    ko: 'Backend System Project',
+    en: 'Backend System Project',
+  },
+  desktop: {
+    ko: 'Desktop Software Project',
+    en: 'Desktop Software Project',
+  },
+  ai: {
+    ko: 'AI & Machine Learning Project',
+    en: 'AI & Machine Learning Project',
+  },
+  research: {
+    ko: 'Research & Awards',
+    en: 'Research & Awards',
+  },
+  other: {
+    ko: 'Engineering Project',
+    en: 'Engineering Project',
+  },
+};
 
 const resolveAssetUrl = (path: string) =>
   `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
@@ -91,11 +125,11 @@ const ImageGallery = ({
 );
 
 export const DetailProjects = ({ language, projectId }: Props) => {
-  const project = projectPageData.find((item) => item.id === projectId);
+  const project = projectsDetailData.find((item) => item.id === projectId);
 
   if (!project) {
     return (
-      <div>
+      <div className={styles.notFound}>
         {language === 'ko'
           ? '해당 프로젝트 정보를 찾을 수 없습니다.'
           : 'Project details could not be found.'}
@@ -126,16 +160,17 @@ export const DetailProjects = ({ language, projectId }: Props) => {
 
   const periodData = formattedStartDate
     ? `${formattedStartDate} - ${formattedEndDate}`
-    : (language === 'ko' ? '2026년 (한국정보기술학회 금상)' : '2026 (KIIT Gold Award)');
+    : (language === 'ko' ? '학술 연구 및 프로젝트 성과' : 'Research & Honors');
   const localizedTitle = getText(language, project.title);
+  const categoryLabel = categoryLabels[project.category]
+    ? getText(language, categoryLabels[project.category])
+    : project.category;
 
   return (
     <article className={styles.container}>
       <section className={styles.heroSection}>
         <div className={styles.heroCopy}>
-          <div className={styles.category}>
-            {categoryLabels[language][project.category]}
-          </div>
+          <div className={styles.category}>{categoryLabel}</div>
           <h1 className={styles.title}>{localizedTitle}</h1>
           <p className={styles.oneLiner}>{getText(language, project.oneLiner)}</p>
           <p className={styles.overview}>{getText(language, project.overview)}</p>
