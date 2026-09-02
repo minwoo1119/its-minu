@@ -404,7 +404,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Implemented LightSVTR ONNX conversion, inference pipeline, time-series outlier calibration, and Clean Architecture layering.',
     },
     images: [
-      image('/img/tech/cake.png', '7-Segment OCR 분석 화면', '7-Segment OCR analysis interface'),
+      image('/img/tech/seven_segment_ocr_dashboard.png', '7-Segment OCR 분석 화면', '7-Segment OCR analysis interface'),
     ],
     techChoices: [
       {
@@ -437,7 +437,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Enables users to drag-select ROIs on video inputs and start real-time inference immediately.',
         },
         images: [
-          image('/img/tech/cake.png', 'ROI 지정 및 스트리밍', 'ROI selection and streaming view'),
+          image('/img/tech/seven_segment_roi_streaming.png', 'ROI 지정 및 스트리밍', 'ROI selection and streaming view'),
         ],
       },
       {
@@ -447,7 +447,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Automatically calibrates erratic reading spikes (jitter) by comparing prior frame confidence and moving averages.',
         },
         images: [
-          image('/img/tech/cake.png', '시간축 데이터 보정 그래프', 'Time-series data calibration graph'),
+          image('/img/tech/seven_segment_time_series_calibration.png', '시간축 데이터 보정 그래프', 'Time-series data calibration graph'),
         ],
       },
       {
@@ -457,7 +457,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Visualizes time-series digit trends in charts and exports reports to CSV/Excel for QA logging.',
         },
         images: [
-          image('/img/tech/cake.png', '데이터 로깅 및 통계 시각화', 'Data logging and trend analytics'),
+          image('/img/tech/seven_segment_data_logging_stats.png', '데이터 로깅 및 통계 시각화', 'Data logging and trend analytics'),
         ],
       },
     ],

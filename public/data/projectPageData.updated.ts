@@ -401,7 +401,7 @@ export const projectPageData: ProjectPageInfo[] = [
       en: 'Owned LightSVTR integration, ONNX Runtime inference, ROI frame processing, CTC post-processing, Clean Architecture, and factory-pattern design.',
     },
     images: [
-      image('/img/tech/cake.png', '영상 기반 7-Segment OCR 대표 이미지', 'Video-based seven-segment OCR representative image'),
+      image('/img/tech/seven_segment_ocr_dashboard.png', '7-Segment OCR 분석 화면', '7-Segment OCR analysis interface'),
     ],
     techChoices: [
       {
@@ -442,20 +442,34 @@ export const projectPageData: ProjectPageInfo[] = [
     ],
     keyFeatures: [
       {
-        title: { ko: 'ROI 기반 영상 프레임 OCR', en: 'ROI-based video frame OCR' },
+        title: { ko: 'ROI 기반 영상 프레임 OCR 및 스트리밍', en: 'ROI-based video frame OCR & streaming' },
         description: {
           ko: '사용자가 지정한 ROI를 기준으로 영상 프레임을 샘플링하고 LightSVTR 입력 형식에 맞춰 전처리했습니다.',
           en: 'Sampled video frames from a user-defined ROI and preprocessed them for LightSVTR input.',
         },
-        images: [],
+        images: [
+          image('/img/tech/seven_segment_roi_streaming.png', 'ROI 지정 및 스트리밍', 'ROI selection and streaming view'),
+        ],
       },
       {
-        title: { ko: '시간축 이상치 보정', en: 'Time-series outlier calibration' },
+        title: { ko: '시간축 이상치 보정 및 필터링', en: 'Time-series outlier calibration & filtering' },
         description: {
           ko: '인접 프레임 재분석을 통해 LED 플리커, 조명 변화, 순간 블러로 발생하는 비정상 OCR 값을 보정했습니다.',
           en: 'Corrected abnormal OCR values caused by LED flicker, lighting changes, or transient blur using neighboring-frame reanalysis.',
         },
-        images: [],
+        images: [
+          image('/img/tech/seven_segment_time_series_calibration.png', '시간축 데이터 보정 그래프', 'Time-series data calibration graph'),
+        ],
+      },
+      {
+        title: { ko: '데이터 로깅 및 통계 시각화', en: 'Data logging & statistical visualization' },
+        description: {
+          ko: '시간대별 인식 숫자와 변화 추이를 차트로 시각화하고 품질 관리용 리포트 파일로 즉시 출력합니다.',
+          en: 'Visualizes time-series digit trends in charts and exports reports to CSV/Excel for QA logging.',
+        },
+        images: [
+          image('/img/tech/seven_segment_data_logging_stats.png', '데이터 로깅 및 통계 시각화', 'Data logging and trend analytics'),
+        ],
       },
     ],
     roleDetails: [

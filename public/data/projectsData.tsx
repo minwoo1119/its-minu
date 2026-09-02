@@ -55,7 +55,7 @@ export const projectsData: ProjectInfo[] = [
   {
     id: 3,
     category: 'featuredVision',
-    imgUrl: '/img/tech/cake.png',
+    imgUrl: '/img/tech/seven_segment_ocr_dashboard.png',
     title: {
       ko: 'Video-based 7-Segment OCR System',
       en: 'Video-based 7-Segment OCR System',

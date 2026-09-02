@@ -112,7 +112,7 @@ const allCards = {
   sevenSegmentOcr: (category: string): ProjectCardInfo => ({
     id: 3,
     category,
-    imgUrl: '/img/tech/pipet.jpg',
+    imgUrl: '/img/tech/seven_segment_ocr_dashboard.png',
     title: {
       ko: 'Video-based 7-Segment OCR System : 실시간 계측기 디지털 수치 인식',
       en: 'Video-based 7-Segment OCR System',
