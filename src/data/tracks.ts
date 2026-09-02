@@ -97,7 +97,7 @@ const allCards = {
   semParticle: (category: string): ProjectCardInfo => ({
     id: 2,
     category,
-    imgUrl: '/img/tech/pipet.jpg',
+    imgUrl: '/img/tech/sem_analyzer_dashboard.png',
     title: {
       ko: 'SEM Particle Analyzer : 전자현미경 입자 정량 분석 소프트웨어',
       en: 'SEM Particle Analyzer : SEM Image Particle Quantitative Analysis',

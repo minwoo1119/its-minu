@@ -240,7 +240,7 @@ export const projectPageData: ProjectPageInfo[] = [
       en: 'Owned WPF MVVM architecture, async analysis pipelines, OpenCV Mat resource disposal, nullable exception handling, and unit tests.',
     },
     images: [
-      image('/img/tech/plate_picks.png', 'SEM 미세입자 정량 분석 대표 이미지', 'SEM particle analysis representative image'),
+      image('/img/tech/sem_analyzer_dashboard.png', 'SEM Particle Analyzer 분석 화면', 'SEM Particle Analyzer analysis interface'),
     ],
     techChoices: [
       {
@@ -286,15 +286,30 @@ export const projectPageData: ProjectPageInfo[] = [
           ko: 'CLAHE와 adaptive threshold로 대비와 이진화를 안정화하고, Distance Transform과 Watershed로 붙어 있는 입자를 개별 객체로 분리했습니다.',
           en: 'Stabilized contrast and binarization with CLAHE and adaptive thresholding, then separated touching particles with distance transform and watershed.',
         },
-        images: [],
+        images: [
+          image('/img/tech/sem_segmentation_result.png', '입자 분할 결과 시각화', 'Particle segmentation visualization'),
+        ],
       },
       {
-        title: { ko: 'Calibration 기반 형상 정량 분석', en: 'Calibration-based quantitative shape analysis' },
+        title: { ko: 'Calibration 기반 형상 정량 분석 대시보드', en: 'Calibration-based quantitative shape analysis' },
         description: {
-          ko: '면적, 둘레, Feret 직경, Circularity 등 객체별 지표를 산출하고 pixel-to-real-length 보정을 적용했습니다.',
-          en: 'Computed object-level metrics such as area, perimeter, Feret diameter, and circularity with pixel-to-real-length calibration.',
+          ko: '면적, 둘레, Feret 직경, Circularity 등 객체별 지표를 산출하고 pixel-to-real-length 보정을 적용해 차트 및 표로 시각화했습니다.',
+          en: 'Computed object-level metrics such as area, perimeter, Feret diameter, and circularity with pixel-to-real-length calibration, visualized in charts and tables.',
         },
-        images: [],
+        images: [
+          image('/img/tech/sem_quantitative_metrics_1.png', '정량 분석 지표 대시보드 1', 'Quantitative metrics dashboard 1'),
+          image('/img/tech/sem_quantitative_metrics_2.png', '정량 분석 지표 대시보드 2', 'Quantitative metrics dashboard 2'),
+        ],
+      },
+      {
+        title: { ko: '미세 입자 전처리 및 분석 조건 설정', en: 'Particle Preprocessing & Analysis Condition Setup' },
+        description: {
+          ko: 'CLAHE 명암 대비 보정, 이진화 임계값, 모폴로지 노이즈 제거 필터 등 입자 특성에 맞는 분석 파라미터를 유연하게 설정할 수 있습니다.',
+          en: 'Provides flexible configuration of analysis parameters including CLAHE contrast enhancement, binarization thresholds, and morphological noise filtering.',
+        },
+        images: [
+          image('/img/tech/sem_condition_settings.png', '분석 조건 설정', 'Analysis condition settings'),
+        ],
       },
     ],
     roleDetails: [

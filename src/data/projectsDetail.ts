@@ -250,7 +250,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Owned C# WPF MVVM architecture, OpenCvSharp segmentation pipeline, quantitative metric calculation, and 34 xUnit tests.',
     },
     images: [
-      image('/img/tech/plate_picks.png', 'SEM Particle Analyzer 분석 화면', 'SEM Particle Analyzer analysis interface'),
+      image('/img/tech/sem_analyzer_dashboard.png', 'SEM Particle Analyzer 분석 화면', 'SEM Particle Analyzer analysis interface'),
     ],
     techChoices: [
       {
@@ -283,27 +283,28 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Separates clumped particles into individual objects using distance-transform local maxima and watershed segmentation.',
         },
         images: [
-          image('/img/tech/plate_picks.png', '입자 분할 결과 시각화', 'Particle segmentation visualization'),
+          image('/img/tech/sem_segmentation_result.png', '입자 분할 결과 시각화', 'Particle segmentation visualization'),
         ],
       },
       {
-        title: { ko: '스케일바 캘리브레이션 및 형상 정량 분석', en: 'Scale-bar Calibration & Quantitative Shape Metrics' },
+        title: { ko: '스케일바 캘리브레이션 및 형상 정량 분석 대시보드', en: 'Scale-bar Calibration & Quantitative Metrics Dashboard' },
         description: {
-          ko: '현미경 스케일바를 픽셀 단위로 보정하여 실제 물리 단위(μm, nm)로 면적, Feret 직경, 원형도(Circularity)를 자동 산출합니다.',
-          en: 'Calibrates microscope scale bars into physical units (μm, nm) to automatically calculate area, Feret diameter, and circularity.',
+          ko: '현미경 스케일바를 픽셀 단위로 보정하여 실제 물리 단위(μm, nm)로 면적, Feret 직경, 원형도(Circularity)를 자동 산출하고 분포 차트 및 통계 테이블로 시각화합니다.',
+          en: 'Calibrates microscope scale bars into physical units (μm, nm) to automatically calculate area, Feret diameter, and circularity, visualized in distribution charts and tables.',
         },
         images: [
-          image('/img/tech/plate_picks.png', '정량 분석 지표 대시보드', 'Quantitative metrics dashboard'),
+          image('/img/tech/sem_quantitative_metrics_1.png', '정량 분석 지표 대시보드 1', 'Quantitative metrics dashboard 1'),
+          image('/img/tech/sem_quantitative_metrics_2.png', '정량 분석 지표 대시보드 2', 'Quantitative metrics dashboard 2'),
         ],
       },
       {
-        title: { ko: 'CancellationToken 비동기 제어 및 메모리 관리', en: 'Async CancellationToken & Memory Management' },
+        title: { ko: '미세 입자 전처리 및 분석 조건 설정', en: 'Particle Preprocessing & Analysis Condition Setup' },
         description: {
-          ko: '대용량 TIFF/BMP 이미지 분석 중에도 취소 및 중단이 가능하도록 CancellationToken을 연동하고 OpenCvSharp Mat 수명을 엄격히 관리했습니다.',
-          en: 'Integrated CancellationTokens for responsive cancellation during large TIFF/BMP analysis and managed Mat lifecycles strictly.',
+          ko: 'CLAHE 명암 대비 보정, 이진화 임계값, 모폴로지 노이즈 제거 필터 등 입자 특성에 맞는 분석 파라미터를 유연하게 설정할 수 있습니다.',
+          en: 'Provides flexible configuration of analysis parameters including CLAHE contrast enhancement, binarization thresholds, and morphological noise filtering.',
         },
         images: [
-          image('/img/tech/plate_picks.png', '비동기 분석 처리 흐름', 'Asynchronous analysis workflow'),
+          image('/img/tech/sem_condition_settings.png', '분석 조건 설정', 'Analysis condition settings'),
         ],
       },
     ],

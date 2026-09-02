@@ -35,7 +35,7 @@ export const projectsData: ProjectInfo[] = [
   {
     id: 2,
     category: 'featuredVision',
-    imgUrl: '/img/tech/plate_picks.png',
+    imgUrl: '/img/tech/sem_analyzer_dashboard.png',
     title: {
       ko: 'SEM Particle Analyzer',
       en: 'SEM Particle Analyzer',
