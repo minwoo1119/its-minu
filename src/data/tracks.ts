@@ -127,16 +127,16 @@ const allCards = {
   qlogAnalyzer: (category: string): ProjectCardInfo => ({
     id: 4,
     category,
-    imgUrl: '/img/tech/pipet.jpg',
+    imgUrl: '/img/tech/qlog_dashboard.png',
     title: {
       ko: 'Q-Log Analyzer & Vision System Utilities',
       en: 'Q-Log Analyzer & Vision System Utilities',
     },
     description: {
-      ko: 'C# WPF 기반 대용량 비전 검사 로그 파싱, 실시간 통계 시각화 및 자동 레포트 생성 소프트웨어',
-      en: 'A C# WPF desktop utility for high-throughput vision log parsing, statistical visualization, and report generation.',
+      ko: 'C# WPF 기반 대용량 비전 검사 로그 파싱, 실시간 통계 시각화 및 엑셀 리포트 내보내기 유틸리티',
+      en: 'A C# WPF desktop utility for high-throughput vision log parsing, statistical visualization, and Excel report export.',
     },
-    techs: ['C#', 'WPF', 'Regex Engine', 'Data Visualization', 'LiveCharts'],
+    techs: ['C#', 'WPF', 'Regex Engine', 'Data Visualization', 'LiveCharts', 'Excel Export'],
   }),
 
   llmAlignment: (category: string): ProjectCardInfo => ({

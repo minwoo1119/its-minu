@@ -541,22 +541,22 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Q-Log Analyzer & Vision System Utilities',
     },
     oneLiner: {
-      ko: '정규표현식과 IQR 필터링을 활용한 비전 장비 로그 분석기 및 C++ MFC 유틸리티',
-      en: 'Vision equipment log analyzer with regex and IQR filtering, plus C++ MFC camera utilities.',
+      ko: '정규표현식과 IQR 필터링을 활용한 비전 장비 로그 분석 및 엑셀 리포트 생성 유틸리티',
+      en: 'Vision equipment log analytics and Excel report generation utility using regex and IQR filtering.',
     },
     overview: {
-      ko: '반도체/디스플레이 비전 검사 장비에서 발생하는 방대한 로그 데이터를 정규표현식으로 고속 파싱하고, IQR 이상치 필터링으로 장비 수율, 비전 알고리즘 처리 시간, 불량 패턴을 시각화하는 C# WPF 도구입니다. C++ MFC 기반 실시간 카메라 제어 및 ROI 모듈도 함께 개발/유지보수했습니다.',
-      en: 'A C# WPF log analytics tool that parses massive vision inspection equipment logs with regex and visualizes yield, vision algorithm latency, and defect patterns using IQR outlier filtering. Also includes C++ MFC utilities for real-time camera and ROI control.',
+      ko: '반도체/디스플레이 비전 검사 장비에서 발생하는 방대한 로그 데이터를 정규표현식으로 고속 파싱하고, IQR 이상치 필터링으로 장비 수율, 비전 알고리즘 처리 시간, 불량 패턴을 시각화 및 엑셀로 내보내는 C# WPF 도구입니다.',
+      en: 'A C# WPF log analytics desktop tool that parses massive vision inspection equipment logs with regex, visualizes yield, vision algorithm latency, and defect patterns using IQR outlier filtering, and exports structured reports to Excel.',
     },
-    startDate: new Date('2024-10-01'),
-    endDate: new Date('2025-04-30'),
+    startDate: new Date('2026-07-01'),
+    endDate: new Date('2026-08-31'),
     teamInfo: { ko: 'Vision SW Researcher', en: 'Vision SW Researcher' },
     contribution: {
-      ko: 'C# WPF 로그 파서 및 차트 시각화 구현, C++ MFC 카메라 제어 및 ROI 관리 모듈 개발/유지보수를 담당했습니다.',
-      en: 'Built the C# WPF log parser and chart visualizer, and developed/maintained C++ MFC camera control and ROI modules.',
+      ko: 'C# WPF 로그 파서 및 차트 시각화 구현, IQR 기반 이상치 검출 및 엑셀 데이터 내보내기/리포팅 기능 개발을 전담했습니다.',
+      en: 'Built the C# WPF log parser and chart visualizer, IQR-based outlier detection, and Excel export/reporting functionality.',
     },
     images: [
-      image('/img/tech/jobforeigner.png', 'Q-Log Analyzer 대시보드', 'Q-Log Analyzer dashboard view'),
+      image('/img/tech/qlog_dashboard.png', 'Q-Log Analyzer 대시보드', 'Q-Log Analyzer dashboard view'),
     ],
     techChoices: [
       {
@@ -574,10 +574,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
         },
       },
       {
-        name: 'C++ MFC',
+        name: 'Excel Export Engine',
         reason: {
-          ko: '산업용 프레임 그래버 및 카메라 하드웨어와의 저수준 통신, Mat 버퍼 관리를 위해 C++ MFC 유틸리티를 구축했습니다.',
-          en: 'Built C++ MFC utilities for low-level camera/frame-grabber hardware control and Mat buffer management.',
+          ko: '파싱된 통계 지표와 이상치 분석 데이터를 현장 엔지니어가 보고서 작성 및 2차 분석에 즉시 활용할 수 있도록 엑셀 내보내기 기능을 구현했습니다.',
+          en: 'Implemented Excel export functionality so field engineers can immediately utilize parsed metrics and outlier analysis for reports and secondary analysis.',
         },
       },
     ],
@@ -589,7 +589,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Parses millions of vision log lines asynchronously with compiled regex and identifies latency outliers using interquartile range (IQR).',
         },
         images: [
-          image('/img/tech/jobforeigner.png', '로그 파싱 및 이상치 분석', 'Log parsing and outlier analysis'),
+          image('/img/tech/qlog_parsing_outlier.png', '로그 파싱 및 이상치 분석', 'Log parsing and outlier analysis'),
         ],
       },
       {
@@ -599,17 +599,17 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Displays tact time for each inspection stage and defect classification distributions in live dashboard charts.',
         },
         images: [
-          image('/img/tech/jobforeigner.png', '처리 시간 통계 차트', 'Tact time statistical charts'),
+          image('/img/tech/qlog_processing_time_chart.png', '처리 시간 통계 차트', 'Tact time statistical charts'),
         ],
       },
       {
-        title: { ko: 'C++ MFC 카메라 및 ROI 제어 모듈', en: 'C++ MFC Camera & ROI Control Utilities' },
+        title: { ko: '통계 데이터 엑셀(Excel) 내보내기 및 레포트 생성', en: 'Statistical Data Excel Export & Report Generation' },
         description: {
-          ko: '실시간 영상 취득, 게인/노출 설정, 다중 ROI 동기화 및 이미지 덤프 기능을 제공하는 MFC 비전 유틸리티를 구현했습니다.',
-          en: 'Implemented MFC vision utilities providing live acquisition, gain/exposure controls, multi-ROI sync, and image dumps.',
+          ko: '파싱된 검사 로그 통계 지표, 스테이지별 소요 시간 및 이상치 분석 데이터를 정형화된 엑셀(.xlsx) 파일로 즉시 내보내어 현장 분석 리포트를 생성합니다.',
+          en: 'Exports parsed inspection log metrics, stage tact times, and outlier analysis data into structured Excel (.xlsx) files for on-site diagnostic reports.',
         },
         images: [
-          image('/img/tech/jobforeigner.png', 'C++ MFC 비전 제어 화면', 'C++ MFC vision control interface'),
+          image('/img/tech/qlog_export_excel.png', '엑셀로 내보내기', 'Export to Excel feature'),
         ],
       },
     ],
@@ -623,8 +623,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
         en: 'Built outlier detection algorithms to rapidly pinpoint equipment tact-time bottlenecks.',
       },
       {
-        ko: 'C++ MFC 레거시 비전 모듈의 메모리 누수 점검 및 OpenCV Mat 자원 수명 관리 최적화',
-        en: 'Audited memory leaks in legacy C++ MFC modules and optimized OpenCV Mat resource lifecycles.',
+        ko: '통계 지표 및 비전 처리 시간 데이터를 표준 엑셀 서식으로 자동 변환/내보내는 리포트 모듈 개발',
+        en: 'Developed an automated report module converting statistical metrics and vision tact-time data into standard Excel formats.',
       },
     ],
     troubleshooting: [
