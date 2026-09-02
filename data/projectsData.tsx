@@ -35,7 +35,7 @@ export const projectsData: ProjectInfo[] = [
   {
     id: 2,
     category: 'featuredVision',
-    imgUrl: '/img/tech/plate_picks.png',
+    imgUrl: '/img/tech/sem_analyzer_dashboard.png',
     title: {
       ko: 'SEM Particle Analyzer',
       en: 'SEM Particle Analyzer',
@@ -55,7 +55,7 @@ export const projectsData: ProjectInfo[] = [
   {
     id: 3,
     category: 'featuredVision',
-    imgUrl: '/img/tech/cake.png',
+    imgUrl: '/img/tech/seven_segment_ocr_dashboard.png',
     title: {
       ko: 'Video-based 7-Segment OCR System',
       en: 'Video-based 7-Segment OCR System',
@@ -75,20 +75,21 @@ export const projectsData: ProjectInfo[] = [
   {
     id: 4,
     category: 'featuredVision',
-    imgUrl: '/img/tech/jobforeigner.png',
+    imgUrl: '/img/tech/qlog_dashboard.png',
     title: {
       ko: 'Q-Log Analyzer & Vision System Utilities',
       en: 'Q-Log Analyzer & Vision System Utilities',
     },
     description: {
-      ko: '정규표현식 파싱과 IQR 이상치 필터링으로 비전 장비 로그를 분석하고, C++ MFC 기반 카메라/ROI 제어 모듈을 개발·유지보수한 프로젝트입니다.',
-      en: 'A tooling project for vision-equipment log analysis using regex parsing and IQR filtering, plus C++ MFC camera and ROI control utilities.',
+      ko: '정규표현식 파싱과 IQR 이상치 필터링으로 비전 장비 로그를 분석하고, 실시간 통계 차트 시각화 및 엑셀 리포트 내보내기를 지원하는 C# WPF 프로젝트입니다.',
+      en: 'A C# WPF project for vision-equipment log analysis using regex parsing and IQR filtering, supporting real-time chart visualization and Excel report export.',
     },
     techs: [
       'C# WPF',
       'Regex Parsing',
       'IQR Filtering',
-      'C++ MFC',
+      'LiveCharts',
+      'Excel Export',
       'Data Visualization',
     ],
   },
