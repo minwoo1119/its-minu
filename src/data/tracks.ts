@@ -339,7 +339,7 @@ const allCards = {
   chwieolUpAi: (category: string): ProjectCardInfo => ({
     id: 19,
     category,
-    imgUrl: '/img/tech/chwieolup_ai_main.jpg',
+    imgUrl: '/img/tech/chwieolup_ai_main.png',
     title: {
       ko: '취얼업 AI (ChwieolUp-AI) : 채용 메일 분류 & 맞춤형 면접 회고 질문 생성 AI 서빙 시스템',
       en: 'ChwieolUp-AI: Recruitment Email Classification & Interview Retrospective AI Microservice',

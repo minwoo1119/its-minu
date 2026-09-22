@@ -2597,6 +2597,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     images: [
       image('/img/tech/dograc_main.jpg', 'dograc Neural Retrieval 아키텍처 및 시스템 개요', 'dograc Neural Retrieval Architecture & System Overview'),
+      image('/img/tech/dograc_chat_citations.png', 'Reading-First KDS 작업공간 및 인라인 원문 출처 인용', 'Reading-First KDS Workspace & Grounded Inline Citations'),
+      image('/img/tech/dograc_trace_drawer.png', '투명한 RAG 실행 추적기(Trace Drawer) 및 유사도 분석', 'Execution Trace Drawer & Similarity Score Audit'),
     ],
     techChoices: [
       {
@@ -2653,7 +2655,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Anchors every generated sentence to verified document pages using [filename, p.page] inline badges. Users can click badges to inspect source excerpts directly, while strict refusal prompts curb hallucinations when evidence is absent.',
         },
         images: [
-          image('/img/tech/dograc_main.jpg', '인라인 출처 인용 및 RAG 아키텍처', 'Inline citation badge and RAG architecture'),
+          image('/img/tech/dograc_chat_citations.png', '인라인 출처 인용 및 원본 문서 앵커링 UI', 'Inline citation badge and document page anchoring'),
         ],
       },
       {
@@ -2665,7 +2667,9 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '검색(Retrieval)과 생성(Generation)을 블랙박스 체인으로 결합하지 않고 분리하여 답변마다 실행 분석(Trace) 드로어를 제공합니다. 벡터 검색에서 추출된 청크들의 코사인 유사도 점수, 매칭 본문 미리보기, 전체 응답 지연시간(ms), LLM에 실제 주입된 프롬프트 전문을 투명하게 감사(Audit)할 수 있습니다.',
           en: 'Decouples retrieval from generation to provide a slide-in execution Trace drawer. Developers and auditors can inspect chunk cosine similarity scores, matched excerpt previews, latency breakdowns (ms), and the exact prompt fed to the LLM.',
         },
-        images: [],
+        images: [
+          image('/img/tech/dograc_trace_drawer.png', '코사인 유사도 점수 및 프롬프트 전수 감사 드로어', 'Cosine similarity scores and prompt audit trace drawer'),
+        ],
       },
       {
         title: {
@@ -2687,7 +2691,9 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '교보 디자인 시스템(KDS) 시각 원칙을 계승하여 불필요한 장식과 네온 효과를 배제하고 1px 헤어라인과 차분한 색채로 장시간 문서 판독에 최적화했습니다. 워크스페이스별 논리적 테넌트 격리를 통해 프로젝트별 문서를 독립적으로 관리할 수 있습니다.',
           en: 'Designed with Kyobo Design System principles: minimalist 1px hairlines and muted tones optimized for fatigue-free reading. Supports full logical tenant isolation across multiple workspaces.',
         },
-        images: [],
+        images: [
+          image('/img/tech/dograc_chat_citations.png', 'KDS 미니멀 디자인 시스템 및 PDF 분할 판독 인터페이스', 'KDS minimalist UI and split-view reading interface'),
+        ],
       },
     ],
     roleDetails: [
@@ -2853,7 +2859,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Solely designed and built the FastAPI AI service architecture, Ollama LLM integration, email stage classification and kanban recommendation logic, domain-specific interview retrospective prompt pipelines, Docker containerization on Ubuntu Server 24.04 LTS, and API handover to Spring Boot developers.',
     },
     images: [
-      image('/img/tech/chwieolup_ai_main.jpg', 'ChwieolUp-AI 시스템 아키텍처 및 서빙 파이프라인', 'ChwieolUp-AI System Architecture & Serving Pipeline'),
+      image('/img/tech/chwieolup_ai_main.png', 'ChwieolUp-AI 시스템 아키텍처 및 온프레미스 서빙 파이프라인 (Ubuntu Server 24.04 LTS / Docker)', 'ChwieolUp-AI System Architecture & Serving Pipeline (Ubuntu 24.04 / Docker)'),
+      image('/img/tech/chwieolup_ai_mail_classify.png', '채용 메일 전형 단계 분류 및 Pydantic v2 JSON 응답 구조', 'Recruitment Mail Classification & Pydantic v2 Structured JSON Output'),
+      image('/img/tech/chwieolup_ai_retro_questions.png', '직무·전형 맞춤형 면접 회고 질문 생성 인터페이스', 'Tailored Interview Retrospective Question Generation Interface'),
+      image('/img/tech/chwieolup_ai_swagger_docs.png', 'FastAPI Swagger API 규격 문서 및 Ubuntu Server Docker 컨테이너 실행 로그', 'FastAPI Swagger UI Docs & Ubuntu 24.04 Docker Serving Logs'),
     ],
     techChoices: [
       {
@@ -2896,7 +2905,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           en: 'Analyzes incoming job application emails against user-defined stage categories to extract the predicted stage, confidence score, decision rationale, and source text evidence.',
         },
         images: [
-          image('/img/tech/chwieolup_ai_main.jpg', 'ChwieolUp-AI 전형 분류 및 질문 생성 파이프라인', 'ChwieolUp-AI stage classification and question pipeline'),
+          image('/img/tech/chwieolup_ai_mail_classify.png', '채용 메일 분석 및 Pydantic JSON 전형 분류 결과', 'Mail analysis and Pydantic JSON stage classification output'),
         ],
       },
       {
@@ -2908,7 +2917,9 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '지원 기업명, 직무(백엔드/프론트엔드 등), 전형 단계(기술면접 등)를 입력받아 기술적 깊이, 문제 해결 경험, 커뮤니케이션 개선점을 도출할 수 있는 도메인 특화 회고 질문 세트를 템플릿과 LLM 프롬프트 조합으로 자동 생성합니다.',
           en: 'Generates structured retrospective question sets tailored to company, role (e.g. backend/frontend), and stage (e.g. technical interview), combining pre-curated template heuristics with LLM generation.',
         },
-        images: [],
+        images: [
+          image('/img/tech/chwieolup_ai_retro_questions.png', '직무·전형별 4대 핵심 영역 맞춤형 면접 회고 질문 생성 화면', 'Tailored 4-category retrospective interview question generation UI'),
+        ],
       },
       {
         title: {
@@ -2919,7 +2930,9 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '메일 내용과 현재 칸반 단계를 대조하여 전형 진행 상태의 변화를 감지하고, 임의 자동 변경 대신 사용자의 확인(needs_user_confirmation: true)을 거쳐 카드를 다음 단계로 안전하게 이동할 수 있도록 추천합니다.',
           en: 'Compares email contents with the user current kanban status to propose stage transitions, ensuring safe updates with explicit user confirmation.',
         },
-        images: [],
+        images: [
+          image('/img/tech/chwieolup_ai_mail_classify.png', '신뢰도 및 증거 기반 칸반 카드 이동 추천 플래그', 'Confidence and evidence-based kanban card transition flag'),
+        ],
       },
       {
         title: {
@@ -2930,7 +2943,9 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: 'Ubuntu Server 24.04 LTS OS 환경에서 Ollama LLM 및 FastAPI 서버를 Docker Compose로 컨테이너화하여 영구 실행 및 자동 재시작을 구성하고, Spring Boot 백엔드 개발자가 로컬/사내망에서 즉시 호출할 수 있도록 엔드투엔드 배포 환경을 완성했습니다.',
           en: 'Containerized Ollama LLM and FastAPI on Ubuntu Server 24.04 LTS via Docker Compose with host networking, delivering an always-on internal API service for Spring Boot developers.',
         },
-        images: [],
+        images: [
+          image('/img/tech/chwieolup_ai_swagger_docs.png', 'Ubuntu Server 24.04 LTS Docker 실행 로그 및 FastAPI Swagger UI', 'Ubuntu Server 24.04 LTS Docker runtime logs & FastAPI Swagger UI'),
+        ],
       },
     ],
     roleDetails: [
