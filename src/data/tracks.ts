@@ -335,6 +335,21 @@ const allCards = {
     },
     techs: ['Next.js 14', 'FastAPI', 'PostgreSQL', 'Qdrant', 'MinIO', 'Ollama', 'Docker', 'bge-m3'],
   }),
+
+  chwieolUpAi: (category: string): ProjectCardInfo => ({
+    id: 19,
+    category,
+    imgUrl: '/img/tech/chwieolup_ai_main.jpg',
+    title: {
+      ko: '취얼업 AI (ChwieolUp-AI) : 채용 메일 분류 & 맞춤형 면접 회고 질문 생성 AI 서빙 시스템',
+      en: 'ChwieolUp-AI: Recruitment Email Classification & Interview Retrospective AI Microservice',
+    },
+    description: {
+      ko: 'Ollama(Gemma) & FastAPI 기반 채용 메일 전형 분석, 칸반 이동 추천 및 면접 회고 질문 생성 AI 서버 (Ubuntu Server 24.04 LTS / Docker 배포)',
+      en: 'FastAPI & Ollama AI microservice for recruitment email stage classification, kanban updates, and retrospective question generation on Ubuntu Server & Docker.',
+    },
+    techs: ['Python', 'FastAPI', 'Ollama', 'Gemma', 'Pydantic v2', 'Docker', 'Ubuntu Server'],
+  }),
 };
 
 // -------------------------------------------------------------
@@ -490,6 +505,7 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.sevenSegmentOcr('main'),
         allCards.qlogAnalyzer('main'),
         allCards.dograc('main'),
+        allCards.chwieolUpAi('main'),
         allCards.llmAlignment('main'),
         allCards.slowAgingLlm('main'),
 
@@ -770,6 +786,7 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.babzip('other'),
         allCards.cakeWorkshop('other'),
         allCards.dograc('other'),
+        allCards.chwieolUpAi('other'),
         allCards.llmAlignment('other'),
         allCards.slowAgingLlm('other'),
       ],
@@ -1058,6 +1075,7 @@ export const tracksData: Record<TrackId, TrackData> = {
       items: [
         // Main (Software & Full-Stack)
         allCards.dograc('main'),
+        allCards.chwieolUpAi('main'),
         allCards.platePicks('main'),
         allCards.jobForeigner('main'),
         allCards.geumpumta('main'),
@@ -1093,6 +1111,10 @@ export const tracksData: Record<TrackId, TrackData> = {
           en: 'Solely architected 100% on-premise enterprise RAG platform "dograc" in Next.js 14, FastAPI, Qdrant, and MinIO.',
         },
         {
+          ko: 'Ubuntu Server 24.04 LTS 및 Docker 기반 채용 메일 분석·회고 질문 생성 AI 서버 "ChwieolUp-AI" 구축 및 백엔드 연동',
+          en: 'Engineered & deployed Ollama AI microservice "ChwieolUp-AI" on Ubuntu Server 24.04 LTS via Docker for backend integration.',
+        },
+        {
           ko: 'React + NestJS + MySQL + Docker 기반 익명 투표 풀스택 플랫폼 "Plate Picks" 아키텍처 100% 단독 구축',
           en: 'Solely architected full-stack voting platform "Plate Picks" in React, NestJS, MySQL, and Docker.',
         },
@@ -1116,7 +1138,7 @@ export const tracksData: Record<TrackId, TrackData> = {
         },
         {
           title: { ko: 'Backend & Cloud', en: 'Backend & Cloud' },
-          items: 'FastAPI, NestJS, Python, PostgreSQL, MySQL, Qdrant, MinIO, Docker, Nginx, TypeORM, RESTful API, JWT',
+          items: 'FastAPI, NestJS, Python, PostgreSQL, MySQL, Qdrant, MinIO, Docker, Ubuntu Server, Nginx, TypeORM, RESTful API, JWT',
         },
         {
           title: { ko: 'AI & Systems', en: 'AI & Systems' },
@@ -1136,6 +1158,21 @@ export const tracksData: Record<TrackId, TrackData> = {
             {
               ko: '문서 페이지 인라인 인용 앵커링, 환각 억제 프롬프트 및 코사인 유사도·레이턴시 Trace 감사 드로어 구현',
               en: 'Implemented inline document citation badges, anti-hallucination prompts, and transparent Trace audit drawer.',
+            },
+          ],
+        },
+        {
+          title: 'ChwieolUp-AI (취업 준비 플랫폼 AI 서빙 마이크로서비스)',
+          role: 'AI Engineer & MLOps (AI 서빙 전담 개발)',
+          tech: 'Python, FastAPI, Ollama, Gemma, Pydantic v2, Docker, Ubuntu Server 24.04 LTS',
+          bullets: [
+            {
+              ko: 'Ollama(Gemma) 기반 채용 메일 전형 단계 자동 분류 및 맞춤형 면접 회고 질문 생성 파이프라인 개발',
+              en: 'Developed Ollama (Gemma) pipeline for recruitment email stage classification and interview retrospective question generation.',
+            },
+            {
+              ko: 'Ubuntu Server 24.04 LTS 환경에서 Docker 컨테이너화 배포 및 Spring Boot 백엔드 연동 지원',
+              en: 'Containerized and deployed on Ubuntu Server 24.04 LTS via Docker, integrating with Spring Boot backend.',
             },
           ],
         },

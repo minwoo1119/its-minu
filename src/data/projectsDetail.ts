@@ -2827,5 +2827,240 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       },
     ],
   },
+  {
+    id: 19,
+    category: 'ai',
+    title: {
+      ko: '취얼업 AI (ChwieolUp-AI) : 채용 메일 분류 & 맞춤형 면접 회고 질문 생성 AI 서빙 시스템',
+      en: 'ChwieolUp-AI: Recruitment Email Classification & Interview Retrospective AI Microservice',
+    },
+    oneLiner: {
+      ko: 'Ollama(Gemma) 및 FastAPI 기반 채용 메일 분석·전형 단계 자동 분류 및 맞춤형 면접 회고 질문 생성 AI 서버 (Ubuntu Server 24.04 LTS / Docker 배포)',
+      en: 'FastAPI & Ollama AI microservice for recruitment email classification, kanban recommendations, and interview retrospective question generation deployed on Ubuntu Server 24.04 LTS via Docker.',
+    },
+    overview: {
+      ko: '취업 준비 플랫폼 \'취얼업(ChwieolUp)\'을 위한 핵심 AI 마이크로서비스 엔진입니다. 사용자가 수신한 채용 메일 본문을 분석해 서류/코딩테스트/기술면접 등 전형 단계를 자동 분류하고 칸반 보드 이동을 추천하며, 지원 기업·직무·전형에 최적화된 심층 면접 회고 질문 세트를 생성합니다. Ollama(gemma4:e2b) 로컬 LLM 추론과 Pydantic v2 스키마 기반의 엄격한 JSON 정형화 파이프라인을 구축하였으며, Ubuntu Server 24.04 LTS 환경에서 Docker 및 Docker Compose로 컨테이너화 배포하여 Spring Boot 메인 백엔드 개발진이 내부 HTTP API로 안정적으로 호출할 수 있도록 연동 및 인계를 완료했습니다.',
+      en: 'A specialized AI microservice powering the \'ChwieolUp\' job preparation platform. Analyzes recruitment emails to automatically classify application stages (Screening, Coding Test, Technical Interview, Final Interview), recommends kanban status updates, and generates tailored interview retrospective questions based on company, role, and stage. Features an Ollama (gemma4:e2b) inference pipeline with strict Pydantic v2 JSON schema validation. Deployed on Ubuntu Server 24.04 LTS via Docker Compose to deliver robust, low-latency internal HTTP APIs for Spring Boot backend developers.',
+    },
+    startDate: new Date('2026-05-04'),
+    endDate: new Date('2026-06-01'),
+    teamInfo: {
+      ko: 'AI 엔지니어 & MLOps (팀 프로젝트, AI 서버 전담 개발)',
+      en: 'AI Engineer & MLOps (Team Project, AI Serving Lead)',
+    },
+    contribution: {
+      ko: 'FastAPI AI 서버 아키텍처 설계, Ollama LLM(Gemma) 연동, 채용 메일 전형 단계 분류 및 칸반 추천 알고리즘, 직무별 면접 회고 질문 생성 프롬프트 파이프라인 구축, Ubuntu Server 24.04 LTS 및 Docker 컨테이너 배포와 Spring Boot 백엔드 연동 전반을 100% 전담했습니다.',
+      en: 'Solely designed and built the FastAPI AI service architecture, Ollama LLM integration, email stage classification and kanban recommendation logic, domain-specific interview retrospective prompt pipelines, Docker containerization on Ubuntu Server 24.04 LTS, and API handover to Spring Boot developers.',
+    },
+    images: [
+      image('/img/tech/chwieolup_ai_main.jpg', 'ChwieolUp-AI 시스템 아키텍처 및 서빙 파이프라인', 'ChwieolUp-AI System Architecture & Serving Pipeline'),
+    ],
+    techChoices: [
+      {
+        name: 'FastAPI & Python 3.11',
+        reason: {
+          ko: 'Spring Boot 메인 백엔드와의 내부 마이크로서비스 통신에 적합하고, 비동기 요청 처리와 자동 생성되는 Swagger UI(/docs)를 통해 백엔드 개발팀과의 API 규격 검증 및 협업 효율을 극대화하기 위해 채택했습니다.',
+          en: 'Selected for lightweight internal microservice HTTP communication with Spring Boot, high async throughput, and automatic Swagger UI (/docs) enabling friction-free API contract testing.',
+        },
+      },
+      {
+        name: 'Ollama & Gemma (gemma4:e2b)',
+        reason: {
+          ko: '상용 클라우드 API 호출 비용과 토큰 제약을 없애고 온프레미스 서버 내에서 신속하게 한국어 채용 텍스트를 추론하기 위해 로컬 Ollama 런타임을 도입했습니다. thinking(사고 체인) 모드를 비활성화하여 추론 지연시간을 대폭 단축했습니다.',
+          en: 'Adopted local Ollama runtime and lightweight Gemma model to eliminate external API costs, running self-hosted with thinking mode disabled for low latency.',
+        },
+      },
+      {
+        name: 'Pydantic v2 & JSON Output Guardrails',
+        reason: {
+          ko: 'LLM의 비결정적 자유 서술 응답이 메인 비즈니스 서버(Spring Boot)에 역직렬화 에러를 일으키지 않도록, 엄격한 스키마 검증과 JSON 파싱 가드레일 계층을 구축했습니다.',
+          en: 'Enforced strict Pydantic v2 validation to guarantee deterministic JSON structures, preventing deserialization errors in the downstream Spring Boot backend.',
+        },
+      },
+      {
+        name: 'Ubuntu Server 24.04 LTS & Docker Compose',
+        reason: {
+          ko: '안정적인 최신 리눅스 LTS OS 환경에서 Ollama와 FastAPI 앱을 컨테이너 단위로 패키징하여, 호스트 환경 오염 없이 무중단으로 재현 가능한 AI 서빙 인프라를 백엔드 개발진에게 완벽히 배포·제공하기 위해 사용했습니다.',
+          en: 'Orchestrated on Ubuntu Server 24.04 LTS using Docker Compose to isolate containerized services, ensure host OS stability, and streamline deployment and handover to backend developers.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: {
+          ko: '채용 메일 기반 전형 단계 자동 분류 (Mail Stage Classification)',
+          en: 'Recruitment Mail Stage Classification',
+        },
+        description: {
+          ko: '수신된 채용 이메일 본문과 사용자가 등록한 전형 카테고리 목록(서류, 코딩테스트, 1차 면접, 최종 면접 등)을 LLM으로 분석하여 가장 적합한 단계(predicted_stage), 신뢰도(confidence), 판단 근거(reason), 본문 추출 증거(evidence)를 반환합니다.',
+          en: 'Analyzes incoming job application emails against user-defined stage categories to extract the predicted stage, confidence score, decision rationale, and source text evidence.',
+        },
+        images: [
+          image('/img/tech/chwieolup_ai_main.jpg', 'ChwieolUp-AI 전형 분류 및 질문 생성 파이프라인', 'ChwieolUp-AI stage classification and question pipeline'),
+        ],
+      },
+      {
+        title: {
+          ko: '맞춤형 면접 회고 질문 생성 (Retrospective Question Generator)',
+          en: 'Tailored Retrospective Question Generation',
+        },
+        description: {
+          ko: '지원 기업명, 직무(백엔드/프론트엔드 등), 전형 단계(기술면접 등)를 입력받아 기술적 깊이, 문제 해결 경험, 커뮤니케이션 개선점을 도출할 수 있는 도메인 특화 회고 질문 세트를 템플릿과 LLM 프롬프트 조합으로 자동 생성합니다.',
+          en: 'Generates structured retrospective question sets tailored to company, role (e.g. backend/frontend), and stage (e.g. technical interview), combining pre-curated template heuristics with LLM generation.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: '메일 기반 칸반 카드 이동 추천 (Kanban Move Recommender)',
+          en: 'Kanban Move Recommendation',
+        },
+        description: {
+          ko: '메일 내용과 현재 칸반 단계를 대조하여 전형 진행 상태의 변화를 감지하고, 임의 자동 변경 대신 사용자의 확인(needs_user_confirmation: true)을 거쳐 카드를 다음 단계로 안전하게 이동할 수 있도록 추천합니다.',
+          en: 'Compares email contents with the user current kanban status to propose stage transitions, ensuring safe updates with explicit user confirmation.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: 'Ubuntu Server 24.04 LTS & Docker 기반 프로덕션 서빙 인프라',
+          en: 'Production AI Serving on Ubuntu Server 24.04 LTS & Docker',
+        },
+        description: {
+          ko: 'Ubuntu Server 24.04 LTS OS 환경에서 Ollama LLM 및 FastAPI 서버를 Docker Compose로 컨테이너화하여 영구 실행 및 자동 재시작을 구성하고, Spring Boot 백엔드 개발자가 로컬/사내망에서 즉시 호출할 수 있도록 엔드투엔드 배포 환경을 완성했습니다.',
+          en: 'Containerized Ollama LLM and FastAPI on Ubuntu Server 24.04 LTS via Docker Compose with host networking, delivering an always-on internal API service for Spring Boot developers.',
+        },
+        images: [],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: 'FastAPI 기반 AI 서버 계층형(Router - Service - Schema - Core) 클린 아키텍처 설계 및 구현',
+        en: 'Designed clean layered architecture (Router - Service - Schema - Core) for FastAPI AI microservice.',
+      },
+      {
+        ko: 'Ollama HTTP API 클라이언트 연동 및 gemma4:e2b 모델 thinking 모드 제어를 통한 저지연 추론 최적화',
+        en: 'Integrated Ollama HTTP API client and optimized gemma4:e2b latency by disabling thinking mode.',
+      },
+      {
+        ko: '채용 메일 파싱, 다단계 전형 매핑, 신뢰도 및 판단 근거 도출 프롬프트 엔지니어링',
+        en: 'Engineered prompts for recruitment email parsing, multi-stage mapping, confidence scoring, and evidence extraction.',
+      },
+      {
+        ko: '직무별/전형별 면접 회고 질문 템플릿 JSON 데이터베이스 구축 및 LLM Few-shot 생성 파이프라인 결합',
+        en: 'Built curated JSON template repository for retrospective questions and integrated with few-shot LLM prompts.',
+      },
+      {
+        ko: 'Pydantic v2 기반 요청/응답 직렬화 및 LLM 비정형 출력 검증 가드레일 확립',
+        en: 'Established Pydantic v2 request/response validation and LLM output guardrails for reliable JSON serialization.',
+      },
+      {
+        ko: 'Ubuntu Server 24.04 LTS 환경 구성, Dockerfile 및 Docker Compose 작성 및 배포 파이프라인 구축',
+        en: 'Configured Ubuntu Server 24.04 LTS environment, authored Dockerfile / docker-compose.yml, and set up deployment.',
+      },
+      {
+        ko: 'Spring Boot 메인 백엔드 개발진과의 API 규격 정의, Swagger 문서화(/docs) 및 서빙 연동 인계 완료',
+        en: 'Collaborated with Spring Boot backend engineers on API contracts, OpenAPI Swagger documentation, and service handover.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: 'Ollama LLM 추론 시 thinking(사고 체인) 모드가 기본 활성화되어 응답 지연 시간이 5초 이상 길어지고, 비정형 사고 텍스트가 섞여 JSON 파싱 에러가 발생하는 문제가 있었습니다.',
+          en: 'Default thinking mode in Ollama inflated response latency over 5 seconds and mixed unstructured thought chains into JSON outputs.',
+        },
+        solution: {
+          ko: 'Ollama 요청 페이로드에 think: false 파라미터를 강제 전달하여 thinking을 비활성화하고, 시스템 프롬프트에 순수 JSON 객체만 반환하도록 Few-shot 출력 제약을 엄격히 설정했습니다.',
+          en: 'Forced think: false in the Ollama request payload and constrained the system prompt with few-shot examples to output pure JSON only.',
+        },
+        result: {
+          ko: 'AI 응답 지연 시간을 60% 이상 단축하고, Pydantic 스키마 역직렬화 성공률 100%를 달성했습니다.',
+          en: 'Reduced inference latency by over 60% and achieved 100% Pydantic deserialization reliability.',
+        },
+      },
+      {
+        problem: {
+          ko: '사용자마다 제각각 정의한 전형 명칭("코테", "실무인터뷰", "과제전형" 등)으로 인해 정적 키워드 매칭 방식에서는 오분류가 빈번하게 발생했습니다.',
+          en: 'Unstandardized user-defined stage names (e.g., "Coding Test", "Tech Round") caused frequent misclassification with static keyword matching.',
+        },
+        solution: {
+          ko: '사용자 정의 전형 메타데이터(이름, 설명, 순서)를 프롬프트에 동적 컨텍스트로 주입하고, LLM이 문맥 의미론에 기반해 가장 가까운 전형 ID를 선택함과 동시에 판단 근거(reason)와 증거 문장(evidence)을 필수 반환하도록 유도했습니다.',
+          en: 'Injected user stage metadata dynamically into prompt contexts, prompting the LLM to return semantic mappings alongside decision reasons and textual evidence.',
+        },
+        result: {
+          ko: '비정형/변칙적 전형 명칭에서도 전형 분류 정확도 90% 이상을 유지하며, 추천 결과에 대한 사용자 납득도를 크게 높였습니다.',
+          en: 'Maintained over 90% classification accuracy across irregular stage names while providing transparent, trustworthy explanations.',
+        },
+      },
+      {
+        problem: {
+          ko: 'AI 모델 서빙 환경과 메인 Spring Boot 백엔드 서버 간의 실행 환경 격리 및 의존성 충돌 문제로 인해 협업 개발자들의 로컬 및 서버 환경 연동에 병목이 발생했습니다.',
+          en: 'Environment discrepancies between the AI microservice and Spring Boot backend caused setup friction and deployment bottlenecks.',
+        },
+        solution: {
+          ko: 'Ubuntu Server 24.04 LTS 상에서 Dockerfile 및 Docker Compose를 구성하여 호스트 환경에 무관하게 단일 명령어로 AI 서버를 실행할 수 있도록 컨테이너화하고, Swagger UI 대화형 문서를 배포하여 즉각적인 API 테스트를 지원했습니다.',
+          en: 'Containerized the entire stack using Docker and Docker Compose on Ubuntu Server 24.04 LTS, providing interactive Swagger UI (/docs) for immediate API validation.',
+        },
+        result: {
+          ko: '백엔드 개발진과의 무마찰(Zero-friction) API 연동을 성공적으로 완료하고, 서버 재부팅 시에도 자동 구동되는 견고한 서빙 파이프라인을 구축했습니다.',
+          en: 'Achieved zero-friction API integration with Spring Boot developers and established a self-healing, always-on serving pipeline.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '배포 인프라', en: 'Infrastructure' },
+        value: { ko: 'Ubuntu Server + Docker', en: 'Ubuntu Server + Docker' },
+        description: {
+          ko: 'Ubuntu Server 24.04 LTS 및 Docker 기반 격리 컨테이너 서빙',
+          en: 'Containerized serving on Ubuntu Server 24.04 LTS via Docker',
+        },
+      },
+      {
+        label: { ko: '지연시간 최적화', en: 'Latency' },
+        value: { ko: '-60% Speedup', en: '-60% Speedup' },
+        description: {
+          ko: 'thinking 모드 비활성화 및 프롬프트 경량화로 고속 응답',
+          en: 'Disabled thinking mode and streamlined prompts for fast responses',
+        },
+      },
+      {
+        label: { ko: '응답 안전성', en: 'Type Safety' },
+        value: { ko: '100% JSON Schema', en: '100% JSON Schema' },
+        description: {
+          ko: 'Pydantic v2 스키마 검증 기반 Spring Boot 백엔드 무결성 보장',
+          en: '100% Pydantic v2 schema-validated outputs for Spring Boot backend',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: 'LLM을 실제 비즈니스 백엔드와 연동할 때 가장 중요한 것은 화려한 생성 표현보다 "엄격한 스키마 준수와 실패 시의 안정적인 방어 로직"임을 체득했습니다.',
+        en: 'Learned that integrating LLMs into production backends demands strict schema compliance and robust defensive fallbacks above all.',
+      },
+      {
+        ko: 'AI 모델 개발에서 나아가 Ubuntu 서버 세팅과 Docker 컨테이너화를 통해 협업 팀원이 즉시 소비할 수 있는 완성된 API 제품으로 제공하는 MLOps 엔지니어링의 가치를 실감했습니다.',
+        en: 'Realized the critical value of MLOps: taking AI beyond local scripts into containerized, production-ready APIs on Ubuntu Server for engineering teammates.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '대량 트래픽 및 동시성 요청 처리를 위한 비동기 작업 큐(Celery/Redis) 및 분산 vLLM 서빙 클러스터 구축이 향후 과제입니다.',
+        en: 'Scaling concurrent request throughput will require an asynchronous task queue (Celery/Redis) and distributed vLLM clusters.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: '누적된 사용자 합격/불합격 회고 데이터와 채용 공고를 기반으로 한 개인화 취업 전략 피드백 추천 기능으로 확장할 예정입니다.',
+        en: 'Planning to expand into personalized interview strategy recommendations based on cumulative retrospective logs.',
+      },
+    ],
+    links: [
+      {
+        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
+        url: 'https://github.com/TEAM-ChwieolUp/ChwieolUp-AI',
+      },
+    ],
+  },
 ];
 
