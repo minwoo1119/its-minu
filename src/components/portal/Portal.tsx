@@ -89,16 +89,16 @@ export const Portal = ({
       id: 'software-engineer',
       highlights: [
         {
+          ko: 'Next.js 14 + FastAPI + Qdrant 온프레미스 RAG 지식 검색 플랫폼 (dograc)',
+          en: '100% on-premise enterprise RAG platform with Next.js 14 & Qdrant (dograc)',
+        },
+        {
           ko: 'React/TS 프론트엔드 + NestJS/FastAPI 백엔드 + Docker 풀스택',
           en: 'Full-stack development: React/TS + NestJS/FastAPI + Docker',
         },
         {
           ko: '대형 언어모델(LLM) SFT/DPO 정렬 연구 (2026 KIIT 금상 수상)',
           en: 'Published LLM DPO alignment research winning 2026 KIIT Gold',
-        },
-        {
-          ko: 'TanStack Query 캐싱, Kakao Map 시각화 & 트랜잭션 동시성 제어',
-          en: 'TanStack Query caching, Kakao Map clustering & ACID transactions',
         },
       ],
     },

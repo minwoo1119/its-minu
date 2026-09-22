@@ -2570,5 +2570,262 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       },
     ],
   },
+  {
+    id: 18,
+    category: 'fullstack',
+    title: {
+      ko: 'dograc : 문서 기반 신뢰형 엔터프라이즈 모듈형 RAG 플랫폼',
+      en: 'dograc: Enterprise Modular RAG Knowledge Platform',
+    },
+    oneLiner: {
+      ko: 'Next.js 14, FastAPI, Qdrant, MinIO, Ollama 기반의 문서 근거 인라인 인용 및 투명한 RAG 실행 추적(Trace) 온프레미스 지식 검색 플랫폼',
+      en: 'An enterprise modular RAG platform featuring inline citations, execution trace auditing, and 100% on-premise local LLM runtime.',
+    },
+    overview: {
+      ko: '사내에 축적된 기술 문서, 규정집, 업무 매뉴얼(PDF)을 안전하게 색인하고, 자연어 질의 시 원문 페이지 근거에 기반하여 정확히 답변하는 오픈소스 엔터프라이즈 RAG(Retrieval-Augmented Generation) 시스템입니다. 외부 클라우드로의 데이터 반출 없이 로컬 GPU(Ollama / vLLM)와 BAAI/bge-m3 임베딩 모델로 동작하며, 환각(Hallucination)을 원천 차단하는 엄격한 거절 지침과 인라인 출처 인용([파일명, p.페이지]), 코사인 유사도 점수·지연 시간·프롬프트 전문을 전수 기록하는 Trace 감사 드로어, 그리고 교보 디자인 시스템(KDS) 기반의 Reading-First UI를 엔드투엔드로 구현했습니다.',
+      en: 'An enterprise Retrieval-Augmented Generation (RAG) platform that securely indexes proprietary technical manuals, corporate bylaws, and specifications (PDF) for grounded natural language Q&A. Operates 100% on-premise using local GPU inference (Ollama / vLLM) and BAAI/bge-m3 embeddings without external cloud leakage. Features strict refusal prompts against hallucinations, inline citations [filename, p.page], a transparent Trace audit drawer recording similarity scores, latency, and full prompts, wrapped in a Reading-First minimalist UI built on Kyobo Design System (KDS).',
+    },
+    startDate: new Date('2026-07-31'),
+    endDate: new Date('2026-09-09'),
+    teamInfo: {
+      ko: '풀스택 & AI 엔지니어 (1인 단독 개발)',
+      en: 'Full-Stack & AI Engineer (Solo Project, 100% Ownership)',
+    },
+    contribution: {
+      ko: 'Next.js 14 KDS 웹 프론트엔드, FastAPI 비동기 API 서버, Qdrant 벡터 검색 엔진, MinIO 오브젝트 스토리지, 로컬 Ollama/vLLM 추론 파이프라인, Docker Compose 인프라 오케스트레이션까지 시스템 전 계층을 100% 단독 설계 및 구축했습니다.',
+      en: 'Architected and built the entire system end-to-end: Next.js 14 KDS web frontend, FastAPI async API server, Qdrant vector search, MinIO object storage, local Ollama/vLLM inference pipeline, and Docker Compose orchestration.',
+    },
+    images: [
+      image('/img/tech/dograc_main.jpg', 'dograc Neural Retrieval 아키텍처 및 시스템 개요', 'dograc Neural Retrieval Architecture & System Overview'),
+    ],
+    techChoices: [
+      {
+        name: 'Next.js 14 (App Router) & Tailwind CSS',
+        reason: {
+          ko: '긴 텍스트와 AI 생성 답변을 장시간 편안하게 판독할 수 있도록 교보 디자인 시스템(KDS) 시각 언어(1px 정갈한 헤어라인, Periwinkle Indigo 액션 포인트)를 적용하고, App Router 기반 고성능 SPA를 구현하기 위해 선택했습니다.',
+          en: 'Applied Kyobo Design System (KDS) visual language (1px hairlines, Periwinkle Indigo points) for comfortable long-form reading, paired with Next.js 14 App Router for high-performance SPA navigation.',
+        },
+      },
+      {
+        name: 'FastAPI & Python 3.12 (AsyncIO, Pydantic v2)',
+        reason: {
+          ko: '문서 업로드 파싱, 청킹, 임베딩, 벡터 검색, LLM 스트리밍 생성에 이르는 I/O 집약적 RAG 파이프라인을 비동기(AsyncIO) 논블로킹으로 처리하고, Pydantic v2로 엄격한 데이터 직렬화 및 검증을 보장하기 위해 채택했습니다.',
+          en: 'Engineered non-blocking asynchronous I/O across parsing, chunking, embedding, vector retrieval, and LLM streaming, backed by Pydantic v2 for strict type safety and serialization.',
+        },
+      },
+      {
+        name: 'Qdrant Vector DB & BAAI/bge-m3',
+        reason: {
+          ko: '한국어 기술/행정 문서 의미 밀집도가 높은 BAAI/bge-m3 임베딩(1024차원)과 Rust 기반의 고속 HNSW 인덱싱 및 workspace_id 테넌트 격리 필터링을 지원하는 Qdrant를 결합하여 밀리초 단위의 고속 유사도 검색을 구현했습니다.',
+          en: 'Paired BAAI/bge-m3 dense embeddings (1024-dim, high Korean semantic density) with Rust-based Qdrant HNSW vector indexing and workspace tenant filtering for sub-millisecond retrieval.',
+        },
+      },
+      {
+        name: 'MinIO (S3 호환 Object Storage)',
+        reason: {
+          ko: '사내 온프레미스 폐쇄망 환경에서 원본 PDF 문서를 SHA-256 해시 기반으로 불변(Immutable) 상태로 안전하게 보관하고, S3 호환 API를 통해 유연한 확장성을 유지하기 위해 도입했습니다.',
+          en: 'Provided immutable on-premise PDF document storage with SHA-256 deduplication and full AWS S3 API compatibility for operational flexibility.',
+        },
+      },
+      {
+        name: 'Local Ollama & vLLM (100% On-Premise LLM)',
+        reason: {
+          ko: '사내 기밀 및 규정 문서가 외부 상용 API(OpenAI 등)로 유출되는 것을 원천 차단하기 위해, 개인 PC 및 사내 서버 GPU에서 qwen2.5 오픈소스 모델을 무비용 폐쇄망으로 구동하도록 Adapter 계층을 설계했습니다.',
+          en: 'Eliminated enterprise data privacy risks by running open-source LLMs (qwen2.5) locally via Ollama and vLLM on user GPUs with zero API subscription costs.',
+        },
+      },
+      {
+        name: 'Docker & Docker Compose',
+        reason: {
+          ko: 'PostgreSQL 16, Qdrant, MinIO 등 복합 인프라 서비스를 단일 명령어(docker compose up -d)로 재현 가능하고 격리된 환경으로 손쉽게 배포할 수 있도록 컨테이너화했습니다.',
+          en: 'Containerized multi-service infrastructure (PostgreSQL 16, Qdrant, MinIO) for reproducible, one-click isolated local and server orchestration.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: {
+          ko: '정확한 인라인 근거 인용 (Grounded Inline Citations)',
+          en: 'Grounded Inline Citations',
+        },
+        description: {
+          ko: 'AI 어시스턴트의 모든 답변 문장에 실제 참조 문서의 위치([파일명, p.페이지번호])를 인라인 배지 형태로 결합합니다. 사용자가 배지를 클릭하면 해당 문서의 원본 발췌문과 페이지를 즉시 대조할 수 있으며, 근거가 부족한 경우 정직하게 답변 불가를 안내하여 환각(Hallucination)을 원천 방지합니다.',
+          en: 'Anchors every generated sentence to verified document pages using [filename, p.page] inline badges. Users can click badges to inspect source excerpts directly, while strict refusal prompts curb hallucinations when evidence is absent.',
+        },
+        images: [
+          image('/img/tech/dograc_main.jpg', '인라인 출처 인용 및 RAG 아키텍처', 'Inline citation badge and RAG architecture'),
+        ],
+      },
+      {
+        title: {
+          ko: '투명한 RAG 실행 분석기 (Execution Trace Auditor)',
+          en: 'Execution Trace Auditor',
+        },
+        description: {
+          ko: '검색(Retrieval)과 생성(Generation)을 블랙박스 체인으로 결합하지 않고 분리하여 답변마다 실행 분석(Trace) 드로어를 제공합니다. 벡터 검색에서 추출된 청크들의 코사인 유사도 점수, 매칭 본문 미리보기, 전체 응답 지연시간(ms), LLM에 실제 주입된 프롬프트 전문을 투명하게 감사(Audit)할 수 있습니다.',
+          en: 'Decouples retrieval from generation to provide a slide-in execution Trace drawer. Developers and auditors can inspect chunk cosine similarity scores, matched excerpt previews, latency breakdowns (ms), and the exact prompt fed to the LLM.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: '엔터프라이즈 문서 수집 및 청킹 파이프라인 (Document Ingestion Engine)',
+          en: 'Document Ingestion Engine',
+        },
+        description: {
+          ko: '드래그앤드롭 PDF 업로드, SHA-256 해시 중복 검증, MinIO 원본 저장, pypdfium2 고속 페이지 파싱, 문맥 단락을 보존하는 재귀적 문자 청킹(800자 청크, 120자 오버랩), BAAI/bge-m3 1024차원 임베딩 및 Qdrant 색인을 자동화했습니다.',
+          en: 'Automated ingestion pipeline with drag-and-drop PDF uploads, SHA-256 deduplication, MinIO storage, pypdfium2 page parsing, recursive paragraph-preserving chunking (800 chars, 120 overlap), and BAAI/bge-m3 vector indexing into Qdrant.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: 'Reading-First KDS 웹 인터페이스 & 워크스페이스 격리',
+          en: 'Reading-First KDS Web Interface & Workspace Isolation',
+        },
+        description: {
+          ko: '교보 디자인 시스템(KDS) 시각 원칙을 계승하여 불필요한 장식과 네온 효과를 배제하고 1px 헤어라인과 차분한 색채로 장시간 문서 판독에 최적화했습니다. 워크스페이스별 논리적 테넌트 격리를 통해 프로젝트별 문서를 독립적으로 관리할 수 있습니다.',
+          en: 'Designed with Kyobo Design System principles: minimalist 1px hairlines and muted tones optimized for fatigue-free reading. Supports full logical tenant isolation across multiple workspaces.',
+        },
+        images: [],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: 'Next.js 14 App Router, Zustand, TanStack Query v5 기반 반응형 KDS 프론트엔드 UI/UX 단독 구현',
+        en: 'Built full responsive KDS frontend in Next.js 14 App Router, Zustand, and TanStack Query v5.',
+      },
+      {
+        ko: 'FastAPI 비동기 API 서버 및 PostgreSQL 16 SQLAlchemy 2.0 Async ORM / Alembic 마이그레이션 아키텍처 설계',
+        en: 'Architected async FastAPI backend with SQLAlchemy 2.0 Async ORM and Alembic migrations on PostgreSQL 16.',
+      },
+      {
+        ko: 'pypdfium2 기반 고속 페이지 단위 PDF 텍스트 추출 및 단락 보존 Recursive Character Chunking 파이프라인 구현',
+        en: 'Implemented pypdfium2 PDF text extraction and paragraph-preserving recursive character chunking pipeline.',
+      },
+      {
+        ko: 'BAAI/bge-m3 임베딩 및 Qdrant HNSW 코사인 유사도 벡터 인덱싱 / 워크스페이스 필터링 최적화',
+        en: 'Configured BAAI/bge-m3 dense embeddings and Qdrant HNSW cosine similarity indexing with tenant filtering.',
+      },
+      {
+        ko: 'Ollama 및 vLLM 추론 엔진 연동을 위한 Decoupled Generator Adapter 및 환각 억제 프롬프트 템플릿 설계',
+        en: 'Designed decoupled generator adapter supporting local Ollama / vLLM runtimes with anti-hallucination prompts.',
+      },
+      {
+        ko: '검색 청크 스코어, 지연시간, 프롬프트 전문을 기록하고 감사하는 Trace 오저버빌리티 파이프라인 구축',
+        en: 'Engineered Trace observability pipeline recording chunk similarity scores, latency, and full prompts for auditability.',
+      },
+      {
+        ko: 'MinIO S3 호환 오브젝트 스토리지 연동 및 Docker Compose 멀티 컨테이너 인프라 오케스트레이션',
+        en: 'Integrated MinIO object storage and orchestrated multi-container infrastructure via Docker Compose.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: 'LLM이 문맥에 없는 내용에 대해 그럴듯한 거짓말을 지어내는 환각(Hallucination) 현상과 페이지 번호를 임의로 왜곡하는 문제가 발생했습니다.',
+          en: 'LLM generated convincing hallucinations for ungrounded queries and fabricated citation page numbers.',
+        },
+        solution: {
+          ko: '시스템 프롬프트에 엄격한 거절 지침(Refusal Constraint)과 정규화된 Few-shot 예시를 주입하고, 답변 생성 시 [파일명, p.숫자] 문법을 정규화하여 프론트엔드 인라인 배지 파서와 1:1로 결합했습니다.',
+          en: 'Injected strict refusal constraints with normalized few-shot examples into the system prompt, enforcing a standard [file, p.num] grammar synchronized with the frontend badge parser.',
+        },
+        result: {
+          ko: '근거 없는 답변 생성률을 0%로 통제하고, 모든 생성 문장에 대해 실제 문서 페이지와 일치하는 정밀한 원문 앵커링을 확립했습니다.',
+          en: 'Eliminated ungrounded answers and achieved precise page-level anchoring across all generated response sentences.',
+        },
+      },
+      {
+        problem: {
+          ko: 'PDF 문서 파싱 시 문맥 단락이 잘리거나 페이지 경계에서 문장이 분절되어 벡터 검색 유사도 점수가 급격히 저하되는 현상이 있었습니다.',
+          en: 'Naive text chunking split sentences across page boundaries, degrading semantic vector search similarity scores.',
+        },
+        solution: {
+          ko: '단순 고정 길이 분할 대신 pypdfium2 페이지 메타데이터를 유지하며 문단(\\n\\n) 및 문장 단위 경계를 우선 탐색하는 Recursive Character Chunking(800자 청크, 120자 오버랩) 파이프라인을 구축했습니다.',
+          en: 'Built a recursive chunking pipeline (800 chars, 120 overlap) prioritizing paragraph and sentence breaks while binding page metadata.',
+        },
+        result: {
+          ko: '문맥 단절을 최소화하여 Qdrant 코사인 유사도 검색 상위 매칭 정확도(Top-K Relevance)를 대폭 향상시켰습니다.',
+          en: 'Maximized context continuity and significantly improved Top-K retrieval precision in Qdrant cosine similarity search.',
+        },
+      },
+      {
+        problem: {
+          ko: '사내 규정 및 기밀 문서를 다루는 환경에서 외부 상용 클라우드 API 호출 시 데이터 유출 위험과 지속적인 토큰 비용이 발생했습니다.',
+          en: 'Calling commercial cloud LLM APIs introduced corporate data leak risks and ongoing token subscription costs.',
+        },
+        solution: {
+          ko: 'Ollama 로컬 런타임 및 vLLM 추론 어댑터를 Adapter 패턴으로 추상화하여, 폐쇄망 및 개인 PC GPU에서 qwen2.5 모델이 100% 로컬로 구동되도록 아키텍처를 설계했습니다.',
+          en: 'Abstracted generation behind an adapter interface supporting local Ollama / vLLM, executing qwen2.5 fully on local GPUs in an air-gapped network.',
+        },
+        result: {
+          ko: '외부 네트워크 통신이 완전히 차단된 상태에서도 완벽한 데이터 주권과 0원의 API 비용으로 고성능 RAG 서비스를 운영할 수 있게 되었습니다.',
+          en: 'Achieved zero-cost, air-gapped operation with full data sovereignty and robust enterprise RAG performance.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '데이터 주권', en: 'Data Sovereignty' },
+        value: { ko: '100% On-Premise', en: '100% On-Premise' },
+        description: {
+          ko: '외부 클라우드 전송 제로, 로컬 GPU 완벽 폐쇄망 구동',
+          en: 'Zero external cloud leakage, fully air-gapped local GPU runtime',
+        },
+      },
+      {
+        label: { ko: '환각 방지 신뢰도', en: 'Citation Precision' },
+        value: { ko: 'Grounded Citations', en: 'Grounded Citations' },
+        description: {
+          ko: '모든 답변 문장 원문 페이지 1:1 앵커링 및 근거 부재 시 정직한 거절',
+          en: '1:1 page-anchored inline citations and strict refusal on missing evidence',
+        },
+      },
+      {
+        label: { ko: '실행 가시성', en: 'Observability' },
+        value: { ko: 'Full Trace Audit', en: 'Full Trace Audit' },
+        description: {
+          ko: '청크 유사도 스코어, 지연시간(ms), 프롬프트 전문 전수 감사 로깅',
+          en: 'Full audit logging of similarity scores, latency (ms), and exact prompts',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: 'RAG 파이프라인의 성패는 단순히 거대한 LLM을 붙이는 것이 아니라, 무손실 파싱, 문맥 보존 청킹, 도메인 임베딩, 그리고 무엇보다 검색 결과와 프롬프트를 투명하게 감사(Trace)할 수 있는 아키텍처에 달려 있음을 체득했습니다.',
+        en: 'Learned that RAG system success hinges not merely on LLM capacity, but on lossless parsing, context-preserving chunking, dense embeddings, and transparent Trace auditability.',
+      },
+      {
+        ko: '기업 실무 환경에서는 화려한 챗봇보다 "정직하게 모른다고 답하고, 아는 것은 원문 페이지를 명확히 짚어주는 신뢰성"이 가장 중요한 핵심 가치임을 깊이 이해했습니다.',
+        en: 'Realized that enterprise knowledge tools demand trust above all: an assistant that honestly refuses when uninformed and pinpoints verified page numbers when grounded.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '대규모 PDF 문서가 동시에 대량 업로드될 경우 비동기 백그라운드 태스크 큐(Celery / Redis / ARQ)의 분산 처리가 추가로 필요합니다.',
+        en: 'Bulk concurrent PDF uploads will require a distributed asynchronous worker queue (Celery/Redis/ARQ).',
+      },
+      {
+        ko: 'Dense 벡터 검색 외에 키워드 기반 BM25 검색을 융합한 Hybrid Search(RRF) 도입이 향후 요구됩니다.',
+        en: 'Hybrid search merging sparse BM25 keyword matching with dense vectors via Reciprocal Rank Fusion (RRF) is pending.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: 'BM25 + Dense Hybrid Search 및 Cross-Encoder Reranker 파이프라인을 적용하여 검색 정밀도를 추가 극대화할 계획입니다.',
+        en: 'Planning to implement BM25 + Dense Hybrid Search and Cross-Encoder rerankers to further maximize retrieval precision.',
+      },
+      {
+        ko: 'DOCX, PPTX, Markdown 등 비-PDF 멀티포맷 파서 확장 및 사용자 피드백 기반 DPO/LoRA 선호도 파인튜닝 파이프라인과 통합할 예정입니다.',
+        en: 'Extending parsers to DOCX, PPTX, and Markdown, while connecting Trace logs to a DPO/LoRA preference fine-tuning loop.',
+      },
+    ],
+    links: [
+      {
+        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
+        url: 'https://github.com/minwoo1119/dograc',
+      },
+    ],
+  },
 ];
 

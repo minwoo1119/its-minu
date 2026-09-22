@@ -320,6 +320,21 @@ const allCards = {
     },
     techs: ['React', 'JavaScript', 'Styled-components', 'Vite'],
   }),
+
+  dograc: (category: string): ProjectCardInfo => ({
+    id: 18,
+    category,
+    imgUrl: '/img/tech/dograc_main.jpg',
+    title: {
+      ko: 'dograc : 문서 기반 신뢰형 엔터프라이즈 모듈형 RAG 플랫폼',
+      en: 'dograc: Enterprise Modular RAG Knowledge Platform',
+    },
+    description: {
+      ko: 'Next.js 14, FastAPI, Qdrant, MinIO, Ollama 기반 문서 근거 인라인 인용 및 투명한 RAG 실행 추적(Trace) 온프레미스 플랫폼',
+      en: 'Enterprise modular RAG platform featuring inline citations, execution trace auditing, and 100% on-premise local LLM runtime.',
+    },
+    techs: ['Next.js 14', 'FastAPI', 'PostgreSQL', 'Qdrant', 'MinIO', 'Ollama', 'Docker', 'bge-m3'],
+  }),
 };
 
 // -------------------------------------------------------------
@@ -474,6 +489,7 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.semParticle('main'),
         allCards.sevenSegmentOcr('main'),
         allCards.qlogAnalyzer('main'),
+        allCards.dograc('main'),
         allCards.llmAlignment('main'),
         allCards.slowAgingLlm('main'),
 
@@ -753,6 +769,7 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.joinUs('other'),
         allCards.babzip('other'),
         allCards.cakeWorkshop('other'),
+        allCards.dograc('other'),
         allCards.llmAlignment('other'),
         allCards.slowAgingLlm('other'),
       ],
@@ -1001,15 +1018,19 @@ export const tracksData: Record<TrackId, TrackData> = {
           { name: 'TailwindCSS', icon: 'tailwindcss' },
         ],
         backendCloud: [
-          { name: 'NestJS', icon: 'nestjs' },
           { name: 'FastAPI', icon: 'fastapi' },
+          { name: 'NestJS', icon: 'nestjs' },
           { name: 'Python', icon: 'python' },
+          { name: 'PostgreSQL', icon: 'postgresql' },
           { name: 'MySQL', icon: 'mysql' },
           { name: 'Docker', icon: 'docker' },
+          { name: 'MinIO', icon: 'minio' },
           { name: 'Nginx', icon: 'nginx' },
           { name: 'TypeORM', icon: 'typeorm' },
         ],
         aiSystems: [
+          { name: 'Qdrant', icon: 'qdrant' },
+          { name: 'Ollama', icon: 'ollama' },
           { name: 'PyTorch', icon: 'pytorch' },
           { name: 'ONNX', icon: 'onnx' },
           { name: 'TensorRT', icon: 'nvidia' },
@@ -1036,6 +1057,7 @@ export const tracksData: Record<TrackId, TrackData> = {
       },
       items: [
         // Main (Software & Full-Stack)
+        allCards.dograc('main'),
         allCards.platePicks('main'),
         allCards.jobForeigner('main'),
         allCards.geumpumta('main'),
@@ -1067,6 +1089,10 @@ export const tracksData: Record<TrackId, TrackData> = {
       },
       summary: [
         {
+          ko: 'Next.js 14 + FastAPI + Qdrant + MinIO 기반 100% 온프레미스 엔터프라이즈 RAG 플랫폼 "dograc" 아키텍처 100% 단독 구축',
+          en: 'Solely architected 100% on-premise enterprise RAG platform "dograc" in Next.js 14, FastAPI, Qdrant, and MinIO.',
+        },
+        {
           ko: 'React + NestJS + MySQL + Docker 기반 익명 투표 풀스택 플랫폼 "Plate Picks" 아키텍처 100% 단독 구축',
           en: 'Solely architected full-stack voting platform "Plate Picks" in React, NestJS, MySQL, and Docker.',
         },
@@ -1090,14 +1116,29 @@ export const tracksData: Record<TrackId, TrackData> = {
         },
         {
           title: { ko: 'Backend & Cloud', en: 'Backend & Cloud' },
-          items: 'NestJS, FastAPI, Python, MySQL, TypeORM, Docker, Nginx, RESTful API, JWT',
+          items: 'FastAPI, NestJS, Python, PostgreSQL, MySQL, Qdrant, MinIO, Docker, Nginx, TypeORM, RESTful API, JWT',
         },
         {
           title: { ko: 'AI & Systems', en: 'AI & Systems' },
-          items: 'PyTorch, TensorRT, ONNX, OpenCV, C++, C# WPF, Git, GitHub Actions',
+          items: 'Ollama, vLLM, BAAI/bge-m3, RAG Pipeline, PyTorch, TensorRT, ONNX, OpenCV, C++, C# WPF, Git, GitHub Actions',
         },
       ],
       projects: [
+        {
+          title: 'dograc (엔터프라이즈 모듈형 RAG 지식 검색 플랫폼)',
+          role: 'Full-Stack & AI Engineer (100%)',
+          tech: 'Next.js 14, FastAPI, PostgreSQL, Qdrant, MinIO, Ollama, Docker, bge-m3',
+          bullets: [
+            {
+              ko: 'Next.js 14 + FastAPI + Qdrant + MinIO 기반 100% 온프레미스 RAG 지식 검색 플랫폼 단독 설계 및 구축',
+              en: 'Solo architected 100% on-premise enterprise RAG platform with Next.js 14, FastAPI, Qdrant, and MinIO.',
+            },
+            {
+              ko: '문서 페이지 인라인 인용 앵커링, 환각 억제 프롬프트 및 코사인 유사도·레이턴시 Trace 감사 드로어 구현',
+              en: 'Implemented inline document citation badges, anti-hallucination prompts, and transparent Trace audit drawer.',
+            },
+          ],
+        },
         {
           title: 'Plate Picks',
           role: 'Full-Stack Engineer (100%)',
