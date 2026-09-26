@@ -22,7 +22,7 @@ export const Portal = ({
           titleHighlight: '이민우',
           titleSuffix: '의 포트폴리오',
           description:
-            '컴퓨터 비전, 모바일 앱 개발, 소프트웨어 엔지니어링 3개 전문 영역별 포트폴리오입니다. 확인하고자 하는 트랙을 선택해 주세요.',
+            'AI 서비스 개발, 컴퓨터 비전, 모바일 앱, 소프트웨어 엔지니어링 4개 전문 영역별 포트폴리오입니다. 확인하고자 하는 트랙을 선택해 주세요.',
           selectBtn: '포트폴리오 보기',
           projectCountSuffix: '개 프로젝트',
           blog: '블로그',
@@ -37,7 +37,7 @@ export const Portal = ({
           titleHighlight: 'Minwoo Lee',
           titleSuffix: '',
           description:
-            'Explore engineering portfolios across 3 specialized domains: Computer Vision, Mobile App Development, and Software Engineering.',
+            'Explore engineering portfolios across 4 specialized domains: AI Service Development, Computer Vision, Mobile App Development, and Software Engineering.',
           selectBtn: 'View Portfolio',
           projectCountSuffix: ' Projects',
           blog: 'Blog',
@@ -51,6 +51,23 @@ export const Portal = ({
     id: TrackId;
     highlights: { ko: string; en: string }[];
   }[] = [
+    {
+      id: 'ai-service-engineer',
+      highlights: [
+        {
+          ko: 'Next.js 14 + FastAPI + Qdrant 100% 온프레미스 RAG 플랫폼 (dograc)',
+          en: '100% on-premise enterprise RAG platform with Next.js 14 & Qdrant',
+        },
+        {
+          ko: 'Ollama(Gemma) + Ubuntu Server 24.04 / Docker AI 서빙 마이크로서비스',
+          en: 'Ollama AI microservice deployed on Ubuntu Server 24.04 LTS & Docker',
+        },
+        {
+          ko: 'LLM SFT/DPO 정렬 연구 (2026 KIIT 금상 수상) & TensorRT 가속 (-73%)',
+          en: 'LLM SFT/DPO alignment research (2026 KIIT Gold) & TensorRT acceleration',
+        },
+      ],
+    },
     {
       id: 'computer-vision',
       highlights: [

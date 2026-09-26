@@ -1,6 +1,10 @@
 import type { LocalizedText } from '../i18n';
 
-export type TrackId = 'computer-vision' | 'app-dev' | 'software-engineer';
+export type TrackId =
+  | 'ai-service-engineer'
+  | 'computer-vision'
+  | 'app-dev'
+  | 'software-engineer';
 
 export interface ProjectCardInfo {
   id: number;
@@ -356,6 +360,325 @@ const allCards = {
 // Tracks Data
 // -------------------------------------------------------------
 export const tracksData: Record<TrackId, TrackData> = {
+  // 0. AI Service & Applied AI
+  'ai-service-engineer': {
+    id: 'ai-service-engineer',
+    canonicalPath: '/ai-service-engineer',
+    aliases: ['ai', 'applied-ai', 'ai-engineer', 'ai-service', 'ai-solution', 'llm', 'ax'],
+    navTitle: {
+      ko: 'AI 서비스 개발',
+      en: 'AI Service & Applied AI',
+    },
+    badge: {
+      ko: 'Applied AI & Solution',
+      en: 'Applied AI & Solution',
+    },
+    portalDescription: {
+      ko: 'LLM Fine-Tuning(SFT/DPO), RAG/Vector DB, FastAPI 모델 서빙부터 Docker/Ubuntu 배포, 프론트엔드 연동까지 완성하는 엔드투엔드 AI 서비스 개발',
+      en: 'End-to-end AI service engineering: LLM fine-tuning (SFT/DPO), RAG pipelines, FastAPI serving, Docker/Ubuntu deployment, and frontend integration.',
+    },
+    heroTags: ['LLM Fine-Tuning', 'RAG / Vector DB', 'FastAPI', 'Docker & Ubuntu', 'Ollama & vLLM', 'TensorRT'],
+    intro: {
+      title: {
+        ko: '모델 개발부터 서빙, 서비스 배포까지 엔드투엔드로 연결하는 ',
+        en: 'Bridging AI Models, Serving Pipelines, and Production Services, ',
+      },
+      role: {
+        ko: 'AI Service Developer / Applied AI Engineer',
+        en: 'AI Service Developer / Applied AI Engineer',
+      },
+      name: {
+        ko: ' 이민우입니다.',
+        en: ' Minwoo Lee.',
+      },
+      sub: {
+        ko: '순수 연구나 단편적 프론트엔드에 머무르지 않고, LLM/비전 모델을 직접 파인튜닝(SFT/DPO)하고 경량화하여 FastAPI 서버에 올리고, Docker/Ubuntu 인프라 위에서 실제 사용자 서비스와 유기적으로 결합하는 엔드투엔드 AI 서비스 개발을 주도합니다.',
+        en: 'Going beyond pure research or isolated frontend development, I bridge the entire pipeline: fine-tuning (SFT/DPO) and accelerating LLM/Vision models, serving them via low-latency FastAPI microservices, and orchestrating Docker/Ubuntu infrastructure to deliver robust, user-facing AI applications.',
+      },
+    },
+    competencies: {
+      mini: {
+        ko: 'Core Competencies',
+        en: 'Core Competencies',
+      },
+      title: {
+        ko: '주요 역량',
+        en: 'Key Strengths',
+      },
+      items: [
+        {
+          icon: 'LLM',
+          title: {
+            ko: 'LLM Fine-Tuning & Alignment',
+            en: 'LLM Fine-Tuning & Alignment',
+          },
+          description: {
+            ko: 'Gemma 기반 LoRA/QLoRA 4-bit 경량 파인튜닝, SFT 및 DPO 선호도 정렬, 환각(Hallucination) 분석 및 LLM-as-a-Judge 자동 평가 프레임워크 구축 (2026 KIIT 학술대회 금상 수상)',
+            en: 'Gemma-based LoRA/QLoRA fine-tuning, SFT & DPO preference alignment, hallucination analysis, and LLM-as-a-Judge automated evaluation pipelines (2026 KIIT Gold Award).',
+          },
+        },
+        {
+          icon: 'FastAPI',
+          title: {
+            ko: 'RAG Pipeline & Model Serving',
+            en: 'RAG Pipeline & Model Serving',
+          },
+          description: {
+            ko: '문서 업로드 → 파싱 → 임베딩(bge-m3) → Qdrant Vector DB → RAG 검색 → LLM 응답 인라인 인용 추적(Trace) 파이프라인 단독 구축. FastAPI 비동기 서빙 및 Pydantic v2 데이터 검증',
+            en: 'Engineered modular RAG pipelines: document parsing, bge-m3 embedding, Qdrant Vector DB retrieval, and citation tracing. High-throughput async FastAPI serving with Pydantic v2.',
+          },
+        },
+        {
+          icon: 'Docker',
+          title: {
+            ko: '인프라 배포 & 실서비스 시스템 통합',
+            en: 'Infra Deployment & Service Integration',
+          },
+          description: {
+            ko: 'Ubuntu Server 24.04 LTS 및 Docker 기반의 컨테이너화 배포, Ollama 온프레미스 런타임 최적화. Next.js/React 프론트엔드 및 Spring Boot 백엔드와의 유기적 AI 서빙 연동',
+            en: 'Orchestrating Ubuntu Server 24.04 LTS & Docker containerization with local Ollama runtimes, integrating AI microservices seamlessly with Next.js/React and Spring Boot systems.',
+          },
+        },
+      ],
+    },
+    techs: {
+      options: ['aiLlm', 'servingBackend', 'edgeVision'],
+      labels: {
+        aiLlm: {
+          ko: 'LLM & AI Core',
+          en: 'LLM & AI Core',
+        },
+        servingBackend: {
+          ko: 'Serving & Infrastructure',
+          en: 'Serving & Infrastructure',
+        },
+        edgeVision: {
+          ko: 'Vision AI & Edge',
+          en: 'Vision AI & Edge',
+        },
+      },
+      subText: {
+        ko: 'AI 모델 파인튜닝부터 서빙, 클라우드/온프레미스 배포, 서비스 통합에 활용되는 기술 스택입니다.',
+        en: 'Tech stack applied across AI fine-tuning, model serving, Docker/Ubuntu deployment, and full-stack integration.',
+      },
+      stacks: {
+        aiLlm: [
+          { name: 'Ollama', icon: 'ollama' },
+          { name: 'Qdrant', icon: 'qdrant' },
+          { name: 'bge-m3', icon: 'huggingface' },
+          { name: 'PyTorch', icon: 'pytorch' },
+          { name: 'Unsloth', icon: 'python' },
+          { name: 'Gemma', icon: 'google' },
+          { name: 'LoRA / QLoRA', icon: 'python' },
+          { name: 'SFT / DPO', icon: 'pytorch' },
+          { name: 'HuggingFace', icon: 'huggingface' },
+          { name: 'vLLM', icon: 'python' },
+        ],
+        servingBackend: [
+          { name: 'FastAPI', icon: 'fastapi' },
+          { name: 'Python', icon: 'python' },
+          { name: 'Docker', icon: 'docker' },
+          { name: 'Ubuntu Server', icon: 'ubuntu' },
+          { name: 'PostgreSQL', icon: 'postgresql' },
+          { name: 'MinIO', icon: 'minio' },
+          { name: 'NestJS', icon: 'nestjs' },
+          { name: 'Redis', icon: 'redis' },
+          { name: 'Nginx', icon: 'nginx' },
+          { name: 'Git', icon: 'git' },
+        ],
+        edgeVision: [
+          { name: 'YOLO', icon: 'yolo' },
+          { name: 'TensorRT', icon: 'nvidia' },
+          { name: 'ONNX', icon: 'onnx' },
+          { name: 'OpenCV', icon: 'opencv' },
+          { name: 'PaddleOCR', icon: 'baidu' },
+          { name: 'CUDA', icon: 'nvidia' },
+          { name: 'C++', icon: 'cplusplus' },
+        ],
+      },
+    },
+    projects: {
+      subText: {
+        ko: '모델 파인튜닝, RAG 파이프라인, 서빙 서버 및 서비스 개발 프로젝트 포트폴리오입니다.',
+        en: 'AI model fine-tuning, modular RAG pipelines, serving microservices, and end-to-end applications.',
+      },
+      titleText: {
+        ko: 'AI 서비스 프로젝트 포트폴리오',
+        en: 'AI Service Project Portfolio',
+      },
+      categoryOptions: ['all', 'main', 'other'],
+      categoryLabels: {
+        all: { ko: '전체', en: 'All' },
+        main: { ko: 'AI 서비스 & 파이프라인', en: 'AI Service & Pipelines' },
+        other: { ko: '기타 프로젝트', en: 'Other Projects' },
+      },
+      items: [
+        // Main (대표 4대 흐름: 1. Local LLM + RAG, 2. AI 서빙 마이크로서비스, 3. Vision AI/OCR 가속, 4. LLM 연구 및 다국어 서비스)
+        allCards.dograc('main'),
+        allCards.chwieolUpAi('main'),
+        allCards.pipetOcr('main'),
+        allCards.llmAlignment('main'),
+        allCards.slowAgingLlm('main'),
+        allCards.jobForeigner('main'),
+
+        // Other
+        allCards.platePicks('other'),
+        allCards.geumpumta('other'),
+        allCards.sevenSegmentOcr('other'),
+        allCards.semParticle('other'),
+        allCards.qlogAnalyzer('other'),
+        allCards.joinUs('other'),
+        allCards.babzip('other'),
+        allCards.cakeWorkshop('other'),
+        allCards.uhdyl('other'),
+        allCards.chirpaid('other'),
+        allCards.yeSang('other'),
+        allCards.saSang('other'),
+      ],
+    },
+    printableResume: {
+      role: {
+        ko: 'AI 서비스 개발자 (Applied AI Engineer / AI Solution Developer)',
+        en: 'AI Service Developer (Applied AI Engineer / AI Solution Developer)',
+      },
+      bio: {
+        ko: 'AI 모델 파인튜닝/최적화부터 FastAPI 서빙, Docker/Ubuntu 온프레미스 인프라 배포, 사용자 서비스 연동까지 전 과정을 하나의 파이프라인으로 연결하는 AI 서비스 개발자 이민우입니다.',
+        en: 'Applied AI Engineer specializing in bridging AI models to real-world services: from LLM fine-tuning to high-throughput FastAPI serving, Docker/Ubuntu deployment, and frontend integration.',
+      },
+      summary: [
+        {
+          ko: 'Next.js 14 + FastAPI + Qdrant + Ollama 기반 100% 온프레미스 엔터프라이즈 모듈형 RAG 플랫폼 "dograc" 아키텍처 및 파이프라인 단독 구축',
+          en: 'Solely architected 100% on-premise enterprise modular RAG platform "dograc" with Next.js 14, FastAPI, Qdrant, and Ollama.',
+        },
+        {
+          ko: 'Ubuntu Server 24.04 LTS 및 Docker 기반 Ollama(Gemma) 채용 메일 전형 분석 & 면접 회고 질문 생성 AI 서빙 서버 "ChwieolUp-AI" 구축 및 백엔드 연동',
+          en: 'Engineered & deployed Ollama AI microservice "ChwieolUp-AI" on Ubuntu Server 24.04 LTS via Docker for email analysis and question generation.',
+        },
+        {
+          ko: 'Gemma 기반 SFT / DPO 선호도 정렬 및 LLM-as-a-Judge 자동 평가 연구로 한국정보기술학회(KIIT) 2026 하계 금상, 2025 추계 은상 2년 연속 수상',
+          en: 'Won consecutive KIIT Best Paper Awards (2026 Gold, 2025 Silver) for empirical Gemma SFT/DPO alignment and LLM-as-a-Judge evaluation.',
+        },
+        {
+          ko: 'YOLO, Custom CNN, PaddleOCR 파이프라인의 ONNX 및 TensorRT FP16/INT8 가속 엔진 최적화를 통한 추론 지연 시간 73% 단축 (300ms → 80ms)',
+          en: 'Accelerated YOLO/OCR pipelines by 73% (300ms -> 80ms) using ONNX Runtime and TensorRT FP16/INT8 engines on edge environments.',
+        },
+        {
+          ko: 'FastAPI / NestJS 백엔드 API, Docker 컨테이너 오케스트레이션, React / Flutter 크로스플랫폼을 아우르는 엔드투엔드 서비스 통합 역량 보유',
+          en: 'Demonstrated end-to-end integration across FastAPI/NestJS backends, Docker orchestration, and React/Flutter client applications.',
+        },
+      ],
+      skills: [
+        {
+          title: { ko: 'AI & LLM Engineering', en: 'AI & LLM Engineering' },
+          items: 'Ollama, vLLM, Qdrant (Vector DB), BAAI/bge-m3, RAG Pipeline, Gemma, LoRA/QLoRA (Unsloth), SFT/DPO, PyTorch, HuggingFace',
+        },
+        {
+          title: { ko: 'Model Serving & Backend', en: 'Model Serving & Backend' },
+          items: 'FastAPI, Pydantic v2, Python, NestJS, PostgreSQL, MySQL, MinIO, RESTful API, Redis, TypeORM',
+        },
+        {
+          title: { ko: 'Vision AI & Edge Acceleration', en: 'Vision AI & Edge Acceleration' },
+          items: 'YOLO, TensorRT, ONNX Runtime, OpenCV, PaddleOCR, CUDA, C++',
+        },
+        {
+          title: { ko: 'Infrastructure & Deployment', en: 'Infrastructure & Deployment' },
+          items: 'Docker, Docker Compose, Ubuntu Server 24.04 LTS, Nginx, Linux, Git, GitHub Actions',
+        },
+      ],
+      projects: [
+        {
+          title: 'dograc (엔터프라이즈 모듈형 RAG 지식 검색 플랫폼)',
+          role: 'AI & Full-Stack Engineer (100%)',
+          tech: 'Next.js 14, FastAPI, PostgreSQL, Qdrant, MinIO, Ollama, Docker, bge-m3',
+          bullets: [
+            {
+              ko: 'Next.js 14 + FastAPI + Qdrant + MinIO 기반 100% 온프레미스 RAG 지식 검색 플랫폼 단독 설계 및 구축',
+              en: 'Solo architected 100% on-premise enterprise RAG platform with Next.js 14, FastAPI, Qdrant, and MinIO.',
+            },
+            {
+              ko: '문서 페이지 인라인 인용 앵커링, 환각 억제 프롬프트 및 코사인 유사도·레이턴시 Trace 감사 드로어 구현',
+              en: 'Implemented inline document citation badges, anti-hallucination prompts, and transparent Trace audit drawer.',
+            },
+          ],
+        },
+        {
+          title: 'ChwieolUp-AI (취업 준비 플랫폼 AI 서빙 마이크로서비스)',
+          role: 'AI Engineer & MLOps (AI 서빙 전담)',
+          tech: 'Python, FastAPI, Ollama, Gemma, Pydantic v2, Docker, Ubuntu Server 24.04 LTS',
+          bullets: [
+            {
+              ko: 'Ollama(Gemma) 기반 채용 메일 전형 단계 자동 분류 및 맞춤형 면접 회고 질문 생성 파이프라인 개발',
+              en: 'Developed Ollama (Gemma) pipeline for recruitment email stage classification and interview retrospective question generation.',
+            },
+            {
+              ko: 'Ubuntu Server 24.04 LTS 환경에서 Docker 컨테이너화 배포 및 Spring Boot 백엔드 연동 지원',
+              en: 'Containerized and deployed on Ubuntu Server 24.04 LTS via Docker, integrating with Spring Boot backend.',
+            },
+          ],
+        },
+        {
+          title: 'LLM Alignment & Domain Fine-Tuning Research',
+          role: 'AI Researcher (KIIT 금상/은상 2년 연속 수상)',
+          tech: 'Python, PyTorch, Gemma, Unsloth, DPO, SFT, LoRA, HuggingFace',
+          bullets: [
+            {
+              ko: 'Instruction-Tuned Gemma 모델 SFT 및 DPO 선호도 정렬 효과 실증 분석 (2026 KIIT 하계 학술대회 금상)',
+              en: 'Empirical analysis on SFT and DPO preference alignment in Gemma instruction-tuned models (2026 KIIT Gold Award).',
+            },
+            {
+              ko: '저속노화 의학 문헌 도메인 특화 JSONL 데이터셋 정제 및 LoRA 경량 파인튜닝 연구 (2025 KIIT 추계 은상)',
+              en: 'Domain-specific JSONL dataset curation and lightweight LoRA fine-tuning for health literature (2025 KIIT Silver Award).',
+            },
+          ],
+        },
+        {
+          title: 'Micro-pipette Detection & Hybrid OCR System',
+          role: 'AI & Vision Engineer (100%)',
+          tech: 'Python, OpenCV, PyTorch, YOLO, PaddleOCR, TensorRT, ONNX',
+          bullets: [
+            {
+              ko: 'YOLO 객체 검출과 Custom CNN/PaddleOCR 결합 하이브리드 파이프라인 설계',
+              en: 'Designed hybrid vision pipeline combining YOLO object detection with custom CNN and PaddleOCR.',
+            },
+            {
+              ko: 'ONNX 변환 및 TensorRT FP16/INT8 최적화를 통한 추론 시간 73% 단축 (300ms → 80ms)',
+              en: 'Accelerated edge inference by 73% (300ms -> 80ms) via ONNX Runtime and TensorRT FP16/INT8 optimization.',
+            },
+          ],
+        },
+        {
+          title: 'JobForeigner (JobTalk) 다국어 채용 플랫폼',
+          role: 'Frontend & API Integration Lead',
+          tech: 'React, TypeScript, FastAPI, TanStack Query, Kakao Map',
+          bullets: [
+            {
+              ko: 'FastAPI 백엔드와 연동된 외국인 구인구직 및 Kakao Map 공간 필터링 프론트엔드 총괄',
+              en: 'Led frontend development for multilingual employment platform integrated with FastAPI and Kakao Maps.',
+            },
+          ],
+        },
+      ],
+      research: [
+        {
+          ko: '2026 한국정보기술학회(KIIT) 하계 학술대회 금상 (DPO 정렬 연구)',
+          en: '2026 KIIT Summer Conference Best Paper Gold Award (DPO Alignment)',
+        },
+        {
+          ko: '2025 한국정보기술학회(KIIT) 추계 학술대회 은상 (저속노화 도메인 LLM 파인튜닝)',
+          en: '2025 KIIT Fall Conference Best Paper Silver Award (Domain LLM Fine-Tuning)',
+        },
+        {
+          ko: 'KCI 등재 학술지 논문 게재 (모바일 기부 플랫폼 투명성 연구)',
+          en: 'KCI-Indexed Journal Publication (Mobile Transparency Architecture)',
+        },
+      ],
+    },
+    pdfFilename: {
+      ko: '이민우_AI_Service_Developer_Applied_AI_Engineer.pdf',
+      en: 'Minwoo_Lee_Applied_AI_Engineer.pdf',
+    },
+  },
+
   // 1. Computer Vision & Image Processing
   'computer-vision': {
     id: 'computer-vision',

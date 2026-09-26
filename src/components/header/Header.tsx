@@ -36,6 +36,7 @@ export const Header = ({
     language: language === 'ko' ? '언어' : 'Language',
     trackSelect: language === 'ko' ? '트랙 선택' : 'Track',
     portalOption: language === 'ko' ? '전체 트랙 홈' : 'All Tracks',
+    aiOption: language === 'ko' ? 'AI 서비스 개발' : 'AI Service / Applied AI',
     cvOption: 'Computer Vision',
     appOption: 'App Developer',
     seOption: 'Software Engineer',
@@ -73,6 +74,7 @@ export const Header = ({
             aria-label={labels.trackSelect}
           >
             <option value='portal'>{labels.portalOption}</option>
+            <option value='ai-service-engineer'>{labels.aiOption}</option>
             <option value='computer-vision'>{labels.cvOption}</option>
             <option value='app-dev'>{labels.appOption}</option>
             <option value='software-engineer'>{labels.seOption}</option>
@@ -101,6 +103,7 @@ export const Header = ({
             }}
           >
             <option value='portal'>{labels.portalOption}</option>
+            <option value='ai-service-engineer'>{labels.aiOption}</option>
             <option value='computer-vision'>{labels.cvOption}</option>
             <option value='app-dev'>{labels.appOption}</option>
             <option value='software-engineer'>{labels.seOption}</option>

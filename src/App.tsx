@@ -133,7 +133,7 @@ function App() {
   const activeTrackId: TrackId =
     route.name === 'track' || route.name === 'projectDetail'
       ? route.trackId
-      : 'computer-vision';
+      : 'ai-service-engineer';
 
   const activeTrackData = tracksData[activeTrackId];
 
@@ -195,7 +195,7 @@ function App() {
       document.title =
         language === 'ko'
           ? '이민우 포트폴리오 | Minwoo Lee Career Portfolio'
-          : 'Minwoo Lee Portfolio | Computer Vision, App, Software Engineer';
+          : 'Minwoo Lee Portfolio | AI Service, Computer Vision, App, Software Engineer';
     } else if (route.name === 'track') {
       const role = getText(language, activeTrackData.intro.role);
       document.title = `${role} | 이민우 (Minwoo Lee)`;

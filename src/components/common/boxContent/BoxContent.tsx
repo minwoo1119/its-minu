@@ -1,6 +1,11 @@
 import styles from './boxContent.module.scss';
 
 const techColors: Record<string, string> = {
+  // AI Service & Applied AI
+  'LLM': '#8b5cf6',
+  'FastAPI': '#059669',
+  'Docker': '#2563eb',
+
   // Computer Vision
   'C++': '#00599c',
   'OpenCV': '#0284c7',
@@ -14,7 +19,6 @@ const techColors: Record<string, string> = {
   // Software Engineer
   'React': '#0ea5e9',
   'NestJS': '#e0234e',
-  'Docker': '#2563eb',
 };
 
 interface Props {
