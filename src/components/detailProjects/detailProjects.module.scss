@@ -34,10 +34,8 @@
   padding-bottom: 0.2rem;
   border-bottom: 2px solid #005ecb;
   color: #005ecb;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .title {
@@ -185,9 +183,8 @@
 
 .sectionEyebrow {
   color: #005ecb;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .overviewGrid,
@@ -272,11 +269,9 @@
 }
 
 .featureBadge {
-  font-size: 0.76rem;
-  font-weight: 800;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: #005ecb;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .featureTitle {
@@ -337,11 +332,9 @@
 
 .cardLabel,
 .metricLabel {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   color: #64748b;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 .cardValue {
@@ -450,11 +443,9 @@
 }
 
 .troubleLabel {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #005ecb;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .metricValue {
@@ -493,3 +484,174 @@ a.linkCard {
   line-height: 1.65;
   word-break: break-all;
 }
+
+.problemBox {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  .problemLabel {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #334155;
+  }
+}
+
+.constraintsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.constraintCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+
+  .constraintType {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #334155;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    width: fit-content;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+  }
+}
+
+.archStepsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.archStepCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+
+  .stepNum {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stepContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .stepTitle {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.55;
+    }
+  }
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.comparisonCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .compMetric {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 0.4rem;
+  }
+
+  .compRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    line-height: 1.5;
+
+    .compBefore {
+      color: #64748b;
+    }
+
+    .compAfter {
+      color: #0f172a;
+      font-weight: 700;
+    }
+  }
+
+  .compBadge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #334155;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 0.22rem 0.5rem;
+    border-radius: 4px;
+    width: fit-content;
+    margin-top: 0.2rem;
+  }
+}
+

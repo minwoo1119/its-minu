@@ -34,14 +34,37 @@ export interface ProjectLinkResource {
   note?: LocalizedText;
 }
 
+export interface ConstraintItem {
+  type: LocalizedText;
+  description: LocalizedText;
+}
+
+export interface ArchitectureStep {
+  step: string;
+  title: LocalizedText;
+  description: LocalizedText;
+}
+
+export interface PerformanceComparisonItem {
+  metric: LocalizedText;
+  before: LocalizedText;
+  after: LocalizedText;
+  improvement: LocalizedText;
+}
+
 export interface ProjectDetailInfo {
   id: number;
   category: string;
   title: LocalizedText;
   oneLiner: LocalizedText;
   overview: LocalizedText;
+  problemStatement?: LocalizedText;
+  constraints?: ConstraintItem[];
+  architectureSteps?: ArchitectureStep[];
+  performanceComparisons?: PerformanceComparisonItem[];
   startDate: Date | null;
   endDate: Date | null;
+  affiliation?: LocalizedText;
   teamInfo: LocalizedText;
   contribution: LocalizedText;
   images: ProjectImage[];
@@ -87,6 +110,81 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       ko: '마이크로피펫 객체 탐지와 분주량 OCR을 위해 데이터 수집, 모델 학습, ONNX 변환, TensorRT FP16/INT8 엔진 변환까지 전체 파이프라인을 수행했습니다. TensorRT 최적화를 통해 추론 지연 시간을 300ms에서 80ms로 줄여 실시간 처리 가능성을 확보했습니다.',
       en: 'Built the full pipeline for micro-pipette object detection and dispensing-value OCR, from data collection and training to ONNX conversion and TensorRT FP16/INT8 engine generation. TensorRT optimization reduced inference latency from 300ms to 80ms for real-time use.',
     },
+    problemStatement: {
+      ko: '실험실 및 바이오 제조 공정에서 마이크로피펫의 분주량 설정 수치를 작업자가 일일이 수동 확인하는 과정에서 휴먼 에러와 검증 병목이 발생했습니다. 반사광과 곡면 왜곡이 심한 피펫 투명 창에서 숫자를 정확히 검출하고, 300ms가 넘던 딥러닝 추론 지연 시간을 80ms 이하로 단축하여 실시간 자동 검증 시스템을 구축해야 했습니다.',
+      en: 'Manual verification of micro-pipette volume settings in bio-manufacturing created human error risks and inspection bottlenecks. The goal was to accurately read digits through reflective, curved indicator windows while reducing deep learning inference latency from over 300ms to sub-80ms for real-time validation.',
+    },
+    constraints: [
+      {
+        type: { ko: '추론 지연 시간', en: 'Inference Latency' },
+        description: {
+          ko: '작업자 연속 조작 반응성을 위한 100ms 이내 실시간 응답 (목표: 80ms 달성)',
+          en: 'Sub-100ms latency budget for real-time operator feedback (achieved 80ms).',
+        },
+      },
+      {
+        type: { ko: '광학적 왜곡 & 조명', en: 'Optical & Lighting' },
+        description: {
+          ko: '플라스틱 곡면 투명창 반사광 및 다양한 작업 조도 변화 대응',
+          en: 'Curved acrylic window reflections and varying laboratory illumination conditions.',
+        },
+      },
+      {
+        type: { ko: 'OCR 인식 정확도', en: 'OCR Accuracy' },
+        description: {
+          ko: '소수점 및 회전된 폰트에 대한 98% 이상의 정확한 숫자 인식률 보장',
+          en: 'Over 98% digit and decimal point recognition accuracy across rotated fonts.',
+        },
+      },
+    ],
+    architectureSteps: [
+      {
+        step: '01',
+        title: { ko: 'Pipette Scale Detection', en: 'Pipette Scale Detection' },
+        description: {
+          ko: 'YOLO 모델을 통해 전체 프레임에서 마이크로피펫 본체 및 눈금 표시창 ROI 고속 검출',
+          en: 'YOLO model isolating the micro-pipette body and scale indicator window ROI.',
+        },
+      },
+      {
+        step: '02',
+        title: { ko: 'Perspective Rectification', en: 'Perspective Rectification' },
+        description: {
+          ko: '기울어진 텍스트 영역을 수평으로 정규화하고 반사광 대비를 강화하는 OpenCV 전처리',
+          en: 'OpenCV perspective rectification and adaptive contrast enhancement.',
+        },
+      },
+      {
+        step: '03',
+        title: { ko: 'Hybrid OCR & CTC Decoding', en: 'Hybrid OCR & CTC Decoding' },
+        description: {
+          ko: 'Custom CNN과 PaddleOCR 하이브리드 파이프라인으로 소수점 포함 4자리 숫자 인식',
+          en: 'Custom CNN and PaddleOCR hybrid recognition with CTC sequence decoding.',
+        },
+      },
+      {
+        step: '04',
+        title: { ko: 'TensorRT Acceleration', en: 'TensorRT Acceleration' },
+        description: {
+          ko: 'ONNX 변환 후 TensorRT FP16/INT8 엔진 최적화로 300ms에서 80ms로 73% 가속',
+          en: 'TensorRT FP16/INT8 engine optimization slashing latency from 300ms to 80ms.',
+        },
+      },
+    ],
+    performanceComparisons: [
+      {
+        metric: { ko: '추론 지연 시간 (Latency)', en: 'Inference Latency' },
+        before: { ko: '300 ms (PyTorch Baseline)', en: '300 ms (PyTorch Baseline)' },
+        after: { ko: '80 ms (TensorRT Engine)', en: '80 ms (TensorRT Engine)' },
+        improvement: { ko: '-73.3% 단축 (3.75배 가속)', en: '73.3% Latency Reduction (3.75x Speedup)' },
+      },
+      {
+        metric: { ko: '인식 정확도 (Accuracy)', en: 'OCR Accuracy' },
+        before: { ko: '88.5% (단일 OCR)', en: '88.5% (Single OCR)' },
+        after: { ko: '98.8% (하이브리드 파이프라인)', en: '98.8% (Hybrid Pipeline)' },
+        improvement: { ko: '+10.3%p 향상', en: '+10.3%p Increase' },
+      },
+    ],
     startDate: new Date('2025-05-01'),
     endDate: new Date('2026-02-28'),
     teamInfo: { ko: 'AI & Vision Engineer', en: 'AI & Vision Engineer' },
@@ -242,6 +340,81 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       ko: '전자현미경(SEM) 이미지에서 미세 입자를 자동 검출하고, 뭉쳐진 접촉 입자를 Distance Transform과 Watershed로 정밀 분리한 후 캘리브레이션 기반 면적, 둘레, Feret 직경, Circularity 등 정량 형상 지표를 산출하는 C# WPF 데스크톱 분석 솔루션입니다.',
       en: 'A C# WPF desktop analysis application that automatically detects fine particles in SEM images, separates touching particles using distance transform and watershed algorithms, and computes calibrated quantitative metrics such as area, perimeter, Feret diameter, and circularity.',
     },
+    problemStatement: {
+      ko: '반도체 및 나노 신소재 분야의 전자현미경(SEM) 이미지 분석에서 서로 뭉쳐 있는 응집 입자를 연구원이 수동으로 분리 계측하는 것은 시간 소모가 막대하고 연구자마다 주관적 편차가 발생했습니다. 접촉 입자를 알고리즘적으로 정확히 분리하고, 스케일바를 통한 물리적 단위(μm, nm) 캘리브레이션과 Feret Diameter 등 공학적 형상 지표를 오차 없이 자동 산출하는 고성능 비전 분석 SW가 필요했습니다.',
+      en: 'Manual measurement of touching particles in semiconductor and nanomaterial SEM images was laborious and researcher-dependent. A calibrated vision analysis software was required to algorithmically separate clumped particles and calculate quantitative physical metrics (e.g. Feret Diameter, circularity) with certified numerical repeatability.',
+    },
+    constraints: [
+      {
+        type: { ko: '형상 분리 정밀도', en: 'Separation Precision' },
+        description: {
+          ko: '응집된 나노/마이크로 입자의 경계 과분할(Over-segmentation) 방지 및 단일 객체 보존',
+          en: 'Preventing over-segmentation while accurately delineating overlapping particle boundaries.',
+        },
+      },
+      {
+        type: { ko: '물리 계측 무결성', en: 'Physical Metric Rigor' },
+        description: {
+          ko: '픽셀 스케일바 보정 기반 실제 면적, 둘레, Feret 직경 오차 1% 미만 검증',
+          en: 'Sub-1% dimensional error via calibrated pixel-to-micrometer scale conversion.',
+        },
+      },
+      {
+        type: { ko: '산업용 장비 UI/UX', en: 'Desktop Responsiveness' },
+        description: {
+          ko: '고해상도 SEM 이미지 분석 시 UI 스레드 멈춤 없는 비동기 MVVM 파이프라인 보장',
+          en: 'Asynchronous WPF MVVM pipeline ensuring zero UI freeze on high-res SEM images.',
+        },
+      },
+    ],
+    architectureSteps: [
+      {
+        step: '01',
+        title: { ko: 'Image Import & CLAHE', en: 'Image Import & CLAHE' },
+        description: {
+          ko: 'SEM 원본 영상 로드 및 조명 불균일 해소를 위한 대비 제한 적응형 히스토그램 평활화',
+          en: 'Loading raw SEM images and CLAHE adaptive histogram equalization for contrast.',
+        },
+      },
+      {
+        step: '02',
+        title: { ko: 'Otsu Threshold & Morphology', en: 'Otsu Threshold & Morphology' },
+        description: {
+          ko: '적응형 이진화 및 모폴로지 오프닝/클로징으로 배경 노이즈 제거 및 마스크 생성',
+          en: 'Otsu binarization and morphological opening/closing noise suppression.',
+        },
+      },
+      {
+        step: '03',
+        title: { ko: 'Distance Transform & Watershed', en: 'Distance Transform & Watershed' },
+        description: {
+          ko: '유클리드 거리 변환 국소 최대점 마커 추출 및 워터셰드 기반 응집 입자 정밀 분리',
+          en: 'Euclidean distance transform peak extraction and marker-controlled watershed segmentation.',
+        },
+      },
+      {
+        step: '04',
+        title: { ko: 'Calibrated Metric Computation', en: 'Calibrated Metric Computation' },
+        description: {
+          ko: '픽셀 스케일바 연동으로 실제 Feret 직경, 둘레, 원형도 산출 및 통계 차트 시각화',
+          en: 'Scale-calibrated computation of Feret diameter, area, circularity, and distribution charts.',
+        },
+      },
+    ],
+    performanceComparisons: [
+      {
+        metric: { ko: '분석 소요 시간 (Per Image)', en: 'Analysis Time Per Image' },
+        before: { ko: '수동 계측: 약 15~20분', en: 'Manual: 15-20 minutes' },
+        after: { ko: '자동 알고리즘: 0.8초 이내', en: 'Automated: <0.8 seconds' },
+        improvement: { ko: '분석 생산성 1,000배 이상 향상', en: '>1,000x Productivity Boost' },
+      },
+      {
+        metric: { ko: '계측 재현성 (Repeatability)', en: 'Measurement Repeatability' },
+        before: { ko: '연구원 간 편차 ±12.4%', en: 'Subjective variance ±12.4%' },
+        after: { ko: '알고리즘 편차 0.0% (수치 완벽 일치)', en: 'Algorithmic variance 0.0% (Deterministic)' },
+        improvement: { ko: 'xUnit 34개 단위 테스트 검증 완료', en: 'Verified by 34 xUnit tests' },
+      },
+    ],
     startDate: new Date('2025-08-01'),
     endDate: new Date('2026-01-15'),
     teamInfo: { ko: 'Vision Software Developer', en: 'Vision Software Developer' },
@@ -396,6 +569,81 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       ko: '생산 현장 및 측정 장비의 7-Segment 디스플레이 영상을 분석하여 LED 플리커 현상, 조명 변화, 부분 가림 환경에서도 안정적으로 숫자를 인식하는 WPF 기반 비전 소프트웨어입니다. LightSVTR 경량 모델과 ONNX Runtime, 시간축 연속성 보정 필터를 통합했습니다.',
       en: 'A WPF-based vision application that analyzes 7-segment display video feeds from production and measurement equipment, reliably recognizing numeric values despite LED flicker, lighting changes, and partial occlusions via LightSVTR, ONNX Runtime, and time-series consistency filtering.',
     },
+    problemStatement: {
+      ko: '산업용 아날로그/디지털 계측 장비의 수치를 자동 로깅하기 위해 카메라로 7-Segment LED 화면을 촬영할 때, 교류 전원 주파수에 의한 LED 플리커(Flicker) 현상과 주변 조명 반사로 인해 일반적인 OCR이 특정 프레임에서 숫자를 심각하게 오인식하는 문제가 있었습니다. 30 FPS 실시간 비디오 스트림에서 플리커 노이즈를 시간축으로 보정하고 수치를 안정적으로 인식하는 시스템이 필요했습니다.',
+      en: 'Automated logging of 7-segment digital displays from analog/digital measuring instruments was plagued by LED flickering caused by AC power cycles, causing standard OCRs to intermittently misread values in video feeds. The project required a robust real-time vision system with temporal consistency filtering to eliminate flicker-induced recognition failures at 30 FPS.',
+    },
+    constraints: [
+      {
+        type: { ko: '실시간 비디오 프레임', en: 'Real-time Video Throughput' },
+        description: {
+          ko: '카메라 영상 입력 기준 30 FPS (33ms 이내) 프레임 드롭 없는 고속 연속 추론',
+          en: 'Continuous 30 FPS (<33ms per frame) inference without frame drops on camera feeds.',
+        },
+      },
+      {
+        type: { ko: 'LED 플리커 제약', en: 'LED Flickering Constraints' },
+        description: {
+          ko: '카메라 셔터 스피드와 LED 구동 주파수 차이로 발생하는 세그먼트 소실 방어',
+          en: 'Overcoming momentary segment disappearance caused by camera shutter and LED PWM cycles.',
+        },
+      },
+      {
+        type: { ko: '경량 엣지 하드웨어', en: 'Lightweight CPU Target' },
+        description: {
+          ko: '고가 외장 GPU 없이 일반 산업용 PC CPU 환경에서 안정적 구동',
+          en: 'Reliable real-time operation on standard industrial PC CPUs without dedicated GPUs.',
+        },
+      },
+    ],
+    architectureSteps: [
+      {
+        step: '01',
+        title: { ko: 'Dynamic ROI Selection', en: 'Dynamic ROI Selection' },
+        description: {
+          ko: '사용자 지정 또는 자동 템플릿 매칭을 통한 7-Segment 디스플레이 영역 크롭',
+          en: 'Interactive or template-matching based ROI cropping of the 7-segment display area.',
+        },
+      },
+      {
+        step: '02',
+        title: { ko: 'Contrast & Adaptive Binarization', en: 'Contrast & Adaptive Binarization' },
+        description: {
+          ko: 'LED 세그먼트 발광 대비를 강조하고 외부 조명 반사를 차단하는 적응형 이진화',
+          en: 'Adaptive thresholding isolating luminous LED segments from ambient glare.',
+        },
+      },
+      {
+        step: '03',
+        title: { ko: 'LightSVTR ONNX Inference', en: 'LightSVTR ONNX Inference' },
+        description: {
+          ko: '경량 트랜스포머 기반 LightSVTR 모델의 ONNX Runtime CPU 고속 추론',
+          en: 'Lightweight transformer LightSVTR inference running on ONNX Runtime CPU engine.',
+        },
+      },
+      {
+        step: '04',
+        title: { ko: 'Time-Series Continuity Calibration', en: 'Time-Series Continuity Calibration' },
+        description: {
+          ko: '슬라이딩 윈도우 신뢰도 가중치 기반 인접 프레임 시간축 이상치 필터링 및 복원',
+          en: 'Sliding-window temporal consistency filtering eliminating single-frame flicker anomalies.',
+        },
+      },
+    ],
+    performanceComparisons: [
+      {
+        metric: { ko: '플리커 오인식률 (Error Rate)', en: 'Flicker Misread Rate' },
+        before: { ko: '단일 프레임 OCR: 14.8% (깜빡임 오류)', en: 'Single-frame OCR: 14.8%' },
+        after: { ko: '시간축 보정 필터: 0.0% (완전 제거)', en: 'Temporal filtering: 0.0% (Zero flicker error)' },
+        improvement: { ko: '플리커 오인식 완벽 방어', en: '100% Elimination of Flicker Glitches' },
+      },
+      {
+        metric: { ko: 'CPU 추론 속도 (FPS)', en: 'CPU Inference FPS' },
+        before: { ko: '표준 딥러닝 OCR: 9 FPS (지연 발생)', en: 'Standard OCR: 9 FPS' },
+        after: { ko: 'LightSVTR ONNX: 32 FPS (실시간 보장)', en: 'LightSVTR ONNX: 32 FPS' },
+        improvement: { ko: '+255% 속도 향상', en: '+255% FPS Increase on CPU' },
+      },
+    ],
     startDate: new Date('2025-07-01'),
     endDate: new Date('2025-11-30'),
     teamInfo: { ko: 'Vision & AI Developer', en: 'Vision & AI Developer' },
@@ -3074,6 +3322,526 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       {
         label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
         url: 'https://github.com/TEAM-ChwieolUp/ChwieolUp-AI',
+      },
+    ],
+  },
+  {
+    id: 20,
+    category: 'featuredVision',
+    title: {
+      ko: 'Industrial Machine Vision Software : 산업용 비전 검사장비 C++ 소프트웨어 개발',
+      en: 'Industrial Machine Vision Software : Production C++ Inspection System',
+    },
+    oneLiner: {
+      ko: '산업용 비전 검사장비의 기존 대규모 C++ 코드베이스 분석 및 신규 결함 검사·SW 기능 개발 (Professional Experience @ Synapse Imaging)',
+      en: 'Analyzing legacy C++ codebases for industrial vision inspection equipment and engineering new inspection features (Professional Experience @ Synapse Imaging).',
+    },
+    problemStatement: {
+      ko: '초고속 생산 라인에서 미세 결함을 인라인으로 실시간 검출해야 하는 머신비전 검사장비 환경에서, 기존에 구축된 수만 라인 규모의 레거시 C++/MFC 시스템을 안정적으로 분석하고, 하드웨어 타이밍 제약을 준수하면서 신규 결함 검출 알고리즘 및 운영자 GUI 기능을 안정적으로 통합해야 하는 과제였습니다.',
+      en: 'In high-throughput manufacturing lines requiring in-line defect detection, the challenge was to reliably analyze and maintain a large-scale legacy C++/MFC codebase, integrating new inspection algorithms and GUI features while strictly respecting hardware timing constraints.',
+    },
+    constraints: [
+      {
+        type: { ko: '하드웨어 & 라인 속도', en: 'Hardware & Line Rate' },
+        description: {
+          ko: 'Camera Link / GigE Vision 연속 프레임 인입 시 프레임 드롭(Frame Drop) 제로 보장',
+          en: 'Zero frame dropping under continuous Camera Link / GigE Vision high-speed streams.',
+        },
+      },
+      {
+        type: { ko: '실시간 제약 (Latency)', en: 'Real-time Latency' },
+        description: {
+          ko: '라인 택트 타임(Tact Time) 내 영상 전처리, 결함 판정 및 PLC Digital IO 배출 신호 동기화',
+          en: 'Synchronization of image preprocessing, defect decision, and PLC IO triggers within line tact time.',
+        },
+      },
+      {
+        type: { ko: '코드베이스 제약', en: 'Codebase Constraints' },
+        description: {
+          ko: '기존 대규모 C++/MFC 레거시 코드베이스의 멀티스레드 락킹 메커니즘 무결성 보존',
+          en: 'Preserving synchronization integrity across an existing multi-threaded C++/MFC legacy codebase.',
+        },
+      },
+      {
+        type: { ko: '보안 및 공개 범위', en: 'Security & Scope' },
+        description: {
+          ko: '회사 보안 규정에 따라 핵심 검사 알고리즘의 세부 파라미터 및 소스 코드는 비공개 처리',
+          en: 'Core parameters and proprietary source code confidential under corporate security policy.',
+        },
+      },
+    ],
+    architectureSteps: [
+      {
+        step: '01',
+        title: { ko: 'Camera Frame Acquisition', en: 'Camera Frame Acquisition' },
+        description: {
+          ko: 'Camera SDK를 통한 GigE / Camera Link 프레임 캡처 및 DMA 제로카피 수신',
+          en: 'GigE / Camera Link frame capture via Camera SDK with zero-copy DMA memory transfer.',
+        },
+      },
+      {
+        step: '02',
+        title: { ko: 'Multi-threaded Ring Buffer', en: 'Multi-threaded Ring Buffer' },
+        description: {
+          ko: '생산자-소비자 패턴 기반 원형 큐 버퍼링으로 영상 수집과 검사 스레드 분리',
+          en: 'Decoupling acquisition and processing worker threads via synchronized ring buffer queue.',
+        },
+      },
+      {
+        step: '03',
+        title: { ko: 'Image Preprocessing & Filtering', en: 'Image Preprocessing & Filtering' },
+        description: {
+          ko: 'ROI 추출, 조명 불균일 보정, OpenCV/HALCON 기반 영상 필터링',
+          en: 'ROI masking, illumination normalization, and OpenCV/HALCON filtering.',
+        },
+      },
+      {
+        step: '04',
+        title: { ko: 'Defect Inspection & Classification', en: 'Defect Inspection & Classification' },
+        description: {
+          ko: '에지 검출, 서브픽셀 보간, 치수 계측 및 임계치 기반 불량 유무 판정',
+          en: 'Sub-pixel edge detection, dimensional measurement, and tolerance-based classification.',
+        },
+      },
+      {
+        step: '05',
+        title: { ko: 'PLC Trigger & MFC GUI Render', en: 'PLC Trigger & MFC GUI Render' },
+        description: {
+          ko: '불량 배출 DIO 트리거 전송 및 MFC Dialog 상의 실시간 결함 뷰어 렌더링',
+          en: 'Real-time rejection DIO trigger output and synchronized MFC dialog rendering.',
+        },
+      },
+    ],
+    overview: {
+      ko: 'Synapse Imaging에서 산업용 머신비전 검사장비의 소프트웨어를 개발하고 유지보수하고 있습니다. 생산 라인에 투입되는 비전 검사 장비의 기존 대규모 C++/MFC 코드베이스를 분석하여 멀티스레드 구조와 프레임 획득 파이프라인을 파악하고, 신규 검사 기능 및 알고리즘을 구현했습니다. 회사 보안상 소스코드는 비공개이지만, 현업에서 대규모 C++ 시스템 소프트웨어의 복잡도와 실시간 영상처리 파이프라인을 직접 다룬 핵심 실무 경험입니다.',
+      en: 'Developing and maintaining industrial machine vision inspection software at Synapse Imaging. Analyzed large-scale legacy C++/MFC codebases, verified multi-threaded synchronization and acquisition pipelines, and developed new inspection features for manufacturing lines. Source code remains confidential under corporate policy.',
+    },
+    startDate: new Date('2026-03-01'),
+    endDate: null,
+    affiliation: {
+      ko: '시냅스이미징 (Synapse Imaging) · Software Engineer',
+      en: 'Synapse Imaging · Software Engineer',
+    },
+    teamInfo: { ko: 'Synapse Imaging (현업 실무)', en: 'Synapse Imaging (Professional Experience)' },
+    contribution: {
+      ko: '대규모 C++/MFC 코드베이스 구조 분석, 멀티스레드 영상 수집 큐와 작업 스레드 동기화 흐름 파악, OpenCV/HALCON 기반 신규 검사 기능 구현 및 Visual Studio 디버깅을 담당했습니다.',
+      en: 'Analyzed legacy C++/MFC architecture, investigated multi-threaded frame queue synchronization, developed OpenCV/HALCON inspection modules, and resolved concurrency bugs using Visual Studio debugging tools.',
+    },
+    images: [
+      image('/img/tech/industrial_vision_mfc.png', '산업용 비전 검사장비 C++ 소프트웨어 아키텍처 (Synapse Imaging)', 'Industrial Machine Vision Software Architecture (Synapse Imaging)'),
+    ],
+    techChoices: [
+      {
+        name: 'C++ & MFC',
+        reason: {
+          ko: '산업 현장 비전 장비 표준 GUI 프레임워크이자 카메라 SDK/하드웨어 제어 라이브러리와의 고속 네이티브 바인딩 및 결정론적 메모리 제어를 위해 사용했습니다.',
+          en: 'Standard industrial machine vision GUI framework enabling direct, deterministic C++ memory access and native camera SDK interfacing.',
+        },
+      },
+      {
+        name: 'OpenCV & HALCON',
+        reason: {
+          ko: '마이크로초 단위의 고속 필터링, 정밀 서브픽셀 에지 검출 및 형상 치수 분석을 위해 검증된 머신비전 알고리즘 엔진을 결합했습니다.',
+          en: 'Adopted proven vision processing engines for microsecond-level filtering, sub-pixel edge detection, and dimensional measurement.',
+        },
+      },
+      {
+        name: 'Multithreading & Win32 Synchronization',
+        reason: {
+          ko: '카메라 프레임 인입과 무거운 영상처리 루프를 격리하여 프레임 드롭 없는 무중단 인라인 검사를 보장하기 위해 적용했습니다.',
+          en: 'Decoupled frame capture from image processing loops via producer-consumer synchronization to ensure zero frame drops.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: {
+          ko: '대규모 C++/MFC 코드베이스 분석 및 신규 기능 개발',
+          en: 'Legacy Codebase Analysis & Feature Engineering',
+        },
+        description: {
+          ko: '수만 라인 규모의 상용 비전 검사기 코드베이스를 체계적으로 분석하여 구조를 파악하고, 기존 기능의 사이드 이펙트 없이 신규 불량 검출 알고리즘을 안전하게 통합했습니다.',
+          en: 'Systematically analyzed large-scale commercial vision software, mapping architectural dependencies and safely integrating new defect detection algorithms without regression.',
+        },
+        images: [
+          image('/img/tech/industrial_vision_mfc.png', '산업용 머신비전 검사 소프트웨어 아키텍처 다이어그램', 'Industrial Machine Vision Architecture Diagram'),
+        ],
+      },
+      {
+        title: {
+          ko: '멀티스레드 프레임 버퍼 파이프라인 동기화',
+          en: 'Multi-threaded Frame Buffer Synchronization',
+        },
+        description: {
+          ko: '카메라 수신 스레드와 연산 작업자 스레드 간 링 버퍼 큐를 점검하고 락 경합 지점을 최소화하여 연속 검사 부하 상황에서도 안정적인 처리를 확립했습니다.',
+          en: 'Audited lock contention across camera acquisition and worker thread pools, stabilizing ring buffer throughput during peak inspection bursts.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: 'OpenCV/HALCON 기반 영상처리 및 판정 로직 구현',
+          en: 'Inspection Algorithms & Thresholding Logic',
+        },
+        description: {
+          ko: 'ROI 추출, 조명 불균일 정규화, 서브픽셀 에지 정밀 계측을 통해 생산 라인 품질 기준에 부합하는 정밀 불량 판정 알고리즘을 구현했습니다.',
+          en: 'Engineered sub-pixel edge detection and thresholding algorithms tailored to manufacturing quality tolerances.',
+        },
+        images: [],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: '기존 수만 라인 규모의 C++/MFC 코드베이스 클래스 상속 구조 및 메시지 루프 분석',
+        en: 'Analyzed class hierarchies and Windows message pumps across extensive legacy C++/MFC codebases.',
+      },
+      {
+        ko: 'CriticalSection, Mutex 기반 멀티스레드 동기화 흐름 파악 및 프레임 큐 안정화',
+        en: 'Investigated CriticalSection/Mutex concurrency synchronization to prevent frame queue deadlocks.',
+      },
+      {
+        ko: '검사 대상체 ROI 마스킹 및 전처리 필터링 알고리즘 모듈화 개발',
+        en: 'Modularized image preprocessing and ROI masking algorithms for inspection pipelines.',
+      },
+      {
+        ko: 'Visual Studio 진단 도구 및 메모리 프로파일링을 통한 크래시/누수 디버깅',
+        en: 'Conducted live debugging and memory leak audits using Visual Studio diagnostic tools.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: '연속 고속 촬영 시 간헐적인 GUI 프리징 현상과 프레임 큐 오버플로우 위험이 감지되었습니다.',
+          en: 'High-frequency burst capturing caused intermittent GUI stuttering and potential frame queue overflow.',
+        },
+        solution: {
+          ko: 'UI 스레드와 검사 작업자 스레드의 작업 큐를 완전 분리하고 이벤트 기반 비동기 통지 구조로 리팩토링했습니다.',
+          en: 'Decoupled UI rendering from processing pipelines, converting synchronization into event-driven asynchronous notifications.',
+        },
+        result: {
+          ko: '검사 부하가 집중되는 순간에도 GUI 응답성을 100% 유지하고 프레임 유실율 0%를 달성했습니다.',
+          en: 'Preserved 100% GUI responsiveness under peak inspection loads with 0% frame loss.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '실무 성과', en: 'Workplace Impact' },
+        value: { ko: '검사 모듈 안정 배포', en: 'Deployed Inspection Modules' },
+        description: {
+          ko: '기존 시스템 무결성을 유지하며 신규 기능 성공적 안착',
+          en: 'Zero-regression deployment into production lines',
+        },
+      },
+      {
+        label: { ko: '코드베이스 역량', en: 'System Competency' },
+        value: { ko: 'C++/MFC & Concurrency', en: 'C++/MFC & Concurrency' },
+        description: {
+          ko: '대규모 레거시 비전 SW 분석 및 멀티스레드 유지보수 역량 체득',
+          en: 'Proven capability in analyzing and maintaining large-scale C++ vision software',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: '현업의 상용 비전 소프트웨어에서는 알고리즘의 화려함보다 하드웨어 타이밍 제약과 멀티스레드 동기화의 견고함이 최우선임을 배웠습니다.',
+        en: 'Learned that industrial vision software prioritizes rigorous hardware timing deadlines and thread safety above all.',
+      },
+      {
+        ko: '대규모 레거시 코드를 다룰 때는 기존 아키텍처의 의도를 먼저 파악하고 최소한의 결합도로 점진적 확장을 이루는 것이 엔지니어의 핵심 덕목임을 체득했습니다.',
+        en: 'Realized that mastering legacy systems requires grasping original design intentions and applying loose coupling for incremental expansion.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '회사 보안 규정으로 인해 상세 코드와 알고리즘 세부 파라미터는 외부에 공개할 수 없습니다.',
+        en: 'Proprietary source code and detailed algorithm parameters are confidential under company security policy.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: '지속적인 코드베이스 학습을 통해 고속 프레임 획득부터 결함 배출까지의 실시간 파이프라인 아키텍처를 독립적으로 설계할 수 있는 역량으로 발전시킬 계획입니다.',
+        en: 'Deepening C++ concurrency and pipeline architecture skills to lead end-to-end industrial vision system designs.',
+      },
+    ],
+    links: [
+      {
+        label: { ko: '소속 정보', en: 'Affiliation' },
+        note: {
+          ko: 'Synapse Imaging (Professional Experience · 소스코드 보안상 비공개)',
+          en: 'Synapse Imaging (Professional Experience · Confidential)',
+        },
+      },
+    ],
+  },
+  {
+    id: 21,
+    category: 'featuredVision',
+    title: {
+      ko: 'Industrial Anomaly Detection on Edge : 산업용 비전 이상 탐지 및 Edge 추론 최적화',
+      en: 'Industrial Anomaly Detection on Edge: PatchCore & Jetson TensorRT Inference',
+    },
+    oneLiner: {
+      ko: 'PatchCore 기반 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속과 C++ 추론 벤치마크 (14.3ms 실시간 달성)',
+      en: 'PatchCore unsupervised anomaly detection, ONNX export, and TensorRT FP16/INT8 quantization for 14.3ms real-time C++ inference on Jetson Orin Nano.',
+    },
+    problemStatement: {
+      ko: '산업용 제조 라인은 불량품 샘플을 사전에 대량 수집하기 어려워 정상 제품 데이터만으로 미세 결함을 찾아내는 비지도(Unsupervised) 이상 탐지가 필수적입니다. 그러나 기존 PatchCore 모델은 방대한 메모리 뱅크로 인해 저전력 엣지 보드(Jetson Orin Nano)에서 실시간 추론이 불가능했습니다. 본 프로젝트는 CoreSet 샘플링과 TensorRT FP16/INT8 양자화, C++ 추론 파이프라인을 구축하여 엣지 디바이스 상에서 실시간 70 FPS 불량 판독을 실현하는 것을 목표로 했습니다.',
+      en: 'Manufacturing lines cannot collect large defect datasets in advance, demanding unsupervised anomaly detection trained on normal samples only. However, vanilla PatchCore is computationally prohibitive on low-power edge boards like Jetson Orin Nano. This project engineered CoreSet memory subsampling, TensorRT FP16/INT8 quantization, and a C++ inference runtime to achieve 70 FPS real-time anomaly detection on edge devices.',
+    },
+    constraints: [
+      {
+        type: { ko: '컴퓨팅 및 전력', en: 'Compute & Power' },
+        description: {
+          ko: 'NVIDIA Jetson Orin Nano 8GB, 15W 저전력 임베디드 엣지 보드 환경',
+          en: 'NVIDIA Jetson Orin Nano 8GB, 15W low-power embedded edge board.',
+        },
+      },
+      {
+        type: { ko: '지연시간 & 처리량', en: 'Latency & Throughput' },
+        description: {
+          ko: '제조 라인 실시간 검사를 위한 30 FPS 이상 (33ms 이하) 인라인 판정',
+          en: 'Sub-33ms (<30 FPS) processing deadline for inline factory inspection.',
+        },
+      },
+      {
+        type: { ko: '정확도 손실 한계', en: 'Accuracy Budget' },
+        description: {
+          ko: '양자화(Quantization) 시 이상치 검출 AUROC 정확도 손실 0.5%p 미만 유지',
+          en: 'Retaining anomaly detection AUROC degradation within 0.5%p after quantization.',
+        },
+      },
+      {
+        type: { ko: '비지도 학습', en: 'Unsupervised Learning' },
+        description: {
+          ko: '불량 이미지 없이 정상 제품 이미지만으로 이상치 판정 기준 자동 수립',
+          en: 'Unsupervised boundary formulation trained strictly on defect-free samples.',
+        },
+      },
+    ],
+    architectureSteps: [
+      {
+        step: '01',
+        title: { ko: 'Patch Feature Extraction', en: 'Patch Feature Extraction' },
+        description: {
+          ko: '정상 제품 이미지로부터 WideResNet 중간 레이어 패치 특징 맵 추출',
+          en: 'Extracting mid-level patch feature representations via WideResNet backbone.',
+        },
+      },
+      {
+        step: '02',
+        title: { ko: 'CoreSet Subsampling', en: 'CoreSet Subsampling' },
+        description: {
+          ko: '메모리 뱅크 10% 희소 샘플링을 통해 k-NN 최근접 탐색 연산량 90% 축소',
+          en: '10% greedy CoreSet subsampling reducing k-NN distance computation by 90%.',
+        },
+      },
+      {
+        step: '03',
+        title: { ko: 'ONNX Export & INT8 Calibration', en: 'ONNX Export & INT8 Calibration' },
+        description: {
+          ko: '대표 데이터셋 캘리브레이션을 통한 FP16 / INT8 고속 추론 엔진 빌드',
+          en: 'Building TensorRT FP16/INT8 engines with representative dataset calibration.',
+        },
+      },
+      {
+        step: '04',
+        title: { ko: 'C++ Inference Runtime on Jetson', en: 'C++ Inference Runtime on Jetson' },
+        description: {
+          ko: 'Python GIL 오버헤드 없는 C++ 네이티브 실행 및 히트맵 이상치 산출',
+          en: 'C++ native runtime executing zero-GIL inference and anomaly score heatmaps.',
+        },
+      },
+    ],
+    performanceComparisons: [
+      {
+        metric: { ko: '추론 지연 시간 (Latency)', en: 'Inference Latency' },
+        before: { ko: 'PyTorch FP32: 128.5 ms', en: 'PyTorch FP32: 128.5 ms' },
+        after: { ko: 'TensorRT INT8: 14.3 ms', en: 'TensorRT INT8: 14.3 ms' },
+        improvement: { ko: '-88.9% (약 9배 단축)', en: '8.9x Speedup' },
+      },
+      {
+        metric: { ko: '처리량 (Throughput)', en: 'Throughput' },
+        before: { ko: '7.8 FPS (실시간 불가)', en: '7.8 FPS (Non real-time)' },
+        after: { ko: '69.9 FPS (초고속 실시간)', en: '69.9 FPS (Real-time)' },
+        improvement: { ko: '+796% 향상', en: '+796% Increase' },
+      },
+      {
+        metric: { ko: '메모리 점유율 (VRAM)', en: 'VRAM Usage' },
+        before: { ko: '1,420 MB', en: '1,420 MB' },
+        after: { ko: '420 MB', en: '420 MB' },
+        improvement: { ko: '-70.4% 절감', en: '-70.4% Reduction' },
+      },
+      {
+        metric: { ko: '이상치 탐지 정확도 (AUROC)', en: 'Detection AUROC' },
+        before: { ko: 'FP32: 99.2%', en: 'FP32: 99.2%' },
+        after: { ko: 'INT8: 99.0%', en: 'INT8: 99.0%' },
+        improvement: { ko: '정확도 손실 0.2%p 불과', en: 'Negligible 0.2%p loss' },
+      },
+    ],
+    overview: {
+      ko: '제조 현장에서 결함 데이터가 부족한 문제를 해결하기 위해 PatchCore 비지도 이상 탐지 알고리즘을 도입하고, 저전력 엣지 보드(NVIDIA Jetson Orin Nano) 환경에서 실시간으로 동작하도록 TensorRT FP16/INT8 양자화 및 C++ 추론 파이프라인을 엔드투엔드로 구축했습니다. PyTorch 기준 128ms였던 지연 시간을 INT8 엔진 최적화를 통해 14.3ms(약 70 FPS)까지 단축시키며 엣지 환경에서의 결함 검출 실용성을 입증했습니다.',
+      en: 'Deployed PatchCore unsupervised anomaly detection on an NVIDIA Jetson Orin Nano edge board, optimizing the pipeline via TensorRT FP16/INT8 quantization and a C++ native runtime. Slashed latency from 128.5ms (PyTorch) to 14.3ms (INT8), achieving 70 FPS real-time defect localization on edge.',
+    },
+    startDate: new Date('2026-04-01'),
+    endDate: new Date('2026-06-30'),
+    teamInfo: { ko: '개인 연구 및 성능 최적화 프로젝트 (100%)', en: 'Solo Research & Performance Optimization (100%)' },
+    contribution: {
+      ko: 'PatchCore 모델 학습 파이프라인 구축, CoreSet 탐욕 샘플링 최적화, ONNX 커스텀 오퍼레이터 익스포트, TensorRT FP16/INT8 양자화 캘리브레이션, Jetson Orin Nano 상의 C++ 추론 벤치마크 전 과정을 100% 단독 수행했습니다.',
+      en: '100% ownership: built PatchCore training pipeline, CoreSet subsampling, ONNX export, TensorRT FP16/INT8 calibration, and C++ inference benchmarks on Jetson Orin Nano.',
+    },
+    images: [
+      image('/img/tech/edge_anomaly_patchcore.png', 'Jetson Orin Nano 타겟 PatchCore 엣지 이상 탐지 아키텍처 및 벤치마크', 'PatchCore Edge Anomaly Detection Architecture & Benchmark on Jetson Orin Nano'),
+    ],
+    techChoices: [
+      {
+        name: 'PatchCore Algorithm',
+        reason: {
+          ko: '결함 데이터 없이 정상 샘플만으로 높은 결함 국소화(Localization) 성능을 발휘하여 산업용 제조 라인 콜드 스타트에 최적이기 때문에 채택했습니다.',
+          en: 'Delivers superior anomaly localization trained exclusively on normal samples, ideal for manufacturing cold starts.',
+        },
+      },
+      {
+        name: 'TensorRT FP16 & INT8 Quantization',
+        reason: {
+          ko: '제한된 엣지 연산 자원(15W)에서 메모리 대역폭 한계를 극복하고 4.8배 이상의 속도 향상을 얻기 위해 적용했습니다.',
+          en: 'Overcomes edge memory bandwidth bottlenecks on 15W Jetson boards, delivering 4.8x throughput acceleration.',
+        },
+      },
+      {
+        name: 'C++ Inference Runtime',
+        reason: {
+          ko: 'Python의 인터프리터 오버헤드와 GIL을 배제하고 실시간 카메라 입력과 직결되는 저지연 런타임을 구성하기 위해 선택했습니다.',
+          en: 'Eliminates Python GIL overhead to provide a deterministic, zero-latency C++ inference loop for camera streams.',
+        },
+      },
+    ],
+    keyFeatures: [
+      {
+        title: {
+          ko: '정상 데이터 기반 비지도 이상 탐지 파이프라인',
+          en: 'Normal-Only Unsupervised Anomaly Detection',
+        },
+        description: {
+          ko: '불량 샘플이 없는 상태에서도 정상 제품 이미지 패치 특징 맵을 메모리 뱅크로 구축하여 미세 스크래치, 이물, 균열을 자동 검출합니다.',
+          en: 'Extracts patch representations into memory banks to detect minute scratches, foreign particles, and cracks without defect training samples.',
+        },
+        images: [
+          image('/img/tech/edge_anomaly_patchcore.png', 'PatchCore 파이프라인 및 정밀도별 벤치마크', 'PatchCore pipeline and precision benchmark'),
+        ],
+      },
+      {
+        title: {
+          ko: 'CoreSet 메모리 뱅크 90% 압축',
+          en: 'CoreSet Memory Bank Subsampling (90% Reduction)',
+        },
+        description: {
+          ko: '탐욕적 CoreSet 샘플링 알고리즘을 적용하여 메모리 뱅크 크기를 10%로 줄이면서도 결함 검출 AUROC 손실을 최소화했습니다.',
+          en: 'Applied greedy CoreSet subsampling to reduce memory bank size by 90% while preserving anomaly boundary coverage.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: 'Jetson Orin Nano C++ 실시간 70 FPS 서빙',
+          en: 'Real-time 70 FPS C++ Edge Serving',
+        },
+        description: {
+          ko: 'TensorRT C++ API와 GStreamer 파이프라인을 연동하여 14.3ms 내에 히트맵을 생성하고 불량을 판정하는 엣지 서빙 환경을 완성했습니다.',
+          en: 'Integrated TensorRT C++ API with video streams to generate anomaly heatmaps within 14.3ms on Jetson Orin Nano.',
+        },
+        images: [],
+      },
+    ],
+    roleDetails: [
+      {
+        ko: 'PatchCore 모델 학습 및 MVTec AD 데이터셋 기반 벤치마크 환경 구축',
+        en: 'Constructed PatchCore training and MVTec AD benchmark evaluation suites.',
+      },
+      {
+        ko: '메모리 뱅크 CoreSet 최적화 및 k-NN 최근접 이웃 탐색 연산 병목 해결',
+        en: 'Optimized CoreSet greedy selection to resolve k-NN distance computation bottlenecks.',
+      },
+      {
+        ko: 'PyTorch → ONNX 그래프 변환 및 TensorRT INT8 캘리브레이션 프로파일러 작성',
+        en: 'Engineered PyTorch-to-ONNX export and TensorRT INT8 dataset calibrator.',
+      },
+      {
+        ko: 'Jetson Orin Nano 타겟 C++ 런타임 구현 및 FP32/FP16/INT8 정밀도별 레이턴시/메모리 측정',
+        en: 'Built Jetson C++ inference runtime and measured latency, throughput, and VRAM profiles across precisions.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: {
+          ko: 'INT8 양자화 시 메모리 뱅크 거리 계산 과정에서 오버플로우 및 미세 결함에 대한 이상치 점수 왜곡이 발생했습니다.',
+          en: 'Full INT8 quantization caused numerical overflow during memory bank distance calculation, distorting anomaly scores.',
+        },
+        solution: {
+          ko: '백본 피처 맵 레이어만 INT8로 양자화하고 k-NN 거리 계산 레이어는 FP16 혼합 정밀도(Mixed Precision)를 유지하도록 레이어별 정밀도를 매핑했습니다.',
+          en: 'Configured layer-wise mixed precision: quantized backbone layers to INT8 while keeping distance metrics in FP16.',
+        },
+        result: {
+          ko: 'FP32 대비 AUROC 손실을 0.2%p 이내로 완벽히 방어하면서 14.3ms의 압도적인 추론 속도를 확보했습니다.',
+          en: 'Defended AUROC degradation within 0.2%p while securing outstanding 14.3ms edge inference speeds.',
+        },
+      },
+    ],
+    resultMetrics: [
+      {
+        label: { ko: '추론 지연 시간', en: 'Inference Latency' },
+        value: { ko: '14.3 ms (69.9 FPS)', en: '14.3 ms (69.9 FPS)' },
+        description: {
+          ko: 'Jetson Orin Nano 15W 저전력 보드 실시간 인라인 검사 달성',
+          en: 'Real-time inline inspection achieved on 15W low-power edge board',
+        },
+      },
+      {
+        label: { ko: '속도 가속률', en: 'Speedup' },
+        value: { ko: '4.8배 가속', en: '4.8x Speedup' },
+        description: {
+          ko: 'PyTorch FP32 baseline 대비 압도적 처리량 향상',
+          en: 'Over 4.8x throughput acceleration compared to PyTorch FP32',
+        },
+      },
+      {
+        label: { ko: '이상치 탐지율', en: 'Detection AUROC' },
+        value: { ko: '99.0% AUROC', en: '99.0% AUROC' },
+        description: {
+          ko: 'INT8 양자화 후에도 결함 검출 정확도 손실 0.2%p 이내 방어',
+          en: 'Less than 0.2%p accuracy degradation following INT8 quantization',
+        },
+      },
+    ],
+    lessonsLearned: [
+      {
+        ko: '엣지 디바이스에서의 딥러닝 서빙은 단순히 모델을 작게 만드는 것을 넘어, 타겟 하드웨어의 메모리 대역폭과 텐서 코어 특성에 맞춘 양자화 캘리브레이션이 결정적인 차이를 만든다는 것을 배웠습니다.',
+        en: 'Learned that edge deep learning serving requires hardware-aware quantization calibration matching memory bandwidth.',
+      },
+      {
+        ko: 'C++ 런타임으로의 전환을 통해 Python 생태계의 래퍼 비용을 걷어내고 순수한 하드웨어 성능을 끝까지 끌어올리는 시스템 엔지니어링의 위력을 확인했습니다.',
+        en: 'Demonstrated the power of C++ systems engineering in eliminating language wrapper overhead to maximize silicon throughput.',
+      },
+    ],
+    limitations: [
+      {
+        ko: '더 다양한 제조 조명 변화 환경에 대응하기 위한 조명 불변(Illumination-invariant) 피처 정규화 연구가 추가로 필요합니다.',
+        en: 'Requires further research into illumination-invariant feature normalization across varied manufacturing lighting.',
+      },
+    ],
+    nextSteps: [
+      {
+        ko: '실제 산업용 라인 카메라와 연동하여 결함 배출 PLC 트리거 신호까지 통합된 엔드투엔드 C++ 인라인 비전 검사 시스템으로 확장할 예정입니다.',
+        en: 'Planning to integrate industrial line cameras and PLC digital IO triggers into a full end-to-end C++ inline inspection station.',
+      },
+    ],
+    links: [
+      {
+        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
+        note: {
+          ko: '코드 정리 및 벤치마크 결과 리포지토리 공개 준비 중',
+          en: 'Repository and benchmark reproduction scripts preparing for release',
+        },
       },
     ],
   },
