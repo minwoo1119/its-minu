@@ -8,6 +8,7 @@ interface HeaderProps {
   currentTrack: TrackId;
   onLanguageChange: (language: Language) => void;
   onTrackChange: (track: TrackId | 'portal') => void;
+  onExperienceClick?: () => void;
   onTechClick: () => void;
   onProjectClick: () => void;
   onAwardsClick: () => void;
@@ -19,6 +20,7 @@ export const Header = ({
   currentTrack,
   onLanguageChange,
   onTrackChange,
+  onExperienceClick,
   onTechClick,
   onProjectClick,
   onAwardsClick,
@@ -27,6 +29,7 @@ export const Header = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const labels = {
+    experience: language === 'ko' ? '경력' : 'Experience',
     tech: language === 'ko' ? '기술' : 'Tech',
     project: language === 'ko' ? '프로젝트' : 'Projects',
     awards: language === 'ko' ? '수상 및 연구' : 'Awards',
@@ -35,11 +38,11 @@ export const Header = ({
     menu: language === 'ko' ? '메뉴 토글' : 'Toggle menu',
     language: language === 'ko' ? '언어' : 'Language',
     trackSelect: language === 'ko' ? '트랙 선택' : 'Track',
-    portalOption: language === 'ko' ? '전체 트랙 홈' : 'All Tracks',
-    aiOption: language === 'ko' ? 'AI 서비스 개발' : 'AI Service / Applied AI',
-    cvOption: 'Computer Vision',
-    appOption: 'App Developer',
-    seOption: 'Software Engineer',
+    portalOption: language === 'ko' ? '포트폴리오 홈' : 'Portfolio Home',
+    cvOption: 'Computer Vision & C++',
+    aiOption: 'Edge AI & AI Systems',
+    appOption: 'Mobile Applications',
+    seOption: 'Web & Full-Stack Projects',
   };
 
   const handleMenuClick = (callback?: () => void) => {
@@ -74,8 +77,8 @@ export const Header = ({
             aria-label={labels.trackSelect}
           >
             <option value='portal'>{labels.portalOption}</option>
-            <option value='ai-service-engineer'>{labels.aiOption}</option>
             <option value='computer-vision'>{labels.cvOption}</option>
+            <option value='ai-service-engineer'>{labels.aiOption}</option>
             <option value='app-dev'>{labels.appOption}</option>
             <option value='software-engineer'>{labels.seOption}</option>
           </select>
@@ -103,8 +106,8 @@ export const Header = ({
             }}
           >
             <option value='portal'>{labels.portalOption}</option>
-            <option value='ai-service-engineer'>{labels.aiOption}</option>
             <option value='computer-vision'>{labels.cvOption}</option>
+            <option value='ai-service-engineer'>{labels.aiOption}</option>
             <option value='app-dev'>{labels.appOption}</option>
             <option value='software-engineer'>{labels.seOption}</option>
           </select>
@@ -123,6 +126,16 @@ export const Header = ({
           </select>
         </label>
 
+        {onExperienceClick && (
+          <div
+            className={styles.tab}
+            onClick={() => handleMenuClick(onExperienceClick)}
+            role='button'
+            tabIndex={0}
+          >
+            {labels.experience}
+          </div>
+        )}
         <div
           className={styles.tab}
           onClick={() => handleMenuClick(onTechClick)}

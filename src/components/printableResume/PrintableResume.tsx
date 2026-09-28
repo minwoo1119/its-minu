@@ -1,6 +1,7 @@
 import type { Language } from '../../i18n';
 import { getText } from '../../i18n';
 import type { TrackData } from '../../data/tracks';
+import { experienceData } from '../../data/experience';
 import styles from './printableResume.module.scss';
 
 interface PrintableResumeProps {
@@ -51,6 +52,7 @@ export const PrintableResume = ({
     language === 'ko'
       ? {
           summary: '핵심 역량 요약',
+          experience: '경력 사항',
           skills: '기술 스택',
           projects: '주요 프로젝트',
           education: '학력',
@@ -58,6 +60,7 @@ export const PrintableResume = ({
         }
       : {
           summary: 'Professional Summary',
+          experience: 'Work Experience',
           skills: 'Technical Skills',
           projects: 'Featured Projects',
           education: 'Education',
@@ -87,6 +90,40 @@ export const PrintableResume = ({
             <li key={index}>{item}</li>
           ))}
         </ul>
+      </section>
+
+      <section className={styles.section}>
+        <h2>{labels.experience}</h2>
+        <div className={styles.projectList}>
+          {experienceData.map((exp) => (
+            <div key={exp.id} className={styles.project}>
+              <div className={styles.projectHeader}>
+                <h3>{getText(language, exp.company)}</h3>
+                <span>
+                  {getText(language, exp.role)} | {getText(language, exp.period)}
+                </span>
+              </div>
+              <div className={styles.tech}>
+                Domain: {getText(language, exp.domain)} | Tech:{' '}
+                {exp.techStack.join(', ')}
+              </div>
+              <p
+                style={{
+                  margin: '0.35rem 0',
+                  fontSize: '0.85rem',
+                  color: '#334155',
+                }}
+              >
+                {getText(language, exp.summary)}
+              </p>
+              <ul>
+                {exp.responsibilities.map((bullet, bIndex) => (
+                  <li key={bIndex}>{getText(language, bullet)}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className={styles.section}>

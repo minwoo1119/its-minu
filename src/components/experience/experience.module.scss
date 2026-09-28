@@ -1,0 +1,192 @@
+$tablet: 768px;
+$desktop: 1024px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+.container {
+  width: 90%;
+  max-width: 76rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+.subText {
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.titleText {
+  color: #0f172a;
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+
+  @include tablet {
+    font-size: 2.6rem;
+  }
+}
+
+.experienceList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.experienceCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.8rem 2rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  gap: 1.2rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+
+  @include tablet {
+    padding: 2.2rem 2.5rem;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.headerMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.companyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  .companyName {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+
+    @include tablet {
+      font-size: 1.5rem;
+    }
+  }
+
+  .statusBadge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+}
+
+.roleAndDomain {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #005ecb;
+  margin: 0;
+}
+
+.periodRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .periodText {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+}
+
+.summaryText {
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.7;
+  margin: 0;
+  padding: 0.85rem 1.1rem;
+  background: #f8fafc;
+  border-radius: 0.6rem;
+  border: 1px solid #f1f5f9;
+}
+
+.responsibilitiesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 1.25rem;
+
+  li {
+    font-size: 0.92rem;
+    color: #475569;
+    line-height: 1.6;
+
+    &::marker {
+      color: #005ecb;
+    }
+  }
+}
+
+.techStackRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.25rem;
+
+  .techTag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 0.35rem;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+  }
+}
+
+.noteText {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin: 0;
+  font-style: normal;
+}

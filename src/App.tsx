@@ -8,6 +8,7 @@ import { PrintableResume } from './components/printableResume/PrintableResume';
 import { Projects } from './components/projects/Projects';
 import { Techs } from './components/techs/Techs';
 import { Awards } from './components/awards/Awards';
+import { Experience } from './components/experience/Experience';
 import { tracksData, type TrackId } from './data/tracks';
 import { projectsDetailData } from './data/projectsDetail';
 import styles from './App.module.scss';
@@ -20,7 +21,7 @@ type Route =
   | { name: 'track'; trackId: TrackId }
   | { name: 'projectDetail'; trackId: TrackId; projectId: number };
 
-type SectionKey = 'techs' | 'projects' | 'awards';
+type SectionKey = 'experience' | 'techs' | 'projects' | 'awards';
 
 const normalizeTrackSegment = (segment: string): TrackId | null => {
   const clean = segment.toLowerCase().replace(/^\/+|\/+$/g, '').trim();
@@ -123,6 +124,7 @@ const buildPath = (route: Route): string => {
 };
 
 function App() {
+  const experienceRef = useRef<HTMLDivElement | null>(null);
   const techsRef = useRef<HTMLDivElement | null>(null);
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const awardsRef = useRef<HTMLDivElement | null>(null);
@@ -133,7 +135,7 @@ function App() {
   const activeTrackId: TrackId =
     route.name === 'track' || route.name === 'projectDetail'
       ? route.trackId
-      : 'ai-service-engineer';
+      : 'computer-vision';
 
   const activeTrackData = tracksData[activeTrackId];
 
@@ -194,8 +196,8 @@ function App() {
     if (route.name === 'portal') {
       document.title =
         language === 'ko'
-          ? '이민우 포트폴리오 | Minwoo Lee Career Portfolio'
-          : 'Minwoo Lee Portfolio | AI Service, Computer Vision, App, Software Engineer';
+          ? '이민우 | Computer Vision & C++ Software Engineer'
+          : 'Minwoo Lee | Computer Vision & C++ Software Engineer';
     } else if (route.name === 'track') {
       const role = getText(language, activeTrackData.intro.role);
       document.title = `${role} | 이민우 (Minwoo Lee)`;
@@ -225,7 +227,8 @@ function App() {
     }
 
     let targetRef: React.RefObject<HTMLDivElement | null> | null = null;
-    if (pendingSection === 'techs') targetRef = techsRef;
+    if (pendingSection === 'experience') targetRef = experienceRef;
+    else if (pendingSection === 'techs') targetRef = techsRef;
     else if (pendingSection === 'projects') targetRef = projectsRef;
     else if (pendingSection === 'awards') targetRef = awardsRef;
 
@@ -252,6 +255,11 @@ function App() {
               onLanguageChange={setLanguage}
               onTrackChange={handleTrackChange}
               onPdfClick={handlePdfDownload}
+              onExperienceClick={() =>
+                route.name === 'track'
+                  ? scrollToSection(experienceRef)
+                  : navigateTrack(activeTrackId, 'experience')
+              }
               onTechClick={() =>
                 route.name === 'track'
                   ? scrollToSection(techsRef)
@@ -272,6 +280,9 @@ function App() {
             {route.name === 'track' ? (
               <>
                 <Intro language={language} trackData={activeTrackData} />
+                <div ref={experienceRef} style={{ width: '100%' }}>
+                  <Experience language={language} />
+                </div>
                 <CoreCompetencies
                   language={language}
                   trackData={activeTrackData}
