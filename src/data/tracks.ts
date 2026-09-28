@@ -82,7 +82,37 @@ export interface TrackData {
 // All Project Card Definitions
 // -------------------------------------------------------------
 const allCards = {
-  // Vision & AI
+  // Vision & Industrial C++
+  industrialVision: (category: string): ProjectCardInfo => ({
+    id: 20,
+    category,
+    imgUrl: '/img/tech/industrial_vision_mfc.png',
+    title: {
+      ko: 'Industrial Machine Vision Software : 산업용 비전 검사장비 C++ 소프트웨어 개발',
+      en: 'Industrial Machine Vision Software : Production C++ Inspection System',
+    },
+    description: {
+      ko: '산업용 비전 검사장비의 기존 C++ 코드베이스를 분석하고 신규 검사 기능 및 SW 기능을 개발 (Professional Experience @ Synapse Imaging · 보안상 소스코드 비공개)',
+      en: 'Analyzing legacy C++ codebases for industrial vision inspection equipment and developing new inspection algorithms and features (Professional Experience @ Synapse Imaging · Source code confidential).',
+    },
+    techs: ['C++', 'MFC', 'OpenCV', 'HALCON', 'Multithreading', 'Synapse Imaging'],
+  }),
+
+  edgeAnomaly: (category: string): ProjectCardInfo => ({
+    id: 21,
+    category,
+    imgUrl: '/img/tech/edge_anomaly_patchcore.png',
+    title: {
+      ko: 'Industrial Anomaly Detection on Edge : 산업용 비전 이상 탐지 및 Edge 추론 최적화',
+      en: 'Industrial Anomaly Detection on Edge : PatchCore & Jetson TensorRT Inference',
+    },
+    description: {
+      ko: 'PatchCore 기반 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속과 C++ 추론 벤치마크 (14ms 실시간 처리 달성)',
+      en: 'PatchCore anomaly detection training, ONNX export, and TensorRT FP16/INT8 quantization for low-latency (<14ms) C++ inference on Jetson Orin Nano.',
+    },
+    techs: ['C++', 'PatchCore', 'ONNX', 'TensorRT', 'Jetson Orin Nano', 'PyTorch'],
+  }),
+
   pipetOcr: (category: string): ProjectCardInfo => ({
     id: 1,
     category,
@@ -360,40 +390,40 @@ const allCards = {
 // Tracks Data
 // -------------------------------------------------------------
 export const tracksData: Record<TrackId, TrackData> = {
-  // 0. AI Service & Applied AI
+  // 0. Edge AI & AI Systems (SECONDARY)
   'ai-service-engineer': {
     id: 'ai-service-engineer',
     canonicalPath: '/ai-service-engineer',
-    aliases: ['ai', 'applied-ai', 'ai-engineer', 'ai-service', 'ai-solution', 'llm', 'ax'],
+    aliases: ['ai', 'applied-ai', 'ai-engineer', 'ai-service', 'ai-solution', 'llm', 'ax', 'ai-systems'],
     navTitle: {
-      ko: 'AI 서비스 개발',
-      en: 'AI Service & Applied AI',
+      ko: 'Edge AI & AI Systems',
+      en: 'Edge AI & AI Systems',
     },
     badge: {
-      ko: 'Applied AI & Solution',
-      en: 'Applied AI & Solution',
+      ko: 'Secondary Track · AI Systems',
+      en: 'Secondary Track · AI Systems',
     },
     portalDescription: {
-      ko: 'LLM Fine-Tuning(SFT/DPO), RAG/Vector DB, FastAPI 모델 서빙부터 Docker/Ubuntu 배포, 프론트엔드 연동까지 완성하는 엔드투엔드 AI 서비스 개발',
-      en: 'End-to-end AI service engineering: LLM fine-tuning (SFT/DPO), RAG pipelines, FastAPI serving, Docker/Ubuntu deployment, and frontend integration.',
+      ko: 'FastAPI/Docker 온프레미스 AI 서빙(ChwieolUp-AI), 엔터프라이즈 RAG 플랫폼(dograc), LLM SFT/DPO 정렬 연구(KIIT 금상)',
+      en: 'On-premise AI serving microservices with FastAPI & Docker, enterprise RAG platforms, and LLM SFT/DPO alignment research.',
     },
     heroTags: ['LLM Fine-Tuning', 'RAG / Vector DB', 'FastAPI', 'Docker & Ubuntu', 'Ollama & vLLM', 'TensorRT'],
     intro: {
       title: {
-        ko: '모델 개발부터 서빙, 서비스 배포까지 엔드투엔드로 연결하는 ',
-        en: 'Bridging AI Models, Serving Pipelines, and Production Services, ',
+        ko: '비전 엔지니어링을 확장하여 AI 서빙과 시스템을 완성하는 ',
+        en: 'Scaling Vision Systems into On-Premise AI Serving Pipelines, ',
       },
       role: {
-        ko: 'AI Service Developer / Applied AI Engineer',
-        en: 'AI Service Developer / Applied AI Engineer',
+        ko: 'Edge AI & AI Systems Engineer',
+        en: 'Edge AI & AI Systems Engineer',
       },
       name: {
         ko: ' 이민우입니다.',
         en: ' Minwoo Lee.',
       },
       sub: {
-        ko: '순수 연구나 단편적 프론트엔드에 머무르지 않고, LLM/비전 모델을 직접 파인튜닝(SFT/DPO)하고 경량화하여 FastAPI 서버에 올리고, Docker/Ubuntu 인프라 위에서 실제 사용자 서비스와 유기적으로 결합하는 엔드투엔드 AI 서비스 개발을 주도합니다.',
-        en: 'Going beyond pure research or isolated frontend development, I bridge the entire pipeline: fine-tuning (SFT/DPO) and accelerating LLM/Vision models, serving them via low-latency FastAPI microservices, and orchestrating Docker/Ubuntu infrastructure to deliver robust, user-facing AI applications.',
+        ko: 'C++ 및 비전 엔지니어링을 바탕으로, 온프레미스 AI 서빙(FastAPI, Docker, Ubuntu)과 LLM 파인튜닝/RAG 시스템을 구축하는 확장 역량입니다. 외부 클라우드 API 종속과 비용 없이 로컬 GPU와 온프레미스 인프라 상에서 안정적으로 동작하는 엔드투엔드 AI 시스템을 구현합니다.',
+        en: 'Extending core C++ and vision expertise into on-premise AI serving (FastAPI, Docker, Ubuntu) and LLM fine-tuning/RAG pipelines, delivering self-hosted, air-gapped AI solutions without cloud token overhead.',
       },
     },
     competencies: {
@@ -506,34 +536,16 @@ export const tracksData: Record<TrackId, TrackData> = {
         ko: 'AI 서비스 프로젝트 포트폴리오',
         en: 'AI Service Project Portfolio',
       },
-      categoryOptions: ['all', 'main', 'other'],
+      categoryOptions: ['all'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        main: { ko: 'AI 서비스 & 파이프라인', en: 'AI Service & Pipelines' },
-        other: { ko: '기타 프로젝트', en: 'Other Projects' },
       },
       items: [
-        // Main (대표 4대 흐름: 1. Local LLM + RAG, 2. AI 서빙 마이크로서비스, 3. Vision AI/OCR 가속, 4. LLM 연구 및 다국어 서비스)
-        allCards.dograc('main'),
-        allCards.chwieolUpAi('main'),
-        allCards.pipetOcr('main'),
-        allCards.llmAlignment('main'),
-        allCards.slowAgingLlm('main'),
-        allCards.jobForeigner('main'),
-
-        // Other
-        allCards.platePicks('other'),
-        allCards.geumpumta('other'),
-        allCards.sevenSegmentOcr('other'),
-        allCards.semParticle('other'),
-        allCards.qlogAnalyzer('other'),
-        allCards.joinUs('other'),
-        allCards.babzip('other'),
-        allCards.cakeWorkshop('other'),
-        allCards.uhdyl('other'),
-        allCards.chirpaid('other'),
-        allCards.yeSang('other'),
-        allCards.saSang('other'),
+        allCards.dograc('all'),
+        allCards.chwieolUpAi('all'),
+        allCards.llmAlignment('all'),
+        allCards.slowAgingLlm('all'),
+        allCards.jobForeigner('all'),
       ],
     },
     printableResume: {
@@ -679,40 +691,40 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
   },
 
-  // 1. Computer Vision & Image Processing
+  // 1. Computer Vision & C++ Software Engineer (PRIMARY)
   'computer-vision': {
     id: 'computer-vision',
     canonicalPath: '/computer-vision',
-    aliases: ['computervision', 'vision', 'cv'],
+    aliases: ['computervision', 'vision', 'cv', 'cpp-vision'],
     navTitle: {
-      ko: '컴퓨터 비전',
-      en: 'Computer Vision',
+      ko: 'Computer Vision & C++',
+      en: 'Computer Vision & C++',
     },
     badge: {
-      ko: 'Computer Vision & AI',
-      en: 'Computer Vision & AI',
+      ko: 'Primary Track · C++ / Vision',
+      en: 'Primary Track · C++ / Vision',
     },
     portalDescription: {
-      ko: 'C++ MFC, C# WPF, OpenCV, TensorRT 기반 산업용 비전 검사 및 정량 분석 시스템',
-      en: 'Industrial vision inspection & quantitative analysis systems built with C++ MFC, C# WPF, OpenCV, and TensorRT.',
+      ko: '산업용 비전 검사장비의 C++/MFC 소프트웨어를 개발하며, 영상처리부터 실시간 처리 Pipeline과 Edge AI까지 확장',
+      en: 'Building industrial vision software in C++, with experience spanning image processing, vision systems, and edge AI deployment.',
     },
-    heroTags: ['C++ MFC', 'C# WPF', 'OpenCV', 'TensorRT', 'Watershed', 'YOLO'],
+    heroTags: ['C++', 'MFC', 'OpenCV', 'HALCON', 'TensorRT', 'Edge AI', 'Watershed'],
     intro: {
       title: {
-        ko: '현실의 문제를 데이터로 정량화하는 ',
-        en: 'Quantifying Real-World Vision Challenges, ',
+        ko: '현실의 비전 시스템을 만드는 ',
+        en: 'Building Real-World Vision Systems in C++, ',
       },
       role: {
-        ko: 'Computer Vision & Image Processing Engineer',
-        en: 'Computer Vision & Image Processing Engineer',
+        ko: 'Computer Vision & C++ Software Engineer',
+        en: 'Computer Vision & C++ Software Engineer',
       },
       name: {
         ko: ' 이민우입니다.',
         en: ' Minwoo Lee.',
       },
       sub: {
-        ko: '전통 영상처리(Filtering, Morphological, Watershed)부터 딥러닝(YOLO, Custom CNN) 및 고속 추론 엔진(TensorRT, ONNX)까지 폭넓게 다룹니다. 산업 현장에서 신뢰할 수 있는 고성능 비전 검사 및 정량 분석 시스템을 구축합니다.',
-        en: 'From classical image processing (Filtering, Morphology, Watershed) to deep learning (YOLO, Custom CNN) and high-throughput inference engines (TensorRT, ONNX), I build robust vision inspection and calibrated quantitative analysis systems for mission-critical industry environments.',
+        ko: '산업용 비전 검사장비의 C++ 소프트웨어를 개발하며, 영상처리부터 실시간 처리 Pipeline과 Edge AI까지 확장하고 있습니다. 대규모 C++/MFC 코드베이스 분석·유지보수부터 OpenCV/HALCON 기반 정밀 계측, Jetson 엣지 디바이스 TensorRT 최적화까지 산업 현장에서 신뢰할 수 있는 고성능 비전 시스템을 구축합니다.',
+        en: 'Building industrial vision software in C++, with experience spanning image processing, vision systems, and edge AI deployment.',
       },
     },
     competencies: {
@@ -728,142 +740,136 @@ export const tracksData: Record<TrackId, TrackData> = {
         {
           icon: 'C++',
           title: {
-            ko: '실시간 비전 SW 아키텍처',
-            en: 'Real-time Vision Architecture',
+            ko: 'Industrial Vision Software',
+            en: 'Industrial Vision Software',
           },
           description: {
-            ko: 'C++ MFC 및 C# .NET 8 WPF(MVVM) 기반 고속 비전 시스템 설계. 멀티스레드 영상 수집과 안정적인 프레임 버퍼 파이프라인 구축',
-            en: 'Designing high-throughput vision software in C++ MFC and C# WPF (MVVM) with multi-threaded frame acquisition and resilient buffering.',
+            ko: 'C++/MFC 기반 산업용 비전 검사장비 소프트웨어 개발 및 기존 대규모 코드베이스 분석·유지보수',
+            en: 'Developing C++/MFC software for industrial vision inspection equipment, analyzing and maintaining large-scale legacy codebases.',
           },
         },
         {
           icon: 'OpenCV',
           title: {
-            ko: '정밀 분할 & 정량 분석',
-            en: 'Precision Segmentation & Metrics',
+            ko: 'Computer Vision & Image Processing',
+            en: 'Computer Vision & Image Processing',
           },
           description: {
-            ko: 'CLAHE, Distance Transform, Watershed 기반 응집 객체 정밀 분할 및 픽셀 캘리브레이션을 통한 물리적 형상 지표(Feret Diameter) 산출',
-            en: 'Segmenting overlapping particles via CLAHE, Distance Transform, and Watershed algorithms, computing calibrated physical metrics like Feret Diameter.',
+            ko: 'OpenCV/HALCON 기반 영상처리와 segmentation, measurement, inspection algorithm 개발',
+            en: 'Developing segmentation, measurement, and inspection algorithms using OpenCV and HALCON.',
           },
         },
         {
           icon: 'TensorRT',
           title: {
-            ko: 'AI 모델 경량화 & 추론 최적화',
-            en: 'AI Optimization & Acceleration',
+            ko: 'Edge AI Deployment',
+            en: 'Edge AI Deployment',
           },
           description: {
-            ko: 'YOLO 및 CNN 모델의 ONNX 변환 및 TensorRT FP16/INT8 엔진 최적화. 추론 지연 시간 73% 단축 (300ms → 80ms) 실현',
-            en: 'Accelerating YOLO and CNN pipelines via ONNX and TensorRT FP16/INT8 engines, achieving 73% latency reduction (300ms -> 80ms).',
+            ko: 'PyTorch → ONNX → TensorRT 변환 및 Edge 환경 inference optimization 경험',
+            en: 'Exporting PyTorch models to ONNX and optimizing inference on Edge environments using TensorRT.',
           },
         },
       ],
     },
     techs: {
-      options: ['visionAi', 'visionSw', 'supplementary'],
+      options: ['core', 'visionAi', 'softwareEng', 'expanding'],
       labels: {
+        core: {
+          ko: 'Core (실무 주력)',
+          en: 'Core',
+        },
         visionAi: {
-          ko: 'Computer Vision & AI',
-          en: 'Computer Vision & AI',
+          ko: 'Vision & AI (모델·가속)',
+          en: 'Vision & AI',
         },
-        visionSw: {
-          ko: 'Vision SW Engineering',
-          en: 'Vision SW Engineering',
+        softwareEng: {
+          ko: 'Software Engineering',
+          en: 'Software Engineering',
         },
-        supplementary: {
-          ko: 'Supplementary Engineering',
-          en: 'Supplementary Engineering',
+        expanding: {
+          ko: 'Currently Expanding',
+          en: 'Currently Expanding',
         },
       },
       subText: {
-        ko: '산업용 비전 시스템 구축에 필요한 기술 스택입니다.',
-        en: 'Tech stack applied in industrial computer vision systems.',
+        ko: '실무 전문성과 사용 경험의 깊이를 명확히 구분한 기술 스택입니다. C++/MFC/OpenCV 기반 산업용 비전 SW를 코어로 하며, Edge AI 추론 가속 및 시스템 프로그래밍 영역으로 확장하고 있습니다.',
+        en: 'Curated tech stack categorizing core production expertise from expanding domains: anchored in C++/MFC/OpenCV industrial vision, scaled via TensorRT edge AI and systems engineering.',
       },
       stacks: {
-        visionAi: [
+        core: [
           { name: 'C++', icon: 'cplusplus' },
           { name: 'OpenCV', icon: 'opencv' },
+          { name: 'MFC', icon: 'cplusplus' },
+          { name: 'HALCON', icon: 'opencv' },
+        ],
+        visionAi: [
           { name: 'Python', icon: 'python' },
           { name: 'PyTorch', icon: 'pytorch' },
+          { name: 'YOLO', icon: 'yolo' },
           { name: 'ONNX', icon: 'onnx' },
           { name: 'TensorRT', icon: 'nvidia' },
-          { name: 'CUDA', icon: 'nvidia' },
         ],
-        visionSw: [
-          { name: 'C#', icon: 'csharp' },
-          { name: '.NET 8 WPF', icon: 'dotnet' },
-          { name: 'C++ MFC', icon: 'cplusplus' },
-          { name: 'OpenCvSharp', icon: 'opencv' },
-          { name: 'ScottPlot', icon: 'dotnet' },
-        ],
-        supplementary: [
+        softwareEng: [
           { name: 'Git', icon: 'git' },
-          { name: 'GitHub', icon: 'github' },
-          { name: 'Docker', icon: 'docker' },
+          { name: 'Visual Studio', icon: 'visualstudio' },
+          { name: 'Multithreading', icon: 'cplusplus' },
+          { name: 'Win32 / Debugging', icon: 'windows' },
+        ],
+        expanding: [
           { name: 'Linux', icon: 'linux' },
           { name: 'CMake', icon: 'cmake' },
+          { name: 'CUDA', icon: 'nvidia' },
         ],
       },
     },
     projects: {
       subText: {
-        ko: '주요 프로젝트 및 기타 개발 경험입니다.',
-        en: 'Featured vision projects and engineering highlights.',
+        ko: '산업용 비전 소프트웨어 개발 실무 경험 및 Edge AI 추론 최적화 프로젝트입니다.',
+        en: 'Industrial vision software engineering experience and edge AI inference optimization projects.',
       },
       titleText: {
-        ko: '프로젝트 포트폴리오',
-        en: 'Project Portfolio',
+        ko: '비전 프로젝트 포트폴리오',
+        en: 'Vision Project Portfolio',
       },
-      categoryOptions: ['all', 'main', 'other'],
+      categoryOptions: ['all', 'featured'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        main: { ko: '비전 & AI', en: 'Vision & AI' },
-        other: { ko: '기타 프로젝트', en: 'Other' },
+        featured: { ko: '산업용 비전 & 엣지 AI', en: 'Industrial Vision & Edge AI' },
       },
       items: [
-        // Main (Vision & AI)
-        allCards.pipetOcr('main'),
-        allCards.semParticle('main'),
-        allCards.sevenSegmentOcr('main'),
-        allCards.qlogAnalyzer('main'),
-        allCards.dograc('main'),
-        allCards.chwieolUpAi('main'),
-        allCards.llmAlignment('main'),
-        allCards.slowAgingLlm('main'),
-
-        // Other
-        allCards.geumpumta('other'),
-        allCards.uhdyl('other'),
-        allCards.chirpaid('other'),
-        allCards.platePicks('other'),
-        allCards.jobForeigner('other'),
-        allCards.joinUs('other'),
-        allCards.babzip('other'),
-        allCards.cakeWorkshop('other'),
+        allCards.industrialVision('featured'),
+        allCards.edgeAnomaly('featured'),
+        allCards.pipetOcr('featured'),
+        allCards.semParticle('featured'),
+        allCards.sevenSegmentOcr('featured'),
       ],
     },
     printableResume: {
       role: {
-        ko: '컴퓨터 비전 & 영상처리 엔지니어',
-        en: 'Computer Vision & Image Processing Engineer',
+        ko: 'Computer Vision & C++ Software Engineer',
+        en: 'Computer Vision & C++ Software Engineer',
       },
       bio: {
-        ko: '전통 영상처리 알고리즘과 딥러닝 최적화 엔진을 결합하여 정밀한 산업용 비전 검사 및 정량 분석 시스템을 구현하는 엔지니어 이민우입니다.',
-        en: 'Computer Vision Engineer specializing in combining classical image processing algorithms with deep learning acceleration to deliver industrial-grade inspection systems.',
+        ko: '산업용 비전 검사장비의 C++/MFC 소프트웨어를 개발하며, 영상처리부터 실시간 처리 Pipeline과 Edge AI까지 확장하고 있는 엔지니어 이민우입니다.',
+        en: 'Building industrial vision software in C++, with experience spanning image processing, vision systems, and edge AI deployment.',
       },
       summary: [
         {
-          ko: 'C++ MFC / C# WPF 기반의 산업용 실시간 비전 검사 및 정량 분석 데스크톱 애플리케이션 아키텍처 설계',
-          en: 'Architected industrial real-time vision inspection and analysis desktop apps in C++ MFC and C# WPF.',
+          ko: 'C++/MFC 기반 산업용 비전 검사장비 소프트웨어 개발 및 대규모 레거시 코드베이스 분석·유지보수 실무 수행 (Synapse Imaging)',
+          en: 'Developing C++/MFC software for industrial machine vision inspection equipment and maintaining large-scale codebases (Synapse Imaging).',
+        },
+        {
+          ko: 'PatchCore 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 C++ 실시간 추론 (14ms, 70 FPS)',
+          en: 'Optimized PatchCore unsupervised anomaly detection via TensorRT FP16/INT8 quantization for low-latency (<14ms) C++ edge inference on Jetson Orin Nano.',
+        },
+        {
+          ko: 'YOLO 및 CNN 모델의 ONNX 변환 및 TensorRT 최적화를 통한 추론 시간 73% 단축 (300ms → 80ms)',
+          en: 'Accelerated YOLO/CNN inference by 73% (300ms -> 80ms) using ONNX Runtime and TensorRT engines.',
         },
         {
           ko: 'CLAHE, Distance Transform, Watershed 기반 나노/마이크로 입자 정밀 분할 및 Feret Diameter 정량 산출',
           en: 'Engineered precision nano/micro particle segmentation and Feret Diameter measurement pipelines using Watershed.',
-        },
-        {
-          ko: 'YOLO 및 CNN 모델의 ONNX 변환 및 TensorRT FP16/INT8 최적화를 통한 추론 시간 73% 단축 (300ms → 80ms)',
-          en: 'Accelerated YOLO/CNN inference by 73% (300ms -> 80ms) using ONNX Runtime and TensorRT FP16/INT8.',
         },
         {
           ko: '한국정보기술학회(KIIT) 2년 연속 우수논문상(2026 금상, 2025 은상) 수상 및 KCI 등재 학술지 논문 게재',
@@ -872,19 +878,53 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
       skills: [
         {
-          title: { ko: 'Computer Vision & AI', en: 'Computer Vision & AI' },
-          items: 'C++, OpenCV, Python, PyTorch, YOLO, PaddleOCR, TensorRT, ONNX Runtime, CUDA',
+          title: { ko: 'Core Industrial Vision', en: 'Core Industrial Vision' },
+          items: 'C++, OpenCV, MFC, HALCON',
         },
         {
-          title: { ko: 'Vision SW Engineering', en: 'Vision SW Engineering' },
-          items: 'C# (.NET 8 WPF, MVVM), C++ MFC, OpenCvSharp, ScottPlot, Multi-threading, Frame Buffering',
+          title: { ko: 'Vision & Edge AI', en: 'Vision & Edge AI' },
+          items: 'Python, PyTorch, YOLO, ONNX Runtime, TensorRT',
         },
         {
-          title: { ko: 'Tools & DevOps', en: 'Tools & DevOps' },
-          items: 'Git, GitHub, Docker, Linux, CMake, Visual Studio, VS Code',
+          title: { ko: 'Software Engineering', en: 'Software Engineering' },
+          items: 'Git, Visual Studio, Multithreading / Concurrency, Win32 / Debugging',
+        },
+        {
+          title: { ko: 'Currently Expanding', en: 'Currently Expanding' },
+          items: 'Linux, CMake, CUDA',
         },
       ],
       projects: [
+        {
+          title: 'Industrial Machine Vision Software',
+          role: 'Software Engineer (Professional Experience)',
+          tech: 'C++, MFC, OpenCV, HALCON, Multithreading, Synapse Imaging',
+          bullets: [
+            {
+              ko: '산업용 비전 검사장비 기존 대규모 C++ 코드베이스 분석 및 신규 결함 검사 기능 개발',
+              en: 'Analyzed legacy C++ codebase for industrial vision inspection equipment and built new defect inspection features.',
+            },
+            {
+              ko: '멀티스레드 영상 수집 큐와 GUI 동기화 유지보수 및 하드웨어 IO 인터페이스 지원',
+              en: 'Maintained multi-threaded frame acquisition queues, GUI synchronization, and hardware IO interfaces.',
+            },
+          ],
+        },
+        {
+          title: 'Industrial Anomaly Detection on Edge',
+          role: 'AI & Performance Engineer (100%)',
+          tech: 'C++, PatchCore, ONNX, TensorRT, Jetson Orin Nano, PyTorch',
+          bullets: [
+            {
+              ko: '정상 샘플 기반 PatchCore 이상 탐지 모델 학습 및 CoreSet 10% 희소 샘플링 메모리 뱅크 압축',
+              en: 'Trained PatchCore anomaly detection on normal samples with 10% CoreSet memory bank compression.',
+            },
+            {
+              ko: 'TensorRT INT8 양자화 및 C++ 추론 파이프라인으로 Jetson Orin Nano 상 14.3ms(69.9 FPS) 실시간 달성',
+              en: 'Achieved 14.3ms (69.9 FPS) real-time inference on Jetson Orin Nano via TensorRT INT8 C++ runtime.',
+            },
+          ],
+        },
         {
           title: 'Micro-pipette Detection & Hybrid OCR System',
           role: 'AI & Vision Engineer (100%)',
@@ -943,33 +983,33 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
     },
     pdfFilename: {
-      ko: '이민우_Computer_Vision_Image_Processing_Engineer.pdf',
-      en: 'Minwoo_Lee_Computer_Vision_Engineer.pdf',
+      ko: '이민우_Computer_Vision_C++_Software_Engineer.pdf',
+      en: 'Minwoo_Lee_Computer_Vision_C++_Engineer.pdf',
     },
   },
 
-  // 2. Mobile App Developer
+  // 2. Previous Work — Mobile Applications
   'app-dev': {
     id: 'app-dev',
     canonicalPath: '/app-dev',
     aliases: ['app', 'mobile', 'appdev'],
     navTitle: {
       ko: '모바일 앱',
-      en: 'Mobile App',
+      en: 'Mobile Apps',
     },
     badge: {
-      ko: 'Mobile App Developer',
-      en: 'Mobile App Developer',
+      ko: 'Mobile Apps',
+      en: 'Mobile Apps',
     },
     portalDescription: {
-      ko: 'Flutter & React Native 크로스플랫폼, iOS Screen Time 연동, 양대 마켓 배포 및 실서비스 운영',
-      en: 'Cross-platform mobile apps in Flutter & React Native, iOS Screen Time integration, and production store launches.',
+      ko: 'Flutter & React Native 크로스플랫폼, iOS Screen Time 연동, 양대 마켓 정식 출시 및 실서비스 운영 경험',
+      en: 'Cross-platform mobile applications in Flutter & React Native, dual app store launches, iOS Screen Time integration, and production operation.',
     },
     heroTags: ['Flutter', 'React Native', 'Riverpod', 'Zustand', 'iOS Screen Time', 'App Store'],
     intro: {
       title: {
-        ko: '사용자의 일상에 가치를 전하는 ',
-        en: 'Crafting High-Performance Mobile Experiences, ',
+        ko: '실제 사용자를 위한 서비스를 배포하고 운영한 ',
+        en: 'Shipping and Operating Production Mobile Services, ',
       },
       role: {
         ko: 'Mobile Application Developer',
@@ -980,8 +1020,8 @@ export const tracksData: Record<TrackId, TrackData> = {
         en: ' Minwoo Lee.',
       },
       sub: {
-        ko: 'Flutter 및 React Native 크로스플랫폼을 기반으로 iOS와 Android 양대 마켓에 정식 출시된 실서비스를 구축하고 운영했습니다. 복잡한 비즈니스 로직을 Riverpod / Zustand로 안정화하고 네이티브 OS API와의 긴밀한 연동을 구현합니다.',
-        en: 'Specializing in cross-platform mobile engineering with Flutter and React Native. Experienced in launching production apps to both App Store and Google Play, architecting state with Riverpod/Zustand, and bridging native OS APIs like iOS Screen Time.',
+        ko: 'Flutter 및 React Native를 기반으로 iOS와 Android 양대 마켓에 정식 출시된 실서비스를 구축하고 운영했습니다. 실제 사용자를 대상으로 한 모바일 소프트웨어 배포, Riverpod/Zustand 상태 관리, 네이티브 OS API(iOS Screen Time) 연동 경험을 보유하고 있습니다.',
+        en: 'Shipped production mobile applications to both App Store and Google Play using Flutter and React Native. Demonstrates proven ability to ship, maintain, and operate user-facing software at scale.',
       },
     },
     competencies: {
@@ -1084,34 +1124,16 @@ export const tracksData: Record<TrackId, TrackData> = {
         ko: '모바일 프로젝트 포트폴리오',
         en: 'Mobile Projects Portfolio',
       },
-      categoryOptions: ['all', 'main', 'other'],
+      categoryOptions: ['all'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        main: { ko: '모바일 앱', en: 'Mobile Apps' },
-        other: { ko: '기타 프로젝트', en: 'Other' },
       },
       items: [
-        // Main (Mobile Apps)
-        allCards.geumpumta('main'),
-        allCards.uhdyl('main'),
-        allCards.chirpaid('main'),
-        allCards.yeSang('main'),
-        allCards.saSang('main'),
-
-        // Other
-        allCards.pipetOcr('other'),
-        allCards.semParticle('other'),
-        allCards.sevenSegmentOcr('other'),
-        allCards.qlogAnalyzer('other'),
-        allCards.platePicks('other'),
-        allCards.jobForeigner('other'),
-        allCards.joinUs('other'),
-        allCards.babzip('other'),
-        allCards.cakeWorkshop('other'),
-        allCards.dograc('other'),
-        allCards.chwieolUpAi('other'),
-        allCards.llmAlignment('other'),
-        allCards.slowAgingLlm('other'),
+        allCards.geumpumta('all'),
+        allCards.uhdyl('all'),
+        allCards.chirpaid('all'),
+        allCards.yeSang('all'),
+        allCards.saSang('all'),
       ],
     },
     printableResume: {
@@ -1245,40 +1267,40 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
   },
 
-  // 3. Software Engineer
+  // 3. Previous Work — Web & Full-Stack Projects
   'software-engineer': {
     id: 'software-engineer',
     canonicalPath: '/software-engineer',
-    aliases: ['software-enginner', 'softwareengineer', 'software', 'se'],
+    aliases: ['software-enginner', 'softwareengineer', 'software', 'se', 'web-fullstack'],
     navTitle: {
-      ko: '소프트웨어 엔지니어',
-      en: 'Software Engineer',
+      ko: '웹 & 풀스택',
+      en: 'Web & Full-Stack',
     },
     badge: {
-      ko: 'Full-Stack & Systems',
-      en: 'Full-Stack & Systems',
+      ko: 'Web & Full-Stack',
+      en: 'Web & Full-Stack',
     },
     portalDescription: {
-      ko: 'React/TypeScript 프론트엔드부터 NestJS/FastAPI 백엔드, Docker 배포, AI 모델 서빙까지 아우르는 풀스택 엔지니어링',
-      en: 'Full-stack engineering spanning React/TypeScript, NestJS/FastAPI, Docker infrastructure, and AI model serving.',
+      ko: 'React/TypeScript 프론트엔드부터 NestJS/FastAPI 백엔드, MySQL ACID 트랜잭션, Docker 배포까지의 풀스택 시스템 아키텍처',
+      en: 'Full-stack software engineering spanning React/TypeScript, NestJS/FastAPI backends, MySQL ACID transactions, and Docker containerization.',
     },
-    heroTags: ['React', 'TypeScript', 'NestJS', 'FastAPI', 'Docker', 'MySQL', 'AI Serving'],
+    heroTags: ['React', 'TypeScript', 'NestJS', 'FastAPI', 'Docker', 'MySQL', 'Full-Stack'],
     intro: {
       title: {
-        ko: '엔드투엔드 가치를 설계하고 구현하는 ',
-        en: 'Engineering Resilient Systems from Frontend to Backend, ',
+        ko: '사용자 인터페이스부터 백엔드 인프라까지 구축한 ',
+        en: 'Delivering Cohesive Software Architectures from UI to Backend, ',
       },
       role: {
-        ko: 'Software Engineer',
-        en: 'Software Engineer',
+        ko: 'Web & Full-Stack Software Engineer',
+        en: 'Web & Full-Stack Software Engineer',
       },
       name: {
         ko: ' 이민우입니다.',
         en: ' Minwoo Lee.',
       },
       sub: {
-        ko: 'React/TypeScript 중심의 사용자 친화적 프론트엔드부터 NestJS/FastAPI 기반의 견고한 백엔드 API, Docker 컨테이너 오케스트레이션, 그리고 LLM/비전 모델 서빙까지 유기적으로 연결된 전체 시스템을 주도적으로 구축합니다.',
-        en: 'Designing and building cohesive software systems end-to-end: responsive React/TypeScript frontends, modular NestJS/FastAPI backends with ACID concurrency control, containerized Docker deployments, and low-latency AI model serving.',
+        ko: '사용자 친화적 React/TypeScript 웹 프론트엔드와 NestJS/FastAPI 기반의 모듈형 백엔드, MySQL 데이터 모델링 및 Docker 컨테이너 배포를 아우르는 풀스택 시스템 구축 경험입니다.',
+        en: 'Full-stack software engineering background covering modular React/TS frontends, RESTful backends, relational data modeling, and containerized deployments.',
       },
     },
     competencies: {
@@ -1389,34 +1411,18 @@ export const tracksData: Record<TrackId, TrackData> = {
         ko: '소프트웨어 프로젝트 포트폴리오',
         en: 'Software Projects Portfolio',
       },
-      categoryOptions: ['all', 'main', 'other'],
+      categoryOptions: ['all'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        main: { ko: '소프트웨어 & 풀스택', en: 'Software & Full-Stack' },
-        other: { ko: '기타 프로젝트', en: 'Other' },
       },
       items: [
-        // Main (Software & Full-Stack)
-        allCards.dograc('main'),
-        allCards.chwieolUpAi('main'),
-        allCards.platePicks('main'),
-        allCards.jobForeigner('main'),
-        allCards.geumpumta('main'),
-        allCards.joinUs('main'),
-        allCards.babzip('main'),
-        allCards.cakeWorkshop('main'),
-        allCards.llmAlignment('main'),
-        allCards.slowAgingLlm('main'),
-
-        // Other
-        allCards.pipetOcr('other'),
-        allCards.semParticle('other'),
-        allCards.sevenSegmentOcr('other'),
-        allCards.qlogAnalyzer('other'),
-        allCards.uhdyl('other'),
-        allCards.chirpaid('other'),
-        allCards.yeSang('other'),
-        allCards.saSang('other'),
+        allCards.dograc('all'),
+        allCards.platePicks('all'),
+        allCards.jobForeigner('all'),
+        allCards.joinUs('all'),
+        allCards.babzip('all'),
+        allCards.cakeWorkshop('all'),
+        allCards.qlogAnalyzer('all'),
       ],
     },
     printableResume: {
