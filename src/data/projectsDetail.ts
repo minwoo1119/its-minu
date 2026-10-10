@@ -415,8 +415,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
         improvement: { ko: 'xUnit 34개 단위 테스트 검증 완료', en: 'Verified by 34 xUnit tests' },
       },
     ],
-    startDate: new Date('2025-08-01'),
-    endDate: new Date('2026-01-15'),
+    startDate: new Date('2026-08-01'),
+    endDate: new Date('2026-09-30'),
     teamInfo: { ko: 'Vision Software Developer', en: 'Vision Software Developer' },
     contribution: {
       ko: 'C# WPF MVVM 아키텍처 설계, OpenCvSharp 분할 파이프라인 구현, 형상 지표 정량화 및 34개 xUnit 단위 테스트 작성을 전담했습니다.',
@@ -644,8 +644,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
         improvement: { ko: '+255% 속도 향상', en: '+255% FPS Increase on CPU' },
       },
     ],
-    startDate: new Date('2025-07-01'),
-    endDate: new Date('2025-11-30'),
+    startDate: new Date('2026-07-01'),
+    endDate: new Date('2026-09-30'),
     teamInfo: { ko: 'Vision & AI Developer', en: 'Vision & AI Developer' },
     contribution: {
       ko: 'LightSVTR 모델 ONNX 변환 및 추론 파이프라인, 시간축 이상치 보정 알고리즘, Clean Architecture 계층 분리를 구현했습니다.',
@@ -799,6 +799,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2026-07-01'),
     endDate: new Date('2026-08-31'),
+    affiliation: {
+      ko: '시냅스이미징 / 연구원',
+      en: 'Synapse Imaging / Researcher',
+    },
     teamInfo: { ko: 'Vision SW Researcher', en: 'Vision SW Researcher' },
     contribution: {
       ko: 'C# WPF 로그 파서 및 차트 시각화 구현, IQR 기반 이상치 검출 및 엑셀 데이터 내보내기/리포팅 기능 개발을 전담했습니다.',
@@ -952,6 +956,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-03-01'),
     endDate: new Date('2026-06-30'),
+    affiliation: {
+      ko: '차세대 컴퓨터네트워킹 연구실 소속으로 진행한 개인 프로젝트 / 자체 연구',
+      en: 'Next-Generation Computer Networking Lab / Personal Research',
+    },
     teamInfo: { ko: 'AI Researcher (개인/팀)', en: 'AI Researcher (Solo/Team)' },
     contribution: {
       ko: '데이터셋 전처리 파이프라인 구축, Unsloth QLoRA 4-bit SFT/DPO 학습, LLM-as-a-Judge 자동 평가 시스템 개발 및 논문 작성을 주도했습니다.',
@@ -1097,6 +1105,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-03-01'),
     endDate: new Date('2025-11-15'),
+    affiliation: {
+      ko: '차세대 컴퓨터 네트워킹 연구실 팀 프로젝트',
+      en: 'Next-Generation Computer Networking Lab Team Project',
+    },
     teamInfo: { ko: '팀 프로젝트 5인', en: '5-person team project' },
     contribution: {
       ko: '다국어(i18n) 시스템 구축, Kakao Map 클러스터링 및 지도 인터랙션, TanStack Query 캐싱 최적화, 채용 상세 UI를 담당했습니다.',
@@ -1232,6 +1244,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2024-09-01'),
     endDate: new Date('2025-03-01'),
+    affiliation: {
+      ko: '교내 팀 프로젝트',
+      en: 'Campus Team Project',
+    },
     teamInfo: { ko: '개인 프로젝트 100%', en: 'Solo project 100%' },
     contribution: {
       ko: '기획, Flutter 앱 풀스택 개발, Riverpod 상태 관리, 학교 Wi-Fi 인증, 백그라운드 시간 보정, 양대 마켓 배포 및 심사 대응을 100% 전담했습니다.',
@@ -1395,6 +1411,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-07-01'),
     endDate: new Date('2025-08-30'),
+    affiliation: {
+      ko: '2025 멋쟁이사자처럼 중앙해커톤',
+      en: '2025 Likelion Central Hackathon',
+    },
     teamInfo: { ko: '팀 프로젝트 4인', en: '4-person team project' },
     contribution: {
       ko: 'React Native 앱 UI 구현, Zustand 전역 상태 설계, 공통 컴포넌트 모듈화, TanStack Query 캐시 연동을 담당했습니다.',
@@ -1526,6 +1546,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2024-08-01'),
     endDate: new Date('2025-02-15'),
+    affiliation: {
+      ko: '차세대 컴퓨터네트워킹 연구실 소속 팀 프로젝트',
+      en: 'Next-Generation Computer Networking Lab Team Project',
+    },
     teamInfo: { ko: '팀 프로젝트 4인', en: '4-person team project' },
     contribution: {
       ko: '레거시 아키텍처 분석, Riverpod 기반 상태 리팩토링, 실시간 채팅 기능 구현, KCI 논문 작성을 담당했습니다.',
@@ -1638,141 +1662,6 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     ],
   },
   {
-    id: 10,
-    category: 'backend',
-    title: {
-      ko: 'Plate Picks : 회식 메뉴 익명 투표 풀스택 시스템',
-      en: 'Plate Picks: Full-Stack Anonymous Voting System',
-    },
-    oneLiner: {
-      ko: '눈치 보지 않는 조직 의사결정을 위한 익명 투표 및 통계 시각화 풀스택 플랫폼 (React + NestJS + Docker)',
-      en: 'A full-stack anonymous voting and analytics platform built with React, NestJS, and Docker.',
-    },
-    overview: {
-      ko: '수직적 조직 문화에서 발생하는 회식 메뉴 선정의 심리적 부담을 없애기 위해 기획된 익명 투표 및 실시간 집계 서비스입니다. React 프론트엔드부터 NestJS 모듈형 백엔드, MySQL 데이터 모델링, Docker 컨테이너 배포까지 100% 단독으로 구현했습니다.',
-      en: 'A full-stack anonymous voting and real-time tallying service designed to eliminate social pressure during team meal decisions. 100% independently built from React frontend and NestJS modular backend to MySQL relational modeling and Docker deployment.',
-    },
-    startDate: new Date('2025-02-01'),
-    endDate: new Date('2025-05-10'),
-    teamInfo: { ko: '개인 풀스택 프로젝트 100%', en: 'Solo Full-stack Project 100%' },
-    contribution: {
-      ko: '기획, React 프론트엔드, NestJS 백엔드 API, MySQL DB 모델링, Docker 컨테이너 배포까지 전 과정을 100% 수행했습니다.',
-      en: '100% ownership from React UI and NestJS API to MySQL modeling and Docker deployment.',
-    },
-    images: [
-      image('/img/tech/plate_picks.png', 'Plate Picks 투표 및 결과 화면', 'Plate Picks voting and analytics view'),
-    ],
-    techChoices: [
-      {
-        name: 'NestJS & TypeScript',
-        reason: {
-          ko: '모듈형 아키텍처와 DI(의존성 주입)를 활용하여 투표, 인증, 통계 도메인을 명확히 격리하기 위해 선택했습니다.',
-          en: 'Chosen for modular architecture and dependency injection to isolate voting, auth, and analytics domains.',
-        },
-      },
-      {
-        name: 'MySQL & TypeORM',
-        reason: {
-          ko: '투표 트랜잭션과 복수 선택 집계의 ACID 무결성을 엄격히 보장하기 위해 관계형 DB를 채택했습니다.',
-          en: 'Adopted to strictly enforce ACID transactional integrity during vote aggregation.',
-        },
-      },
-      {
-        name: 'Docker & Nginx',
-        reason: {
-          ko: '프론트엔드와 백엔드 서비스를 격리된 컨테이너 환경으로 패키징하고 단일 도메인 리버스 프록시로 서빙하기 위해 사용했습니다.',
-          en: 'Used to containerize frontend and backend services under Nginx reverse proxy.',
-        },
-      },
-    ],
-    keyFeatures: [
-      {
-        title: { ko: '완전 익명 투표 및 중복 투표 방지', en: 'Anonymous Voting with Anti-Duplication' },
-        description: {
-          ko: '사용자 식별 토큰 해싱을 통해 개인 투표 내역의 익명성을 보장하면서도 중복 투표를 원천 차단했습니다.',
-          en: 'Ensures absolute vote anonymity via hashed tokens while preventing duplicate ballot submissions.',
-        },
-        images: [
-          image('/img/tech/plate_picks.png', '투표 생성 및 제출 화면', 'Vote creation and ballot submission'),
-        ],
-      },
-      {
-        title: { ko: '실시간 집계 및 통계 대시보드', en: 'Real-time Analytics Dashboard' },
-        description: {
-          ko: '카테고리별 선호도, 비선호 음식 필터링, 최적 메뉴 추천 알고리즘 결과를 차트로 시각화합니다.',
-          en: 'Visualizes category preferences, vetoed items, and optimal menu recommendations in real-time charts.',
-        },
-        images: [
-          image('/img/tech/plate_picks.png', '결과 통계 시각화', 'Result statistics visualization'),
-        ],
-      },
-    ],
-    roleDetails: [
-      {
-        ko: 'NestJS 기반 RESTful API 설계 및 Swagger API 문서 자동화',
-        en: 'Designed NestJS RESTful APIs and automated Swagger documentation.',
-      },
-      {
-        ko: '트랜잭션 기반 투표 카운트 정합성 보장 로직 구현',
-        en: 'Implemented transaction-based vote tallying to ensure zero count discrepancy.',
-      },
-      {
-        ko: 'Docker Compose를 활용한 멀티 컨테이너(App + DB + Nginx) 배포 파이프라인 구성',
-        en: 'Configured multi-container Docker Compose deployment (App + DB + Nginx).',
-      },
-    ],
-    troubleshooting: [
-      {
-        problem: {
-          ko: '동시 다발적인 투표 제출 시 Race Condition으로 인해 집계 결과에 동시성 오차가 발생하는 문제가 있었습니다.',
-          en: 'Simultaneous ballot submissions caused race conditions in aggregate vote counts.',
-        },
-        solution: {
-          ko: '데이터베이스 비관적 락(Pessimistic Lock)과 트랜잭션 격리 수준을 적용하여 집계 책임을 단일 원자적 연산으로 격리했습니다.',
-          en: 'Applied database pessimistic locking within transactional boundaries to isolate tally updates atomically.',
-        },
-        result: {
-          ko: '동시 100건 이상의 투표 트래픽에서도 단 하나의 카운트 누락 없이 100% 정합성을 보장했습니다.',
-          en: 'Guaranteed 100% data consistency under concurrent load with zero missing tallies.',
-        },
-      },
-    ],
-    resultMetrics: [
-      {
-        label: { ko: '개발 범위', en: 'Full-Stack Scope' },
-        value: { ko: 'FE + BE + DB + Docker 100%', en: 'FE + BE + DB + Docker 100%' },
-        description: {
-          ko: '기획부터 배포까지 풀스택 인프라 전 과정 구축',
-          en: 'Built full-stack infrastructure from inception to production deployment',
-        },
-      },
-    ],
-    lessonsLearned: [
-      {
-        ko: '풀스택 시스템에서는 프론트와 백엔드의 단순 연동보다 데이터 일관성과 동시성 제어를 위한 백엔드 트랜잭션 설계가 핵심임을 배웠습니다.',
-        en: 'Learned that full-stack engineering hinges on backend transactional concurrency design rather than mere API wiring.',
-      },
-    ],
-    limitations: [
-      {
-        ko: '조직별 멀티테넌시(회사별 슬랙/팀즈 웹훅 연동)는 추가 구현이 필요합니다.',
-        en: 'Multi-tenant Slack/Teams webhook integration remains for future implementation.',
-      },
-    ],
-    nextSteps: [
-      {
-        ko: 'Slack Bot 및 카카오톡 공유 링크를 통한 간편 투표 참여 기능을 추가할 계획입니다.',
-        en: 'Planning Slack bot integration and KakaoTalk quick-vote sharing links.',
-      },
-    ],
-    links: [
-      {
-        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
-        note: privateRepoNote,
-      },
-    ],
-  },
-  {
     id: 11,
     category: 'webFrontend',
     title: {
@@ -1789,7 +1678,11 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-02-15'),
     endDate: new Date('2025-04-30'),
-    teamInfo: { ko: '팀 프로젝트 3인', en: '3-person team project' },
+    affiliation: {
+      ko: '멋쟁이사자처럼 운영진 활동',
+      en: 'Likelion Core Team Activity',
+    },
+    teamInfo: { ko: '팀 프로젝트 5인', en: 'Team Project (5 members)' },
     contribution: {
       ko: 'React 문답 플로우 UI, 점수 가중치 계산 엔진, 결과 페이지 및 카카오 공유 기능을 전담했습니다.',
       en: 'Owned React quiz flow UI, weighted scoring engine, result view, and Kakao share integration.',
@@ -1917,7 +1810,11 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-06-01'),
     endDate: new Date('2025-07-15'),
-    teamInfo: { ko: '개인 프로젝트 100%', en: 'Solo project 100%' },
+    affiliation: {
+      ko: '2025 멋쟁이사자처럼 교내해커톤 팀 프로젝트',
+      en: '2025 Likelion Campus Hackathon Team Project',
+    },
+    teamInfo: { ko: '팀 프로젝트 4인', en: 'Team Project (4 members)' },
     contribution: {
       ko: '기획, React 프론트엔드, Kakao OAuth 로그인, Zustand 전역 상태, 지도 인터랙션, CRUD를 100% 단독 개발했습니다.',
       en: '100% ownership of planning, React UI, Kakao OAuth, Zustand state, map integration, and CRUD.',
@@ -2041,6 +1938,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-01-20'),
     endDate: new Date('2025-02-15'),
+    affiliation: {
+      ko: '2025 멋쟁이사자처럼 운영진 해커톤',
+      en: '2025 Likelion Core Team Hackathon',
+    },
     teamInfo: { ko: '해커톤 팀 프로젝트 4인', en: '4-person hackathon team project' },
     contribution: {
       ko: '캘린더 UI 커스터마이징, 케이크 데코레이션 인터랙션, 모달 레이어 상태 관리, 협업 규칙 수립을 담당했습니다.',
@@ -2296,7 +2197,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     },
     startDate: new Date('2025-03-01'),
     endDate: new Date('2025-05-15'),
-    teamInfo: { ko: '팀 프로젝트 2인', en: '2-person team project' },
+    teamInfo: { ko: '개인 프로젝트', en: 'Personal Project' },
     contribution: {
       ko: '데이터 수집 및 정제, JSONL 데이터셋 구축, Unsloth 기반 파인튜닝 파이프라인 및 응답 평가 실험을 전담했습니다.',
       en: 'Led data collection/cleaning, JSONL construction, Unsloth fine-tuning pipeline, and evaluation experiments.',
@@ -2610,8 +2511,12 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     ],
     links: [
       {
-        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
-        note: privateRepoNote,
+        label: { ko: 'Google Play 스토어 (Android)', en: 'Google Play Store (Android)' },
+        url: 'https://play.google.com/store/apps/details?id=com.minwoo1119.yesang',
+      },
+      {
+        label: { ko: 'App Store (iOS)', en: 'App Store (iOS)' },
+        url: 'https://apps.apple.com/us/app/%EC%98%88%EC%83%81/id6768654211',
       },
     ],
   },
@@ -2813,8 +2718,12 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     ],
     links: [
       {
-        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
-        note: privateRepoNote,
+        label: { ko: 'Google Play 스토어 (Android)', en: 'Google Play Store (Android)' },
+        url: 'https://play.google.com/store/apps/details?id=com.sasang.app',
+      },
+      {
+        label: { ko: 'App Store (iOS)', en: 'App Store (iOS)' },
+        url: 'https://apps.apple.com/us/app/%EC%82%AC%EC%83%81/id6806609419',
       },
     ],
   },
@@ -2822,16 +2731,16 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     id: 18,
     category: 'fullstack',
     title: {
-      ko: 'dograc : 문서 기반 신뢰형 엔터프라이즈 모듈형 RAG 플랫폼',
-      en: 'dograc: Enterprise Modular RAG Knowledge Platform',
+      ko: 'dograc : 사내 기밀 정보 유출 제로(Zero Data Egress) 로컬 오픈소스 데스크톱-웹 하이브리드 RAG 플랫폼',
+      en: 'dograc: Zero Data Egress Local Desktop-Web Hybrid RAG Platform',
     },
     oneLiner: {
-      ko: 'Next.js 14, FastAPI, Qdrant, MinIO, Ollama 기반의 문서 근거 인라인 인용 및 투명한 RAG 실행 추적(Trace) 온프레미스 지식 검색 플랫폼',
-      en: 'An enterprise modular RAG platform featuring inline citations, execution trace auditing, and 100% on-premise local LLM runtime.',
+      ko: '외부 전송 데이터량 0 바이트를 보장하며, 로컬 LLM/임베딩과 원클릭 데스크톱 런처 및 Docker/SQLite 자동 폴백을 갖춘 데스크톱-웹 하이브리드 RAG 플랫폼',
+      en: 'A zero data egress desktop-web hybrid RAG platform powered by local LLMs, on-device embeddings, one-click desktop launcher, and hybrid Docker/SQLite persistence.',
     },
     overview: {
-      ko: '사내에 축적된 기술 문서, 규정집, 업무 매뉴얼(PDF)을 안전하게 색인하고, 자연어 질의 시 원문 페이지 근거에 기반하여 정확히 답변하는 오픈소스 엔터프라이즈 RAG(Retrieval-Augmented Generation) 시스템입니다. 외부 클라우드로의 데이터 반출 없이 로컬 GPU(Ollama / vLLM)와 BAAI/bge-m3 임베딩 모델로 동작하며, 환각(Hallucination)을 원천 차단하는 엄격한 거절 지침과 인라인 출처 인용([파일명, p.페이지]), 코사인 유사도 점수·지연 시간·프롬프트 전문을 전수 기록하는 Trace 감사 드로어, 그리고 교보 디자인 시스템(KDS) 기반의 Reading-First UI를 엔드투엔드로 구현했습니다.',
-      en: 'An enterprise Retrieval-Augmented Generation (RAG) platform that securely indexes proprietary technical manuals, corporate bylaws, and specifications (PDF) for grounded natural language Q&A. Operates 100% on-premise using local GPU inference (Ollama / vLLM) and BAAI/bge-m3 embeddings without external cloud leakage. Features strict refusal prompts against hallucinations, inline citations [filename, p.page], a transparent Trace audit drawer recording similarity scores, latency, and full prompts, wrapped in a Reading-First minimalist UI built on Kyobo Design System (KDS).',
+      ko: '사내 규정, 계약서, 특허 등 민감 문서가 외부 클라우드 API로 전송되는 데이터 유출 리스크와 종량제 비용을 원천 차단하기 위해 구축한 오픈소스 데스크톱-웹 하이브리드 RAG(Retrieval-Augmented Generation) 플랫폼입니다. 외부 전송 데이터 0 바이트(Zero Data Egress) 원칙 하에 Ollama(Qwen2.5-7B) 로컬 LLM과 BAAI/bge-m3 온디바이스 임베딩을 100% 자립 구동합니다. Windows Tkinter 기반 원클릭 데스크톱 런처를 통해 비개발자도 인프라·서버·UI를 즉시 가동할 수 있으며, Docker 가동 시 컨테이너(PostgreSQL 16, Qdrant HNSW, MinIO S3) 모드로, Docker 미가동 시 SQLite + In-Memory Qdrant + 로컬 디렉터리 스토리지로 무중단 자동 폴백되는 하이브리드 영속성 계층을 제공합니다. 교보 디자인 시스템(KDS) 기반의 정갈한 2열 작업대, 답변 내 [파일명, p.숫자] 상호작용 인라인 인용 배지, 검색 점수·원본 프롬프트·소요시간(ms)을 투명하게 감사할 수 있는 TraceDrawer를 단독 설계 및 구현했습니다.',
+      en: 'An enterprise Retrieval-Augmented Generation (RAG) platform guaranteeing Zero Data Egress and eliminating commercial cloud API dependencies and recurring subscription costs for sensitive corporate documents, contracts, and patents. Operates 100% self-sufficiently using local LLMs (Ollama / Qwen2.5-7B) and on-device embeddings (BAAI/bge-m3). Features a Windows Tkinter-based one-click desktop launcher enabling non-developers to run infrastructure, backend, and UI instantly with zero setup barriers. Implements an adaptive hybrid persistence layer that automatically connects to containerized infrastructure (PostgreSQL 16, Qdrant HNSW, MinIO S3) when Docker Desktop is running, and seamlessly falls back to SQLite, In-Memory Qdrant, and local disk storage without Docker. Integrates a Kyobo Design System (KDS) reading-first 2-column workspace, interactive inline citation badges [filename, p.page], and a transparent TraceDrawer auditing retrieval similarity scores, full prompts, and latency (ms).',
     },
     startDate: new Date('2026-07-31'),
     endDate: new Date('2026-09-09'),
@@ -2840,8 +2749,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       en: 'Full-Stack & AI Engineer (Solo Project, 100% Ownership)',
     },
     contribution: {
-      ko: 'Next.js 14 KDS 웹 프론트엔드, FastAPI 비동기 API 서버, Qdrant 벡터 검색 엔진, MinIO 오브젝트 스토리지, 로컬 Ollama/vLLM 추론 파이프라인, Docker Compose 인프라 오케스트레이션까지 시스템 전 계층을 100% 단독 설계 및 구축했습니다.',
-      en: 'Architected and built the entire system end-to-end: Next.js 14 KDS web frontend, FastAPI async API server, Qdrant vector search, MinIO object storage, local Ollama/vLLM inference pipeline, and Docker Compose orchestration.',
+      ko: '원클릭 데스크톱 런처(Tkinter/Velopack), Next.js 14 KDS 웹 프론트엔드, FastAPI 비동기 API 서버, Qdrant/SQLite 하이브리드 영속성 계층, Ollama 로컬 추론 파이프라인, pytest 59건 자동화 테스트까지 전 과정을 100% 단독 설계 및 구현했습니다.',
+      en: 'Solely architected and engineered the entire stack end-to-end: Tkinter/Velopack one-click desktop launcher, Next.js 14 KDS web frontend, async FastAPI API server, Qdrant/SQLite hybrid persistence layer, local Ollama inference pipeline, and 59 automated pytest suites.',
     },
     images: [
       image('/img/tech/dograc_main.jpg', 'dograc Neural Retrieval 아키텍처 및 시스템 개요', 'dograc Neural Retrieval Architecture & System Overview'),
@@ -2850,70 +2759,68 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     ],
     techChoices: [
       {
+        name: 'Desktop Launcher (Python / Tkinter & Velopack)',
+        reason: {
+          ko: '개발 도구(Docker, Node, Python CLI)를 직접 다루지 못하는 사내 실무자도 인스톨러 더블클릭 한 번으로 즉시 사내 문서 질의응답을 시작할 수 있도록 Windows KDS 테마 데스크톱 런처를 구현하고, 64KB 파이프 버퍼 데드락 방지 비동기 로그 리더 및 Velopack 원클릭 설치/포터블 패키징을 적용했습니다.',
+          en: 'Enabled non-developers to launch services with a single double-click without manual CLI/Docker setups, incorporating an async log reader preventing 64KB pipe buffer deadlocks and packaging via Velopack installer/portable ZIP.',
+        },
+      },
+      {
         name: 'Next.js 14 (App Router) & Tailwind CSS',
         reason: {
-          ko: '긴 텍스트와 AI 생성 답변을 장시간 편안하게 판독할 수 있도록 교보 디자인 시스템(KDS) 시각 언어(1px 정갈한 헤어라인, Periwinkle Indigo 액션 포인트)를 적용하고, App Router 기반 고성능 SPA를 구현하기 위해 선택했습니다.',
-          en: 'Applied Kyobo Design System (KDS) visual language (1px hairlines, Periwinkle Indigo points) for comfortable long-form reading, paired with Next.js 14 App Router for high-performance SPA navigation.',
+          ko: '장시간 문서 판독 피로도를 낮추기 위해 교보 디자인 시스템(KDS) 시각 원칙(이모지 배제, 1px 정갈한 헤어라인, 차분한 Indigo 테마)을 준수한 Reading-First 2열 단일 사용자 작업대를 구현하고, 클릭 가능한 [파일명, p.숫자] 상호작용 인용 배지와 TraceDrawer를 제공하기 위해 채택했습니다.',
+          en: 'Applied Kyobo Design System (KDS) visual language (no emojis, 1px hairlines, muted Indigo) for comfortable long-form reading, paired with interactive [filename, p.page] citation badges and slide-in TraceDrawer.',
         },
       },
       {
-        name: 'FastAPI & Python 3.12 (AsyncIO, Pydantic v2)',
+        name: 'FastAPI 0.115 Async & Python Protocol Clean Architecture',
         reason: {
-          ko: '문서 업로드 파싱, 청킹, 임베딩, 벡터 검색, LLM 스트리밍 생성에 이르는 I/O 집약적 RAG 파이프라인을 비동기(AsyncIO) 논블로킹으로 처리하고, Pydantic v2로 엄격한 데이터 직렬화 및 검증을 보장하기 위해 채택했습니다.',
-          en: 'Engineered non-blocking asynchronous I/O across parsing, chunking, embedding, vector retrieval, and LLM streaming, backed by Pydantic v2 for strict type safety and serialization.',
+          ko: '특정 프레임워크(LangChain 등) 종속 없이 Python Protocol 기반으로 LLM 및 임베딩 어댑터를 추상화하여 도메인 독립성을 확보하고, 문서 수집·청킹·벡터 검색·스트리밍 생성 전 과정을 비동기(AsyncIO) 논블로킹으로 처리하기 위해 채택했습니다.',
+          en: 'Abstracted LLM and embedding adapters via Python Protocols without framework lock-in (e.g., LangChain), executing document parsing, chunking, retrieval, and generation in non-blocking async pipelines.',
         },
       },
       {
-        name: 'Qdrant Vector DB & BAAI/bge-m3',
+        name: 'Hybrid Persistence (Docker Compose / SQLite & In-Memory Qdrant)',
         reason: {
-          ko: '한국어 기술/행정 문서 의미 밀집도가 높은 BAAI/bge-m3 임베딩(1024차원)과 Rust 기반의 고속 HNSW 인덱싱 및 workspace_id 테넌트 격리 필터링을 지원하는 Qdrant를 결합하여 밀리초 단위의 고속 유사도 검색을 구현했습니다.',
-          en: 'Paired BAAI/bge-m3 dense embeddings (1024-dim, high Korean semantic density) with Rust-based Qdrant HNSW vector indexing and workspace tenant filtering for sub-millisecond retrieval.',
+          ko: 'Docker Desktop 가동 시 컨테이너 인프라(PostgreSQL 16, Qdrant HNSW, MinIO S3)로 연결되고, Docker 미가동 시에도 SQLite, 인메모리 Qdrant, 로컬 디스크 파일 스토리지로 100% 무중단 자동 폴백되는 환경 적응형 하이브리드 영속성 계층을 구현하기 위해 채택했습니다.',
+          en: 'Architected adaptive persistence that connects to containerized Postgres/Qdrant/MinIO when Docker is running, while seamlessly falling back to SQLite, in-memory Qdrant, and local storage when Docker is absent.',
         },
       },
       {
-        name: 'MinIO (S3 호환 Object Storage)',
+        name: 'Local Ollama (Qwen2.5-7B) & BAAI/bge-m3 (1024-dim)',
         reason: {
-          ko: '사내 온프레미스 폐쇄망 환경에서 원본 PDF 문서를 SHA-256 해시 기반으로 불변(Immutable) 상태로 안전하게 보관하고, S3 호환 API를 통해 유연한 확장성을 유지하기 위해 도입했습니다.',
-          en: 'Provided immutable on-premise PDF document storage with SHA-256 deduplication and full AWS S3 API compatibility for operational flexibility.',
+          ko: '외부 전송 데이터량 0 바이트(Zero Data Egress)를 보장하기 위해 한국어 의미 밀집도가 높은 온디바이스 BGE-M3 임베딩과 로컬 GPU에서 완전 자립 구동되는 Qwen2.5-7B 모델 및 추론 어댑터를 설계했습니다.',
+          en: 'Eliminated enterprise data privacy risks and cloud costs by running open-source Qwen2.5-7B locally via Ollama and generating 1024-dim dense embeddings via on-device BAAI/bge-m3.',
         },
       },
       {
-        name: 'Local Ollama & vLLM (100% On-Premise LLM)',
+        name: 'Pytest (59 Automated Tests, 100% Pass)',
         reason: {
-          ko: '사내 기밀 및 규정 문서가 외부 상용 API(OpenAI 등)로 유출되는 것을 원천 차단하기 위해, 개인 PC 및 사내 서버 GPU에서 qwen2.5 오픈소스 모델을 무비용 폐쇄망으로 구동하도록 Adapter 계층을 설계했습니다.',
-          en: 'Eliminated enterprise data privacy risks by running open-source LLMs (qwen2.5) locally via Ollama and vLLM on user GPUs with zero API subscription costs.',
-        },
-      },
-      {
-        name: 'Docker & Docker Compose',
-        reason: {
-          ko: 'PostgreSQL 16, Qdrant, MinIO 등 복합 인프라 서비스를 단일 명령어(docker compose up -d)로 재현 가능하고 격리된 환경으로 손쉽게 배포할 수 있도록 컨테이너화했습니다.',
-          en: 'Containerized multi-service infrastructure (PostgreSQL 16, Qdrant, MinIO) for reproducible, one-click isolated local and server orchestration.',
+          ko: '워크스페이스 격리, 문서 수집, 벡터 검색, 어댑터 폴백 등 핵심 엔터프라이즈 RAG 로직의 안정성을 보증하기 위해 apps/api 기준 59건의 자동화 테스트를 전건 통과 검증했습니다.',
+          en: 'Ensured enterprise-grade stability across tenant isolation, ingestion, retrieval, and fallback mechanisms with 59 automated pytest suites passing at 100%.',
         },
       },
     ],
     keyFeatures: [
       {
         title: {
-          ko: '정확한 인라인 근거 인용 (Grounded Inline Citations)',
-          en: 'Grounded Inline Citations',
+          ko: '원클릭 데스크톱 런처 (Zero Setup Barrier)',
+          en: 'One-Click Desktop Launcher (Zero Setup Barrier)',
         },
         description: {
-          ko: 'AI 어시스턴트의 모든 답변 문장에 실제 참조 문서의 위치([파일명, p.페이지번호])를 인라인 배지 형태로 결합합니다. 사용자가 배지를 클릭하면 해당 문서의 원본 발췌문과 페이지를 즉시 대조할 수 있으며, 근거가 부족한 경우 정직하게 답변 불가를 안내하여 환각(Hallucination)을 원천 방지합니다.',
-          en: 'Anchors every generated sentence to verified document pages using [filename, p.page] inline badges. Users can click badges to inspect source excerpts directly, while strict refusal prompts curb hallucinations when evidence is absent.',
+          ko: '개발 도구(Docker, Node.js, Python CLI)를 다루지 못하는 사내 실무자도 인스톨러 더블클릭 한 번으로 백엔드, 프론트엔드, 영속성 계층을 자동 일괄 기동할 수 있습니다. 64KB 파이프 버퍼 데드락을 방지하는 비동기 UTF-8 로그 리더 스레드, 소켓 바인딩(is_port_open) 기반 1초 초고속 헬스체크, 브라우저 자동 오픈, 런처 종료 시 taskkill /F /T 기반 자식/손자 프로세스 완전 정리를 보장하며, Velopack 기반 원클릭 인스톨러(dograc-win-Setup.exe ~53MB) 및 무설치본(Portable.zip ~46MB) 패키징을 완비했습니다.',
+          en: 'Allows non-developers to launch the backend, frontend, and persistence layers simultaneously with a single double-click. Features an async UTF-8 log reader preventing 64KB pipe buffer deadlocks, 1-second socket health checks, auto-browser launch, complete child process cleanup via taskkill /F /T, and Velopack-packaged installer (~53MB) / portable ZIP (~46MB).',
         },
-        images: [
-          image('/img/tech/dograc_chat_citations.png', '인라인 출처 인용 및 원본 문서 앵커링 UI', 'Inline citation badge and document page anchoring'),
-        ],
+        images: [],
       },
       {
         title: {
-          ko: '투명한 RAG 실행 분석기 (Execution Trace Auditor)',
-          en: 'Execution Trace Auditor',
+          ko: '투명한 실행 추적 및 감사 (Transparency First - TraceDrawer)',
+          en: 'Transparent Execution Trace & Audit (TraceDrawer)',
         },
         description: {
-          ko: '검색(Retrieval)과 생성(Generation)을 블랙박스 체인으로 결합하지 않고 분리하여 답변마다 실행 분석(Trace) 드로어를 제공합니다. 벡터 검색에서 추출된 청크들의 코사인 유사도 점수, 매칭 본문 미리보기, 전체 응답 지연시간(ms), LLM에 실제 주입된 프롬프트 전문을 투명하게 감사(Audit)할 수 있습니다.',
-          en: 'Decouples retrieval from generation to provide a slide-in execution Trace drawer. Developers and auditors can inspect chunk cosine similarity scores, matched excerpt previews, latency breakdowns (ms), and the exact prompt fed to the LLM.',
+          ko: '검색(Retrieval)과 생성(Generation)을 단일 블랙박스로 감추지 않고 명확히 분리 기록합니다. 각 답변마다 실행 분석(Trace) 서랍을 열어 추출된 청크들의 코사인 유사도 점수, 매칭 본문, 전체 지연시간(ms), LLM에 실제 주입된 프롬프트 전문을 전수 감사(Audit)할 수 있어 검색 실패(문서 미발견)와 생성 실패(환각)를 명확히 구분하고 디버깅할 수 있습니다.',
+          en: 'Decouples retrieval from generation into a transparent TraceDrawer. Users and auditors can inspect chunk cosine similarity scores, matched excerpt previews, latency breakdowns (ms), and exact prompts fed to the LLM, clearly distinguishing between retrieval misses and generation hallucinations.',
         },
         images: [
           image('/img/tech/dograc_trace_drawer.png', '코사인 유사도 점수 및 프롬프트 전수 감사 드로어', 'Cosine similarity scores and prompt audit trace drawer'),
@@ -2921,157 +2828,199 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       },
       {
         title: {
-          ko: '엔터프라이즈 문서 수집 및 청킹 파이프라인 (Document Ingestion Engine)',
-          en: 'Document Ingestion Engine',
+          ko: '신뢰 기반 근거 인용 배지 (Grounded Citations) & 엄격한 환각 거절',
+          en: 'Grounded Inline Citations & Strict Hallucination Refusal',
         },
         description: {
-          ko: '드래그앤드롭 PDF 업로드, SHA-256 해시 중복 검증, MinIO 원본 저장, pypdfium2 고속 페이지 파싱, 문맥 단락을 보존하는 재귀적 문자 청킹(800자 청크, 120자 오버랩), BAAI/bge-m3 1024차원 임베딩 및 Qdrant 색인을 자동화했습니다.',
-          en: 'Automated ingestion pipeline with drag-and-drop PDF uploads, SHA-256 deduplication, MinIO storage, pypdfium2 page parsing, recursive paragraph-preserving chunking (800 chars, 120 overlap), and BAAI/bge-m3 vector indexing into Qdrant.',
+          ko: 'AI 답변의 모든 문장에 참조 문서 위치([파일명, p.숫자])를 인식하여 클릭 가능한 상호작용 배지로 렌더링합니다. 사용자는 배지를 클릭하여 원문 발췌문과 페이지를 즉시 대조할 수 있으며, 문서에 없는 내용에 대해서는 거짓 답변(환각)을 지어내지 않고 정직하게 답변 불가를 안내하는 엄격한 거절 지침(Refusal Constraint)을 확립했습니다.',
+          en: 'Anchors every generated sentence to verified document pages using interactive [filename, p.page] badges that allow instant source inspection. Enforces strict refusal prompts so the LLM honestly declines to answer when grounding evidence is absent.',
+        },
+        images: [
+          image('/img/tech/dograc_chat_citations.png', '인라인 출처 인용 및 원본 문서 앵커링 UI', 'Inline citation badge and document page anchoring'),
+        ],
+      },
+      {
+        title: {
+          ko: '환경 적응형 하이브리드 영속성 계층 (Dual Storage Auto-Fallback)',
+          en: 'Adaptive Hybrid Persistence Layer (Dual Storage Auto-Fallback)',
+        },
+        description: {
+          ko: 'Docker Desktop 실행 상태를 스스로 감지하여, Docker 가동 시 컨테이너 인프라(PostgreSQL 16 메타데이터/Trace, Qdrant HNSW 인덱스, MinIO S3 문서 불변 보관)로 자동 연결되고, Docker 미가동 시에도 시스템 중단 없이 SQLite(dograc_local.db) + 인메모리 Qdrant(:memory:) + 로컬 디렉터리 스토리지(data/storage/)로 100% 무중단 자동 전환됩니다.',
+          en: 'Automatically detects Docker Desktop state: connects to containerized Postgres 16, Qdrant HNSW, and MinIO S3 when active, and seamlessly falls back to SQLite (dograc_local.db), In-Memory Qdrant (:memory:), and local disk storage without Docker.',
+        },
+        images: [
+          image('/img/tech/dograc_main.jpg', 'dograc Neural Retrieval 아키텍처 및 시스템 개요', 'dograc Neural Retrieval Architecture & System Overview'),
+        ],
+      },
+      {
+        title: {
+          ko: 'PyMuPDF 정밀 파싱 & 이중 보안 인가 (Dual Authorization)',
+          en: 'PyMuPDF Parsing & Dual Authorization Tenant Isolation',
+        },
+        description: {
+          ko: 'PyMuPDF 기반 정밀 페이지 텍스트 추출 및 단락(\n\n) 경계를 보존하는 재귀적 문자 청킹(800자 청크, 120자 오버랩), BGE-M3(1024차원) 임베딩을 지원합니다. 또한 Qdrant 벡터 검색 후 관계형 DB(PostgreSQL/SQLite)에서 워크스페이스 소유권 및 문서 ready 상태를 관계형 조인으로 재검증하는 이중 보안 인가(Dual Authorization)를 통해 완벽한 데이터 격리를 보장합니다.',
+          en: 'Performs precise PyMuPDF page text extraction and paragraph-preserving recursive character chunking (800 chars, 120 overlap) with 1024-dim BGE-M3 embeddings. Implements Dual Authorization re-verifying workspace ownership and document ready state in relational DB after vector retrieval.',
         },
         images: [],
       },
       {
         title: {
-          ko: 'Reading-First KDS 웹 인터페이스 & 워크스페이스 격리',
-          en: 'Reading-First KDS Web Interface & Workspace Isolation',
+          ko: 'Reading-First KDS 웹 인터페이스 & 즉시 작업대 진입',
+          en: 'Reading-First KDS Web Workspace & Zero-Friction Onboarding',
         },
         description: {
-          ko: '교보 디자인 시스템(KDS) 시각 원칙을 계승하여 불필요한 장식과 네온 효과를 배제하고 1px 헤어라인과 차분한 색채로 장시간 문서 판독에 최적화했습니다. 워크스페이스별 논리적 테넌트 격리를 통해 프로젝트별 문서를 독립적으로 관리할 수 있습니다.',
-          en: 'Designed with Kyobo Design System principles: minimalist 1px hairlines and muted tones optimized for fatigue-free reading. Supports full logical tenant isolation across multiple workspaces.',
+          ko: '교보 디자인 시스템(KDS) 시각 원칙(이모지 배제, 1px 정갈한 헤어라인, 차분한 Indigo 테마)을 준수하여 장시간 문서 판독에 최적화했습니다. 불필요한 로그인/회원가입 절차를 걷어내고 접속 즉시 문서 보관함과 채팅 패널을 활용할 수 있는 2열 단일 사용자 작업대를 제공합니다.',
+          en: 'Complies with Kyobo Design System (KDS) reading principles with muted colors and 1px hairlines. Eliminates signup/login friction to present an immediate 2-column workspace for document management and grounded conversations.',
         },
         images: [
-          image('/img/tech/dograc_chat_citations.png', 'KDS 미니멀 디자인 시스템 및 PDF 분할 판독 인터페이스', 'KDS minimalist UI and split-view reading interface'),
+          image('/img/tech/dograc_chat_citations.png', 'KDS 미니멀 디자인 시스템 및 2열 작업대 인터페이스', 'KDS minimalist UI and 2-column workspace interface'),
         ],
       },
     ],
     roleDetails: [
       {
-        ko: 'Next.js 14 App Router, Zustand, TanStack Query v5 기반 반응형 KDS 프론트엔드 UI/UX 단독 구현',
-        en: 'Built full responsive KDS frontend in Next.js 14 App Router, Zustand, and TanStack Query v5.',
+        ko: 'Windows KDS 테마 데스크톱 런처(launcher/gui.py) 개발: 64KB 파이프 버퍼 데드락 방지 비동기 UTF-8 로그 리더 스레드, 소켓 바인딩 헬스체크, 프로세스 트리 일괄 강제 종료(taskkill /F /T), Velopack 인스톨러(~53MB) 및 포터블 ZIP(~46MB) 패키징',
+        en: 'Built Windows KDS desktop launcher (launcher/gui.py): async UTF-8 log reader preventing 64KB pipe buffer deadlocks, socket health checks, taskkill /F /T process tree cleanup, and Velopack installer/portable packaging.',
       },
       {
-        ko: 'FastAPI 비동기 API 서버 및 PostgreSQL 16 SQLAlchemy 2.0 Async ORM / Alembic 마이그레이션 아키텍처 설계',
-        en: 'Architected async FastAPI backend with SQLAlchemy 2.0 Async ORM and Alembic migrations on PostgreSQL 16.',
+        ko: 'Next.js 14 App Router, TypeScript, Tailwind CSS 기반 Reading-First KDS 웹 작업대 단독 구현: 로그인 없는 즉시 작업대, 클릭 가능한 [파일명, p.숫자] 상호작용 인용 배지 및 TraceDrawer 개발',
+        en: 'Single-handedly built Next.js 14 App Router KDS web workspace: friction-free onboarding, interactive [filename, p.page] citation badges, and slide-in TraceDrawer.',
       },
       {
-        ko: 'pypdfium2 기반 고속 페이지 단위 PDF 텍스트 추출 및 단락 보존 Recursive Character Chunking 파이프라인 구현',
-        en: 'Implemented pypdfium2 PDF text extraction and paragraph-preserving recursive character chunking pipeline.',
+        ko: 'FastAPI 0.115 Async 기반 REST API 라우터(/workspaces, /documents, /conversations, /traces) 구축 및 Python Protocol 기반 Clean Architecture 어댑터 추상화',
+        en: 'Engineered async FastAPI 0.115 REST API routers and Python Protocol-based Clean Architecture adapter abstractions without framework dependencies.',
       },
       {
-        ko: 'BAAI/bge-m3 임베딩 및 Qdrant HNSW 코사인 유사도 벡터 인덱싱 / 워크스페이스 필터링 최적화',
-        en: 'Configured BAAI/bge-m3 dense embeddings and Qdrant HNSW cosine similarity indexing with tenant filtering.',
+        ko: '환경 적응형 하이브리드 영속성 엔진(main.py) 설계: Docker 가동 시 Postgres/Qdrant/MinIO 연동, 미가동 시 SQLite + In-Memory Qdrant + 로컬 디렉터리 스토리지 100% 무중단 자동 폴백',
+        en: 'Architected adaptive hybrid persistence engine (main.py): auto-connects to Docker Postgres/Qdrant/MinIO or falls back to SQLite, in-memory Qdrant, and local storage.',
       },
       {
-        ko: 'Ollama 및 vLLM 추론 엔진 연동을 위한 Decoupled Generator Adapter 및 환각 억제 프롬프트 템플릿 설계',
-        en: 'Designed decoupled generator adapter supporting local Ollama / vLLM runtimes with anti-hallucination prompts.',
+        ko: 'PyMuPDF 기반 정밀 텍스트 추출, BGE-M3 1024차원 임베딩, 재귀적 문자 청킹(800자, 120자 오버랩), Qdrant 벡터 검색 후 관계형 DB 재검증 이중 보안 인가(Dual Authorization) 구현',
+        en: 'Implemented PyMuPDF extraction, BGE-M3 embeddings, recursive character chunking (800 chars, 120 overlap), and Dual Authorization joining vector search with relational ownership.',
       },
       {
-        ko: '검색 청크 스코어, 지연시간, 프롬프트 전문을 기록하고 감사하는 Trace 오저버빌리티 파이프라인 구축',
-        en: 'Engineered Trace observability pipeline recording chunk similarity scores, latency, and full prompts for auditability.',
+        ko: 'Ollama(Qwen2.5-7B) 및 vLLM 추론 엔진 연동 Decoupled Generator Adapter 및 환각 억제·엄격한 답변 거절 프롬프트 템플릿 설계',
+        en: 'Engineered decoupled generator adapters for local Ollama (Qwen2.5-7B) / vLLM runtimes with anti-hallucination and strict refusal prompt templates.',
       },
       {
-        ko: 'MinIO S3 호환 오브젝트 스토리지 연동 및 Docker Compose 멀티 컨테이너 인프라 오케스트레이션',
-        en: 'Integrated MinIO object storage and orchestrated multi-container infrastructure via Docker Compose.',
+        ko: '품질 검증: apps/api pytest 59건 자동화 테스트 100% 통과 달성 및 apps/web Next.js 14 TypeScript 컴파일 에러 0건 검증',
+        en: 'Achieved 100% pass across 59 automated pytest suites in apps/api and zero TypeScript compilation errors in apps/web.',
       },
     ],
     troubleshooting: [
       {
         problem: {
-          ko: 'LLM이 문맥에 없는 내용에 대해 그럴듯한 거짓말을 지어내는 환각(Hallucination) 현상과 페이지 번호를 임의로 왜곡하는 문제가 발생했습니다.',
-          en: 'LLM generated convincing hallucinations for ungrounded queries and fabricated citation page numbers.',
+          ko: '데스크톱 런처에서 서브프로세스 기동 시 Windows 파이프 버퍼 용량(64KB) 초과로 프로세스가 멈추는 데드락 현상과, 런처 종료 시 백엔드/프론트엔드가 백그라운드에 남아 포트를 점유하는 고아 프로세스 문제가 발생했습니다.',
+          en: 'Subprocess execution in the desktop launcher froze due to Windows 64KB pipe buffer overflow deadlocks, while orphaned backend/frontend processes continued occupying ports upon launcher closure.',
         },
         solution: {
-          ko: '시스템 프롬프트에 엄격한 거절 지침(Refusal Constraint)과 정규화된 Few-shot 예시를 주입하고, 답변 생성 시 [파일명, p.숫자] 문법을 정규화하여 프론트엔드 인라인 배지 파서와 1:1로 결합했습니다.',
-          en: 'Injected strict refusal constraints with normalized few-shot examples into the system prompt, enforcing a standard [file, p.num] grammar synchronized with the frontend badge parser.',
+          ko: '비동기 UTF-8 로그 리더 스레드를 적용하여 실시간 스트림 버퍼 비우기를 구현하고, 소켓 바인딩(is_port_open) 기반 1초 초고속 헬스체크를 도입했습니다. 런처 종료 시에는 taskkill /F /T로 자식 및 손자 프로세스 트리를 일괄 강제 종료하도록 생명주기를 오케스트레이션했습니다.',
+          en: 'Implemented async UTF-8 log reader threads to flush pipe buffers continuously and added a 1-second socket health check. Configured taskkill /F /T to terminate entire child/grandchild process trees upon launcher shutdown.',
         },
         result: {
-          ko: '근거 없는 답변 생성률을 0%로 통제하고, 모든 생성 문장에 대해 실제 문서 페이지와 일치하는 정밀한 원문 앵커링을 확립했습니다.',
-          en: 'Eliminated ungrounded answers and achieved precise page-level anchoring across all generated response sentences.',
+          ko: '버퍼 오버플로우에 의한 기동 데드락을 원천 차단(0건)하고, 런처 종료 시 잔여 고아 프로세스가 100% 깨끗이 정리되는 안정적인 데스크톱 라이프사이클을 완성했습니다.',
+          en: 'Eliminated startup buffer deadlocks completely and ensured 100% clean process termination upon exit, stabilizing the desktop app lifecycle.',
         },
       },
       {
         problem: {
-          ko: 'PDF 문서 파싱 시 문맥 단락이 잘리거나 페이지 경계에서 문장이 분절되어 벡터 검색 유사도 점수가 급격히 저하되는 현상이 있었습니다.',
-          en: 'Naive text chunking split sentences across page boundaries, degrading semantic vector search similarity scores.',
+          ko: '사내 규정 및 기밀 문서를 다루는 환경에서 상용 클라우드 API 호출 시 외부 유출 위험과 종량제 비용이 발생하며, 문맥에 없는 내용에 대해 LLM이 허위 사실을 지어내거나 출처 페이지를 왜곡하는 환각(Hallucination)이 발생했습니다.',
+          en: 'Commercial cloud APIs posed data egress risks and token costs for sensitive corporate documents, while LLMs generated ungrounded hallucinations and fabricated citation page numbers.',
         },
         solution: {
-          ko: '단순 고정 길이 분할 대신 pypdfium2 페이지 메타데이터를 유지하며 문단(\\n\\n) 및 문장 단위 경계를 우선 탐색하는 Recursive Character Chunking(800자 청크, 120자 오버랩) 파이프라인을 구축했습니다.',
-          en: 'Built a recursive chunking pipeline (800 chars, 120 overlap) prioritizing paragraph and sentence breaks while binding page metadata.',
+          ko: '외부 전송 데이터량 0 바이트 원칙 하에 Ollama(Qwen2.5-7B) 로컬 모델과 BGE-M3 온디바이스 임베딩을 100% 로컬 GPU에서 구동했습니다. 시스템 프롬프트에 엄격한 거절 지침(Refusal Constraint)과 정규화된 Few-shot을 주입하고, [파일명, p.숫자] 문법을 정규화하여 프론트엔드 인터랙티브 인용 배지와 1:1로 결합했습니다.',
+          en: 'Enforced Zero Data Egress by running Qwen2.5-7B and BGE-M3 100% locally on user GPUs via Ollama. Injected strict refusal constraints with normalized few-shot prompts, standardizing [filename, p.page] syntax synchronized with the interactive frontend citation badges.',
         },
         result: {
-          ko: '문맥 단절을 최소화하여 Qdrant 코사인 유사도 검색 상위 매칭 정확도(Top-K Relevance)를 대폭 향상시켰습니다.',
-          en: 'Maximized context continuity and significantly improved Top-K retrieval precision in Qdrant cosine similarity search.',
+          ko: '외부 네트워크 통신 없는 완벽한 사내 데이터 주권을 확립하고, 근거 없는 답변 생성률을 0%로 통제하며 모든 생성 문장에 대해 실제 문서 페이지와 일치하는 정밀한 원문 앵커링을 달성했습니다.',
+          en: 'Achieved complete data sovereignty with zero external leakage, eliminated ungrounded hallucinations, and guaranteed precise page-level grounding across all answers.',
         },
       },
       {
         problem: {
-          ko: '사내 규정 및 기밀 문서를 다루는 환경에서 외부 상용 클라우드 API 호출 시 데이터 유출 위험과 지속적인 토큰 비용이 발생했습니다.',
-          en: 'Calling commercial cloud LLM APIs introduced corporate data leak risks and ongoing token subscription costs.',
+          ko: 'Docker Desktop이 설치되지 않았거나 실행되지 않은 실무자 단말기에서는 PostgreSQL, Qdrant, MinIO 컨테이너를 구동할 수 없어 서비스 진입 장벽이 극도로 높아지는 문제가 있었습니다.',
+          en: 'Users without Docker Desktop installed or running could not start PostgreSQL, Qdrant, and MinIO containers, creating an insurmountable entry barrier for non-developers.',
         },
         solution: {
-          ko: 'Ollama 로컬 런타임 및 vLLM 추론 어댑터를 Adapter 패턴으로 추상화하여, 폐쇄망 및 개인 PC GPU에서 qwen2.5 모델이 100% 로컬로 구동되도록 아키텍처를 설계했습니다.',
-          en: 'Abstracted generation behind an adapter interface supporting local Ollama / vLLM, executing qwen2.5 fully on local GPUs in an air-gapped network.',
+          ko: '백엔드 기동 시 Docker 상태를 실시간 진단하여, 가동 중이면 컨테이너 인프라로 자동 연결하고 미가동 시 시스템 중단 없이 SQLite(dograc_local.db) + 인메모리 Qdrant(:memory:) + 로컬 디렉터리 스토리지(data/storage/)로 100% 자동 폴백 전환되는 환경 적응형 하이브리드 영속성 엔진(main.py)을 구축했습니다.',
+          en: 'Engineered an adaptive hybrid persistence engine in main.py: auto-connects to containerized Postgres/Qdrant/MinIO if Docker is active, while seamlessly falling back to SQLite, in-memory Qdrant, and local disk storage without Docker.',
         },
         result: {
-          ko: '외부 네트워크 통신이 완전히 차단된 상태에서도 완벽한 데이터 주권과 0원의 API 비용으로 고성능 RAG 서비스를 운영할 수 있게 되었습니다.',
-          en: 'Achieved zero-cost, air-gapped operation with full data sovereignty and robust enterprise RAG performance.',
+          ko: '개발 환경이나 Docker 설치 없이 인스톨러 실행만으로 비개발자도 즉시 사내 RAG 서비스를 활용할 수 있는 Zero Setup Barrier를 완성했습니다.',
+          en: 'Delivered a Zero Setup Barrier enabling any corporate employee to use enterprise RAG immediately via a one-click installer without requiring Docker or developer tools.',
         },
       },
     ],
     resultMetrics: [
       {
         label: { ko: '데이터 주권', en: 'Data Sovereignty' },
-        value: { ko: '100% On-Premise', en: '100% On-Premise' },
+        value: { ko: 'Zero Data Egress', en: 'Zero Data Egress' },
         description: {
-          ko: '외부 클라우드 전송 제로, 로컬 GPU 완벽 폐쇄망 구동',
-          en: 'Zero external cloud leakage, fully air-gapped local GPU runtime',
+          ko: '외부 전송 데이터량 0 바이트, 로컬 LLM 및 온디바이스 임베딩 100% 자립 구동',
+          en: '0 bytes external egress, 100% air-gapped local LLMs and on-device embeddings',
         },
       },
       {
-        label: { ko: '환각 방지 신뢰도', en: 'Citation Precision' },
-        value: { ko: 'Grounded Citations', en: 'Grounded Citations' },
+        label: { ko: '테스트 신뢰도', en: 'Test Coverage' },
+        value: { ko: '59 / 59 Passed', en: '59 / 59 Passed' },
         description: {
-          ko: '모든 답변 문장 원문 페이지 1:1 앵커링 및 근거 부재 시 정직한 거절',
-          en: '1:1 page-anchored inline citations and strict refusal on missing evidence',
+          ko: 'apps/api pytest 59건 자동화 테스트 100% 통과 및 Next.js 14 컴파일 에러 0건',
+          en: '100% pass across 59 automated pytest suites and zero Next.js 14 build errors',
         },
       },
       {
-        label: { ko: '실행 가시성', en: 'Observability' },
+        label: { ko: '설치 구동 장벽', en: 'Setup Barrier' },
+        value: { ko: 'Zero Setup Barrier', en: 'Zero Setup Barrier' },
+        description: {
+          ko: '원클릭 런처(~53MB 설치본, ~46MB 포터블) 및 Docker/SQLite 무중단 자동 폴백',
+          en: 'One-click launcher (~53MB installer, ~46MB portable) and seamless Docker/SQLite fallback',
+        },
+      },
+      {
+        label: { ko: '근거 신뢰성', en: 'Grounded Citations' },
+        value: { ko: '1:1 Page Anchoring', en: '1:1 Page Anchoring' },
+        description: {
+          ko: '[파일명, p.숫자] 상호작용 배지 렌더링 및 근거 부재 시 정직한 답변 거절',
+          en: 'Interactive [filename, p.page] badges and honest refusal when evidence is missing',
+        },
+      },
+      {
+        label: { ko: '투명한 감사성', en: 'Observability' },
         value: { ko: 'Full Trace Audit', en: 'Full Trace Audit' },
         description: {
-          ko: '청크 유사도 스코어, 지연시간(ms), 프롬프트 전문 전수 감사 로깅',
-          en: 'Full audit logging of similarity scores, latency (ms), and exact prompts',
+          ko: '검색 청크 코사인 유사도 점수, 전체 지연시간(ms), 프롬프트 전문 전수 감사',
+          en: 'Full audit drawer of chunk similarity scores, latency (ms), and exact prompt injected',
         },
       },
     ],
     lessonsLearned: [
       {
-        ko: 'RAG 파이프라인의 성패는 단순히 거대한 LLM을 붙이는 것이 아니라, 무손실 파싱, 문맥 보존 청킹, 도메인 임베딩, 그리고 무엇보다 검색 결과와 프롬프트를 투명하게 감사(Trace)할 수 있는 아키텍처에 달려 있음을 체득했습니다.',
-        en: 'Learned that RAG system success hinges not merely on LLM capacity, but on lossless parsing, context-preserving chunking, dense embeddings, and transparent Trace auditability.',
+        ko: 'RAG 파이프라인의 핵심은 단순히 거대한 LLM을 붙이는 것이 아니라, 검색(Retrieval)과 생성(Generation)을 단일 블랙박스로 감추지 않고 분리 감사(Trace)할 수 있는 투명성과, 사내 보안을 완벽히 지키는 데이터 주권(Zero Data Egress)에 있음을 체득했습니다.',
+        en: 'Learned that enterprise RAG success hinges on transparent Trace auditing separating retrieval from generation, coupled with airtight data sovereignty guaranteeing Zero Data Egress.',
       },
       {
-        ko: '기업 실무 환경에서는 화려한 챗봇보다 "정직하게 모른다고 답하고, 아는 것은 원문 페이지를 명확히 짚어주는 신뢰성"이 가장 중요한 핵심 가치임을 깊이 이해했습니다.',
-        en: 'Realized that enterprise knowledge tools demand trust above all: an assistant that honestly refuses when uninformed and pinpoints verified page numbers when grounded.',
+        ko: '기업 실무 환경에서는 화려한 기능보다 비개발자도 더블클릭 한 번으로 구동 가능한 Zero Setup Barrier와, "정직하게 모른다고 답하고 아는 것은 원문 페이지를 명확히 짚어주는 신뢰성(Grounded Citations)"이 제품의 성패를 가른다는 것을 실감했습니다.',
+        en: 'Realized that enterprise adoption demands a Zero Setup Barrier for non-technical users and uncompromised trust: an assistant that honestly refuses when ungrounded and pinpoints verified page numbers when grounded.',
       },
     ],
     limitations: [
       {
-        ko: '대규모 PDF 문서가 동시에 대량 업로드될 경우 비동기 백그라운드 태스크 큐(Celery / Redis / ARQ)의 분산 처리가 추가로 필요합니다.',
-        en: 'Bulk concurrent PDF uploads will require a distributed asynchronous worker queue (Celery/Redis/ARQ).',
+        ko: '현재는 PDF 포맷을 중심으로 색인 파이프라인이 최적화되어 있어, 사내 주요 문서 포맷(DOCX, PPTX, Markdown)의 추가 파서 확장이 요구됩니다.',
+        en: 'The current ingestion pipeline is optimized primarily for PDFs, requiring extension to additional enterprise formats such as DOCX, PPTX, and Markdown.',
       },
       {
-        ko: 'Dense 벡터 검색 외에 키워드 기반 BM25 검색을 융합한 Hybrid Search(RRF) 도입이 향후 요구됩니다.',
-        en: 'Hybrid search merging sparse BM25 keyword matching with dense vectors via Reciprocal Rank Fusion (RRF) is pending.',
+        ko: '고밀도 벡터 검색(Dense Retrieval) 중심 구조로 특정 고유명사나 모델명, 부품 번호 검색 시 키워드 매칭 보완(Hybrid Search)이 요구됩니다.',
+        en: 'Dense vector retrieval alone occasionally lacks precision for exact keywords, model numbers, or serial identifiers, highlighting the need for hybrid search.',
       },
     ],
     nextSteps: [
       {
-        ko: 'BM25 + Dense Hybrid Search 및 Cross-Encoder Reranker 파이프라인을 적용하여 검색 정밀도를 추가 극대화할 계획입니다.',
-        en: 'Planning to implement BM25 + Dense Hybrid Search and Cross-Encoder rerankers to further maximize retrieval precision.',
+        ko: '[검색 품질 고도화 (Phase 2)] DOCX, PPTX, Markdown 등 사내 주요 문서 포맷 파서 확장, BM25 키워드 검색 + BGE-M3 밀집 벡터 하이브리드 검색(RRF 순위 융합), Cross-Encoder Reranker 도입으로 상위 랭킹 정확도를 극대화할 계획입니다.',
+        en: '[Phase 2: Retrieval Enhancement] Expand parsers to DOCX, PPTX, and Markdown; implement BM25 + BGE-M3 Hybrid Search with Reciprocal Rank Fusion (RRF); and introduce Cross-Encoder reranking for maximized precision.',
       },
       {
-        ko: 'DOCX, PPTX, Markdown 등 비-PDF 멀티포맷 파서 확장 및 사용자 피드백 기반 DPO/LoRA 선호도 파인튜닝 파이프라인과 통합할 예정입니다.',
-        en: 'Extending parsers to DOCX, PPTX, and Markdown, while connecting Trace logs to a DPO/LoRA preference fine-tuning loop.',
+        ko: '[도메인 파인튜닝 파이프라인 (Phase 3)] Trace 감사 로그 및 RAG 평가 골든 데이터셋 기반 LoRA / QLoRA 모델 튜닝 파이프라인을 자동화하여, 사내 도메인 근거 인용 준수율 및 답변 거절 정확도 행동을 지속 교정할 예정입니다.',
+        en: '[Phase 3: Domain Fine-Tuning Pipeline] Automate LoRA / QLoRA model tuning pipelines using Trace audit logs and golden evaluation datasets to continuously refine citation compliance and refusal accuracy.',
       },
     ],
     links: [
@@ -3322,255 +3271,6 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       {
         label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
         url: 'https://github.com/TEAM-ChwieolUp/ChwieolUp-AI',
-      },
-    ],
-  },
-  {
-    id: 20,
-    category: 'featuredVision',
-    title: {
-      ko: 'Industrial Machine Vision Software : 산업용 비전 검사장비 C++ 소프트웨어 개발',
-      en: 'Industrial Machine Vision Software : Production C++ Inspection System',
-    },
-    oneLiner: {
-      ko: '산업용 비전 검사장비의 기존 대규모 C++ 코드베이스 분석 및 신규 결함 검사·SW 기능 개발 (Professional Experience @ Synapse Imaging)',
-      en: 'Analyzing legacy C++ codebases for industrial vision inspection equipment and engineering new inspection features (Professional Experience @ Synapse Imaging).',
-    },
-    problemStatement: {
-      ko: '초고속 생산 라인에서 미세 결함을 인라인으로 실시간 검출해야 하는 머신비전 검사장비 환경에서, 기존에 구축된 수만 라인 규모의 레거시 C++/MFC 시스템을 안정적으로 분석하고, 하드웨어 타이밍 제약을 준수하면서 신규 결함 검출 알고리즘 및 운영자 GUI 기능을 안정적으로 통합해야 하는 과제였습니다.',
-      en: 'In high-throughput manufacturing lines requiring in-line defect detection, the challenge was to reliably analyze and maintain a large-scale legacy C++/MFC codebase, integrating new inspection algorithms and GUI features while strictly respecting hardware timing constraints.',
-    },
-    constraints: [
-      {
-        type: { ko: '하드웨어 & 라인 속도', en: 'Hardware & Line Rate' },
-        description: {
-          ko: 'Camera Link / GigE Vision 연속 프레임 인입 시 프레임 드롭(Frame Drop) 제로 보장',
-          en: 'Zero frame dropping under continuous Camera Link / GigE Vision high-speed streams.',
-        },
-      },
-      {
-        type: { ko: '실시간 제약 (Latency)', en: 'Real-time Latency' },
-        description: {
-          ko: '라인 택트 타임(Tact Time) 내 영상 전처리, 결함 판정 및 PLC Digital IO 배출 신호 동기화',
-          en: 'Synchronization of image preprocessing, defect decision, and PLC IO triggers within line tact time.',
-        },
-      },
-      {
-        type: { ko: '코드베이스 제약', en: 'Codebase Constraints' },
-        description: {
-          ko: '기존 대규모 C++/MFC 레거시 코드베이스의 멀티스레드 락킹 메커니즘 무결성 보존',
-          en: 'Preserving synchronization integrity across an existing multi-threaded C++/MFC legacy codebase.',
-        },
-      },
-      {
-        type: { ko: '보안 및 공개 범위', en: 'Security & Scope' },
-        description: {
-          ko: '회사 보안 규정에 따라 핵심 검사 알고리즘의 세부 파라미터 및 소스 코드는 비공개 처리',
-          en: 'Core parameters and proprietary source code confidential under corporate security policy.',
-        },
-      },
-    ],
-    architectureSteps: [
-      {
-        step: '01',
-        title: { ko: 'Camera Frame Acquisition', en: 'Camera Frame Acquisition' },
-        description: {
-          ko: 'Camera SDK를 통한 GigE / Camera Link 프레임 캡처 및 DMA 제로카피 수신',
-          en: 'GigE / Camera Link frame capture via Camera SDK with zero-copy DMA memory transfer.',
-        },
-      },
-      {
-        step: '02',
-        title: { ko: 'Multi-threaded Ring Buffer', en: 'Multi-threaded Ring Buffer' },
-        description: {
-          ko: '생산자-소비자 패턴 기반 원형 큐 버퍼링으로 영상 수집과 검사 스레드 분리',
-          en: 'Decoupling acquisition and processing worker threads via synchronized ring buffer queue.',
-        },
-      },
-      {
-        step: '03',
-        title: { ko: 'Image Preprocessing & Filtering', en: 'Image Preprocessing & Filtering' },
-        description: {
-          ko: 'ROI 추출, 조명 불균일 보정, OpenCV/HALCON 기반 영상 필터링',
-          en: 'ROI masking, illumination normalization, and OpenCV/HALCON filtering.',
-        },
-      },
-      {
-        step: '04',
-        title: { ko: 'Defect Inspection & Classification', en: 'Defect Inspection & Classification' },
-        description: {
-          ko: '에지 검출, 서브픽셀 보간, 치수 계측 및 임계치 기반 불량 유무 판정',
-          en: 'Sub-pixel edge detection, dimensional measurement, and tolerance-based classification.',
-        },
-      },
-      {
-        step: '05',
-        title: { ko: 'PLC Trigger & MFC GUI Render', en: 'PLC Trigger & MFC GUI Render' },
-        description: {
-          ko: '불량 배출 DIO 트리거 전송 및 MFC Dialog 상의 실시간 결함 뷰어 렌더링',
-          en: 'Real-time rejection DIO trigger output and synchronized MFC dialog rendering.',
-        },
-      },
-    ],
-    overview: {
-      ko: 'Synapse Imaging에서 산업용 머신비전 검사장비의 소프트웨어를 개발하고 유지보수하고 있습니다. 생산 라인에 투입되는 비전 검사 장비의 기존 대규모 C++/MFC 코드베이스를 분석하여 멀티스레드 구조와 프레임 획득 파이프라인을 파악하고, 신규 검사 기능 및 알고리즘을 구현했습니다. 회사 보안상 소스코드는 비공개이지만, 현업에서 대규모 C++ 시스템 소프트웨어의 복잡도와 실시간 영상처리 파이프라인을 직접 다룬 핵심 실무 경험입니다.',
-      en: 'Developing and maintaining industrial machine vision inspection software at Synapse Imaging. Analyzed large-scale legacy C++/MFC codebases, verified multi-threaded synchronization and acquisition pipelines, and developed new inspection features for manufacturing lines. Source code remains confidential under corporate policy.',
-    },
-    startDate: new Date('2026-03-01'),
-    endDate: null,
-    affiliation: {
-      ko: '시냅스이미징 (Synapse Imaging) · Software Engineer',
-      en: 'Synapse Imaging · Software Engineer',
-    },
-    teamInfo: { ko: 'Synapse Imaging (현업 실무)', en: 'Synapse Imaging (Professional Experience)' },
-    contribution: {
-      ko: '대규모 C++/MFC 코드베이스 구조 분석, 멀티스레드 영상 수집 큐와 작업 스레드 동기화 흐름 파악, OpenCV/HALCON 기반 신규 검사 기능 구현 및 Visual Studio 디버깅을 담당했습니다.',
-      en: 'Analyzed legacy C++/MFC architecture, investigated multi-threaded frame queue synchronization, developed OpenCV/HALCON inspection modules, and resolved concurrency bugs using Visual Studio debugging tools.',
-    },
-    images: [
-      image('/img/tech/industrial_vision_mfc.png', '산업용 비전 검사장비 C++ 소프트웨어 아키텍처 (Synapse Imaging)', 'Industrial Machine Vision Software Architecture (Synapse Imaging)'),
-    ],
-    techChoices: [
-      {
-        name: 'C++ & MFC',
-        reason: {
-          ko: '산업 현장 비전 장비 표준 GUI 프레임워크이자 카메라 SDK/하드웨어 제어 라이브러리와의 고속 네이티브 바인딩 및 결정론적 메모리 제어를 위해 사용했습니다.',
-          en: 'Standard industrial machine vision GUI framework enabling direct, deterministic C++ memory access and native camera SDK interfacing.',
-        },
-      },
-      {
-        name: 'OpenCV & HALCON',
-        reason: {
-          ko: '마이크로초 단위의 고속 필터링, 정밀 서브픽셀 에지 검출 및 형상 치수 분석을 위해 검증된 머신비전 알고리즘 엔진을 결합했습니다.',
-          en: 'Adopted proven vision processing engines for microsecond-level filtering, sub-pixel edge detection, and dimensional measurement.',
-        },
-      },
-      {
-        name: 'Multithreading & Win32 Synchronization',
-        reason: {
-          ko: '카메라 프레임 인입과 무거운 영상처리 루프를 격리하여 프레임 드롭 없는 무중단 인라인 검사를 보장하기 위해 적용했습니다.',
-          en: 'Decoupled frame capture from image processing loops via producer-consumer synchronization to ensure zero frame drops.',
-        },
-      },
-    ],
-    keyFeatures: [
-      {
-        title: {
-          ko: '대규모 C++/MFC 코드베이스 분석 및 신규 기능 개발',
-          en: 'Legacy Codebase Analysis & Feature Engineering',
-        },
-        description: {
-          ko: '수만 라인 규모의 상용 비전 검사기 코드베이스를 체계적으로 분석하여 구조를 파악하고, 기존 기능의 사이드 이펙트 없이 신규 불량 검출 알고리즘을 안전하게 통합했습니다.',
-          en: 'Systematically analyzed large-scale commercial vision software, mapping architectural dependencies and safely integrating new defect detection algorithms without regression.',
-        },
-        images: [
-          image('/img/tech/industrial_vision_mfc.png', '산업용 머신비전 검사 소프트웨어 아키텍처 다이어그램', 'Industrial Machine Vision Architecture Diagram'),
-        ],
-      },
-      {
-        title: {
-          ko: '멀티스레드 프레임 버퍼 파이프라인 동기화',
-          en: 'Multi-threaded Frame Buffer Synchronization',
-        },
-        description: {
-          ko: '카메라 수신 스레드와 연산 작업자 스레드 간 링 버퍼 큐를 점검하고 락 경합 지점을 최소화하여 연속 검사 부하 상황에서도 안정적인 처리를 확립했습니다.',
-          en: 'Audited lock contention across camera acquisition and worker thread pools, stabilizing ring buffer throughput during peak inspection bursts.',
-        },
-        images: [],
-      },
-      {
-        title: {
-          ko: 'OpenCV/HALCON 기반 영상처리 및 판정 로직 구현',
-          en: 'Inspection Algorithms & Thresholding Logic',
-        },
-        description: {
-          ko: 'ROI 추출, 조명 불균일 정규화, 서브픽셀 에지 정밀 계측을 통해 생산 라인 품질 기준에 부합하는 정밀 불량 판정 알고리즘을 구현했습니다.',
-          en: 'Engineered sub-pixel edge detection and thresholding algorithms tailored to manufacturing quality tolerances.',
-        },
-        images: [],
-      },
-    ],
-    roleDetails: [
-      {
-        ko: '기존 수만 라인 규모의 C++/MFC 코드베이스 클래스 상속 구조 및 메시지 루프 분석',
-        en: 'Analyzed class hierarchies and Windows message pumps across extensive legacy C++/MFC codebases.',
-      },
-      {
-        ko: 'CriticalSection, Mutex 기반 멀티스레드 동기화 흐름 파악 및 프레임 큐 안정화',
-        en: 'Investigated CriticalSection/Mutex concurrency synchronization to prevent frame queue deadlocks.',
-      },
-      {
-        ko: '검사 대상체 ROI 마스킹 및 전처리 필터링 알고리즘 모듈화 개발',
-        en: 'Modularized image preprocessing and ROI masking algorithms for inspection pipelines.',
-      },
-      {
-        ko: 'Visual Studio 진단 도구 및 메모리 프로파일링을 통한 크래시/누수 디버깅',
-        en: 'Conducted live debugging and memory leak audits using Visual Studio diagnostic tools.',
-      },
-    ],
-    troubleshooting: [
-      {
-        problem: {
-          ko: '연속 고속 촬영 시 간헐적인 GUI 프리징 현상과 프레임 큐 오버플로우 위험이 감지되었습니다.',
-          en: 'High-frequency burst capturing caused intermittent GUI stuttering and potential frame queue overflow.',
-        },
-        solution: {
-          ko: 'UI 스레드와 검사 작업자 스레드의 작업 큐를 완전 분리하고 이벤트 기반 비동기 통지 구조로 리팩토링했습니다.',
-          en: 'Decoupled UI rendering from processing pipelines, converting synchronization into event-driven asynchronous notifications.',
-        },
-        result: {
-          ko: '검사 부하가 집중되는 순간에도 GUI 응답성을 100% 유지하고 프레임 유실율 0%를 달성했습니다.',
-          en: 'Preserved 100% GUI responsiveness under peak inspection loads with 0% frame loss.',
-        },
-      },
-    ],
-    resultMetrics: [
-      {
-        label: { ko: '실무 성과', en: 'Workplace Impact' },
-        value: { ko: '검사 모듈 안정 배포', en: 'Deployed Inspection Modules' },
-        description: {
-          ko: '기존 시스템 무결성을 유지하며 신규 기능 성공적 안착',
-          en: 'Zero-regression deployment into production lines',
-        },
-      },
-      {
-        label: { ko: '코드베이스 역량', en: 'System Competency' },
-        value: { ko: 'C++/MFC & Concurrency', en: 'C++/MFC & Concurrency' },
-        description: {
-          ko: '대규모 레거시 비전 SW 분석 및 멀티스레드 유지보수 역량 체득',
-          en: 'Proven capability in analyzing and maintaining large-scale C++ vision software',
-        },
-      },
-    ],
-    lessonsLearned: [
-      {
-        ko: '현업의 상용 비전 소프트웨어에서는 알고리즘의 화려함보다 하드웨어 타이밍 제약과 멀티스레드 동기화의 견고함이 최우선임을 배웠습니다.',
-        en: 'Learned that industrial vision software prioritizes rigorous hardware timing deadlines and thread safety above all.',
-      },
-      {
-        ko: '대규모 레거시 코드를 다룰 때는 기존 아키텍처의 의도를 먼저 파악하고 최소한의 결합도로 점진적 확장을 이루는 것이 엔지니어의 핵심 덕목임을 체득했습니다.',
-        en: 'Realized that mastering legacy systems requires grasping original design intentions and applying loose coupling for incremental expansion.',
-      },
-    ],
-    limitations: [
-      {
-        ko: '회사 보안 규정으로 인해 상세 코드와 알고리즘 세부 파라미터는 외부에 공개할 수 없습니다.',
-        en: 'Proprietary source code and detailed algorithm parameters are confidential under company security policy.',
-      },
-    ],
-    nextSteps: [
-      {
-        ko: '지속적인 코드베이스 학습을 통해 고속 프레임 획득부터 결함 배출까지의 실시간 파이프라인 아키텍처를 독립적으로 설계할 수 있는 역량으로 발전시킬 계획입니다.',
-        en: 'Deepening C++ concurrency and pipeline architecture skills to lead end-to-end industrial vision system designs.',
-      },
-    ],
-    links: [
-      {
-        label: { ko: '소속 정보', en: 'Affiliation' },
-        note: {
-          ko: 'Synapse Imaging (Professional Experience · 소스코드 보안상 비공개)',
-          en: 'Synapse Imaging (Professional Experience · Confidential)',
-        },
       },
     ],
   },

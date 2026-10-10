@@ -33,8 +33,8 @@ export const experienceData: ExperienceItem[] = [
       en: 'Industrial Machine Vision Software · C++/MFC',
     },
     period: {
-      ko: '2026.03 - 현재 (재직 중)',
-      en: '2026.03 - Present',
+      ko: '2026.07 - 현재 (재직 중)',
+      en: '2026.07 - Present',
     },
     isCurrent: true,
     statusBadge: {

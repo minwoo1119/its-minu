@@ -94,8 +94,8 @@ export const awardsData: AwardItem[] = [
       en: 'Certification',
     },
     title: {
-      ko: 'LG Aimers AI 전문가 과정 수료',
-      en: 'LG Aimers AI Intensive Certificate',
+      ko: 'LG Aimers 6기 과정 수료',
+      en: 'LG Aimers 6th Intensive Certificate',
     },
     subtitle: {
       ko: '산업용 AI/머신러닝 문제 해결 및 고급 모델링 실무 교육',

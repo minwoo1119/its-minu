@@ -360,14 +360,14 @@ const allCards = {
     category,
     imgUrl: '/img/tech/dograc_main.jpg',
     title: {
-      ko: 'dograc : 문서 기반 신뢰형 엔터프라이즈 모듈형 RAG 플랫폼',
-      en: 'dograc: Enterprise Modular RAG Knowledge Platform',
+      ko: 'dograc : 사내 기밀 유출 제로 로컬 오픈소스 데스크톱-웹 RAG 플랫폼',
+      en: 'dograc: Zero Data Egress Local Desktop-Web Hybrid RAG Platform',
     },
     description: {
-      ko: 'Next.js 14, FastAPI, Qdrant, MinIO, Ollama 기반 문서 근거 인라인 인용 및 투명한 RAG 실행 추적(Trace) 온프레미스 플랫폼',
-      en: 'Enterprise modular RAG platform featuring inline citations, execution trace auditing, and 100% on-premise local LLM runtime.',
+      ko: '외부 전송 데이터량 0 바이트 보장, 로컬 LLM/임베딩, 원클릭 데스크톱 런처 및 Docker/SQLite 자동 폴백 RAG 플랫폼',
+      en: 'Zero Data Egress desktop-web hybrid RAG platform with local LLM, on-device embeddings, one-click launcher, and Docker/SQLite auto-fallback.',
     },
-    techs: ['Next.js 14', 'FastAPI', 'PostgreSQL', 'Qdrant', 'MinIO', 'Ollama', 'Docker', 'bge-m3'],
+    techs: ['Next.js 14', 'FastAPI', 'Python', 'Qdrant', 'Ollama', 'bge-m3', 'Tkinter', 'Docker'],
   }),
 
   chwieolUpAi: (category: string): ProjectCardInfo => ({
@@ -559,8 +559,8 @@ export const tracksData: Record<TrackId, TrackData> = {
       },
       summary: [
         {
-          ko: 'Next.js 14 + FastAPI + Qdrant + Ollama 기반 100% 온프레미스 엔터프라이즈 모듈형 RAG 플랫폼 "dograc" 아키텍처 및 파이프라인 단독 구축',
-          en: 'Solely architected 100% on-premise enterprise modular RAG platform "dograc" with Next.js 14, FastAPI, Qdrant, and Ollama.',
+          ko: 'Next.js 14 + FastAPI + Qdrant + Ollama 기반 사내 기밀 유출 제로(Zero Data Egress) 데스크톱-웹 RAG 플랫폼 "dograc" 단독 구축 (원클릭 런처, Docker/SQLite 자동 폴백, pytest 59건 통과)',
+          en: 'Solely architected Zero Data Egress desktop-web hybrid RAG platform "dograc" with Next.js 14, FastAPI, Qdrant, Ollama, one-click launcher, and Docker/SQLite fallback (59 pytests passed).',
         },
         {
           ko: 'Ubuntu Server 24.04 LTS 및 Docker 기반 Ollama(Gemma) 채용 메일 전형 분석 & 면접 회고 질문 생성 AI 서빙 서버 "ChwieolUp-AI" 구축 및 백엔드 연동',
@@ -599,17 +599,17 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
       projects: [
         {
-          title: 'dograc (엔터프라이즈 모듈형 RAG 지식 검색 플랫폼)',
-          role: 'AI & Full-Stack Engineer (100%)',
-          tech: 'Next.js 14, FastAPI, PostgreSQL, Qdrant, MinIO, Ollama, Docker, bge-m3',
+          title: 'dograc (사내 기밀 유출 제로 로컬 데스크톱-웹 RAG 플랫폼)',
+          role: 'Full-Stack & AI Engineer (1인 단독 개발, 100%)',
+          tech: 'Next.js 14, FastAPI 0.115, Python, Qdrant, Ollama(Qwen2.5), bge-m3, Tkinter, Velopack, Docker/SQLite',
           bullets: [
             {
-              ko: 'Next.js 14 + FastAPI + Qdrant + MinIO 기반 100% 온프레미스 RAG 지식 검색 플랫폼 단독 설계 및 구축',
-              en: 'Solo architected 100% on-premise enterprise RAG platform with Next.js 14, FastAPI, Qdrant, and MinIO.',
+              ko: '사내 기밀 유출 제로(Zero Data Egress) 원칙 하에 로컬 LLM/임베딩 기반 데스크톱-웹 하이브리드 RAG 플랫폼 100% 단독 구축',
+              en: 'Solely architected Zero Data Egress desktop-web hybrid RAG platform powered by local LLMs and on-device embeddings.',
             },
             {
-              ko: '문서 페이지 인라인 인용 앵커링, 환각 억제 프롬프트 및 코사인 유사도·레이턴시 Trace 감사 드로어 구현',
-              en: 'Implemented inline document citation badges, anti-hallucination prompts, and transparent Trace audit drawer.',
+              ko: '원클릭 Tkinter 런처(파이프 데드락 방지, 1초 헬스체크), Docker/SQLite 무중단 자동 폴백, 인라인 인용 배지 및 Trace 감사 드로어 구현 (pytest 59건 전건 통과)',
+              en: 'Implemented one-click Tkinter launcher, Docker/SQLite auto-fallback, inline citation badges, and Trace audit drawer with 59 pytests passing 100%.',
             },
           ],
         },
@@ -838,11 +838,11 @@ export const tracksData: Record<TrackId, TrackData> = {
         featured: { ko: '산업용 비전 & 엣지 AI', en: 'Industrial Vision & Edge AI' },
       },
       items: [
-        allCards.industrialVision('featured'),
         allCards.edgeAnomaly('featured'),
         allCards.pipetOcr('featured'),
         allCards.semParticle('featured'),
         allCards.sevenSegmentOcr('featured'),
+        allCards.qlogAnalyzer('featured'),
       ],
     },
     printableResume: {
@@ -896,17 +896,17 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
       projects: [
         {
-          title: 'Industrial Machine Vision Software',
-          role: 'Software Engineer (Professional Experience)',
-          tech: 'C++, MFC, OpenCV, HALCON, Multithreading, Synapse Imaging',
+          title: 'Q-Log Analyzer & Vision System Utilities',
+          role: 'Vision SW Researcher',
+          tech: 'C#, WPF, Regex Engine, LiveCharts, Excel Export, Synapse Imaging',
           bullets: [
             {
-              ko: '산업용 비전 검사장비 기존 대규모 C++ 코드베이스 분석 및 신규 결함 검사 기능 개발',
-              en: 'Analyzed legacy C++ codebase for industrial vision inspection equipment and built new defect inspection features.',
+              ko: '정규표현식 컴파일 및 스트리밍 파서로 대용량 비전 로그 파싱 속도 4배 가속 및 메모리 90% 절감',
+              en: 'Accelerated high-throughput vision log parsing 4x with compiled regex streaming parser and 90% memory reduction.',
             },
             {
-              ko: '멀티스레드 영상 수집 큐와 GUI 동기화 유지보수 및 하드웨어 IO 인터페이스 지원',
-              en: 'Maintained multi-threaded frame acquisition queues, GUI synchronization, and hardware IO interfaces.',
+              ko: 'IQR 기반 지연 이상치 자동 검출 및 검사 통계·Tact Time 차트 시각화 및 엑셀 리포트 자동 생성',
+              en: 'Automated IQR latency outlier detection, inspection statistics charting, and Excel report generation.',
             },
           ],
         },
@@ -1417,7 +1417,6 @@ export const tracksData: Record<TrackId, TrackData> = {
       },
       items: [
         allCards.dograc('all'),
-        allCards.platePicks('all'),
         allCards.jobForeigner('all'),
         allCards.joinUs('all'),
         allCards.babzip('all'),
@@ -1436,16 +1435,16 @@ export const tracksData: Record<TrackId, TrackData> = {
       },
       summary: [
         {
-          ko: 'Next.js 14 + FastAPI + Qdrant + MinIO 기반 100% 온프레미스 엔터프라이즈 RAG 플랫폼 "dograc" 아키텍처 100% 단독 구축',
-          en: 'Solely architected 100% on-premise enterprise RAG platform "dograc" in Next.js 14, FastAPI, Qdrant, and MinIO.',
+          ko: 'Next.js 14 + FastAPI + Qdrant 기반 사내 기밀 유출 제로(Zero Data Egress) 데스크톱-웹 RAG 플랫폼 "dograc" 단독 구축 (원클릭 런처, Docker/SQLite 자동 폴백)',
+          en: 'Solely architected Zero Data Egress desktop-web hybrid RAG platform "dograc" with Next.js 14, FastAPI, Qdrant, one-click launcher, and Docker/SQLite fallback.',
         },
         {
           ko: 'Ubuntu Server 24.04 LTS 및 Docker 기반 채용 메일 분석·회고 질문 생성 AI 서버 "ChwieolUp-AI" 구축 및 백엔드 연동',
           en: 'Engineered & deployed Ollama AI microservice "ChwieolUp-AI" on Ubuntu Server 24.04 LTS via Docker for backend integration.',
         },
         {
-          ko: 'React + NestJS + MySQL + Docker 기반 익명 투표 풀스택 플랫폼 "Plate Picks" 아키텍처 100% 단독 구축',
-          en: 'Solely architected full-stack voting platform "Plate Picks" in React, NestJS, MySQL, and Docker.',
+          ko: 'FastAPI / NestJS 백엔드 API, Docker 컨테이너 오케스트레이션, React / Flutter 풀스택 및 서비스 연동 역량',
+          en: 'Comprehensive full-stack engineering across FastAPI/NestJS backends, Docker containers, and React/Flutter clients.',
         },
         {
           ko: '외국인 다국어 채용 플랫폼 "JobForeigner" 프론트엔드 총괄 (TanStack Query, Kakao Map 공간 필터링)',
@@ -1476,17 +1475,17 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
       projects: [
         {
-          title: 'dograc (엔터프라이즈 모듈형 RAG 지식 검색 플랫폼)',
-          role: 'Full-Stack & AI Engineer (100%)',
-          tech: 'Next.js 14, FastAPI, PostgreSQL, Qdrant, MinIO, Ollama, Docker, bge-m3',
+          title: 'dograc (사내 기밀 유출 제로 로컬 데스크톱-웹 RAG 플랫폼)',
+          role: 'Full-Stack & AI Engineer (1인 단독 개발, 100%)',
+          tech: 'Next.js 14, FastAPI 0.115, Python, Qdrant, Ollama, bge-m3, Tkinter, Velopack, Docker/SQLite',
           bullets: [
             {
-              ko: 'Next.js 14 + FastAPI + Qdrant + MinIO 기반 100% 온프레미스 RAG 지식 검색 플랫폼 단독 설계 및 구축',
-              en: 'Solo architected 100% on-premise enterprise RAG platform with Next.js 14, FastAPI, Qdrant, and MinIO.',
+              ko: '외부 전송 데이터 0 바이트 보장 데스크톱-웹 하이브리드 RAG 플랫폼 단독 구축 및 Windows 원클릭 런처 패키징',
+              en: 'Solo architected Zero Data Egress desktop-web hybrid RAG platform with Windows one-click desktop launcher packaging.',
             },
             {
-              ko: '문서 페이지 인라인 인용 앵커링, 환각 억제 프롬프트 및 코사인 유사도·레이턴시 Trace 감사 드로어 구현',
-              en: 'Implemented inline document citation badges, anti-hallucination prompts, and transparent Trace audit drawer.',
+              ko: 'Docker 가동/미가동 환경 적응형 무중단 자동 폴백(Postgres/Qdrant ↔ SQLite/In-Memory), 인라인 인용 배지 및 Trace 감사 드로어 개발 (pytest 59건 통과)',
+              en: 'Developed adaptive Docker/SQLite auto-fallback, inline citation badges, and Trace audit drawer (59 pytests passing 100%).',
             },
           ],
         },
@@ -1506,17 +1505,17 @@ export const tracksData: Record<TrackId, TrackData> = {
           ],
         },
         {
-          title: 'Plate Picks',
-          role: 'Full-Stack Engineer (100%)',
-          tech: 'React, TypeScript, NestJS, MySQL, Docker, TypeORM',
+          title: 'JoinUs (참여형 IT 동아리 트랙 추천 서비스)',
+          role: 'Frontend & UI Engineer',
+          tech: 'React, TypeScript, TailwindCSS, Vite',
           bullets: [
             {
-              ko: 'React + NestJS + Docker 풀스택 단독 설계 및 개발',
-              en: 'Designed and built full-stack platform in React, NestJS, and Docker.',
+              ko: 'MBTI형 문답 인터랙션 및 가중치 계산 엔진 설계로 동아리 지원자 전환율 160% 달성',
+              en: 'Designed interactive question flow and scoring engine, achieving 160% growth in applicant conversion.',
             },
             {
-              ko: '트랜잭션 격리 수준을 적용한 익명 투표 동시성 제어 및 실시간 통계 시각화',
-              en: 'Implemented ACID transaction isolation for voting concurrency and live analytics.',
+              ko: '카카오톡 동적 결과 공유 연동 및 순수 함수 기반 문답 데이터 파서 분리로 유지보수성 확보',
+              en: 'Implemented dynamic Kakao share cards and decoupled scoring logic into pure functions.',
             },
           ],
         },
