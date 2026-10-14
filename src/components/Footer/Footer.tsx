@@ -18,8 +18,8 @@ export const Footer = ({
           contact: '연락처',
           sns: 'SNS',
           quickLinks: '빠른 링크',
-          portal: '전체 트랙 홈',
-          projects: '프로젝트 목록',
+          portal: '포트폴리오 상단으로',
+          projects: '핵심 프로젝트',
           blog: '기술 블로그',
           copyright: '© 2026 Minwoo Lee. All rights reserved.',
         }
@@ -27,8 +27,8 @@ export const Footer = ({
           contact: 'Contact',
           sns: 'Social',
           quickLinks: 'Quick Links',
-          portal: 'All Tracks Portal',
-          projects: 'Projects',
+          portal: 'Back to Top',
+          projects: 'Core Projects',
           blog: 'Tech Blog',
           copyright: '© 2026 Minwoo Lee. All rights reserved.',
         };

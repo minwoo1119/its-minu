@@ -55,6 +55,13 @@ export interface TrackData {
     categoryOptions: string[];
     categoryLabels: Record<string, LocalizedText>;
     items: ProjectCardInfo[];
+    otherProjects?: {
+      subText: LocalizedText;
+      titleText: LocalizedText;
+      categoryOptions: string[];
+      categoryLabels: Record<string, LocalizedText>;
+      items: ProjectCardInfo[];
+    };
   };
   printableResume: {
     role: LocalizedText;
@@ -107,10 +114,10 @@ const allCards = {
       en: 'Industrial Anomaly Detection on Edge : PatchCore & Jetson TensorRT Inference',
     },
     description: {
-      ko: 'PatchCore 기반 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속과 C++ 추론 벤치마크 (14ms 실시간 처리 달성)',
-      en: 'PatchCore anomaly detection training, ONNX export, and TensorRT FP16/INT8 quantization for low-latency (<14ms) C++ inference on Jetson Orin Nano.',
+      ko: 'PatchCore 비지도 이상 탐지 모델 학습 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속 (지연시간 14ms, 70 FPS 실시간 C++ 추론 엔진 구축)',
+      en: 'PatchCore unsupervised anomaly detection with TensorRT FP16/INT8 quantization for ultra-low latency (14ms, 70 FPS) C++ inference on Jetson Orin Nano.',
     },
-    techs: ['C++', 'PatchCore', 'ONNX', 'TensorRT', 'Jetson Orin Nano', 'PyTorch'],
+    techs: ['C++', 'TensorRT', 'Jetson Orin Nano', 'PatchCore', 'ONNX', 'CUDA'],
   }),
 
   pipetOcr: (category: string): ProjectCardInfo => ({
@@ -122,10 +129,10 @@ const allCards = {
       en: 'Micro-pipette Detection & Hybrid OCR System',
     },
     description: {
-      ko: 'YOLO, Custom CNN, PaddleOCR, TensorRT를 결합한 마이크로피펫 객체 탐지 및 OCR 시스템 (300ms → 80ms 가속)',
-      en: 'A micro-pipette detection and OCR system combining YOLO, custom CNN, PaddleOCR, and TensorRT (300ms -> 80ms).',
+      ko: 'YOLO 객체 검출 + Custom CNN + PaddleOCR 파이프라인의 TensorRT C++ 가속 최적화를 통한 추론 지연 시간 73% 단축 (300ms → 80ms) 및 정밀 수치 판독',
+      en: 'Optimized hybrid vision pipeline with YOLO, Custom CNN, PaddleOCR, and TensorRT C++ acceleration, cutting latency by 73% (300ms -> 80ms).',
     },
-    techs: ['Python', 'OpenCV', 'PyTorch', 'YOLO', 'PaddleOCR', 'TensorRT', 'ONNX'],
+    techs: ['C++', 'TensorRT', 'OpenCV', 'YOLO', 'PaddleOCR', 'ONNX', 'Python'],
   }),
 
   semParticle: (category: string): ProjectCardInfo => ({
@@ -137,10 +144,10 @@ const allCards = {
       en: 'SEM Particle Analyzer : SEM Image Particle Quantitative Analysis',
     },
     description: {
-      ko: 'C# .NET 8 WPF(MVVM)와 OpenCvSharp 기반 전자현미경(SEM) 나노/마이크로 입자 크기·형상 자동 분석 시스템',
-      en: 'An automated SEM nano/micro particle size and morphology analyzer built with C# .NET 8 WPF and OpenCvSharp.',
+      ko: 'OpenCV Watershed 입자 분할, 거리 변환(Distance Transform) 및 적응형 CLAHE 기반 나노/마이크로 응집 입자 분리 및 Feret Diameter 정량 계측',
+      en: 'Automated SEM nano/micro particle quantitative analyzer applying OpenCV Watershed, Distance Transform, and CLAHE to measure Feret Diameters.',
     },
-    techs: ['C#', '.NET 8 WPF', 'OpenCvSharp', 'OpenCV', 'Watershed', 'ScottPlot'],
+    techs: ['OpenCV', 'Watershed', 'Image Processing', 'CLAHE', 'C# .NET 8', 'ScottPlot'],
   }),
 
   sevenSegmentOcr: (category: string): ProjectCardInfo => ({
@@ -152,10 +159,10 @@ const allCards = {
       en: 'Video-based 7-Segment OCR System',
     },
     description: {
-      ko: 'C++ MFC와 OpenCV 기반 연속 영상 스트림에서 7-Segment 디스플레이를 자동 검출하고 수치를 고속 판독하는 비전 시스템',
-      en: 'A C++ MFC and OpenCV vision system detecting and reading 7-segment displays in real-time video streams.',
+      ko: 'C++/MFC 멀티스레드 영상 링 버퍼 및 OpenCV 기반 연속 비디오 스트림에서 7-Segment 디스플레이 자동 검출 및 디지털 수치 고속 실시간 판독',
+      en: 'High-speed C++/MFC multi-threaded ring buffer and OpenCV vision system detecting and reading 7-segment displays in real-time video streams.',
     },
-    techs: ['C++', 'MFC', 'OpenCV', 'Template Matching', 'Video Processing'],
+    techs: ['C++', 'MFC', 'OpenCV', 'Multithreading', 'Ring Buffer', 'Template Matching'],
   }),
 
   qlogAnalyzer: (category: string): ProjectCardInfo => ({
@@ -167,10 +174,10 @@ const allCards = {
       en: 'Q-Log Analyzer & Vision System Utilities',
     },
     description: {
-      ko: 'C# WPF 기반 대용량 비전 검사 로그 파싱, 실시간 통계 시각화 및 엑셀 리포트 내보내기 유틸리티',
-      en: 'A C# WPF desktop utility for high-throughput vision log parsing, statistical visualization, and Excel report export.',
+      ko: '산업용 비전 검사장비의 대용량 실시간 진단 로그 정규식 파싱, 이상 발생 통계 시각화 및 분석 리포트 자동 생성 유틸리티',
+      en: 'High-throughput vision log parsing engine, real-time statistical anomaly visualization, and automated inspection report generator.',
     },
-    techs: ['C#', 'WPF', 'Regex Engine', 'Data Visualization', 'LiveCharts', 'Excel Export'],
+    techs: ['C#', 'WPF', 'Regex Engine', 'Vision Utilities', 'Data Visualization', 'Excel Export'],
   }),
 
   llmAlignment: (category: string): ProjectCardInfo => ({
@@ -697,34 +704,43 @@ export const tracksData: Record<TrackId, TrackData> = {
     canonicalPath: '/computer-vision',
     aliases: ['computervision', 'vision', 'cv', 'cpp-vision'],
     navTitle: {
-      ko: 'Computer Vision & C++',
-      en: 'Computer Vision & C++',
+      ko: 'C++ Vision & Systems',
+      en: 'C++ Vision & Systems',
     },
     badge: {
-      ko: 'Primary Track · C++ / Vision',
-      en: 'Primary Track · C++ / Vision',
+      ko: 'Primary Track · C++ / Vision / Systems',
+      en: 'Primary Track · C++ / Vision / Systems',
     },
     portalDescription: {
-      ko: '산업용 비전 검사장비의 C++/MFC 소프트웨어를 개발하며, 영상처리부터 실시간 처리 Pipeline과 Edge AI까지 확장',
-      en: 'Building industrial vision software in C++, with experience spanning image processing, vision systems, and edge AI deployment.',
+      ko: '산업용 비전 검사장비의 고속 C++/MFC 소프트웨어를 개발하며, 영상처리 파이프라인부터 Jetson 엣지 가속, 그리고 방산·로봇 지향 미션 크리티컬 시스템 SW로 확장',
+      en: 'Building high-performance C++/MFC industrial vision systems, scaling across real-time pipelines, Jetson edge AI acceleration, and defense/robotics systems.',
     },
-    heroTags: ['C++', 'MFC', 'OpenCV', 'HALCON', 'TensorRT', 'Edge AI', 'Watershed'],
+    heroTags: [
+      'C++',
+      'Computer Vision',
+      'OpenCV',
+      'Multithreading',
+      'TensorRT',
+      'Jetson Orin Nano',
+      'HALCON',
+      'Real-Time Systems',
+    ],
     intro: {
       title: {
-        ko: '현실의 비전 시스템을 만드는 ',
-        en: 'Building Real-World Vision Systems in C++, ',
+        ko: '실시간 컴퓨터 비전 및 시스템 SW를 구축하는 ',
+        en: 'Building Real-Time Computer Vision & Systems Software, ',
       },
       role: {
-        ko: 'Computer Vision & C++ Software Engineer',
-        en: 'Computer Vision & C++ Software Engineer',
+        ko: 'C++ 컴퓨터 비전 & 시스템 SW 엔지니어',
+        en: 'C++ Computer Vision & Systems Software Engineer',
       },
       name: {
         ko: ' 이민우입니다.',
         en: ' Minwoo Lee.',
       },
       sub: {
-        ko: '산업용 비전 검사장비의 C++ 소프트웨어를 개발하며, 영상처리부터 실시간 처리 Pipeline과 Edge AI까지 확장하고 있습니다. 대규모 C++/MFC 코드베이스 분석·유지보수부터 OpenCV/HALCON 기반 정밀 계측, Jetson 엣지 디바이스 TensorRT 최적화까지 산업 현장에서 신뢰할 수 있는 고성능 비전 시스템을 구축합니다.',
-        en: 'Building industrial vision software in C++, with experience spanning image processing, vision systems, and edge AI deployment.',
+        ko: '산업용 비전 검사장비의 고속 C++/MFC 소프트웨어를 개발하며, 영상 수집 링 버퍼 파이프라인부터 OpenCV/HALCON 기반 서브픽셀 정밀 계측 및 결함 검출, TensorRT Edge AI 추론 가속까지 실시간 시스템을 구축해왔습니다. 결함 검출률 100%와 결정론적 초저지연 실행(Deterministic Low-Latency)을 지향하며, 향후 방위산업(Defense Systems), 로보틱스(Robotics), 스마트 팩토리 검사장비 등 미션 크리티컬한 고성능 시스템 소프트웨어와 알고리즘 최적화 영역으로 전문성을 지속 확장하고 있습니다.',
+        en: 'Developing high-speed C++/MFC software for industrial vision inspection systems, with hands-on expertise spanning real-time ring buffer pipelines, OpenCV/HALCON sub-pixel precision measurement, and TensorRT edge AI acceleration. Focused on deterministic low-latency execution and zero-defect reliability, actively advancing into mission-critical systems engineering across defense systems, robotics, and industrial automation.',
       },
     },
     competencies: {
@@ -733,109 +749,130 @@ export const tracksData: Record<TrackId, TrackData> = {
         en: 'Core Competencies',
       },
       title: {
-        ko: '주요 역량',
-        en: 'Key Strengths',
+        ko: '핵심 역량 및 엔지니어링 지향점',
+        en: 'Core Competencies & Engineering Focus',
       },
       items: [
         {
           icon: 'C++',
           title: {
-            ko: 'Industrial Vision Software',
-            en: 'Industrial Vision Software',
+            ko: 'Real-Time Vision & High-Performance C++',
+            en: 'Real-Time Vision & High-Performance C++',
           },
           description: {
-            ko: 'C++/MFC 기반 산업용 비전 검사장비 소프트웨어 개발 및 기존 대규모 코드베이스 분석·유지보수',
-            en: 'Developing C++/MFC software for industrial vision inspection equipment, analyzing and maintaining large-scale legacy codebases.',
+            ko: 'C++/MFC 기반 산업용 비전 검사장비 소프트웨어 개발, 고속 영상 수집 링 버퍼 멀티스레드 동기화, 메모리 릭 제로 및 CPU 캐시 친화적 시스템 SW 설계',
+            en: 'Developing high-speed C++/MFC industrial vision software, multi-threaded ring buffer synchronization, zero-leak memory management, and cache-friendly systems architecture.',
           },
         },
         {
           icon: 'OpenCV',
           title: {
-            ko: 'Computer Vision & Image Processing',
-            en: 'Computer Vision & Image Processing',
+            ko: 'Precision Computer Vision & Measurement',
+            en: 'Precision Computer Vision & Measurement',
           },
           description: {
-            ko: 'OpenCV/HALCON 기반 영상처리와 segmentation, measurement, inspection algorithm 개발',
-            en: 'Developing segmentation, measurement, and inspection algorithms using OpenCV and HALCON.',
+            ko: 'OpenCV / HALCON 기반 서브픽셀 엣지 검출, Watershed 입자 분할, 거리 변환, Feret Diameter 및 2D/3D 기하 형상 정밀 치수 계측 알고리즘 구현',
+            en: 'Implementing sub-pixel edge detection, Watershed segmentation, distance transforms, and precise 2D/3D geometric measurement algorithms via OpenCV and HALCON.',
           },
         },
         {
           icon: 'TensorRT',
           title: {
-            ko: 'Edge AI Deployment',
-            en: 'Edge AI Deployment',
+            ko: 'Edge AI Acceleration & Embedded Inference',
+            en: 'Edge AI Acceleration & Embedded Inference',
           },
           description: {
-            ko: 'PyTorch → ONNX → TensorRT 변환 및 Edge 환경 inference optimization 경험',
-            en: 'Exporting PyTorch models to ONNX and optimizing inference on Edge environments using TensorRT.',
+            ko: 'PyTorch → ONNX → TensorRT FP16/INT8 양자화 가속 엔진 빌드, Jetson Orin Nano 타겟 C++ 런타임 최적화로 14ms 초저지연 실시간 이상 탐지 달성',
+            en: 'Exporting PyTorch models to ONNX and compiling TensorRT FP16/INT8 engines, achieving 14ms low-latency anomaly detection on Jetson Orin Nano.',
+          },
+        },
+        {
+          icon: 'C++',
+          title: {
+            ko: 'Mission-Critical Reliability (방산·로봇·제조)',
+            en: 'Mission-Critical Reliability (Defense / Robotics / Manufacturing)',
+          },
+          description: {
+            ko: '방위산업, 자율 로봇, 24/7 생산 라인의 무중단 연속 구동을 위한 강력한 예외 처리, 고속 IPC 통신 및 대규모 레거시 C++ 코드베이스 분석·유지보수',
+            en: 'Ensuring 24/7 mission-critical uptime for defense systems, robotics, and production lines through robust exception isolation, IPC, and large-scale legacy C++ refactoring.',
           },
         },
       ],
     },
     techs: {
-      options: ['core', 'visionAi', 'softwareEng', 'expanding'],
+      options: ['coreCpp', 'visionAi', 'inspection', 'systems'],
       labels: {
-        core: {
-          ko: 'Core (실무 주력)',
-          en: 'Core',
+        coreCpp: {
+          ko: 'Core C++ & Systems (실무 주력)',
+          en: 'Core C++ & Systems',
         },
         visionAi: {
-          ko: 'Vision & AI (모델·가속)',
-          en: 'Vision & AI',
+          ko: 'Vision AI & Edge (로봇/엣지 가속)',
+          en: 'Vision AI & Edge',
         },
-        softwareEng: {
-          ko: 'Software Engineering',
-          en: 'Software Engineering',
+        inspection: {
+          ko: 'Computer Vision & Inspection (영상 계측)',
+          en: 'Vision & Inspection',
         },
-        expanding: {
-          ko: 'Currently Expanding',
-          en: 'Currently Expanding',
+        systems: {
+          ko: 'Defense/Robotics & Tools (시스템/도구)',
+          en: 'Systems & Infrastructure',
         },
       },
       subText: {
-        ko: '실무 전문성과 사용 경험의 깊이를 명확히 구분한 기술 스택입니다. C++/MFC/OpenCV 기반 산업용 비전 SW를 코어로 하며, Edge AI 추론 가속 및 시스템 프로그래밍 영역으로 확장하고 있습니다.',
-        en: 'Curated tech stack categorizing core production expertise from expanding domains: anchored in C++/MFC/OpenCV industrial vision, scaled via TensorRT edge AI and systems engineering.',
+        ko: 'C++/OpenCV/MFC 기반 고성능 실시간 비전 시스템을 코어로 하며, Jetson 엣지 가속과 임베디드·로봇·방산 지향 시스템 소프트웨어 및 메모리 최적화로 확장하고 있습니다.',
+        en: 'Anchored in high-performance C++/OpenCV/MFC real-time vision systems, scaling across Jetson edge acceleration, embedded robotics/defense systems, and low-level memory optimization.',
       },
       stacks: {
-        core: [
-          { name: 'C++', icon: 'cplusplus' },
+        coreCpp: [
+          { name: 'C++ (C++17/20)', icon: 'cplusplus' },
+          { name: 'Multithreading', icon: 'cplusplus' },
+          { name: 'Memory Optimization', icon: 'cplusplus' },
           { name: 'OpenCV', icon: 'opencv' },
           { name: 'MFC', icon: 'cplusplus' },
-          { name: 'HALCON', icon: 'opencv' },
+          { name: 'Visual Studio', icon: 'visualstudio' },
+          { name: 'Win32 API', icon: 'windows' },
         ],
         visionAi: [
-          { name: 'Python', icon: 'python' },
-          { name: 'PyTorch', icon: 'pytorch' },
-          { name: 'YOLO', icon: 'yolo' },
-          { name: 'ONNX', icon: 'onnx' },
-          { name: 'TensorRT', icon: 'nvidia' },
-        ],
-        softwareEng: [
-          { name: 'Git', icon: 'git' },
-          { name: 'Visual Studio', icon: 'visualstudio' },
-          { name: 'Multithreading', icon: 'cplusplus' },
-          { name: 'Win32 / Debugging', icon: 'windows' },
-        ],
-        expanding: [
-          { name: 'Linux', icon: 'linux' },
-          { name: 'CMake', icon: 'cmake' },
+          { name: 'TensorRT (FP16/INT8)', icon: 'nvidia' },
           { name: 'CUDA', icon: 'nvidia' },
+          { name: 'Jetson Orin Nano', icon: 'nvidia' },
+          { name: 'ONNX Runtime', icon: 'onnx' },
+          { name: 'YOLO', icon: 'yolo' },
+          { name: 'PyTorch', icon: 'pytorch' },
+          { name: 'Python', icon: 'python' },
+        ],
+        inspection: [
+          { name: 'HALCON', icon: 'opencv' },
+          { name: 'Watershed / Morphology', icon: 'opencv' },
+          { name: 'Sub-pixel Measurement', icon: 'opencv' },
+          { name: 'Ring Buffer Pipeline', icon: 'cplusplus' },
+          { name: 'PaddleOCR', icon: 'python' },
+          { name: 'Defect Inspection', icon: 'opencv' },
+        ],
+        systems: [
+          { name: 'Linux / Ubuntu', icon: 'linux' },
+          { name: 'CMake', icon: 'cmake' },
+          { name: 'Git', icon: 'git' },
+          { name: 'Socket / IPC', icon: 'linux' },
+          { name: 'Docker', icon: 'docker' },
+          { name: 'C# / WPF', icon: 'dotnet' },
         ],
       },
     },
     projects: {
       subText: {
-        ko: '산업용 비전 소프트웨어 개발 실무 경험 및 Edge AI 추론 최적화 프로젝트입니다.',
-        en: 'Industrial vision software engineering experience and edge AI inference optimization projects.',
+        ko: 'C++, 컴퓨터 비전, 영상처리, 실시간 시스템 및 임베디드 엣지 추론 가속에 집중된 핵심 엔지니어링 프로젝트입니다. 알고리즘 설계와 프레임 레이트/지연시간 최적화 과정을 중점적으로 다룹니다.',
+        en: 'High-impact engineering projects focused on C++, computer vision, image processing, real-time systems, and edge AI inference optimization.',
       },
       titleText: {
-        ko: '비전 프로젝트 포트폴리오',
-        en: 'Vision Project Portfolio',
+        ko: 'Core Vision & Systems Projects (핵심 프로젝트)',
+        en: 'Core Vision & Systems Projects',
       },
       categoryOptions: ['all', 'featured'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        featured: { ko: '산업용 비전 & 엣지 AI', en: 'Industrial Vision & Edge AI' },
+        featured: { ko: '산업용 비전 & 엣지 가속', en: 'Vision & Edge Acceleration' },
       },
       items: [
         allCards.edgeAnomaly('featured'),
@@ -844,15 +881,50 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.sevenSegmentOcr('featured'),
         allCards.qlogAnalyzer('featured'),
       ],
+      otherProjects: {
+        subText: {
+          ko: '소프트웨어 엔지니어링 역량을 확장하며 수행한 온프레미스 AI/RAG 플랫폼, 모바일 실서비스 앱, 풀스택 웹 개발 및 학술 연구 프로젝트입니다.',
+          en: 'Complementary engineering endeavors spanning on-premise AI/RAG platforms, shipped production mobile apps, full-stack web platforms, and academic research.',
+        },
+        titleText: {
+          ko: 'Other Projects & Experiments (기타 프로젝트 & 실험실)',
+          en: 'Other Projects & Experiments',
+        },
+        categoryOptions: ['all', 'ai', 'mobile', 'web'],
+        categoryLabels: {
+          all: { ko: '전체 (All)', en: 'All' },
+          ai: { ko: 'AI / RAG / 연구', en: 'AI & Research' },
+          mobile: { ko: '모바일 실서비스 앱', en: 'Mobile Apps' },
+          web: { ko: '웹 & 풀스택 시스템', en: 'Web & Full-Stack' },
+        },
+        items: [
+          // AI & RAG
+          allCards.dograc('ai'),
+          allCards.chwieolUpAi('ai'),
+          allCards.llmAlignment('ai'),
+          allCards.slowAgingLlm('ai'),
+          // Mobile Apps
+          allCards.geumpumta('mobile'),
+          allCards.yeSang('mobile'),
+          allCards.saSang('mobile'),
+          allCards.uhdyl('mobile'),
+          allCards.chirpaid('mobile'),
+          // Web & Full-Stack
+          allCards.jobForeigner('web'),
+          allCards.joinUs('web'),
+          allCards.babzip('web'),
+          allCards.cakeWorkshop('web'),
+        ],
+      },
     },
     printableResume: {
       role: {
-        ko: 'Computer Vision & C++ Software Engineer',
-        en: 'Computer Vision & C++ Software Engineer',
+        ko: 'C++ Computer Vision & Systems Software Engineer',
+        en: 'C++ Computer Vision & Systems Software Engineer',
       },
       bio: {
-        ko: '산업용 비전 검사장비의 C++/MFC 소프트웨어를 개발하며, 영상처리부터 실시간 처리 Pipeline과 Edge AI까지 확장하고 있는 엔지니어 이민우입니다.',
-        en: 'Building industrial vision software in C++, with experience spanning image processing, vision systems, and edge AI deployment.',
+        ko: '산업용 비전 검사장비의 C++/MFC 소프트웨어를 개발하며, 영상 수집 링 버퍼 파이프라인부터 OpenCV/HALCON 기반 정밀 계측 및 TensorRT 엣지 가속까지 구축해온 실무 엔지니어 이민우입니다. 방위산업, 로보틱스, 지능형 검사 시스템 등 미션 크리티컬한 고성능 시스템 소프트웨어와 비전 알고리즘을 지향합니다.',
+        en: 'Developing C++/MFC software for industrial vision inspection equipment, with expertise spanning real-time ring buffers, OpenCV/HALCON precision measurement, and TensorRT edge AI acceleration, advancing toward mission-critical defense and robotics systems.',
       },
       summary: [
         {
@@ -878,38 +950,23 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
       skills: [
         {
-          title: { ko: 'Core Industrial Vision', en: 'Core Industrial Vision' },
-          items: 'C++, OpenCV, MFC, HALCON',
+          title: { ko: 'Core C++ & Systems', en: 'Core C++ & Systems' },
+          items: 'C++ (C++17/20), OpenCV, Multithreading & Concurrency, Memory Optimization, MFC, Visual Studio, Win32 API',
         },
         {
-          title: { ko: 'Vision & Edge AI', en: 'Vision & Edge AI' },
-          items: 'Python, PyTorch, YOLO, ONNX Runtime, TensorRT',
+          title: { ko: 'Vision AI & Edge Acceleration', en: 'Vision AI & Edge Acceleration' },
+          items: 'TensorRT (FP16/INT8), CUDA, NVIDIA Jetson Orin Nano, ONNX Runtime, YOLO, PyTorch, Python',
         },
         {
-          title: { ko: 'Software Engineering', en: 'Software Engineering' },
-          items: 'Git, Visual Studio, Multithreading / Concurrency, Win32 / Debugging',
+          title: { ko: 'Computer Vision & Inspection', en: 'Computer Vision & Inspection' },
+          items: 'HALCON, Watershed / Morphology, Sub-pixel Measurement, Ring Buffer Pipeline, Defect Inspection',
         },
         {
-          title: { ko: 'Currently Expanding', en: 'Currently Expanding' },
-          items: 'Linux, CMake, CUDA',
+          title: { ko: 'Systems & Infrastructure', en: 'Systems & Infrastructure' },
+          items: 'Linux / Ubuntu, Socket / IPC, CMake, Git, Docker, C# / WPF',
         },
       ],
       projects: [
-        {
-          title: 'Q-Log Analyzer & Vision System Utilities',
-          role: 'Vision SW Researcher',
-          tech: 'C#, WPF, Regex Engine, LiveCharts, Excel Export, Synapse Imaging',
-          bullets: [
-            {
-              ko: '정규표현식 컴파일 및 스트리밍 파서로 대용량 비전 로그 파싱 속도 4배 가속 및 메모리 90% 절감',
-              en: 'Accelerated high-throughput vision log parsing 4x with compiled regex streaming parser and 90% memory reduction.',
-            },
-            {
-              ko: 'IQR 기반 지연 이상치 자동 검출 및 검사 통계·Tact Time 차트 시각화 및 엑셀 리포트 자동 생성',
-              en: 'Automated IQR latency outlier detection, inspection statistics charting, and Excel report generation.',
-            },
-          ],
-        },
         {
           title: 'Industrial Anomaly Detection on Edge',
           role: 'AI & Performance Engineer (100%)',
@@ -928,11 +985,11 @@ export const tracksData: Record<TrackId, TrackData> = {
         {
           title: 'Micro-pipette Detection & Hybrid OCR System',
           role: 'AI & Vision Engineer (100%)',
-          tech: 'Python, OpenCV, PyTorch, YOLO, PaddleOCR, TensorRT, ONNX',
+          tech: 'C++, TensorRT, OpenCV, YOLO, PaddleOCR, ONNX, Python',
           bullets: [
             {
-              ko: '마이크로피펫 객체 탐지 및 수치 OCR 파이프라인 구축',
-              en: 'Built end-to-end detection and OCR pipeline for micro-pipettes.',
+              ko: '마이크로피펫 객체 탐지 및 수치 OCR 파이프라인 구축 및 C++ 런타임 최적화',
+              en: 'Built end-to-end detection and OCR pipeline for micro-pipettes with C++ runtime.',
             },
             {
               ko: 'TensorRT 최적화로 추론 시간 300ms에서 80ms로 73% 단축',
@@ -943,14 +1000,14 @@ export const tracksData: Record<TrackId, TrackData> = {
         {
           title: 'SEM Particle Analyzer',
           role: 'Vision SW Engineer (100%)',
-          tech: 'C#, .NET 8 WPF, OpenCvSharp, Watershed, ScottPlot',
+          tech: 'OpenCV, Watershed, Image Processing, CLAHE, C# .NET 8, ScottPlot',
           bullets: [
             {
               ko: '전자현미경(SEM) 이미지 나노 입자 크기·형상 자동 분석 시스템 구축',
               en: 'Constructed automated SEM nano-particle morphology and size analyzer.',
             },
             {
-              ko: 'Watershed 정밀 분할 및 픽셀 캘리브레이션 기반 Feret Diameter 산출',
+              ko: 'Watershed 정밀 분할 및 픽셀 캘리브레이션 기반 Feret Diameter 정량 산출',
               en: 'Implemented calibrated Watershed segmentation for Feret Diameter computation.',
             },
           ],
@@ -958,11 +1015,26 @@ export const tracksData: Record<TrackId, TrackData> = {
         {
           title: 'Video-based 7-Segment OCR System',
           role: 'Vision Engineer (100%)',
-          tech: 'C++, MFC, OpenCV, Template Matching',
+          tech: 'C++, MFC, OpenCV, Multithreading, Ring Buffer',
           bullets: [
             {
-              ko: 'C++ MFC 기반 실시간 영상 스트림 7-Segment 자동 판독 시스템 구현',
-              en: 'Implemented real-time 7-segment digital display reader in C++ MFC.',
+              ko: 'C++ MFC 멀티스레드 링 버퍼 기반 실시간 영상 스트림 7-Segment 자동 판독 시스템 구현',
+              en: 'Implemented real-time 7-segment digital display reader in C++ MFC multi-threaded ring buffer.',
+            },
+          ],
+        },
+        {
+          title: 'Q-Log Analyzer & Vision System Utilities',
+          role: 'Vision SW Researcher',
+          tech: 'C#, WPF, Regex Engine, LiveCharts, Excel Export, Synapse Imaging',
+          bullets: [
+            {
+              ko: '정규표현식 컴파일 및 스트리밍 파서로 대용량 비전 로그 파싱 속도 4배 가속 및 메모리 90% 절감',
+              en: 'Accelerated high-throughput vision log parsing 4x with compiled regex streaming parser and 90% memory reduction.',
+            },
+            {
+              ko: 'IQR 기반 지연 이상치 자동 검출 및 검사 통계·Tact Time 차트 시각화 및 엑셀 리포트 자동 생성',
+              en: 'Automated IQR latency outlier detection, inspection statistics charting, and Excel report generation.',
             },
           ],
         },
@@ -977,14 +1049,18 @@ export const tracksData: Record<TrackId, TrackData> = {
           en: '2025 KIIT Fall Conference Best Paper Silver Award (Domain LLM Fine-Tuning)',
         },
         {
-          ko: 'KCI 등재 학술지 논문 게재 (모바일 기부 플랫폼 신뢰성 아키텍처 연구)',
-          en: 'KCI-Indexed Journal Publication (Mobile Transparency Architecture)',
+          ko: 'KCI 등재 학술지 논문 게재 (한국정보기술학회논문지)',
+          en: 'KCI-Indexed Journal Publication (KIIT Journal)',
+        },
+        {
+          ko: 'LG Aimers 6기 과정 수료 (LG AI Research)',
+          en: 'LG Aimers 6th Generation AI Professional Certificate (LG AI Research)',
         },
       ],
     },
     pdfFilename: {
-      ko: '이민우_Computer_Vision_C++_Software_Engineer.pdf',
-      en: 'Minwoo_Lee_Computer_Vision_C++_Engineer.pdf',
+      ko: '이민우_Computer_Vision_CPP_Software_Engineer.pdf',
+      en: 'Minwoo_Lee_Computer_Vision_Engineer.pdf',
     },
   },
 

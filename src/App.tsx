@@ -21,7 +21,13 @@ type Route =
   | { name: 'track'; trackId: TrackId }
   | { name: 'projectDetail'; trackId: TrackId; projectId: number };
 
-type SectionKey = 'experience' | 'techs' | 'projects' | 'awards';
+type SectionKey =
+  | 'experience'
+  | 'competencies'
+  | 'techs'
+  | 'projects'
+  | 'otherProjects'
+  | 'awards';
 
 const normalizeTrackSegment = (segment: string): TrackId | null => {
   const clean = segment.toLowerCase().replace(/^\/+|\/+$/g, '').trim();
@@ -52,17 +58,19 @@ const getCurrentRoute = (): Route => {
 
   // 1. Check hash route first (most robust for GitHub Pages)
   if (hash) {
+    if (hash === 'portal') {
+      return { name: 'portal' };
+    }
+
     // Pattern: {trackId}/projects/{projectId}
     const hashProjectMatch = hash.match(/^([^/]+)\/projects\/(\d+)$/);
     if (hashProjectMatch) {
       const track = normalizeTrackSegment(hashProjectMatch[1]);
-      if (track) {
-        return {
-          name: 'projectDetail',
-          trackId: track,
-          projectId: Number(hashProjectMatch[2]),
-        };
-      }
+      return {
+        name: 'projectDetail',
+        trackId: track || 'computer-vision',
+        projectId: Number(hashProjectMatch[2]),
+      };
     }
 
     // Pattern: projects/{projectId}
@@ -84,16 +92,18 @@ const getCurrentRoute = (): Route => {
 
   // 2. Check path route
   if (relativePath) {
+    if (relativePath === 'portal') {
+      return { name: 'portal' };
+    }
+
     const pathProjectMatch = relativePath.match(/^([^/]+)\/projects\/(\d+)$/);
     if (pathProjectMatch) {
       const track = normalizeTrackSegment(pathProjectMatch[1]);
-      if (track) {
-        return {
-          name: 'projectDetail',
-          trackId: track,
-          projectId: Number(pathProjectMatch[2]),
-        };
-      }
+      return {
+        name: 'projectDetail',
+        trackId: track || 'computer-vision',
+        projectId: Number(pathProjectMatch[2]),
+      };
     }
 
     const pathTrack = normalizeTrackSegment(relativePath);
@@ -102,18 +112,21 @@ const getCurrentRoute = (): Route => {
     }
   }
 
-  return { name: 'portal' };
+  // Default entry route: C++ Computer Vision & Systems Software Engineer portfolio directly
+  return { name: 'track', trackId: 'computer-vision' };
 };
 
 const buildPath = (route: Route): string => {
   const baseUrl = import.meta.env.BASE_URL.replace(/\/+$/, '') + '/';
 
   if (route.name === 'portal') {
-    return baseUrl;
+    return `${baseUrl}#/portal`;
   }
 
   if (route.name === 'track') {
-    return `${baseUrl}#/${route.trackId}`;
+    return route.trackId === 'computer-vision'
+      ? `${baseUrl}`
+      : `${baseUrl}#/${route.trackId}`;
   }
 
   if (route.name === 'projectDetail') {
@@ -125,9 +138,11 @@ const buildPath = (route: Route): string => {
 
 function App() {
   const experienceRef = useRef<HTMLDivElement | null>(null);
+  const competenciesRef = useRef<HTMLDivElement | null>(null);
   const techsRef = useRef<HTMLDivElement | null>(null);
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const awardsRef = useRef<HTMLDivElement | null>(null);
+
   const [language, setLanguage] = useState<Language>('ko');
   const [route, setRoute] = useState<Route>(() => getCurrentRoute());
   const [pendingSection, setPendingSection] = useState<SectionKey | null>(null);
@@ -141,6 +156,19 @@ function App() {
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const scrollToOtherProjects = () => {
+    const el = document.getElementById('other-projects');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (projectsRef.current) {
+      scrollToSection(projectsRef);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateTo = (nextRoute: Route) => {
@@ -162,14 +190,6 @@ function App() {
       setPendingSection(section);
     }
     navigateTo({ name: 'track', trackId });
-  };
-
-  const handleTrackChange = (target: TrackId | 'portal') => {
-    if (target === 'portal') {
-      navigateTo({ name: 'portal' });
-    } else {
-      navigateTrack(target);
-    }
   };
 
   const handleProjectOpen = (projectId: number) => {
@@ -196,8 +216,8 @@ function App() {
     if (route.name === 'portal') {
       document.title =
         language === 'ko'
-          ? '이민우 | Computer Vision & C++ Software Engineer'
-          : 'Minwoo Lee | Computer Vision & C++ Software Engineer';
+          ? '이민우 | C++ 기반 실시간 컴퓨터 비전 & 시스템 SW 엔지니어'
+          : 'Minwoo Lee | C++ Computer Vision & Systems Software Engineer';
     } else if (route.name === 'track') {
       const role = getText(language, activeTrackData.intro.role);
       document.title = `${role} | 이민우 (Minwoo Lee)`;
@@ -226,15 +246,13 @@ function App() {
       return;
     }
 
-    let targetRef: React.RefObject<HTMLDivElement | null> | null = null;
-    if (pendingSection === 'experience') targetRef = experienceRef;
-    else if (pendingSection === 'techs') targetRef = techsRef;
-    else if (pendingSection === 'projects') targetRef = projectsRef;
-    else if (pendingSection === 'awards') targetRef = awardsRef;
+    if (pendingSection === 'experience') scrollToSection(experienceRef);
+    else if (pendingSection === 'competencies') scrollToSection(competenciesRef);
+    else if (pendingSection === 'techs') scrollToSection(techsRef);
+    else if (pendingSection === 'projects') scrollToSection(projectsRef);
+    else if (pendingSection === 'otherProjects') scrollToOtherProjects();
+    else if (pendingSection === 'awards') scrollToSection(awardsRef);
 
-    if (targetRef) {
-      scrollToSection(targetRef);
-    }
     setPendingSection(null);
   }, [pendingSection, route]);
 
@@ -253,12 +271,17 @@ function App() {
               language={language}
               currentTrack={activeTrackId}
               onLanguageChange={setLanguage}
-              onTrackChange={handleTrackChange}
+              onLogoClick={scrollToTop}
               onPdfClick={handlePdfDownload}
               onExperienceClick={() =>
                 route.name === 'track'
                   ? scrollToSection(experienceRef)
                   : navigateTrack(activeTrackId, 'experience')
+              }
+              onCompetenciesClick={() =>
+                route.name === 'track'
+                  ? scrollToSection(competenciesRef)
+                  : navigateTrack(activeTrackId, 'competencies')
               }
               onTechClick={() =>
                 route.name === 'track'
@@ -269,6 +292,11 @@ function App() {
                 route.name === 'track'
                   ? scrollToSection(projectsRef)
                   : navigateTrack(activeTrackId, 'projects')
+              }
+              onOtherProjectsClick={() =>
+                route.name === 'track'
+                  ? scrollToOtherProjects()
+                  : navigateTrack(activeTrackId, 'otherProjects')
               }
               onAwardsClick={() =>
                 route.name === 'track'
@@ -283,10 +311,12 @@ function App() {
                 <div ref={experienceRef} style={{ width: '100%' }}>
                   <Experience language={language} />
                 </div>
-                <CoreCompetencies
-                  language={language}
-                  trackData={activeTrackData}
-                />
+                <div ref={competenciesRef} style={{ width: '100%' }}>
+                  <CoreCompetencies
+                    language={language}
+                    trackData={activeTrackData}
+                  />
+                </div>
                 <div ref={techsRef} style={{ width: '100%' }}>
                   <Techs language={language} trackData={activeTrackData} />
                 </div>
@@ -309,8 +339,8 @@ function App() {
                   onClick={() => navigateTrack(activeTrackId, 'projects')}
                 >
                   {language === 'ko'
-                    ? `← ${getText(language, activeTrackData.navTitle)} 프로젝트 목록으로`
-                    : `← Back to ${getText(language, activeTrackData.navTitle)} Projects`}
+                    ? `← 프로젝트 목록으로 돌아가기`
+                    : `← Back to Projects`}
                 </button>
                 <DetailProjects
                   language={language}
@@ -321,7 +351,7 @@ function App() {
 
             <Footer
               language={language}
-              onPortalClick={() => navigateTo({ name: 'portal' })}
+              onPortalClick={scrollToTop}
               onProjectsClick={() => navigateTrack(activeTrackId, 'projects')}
             />
           </>

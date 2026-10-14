@@ -5,44 +5,46 @@ import type { TrackId } from '../../data/tracks';
 
 interface HeaderProps {
   language: Language;
-  currentTrack: TrackId;
+  currentTrack?: TrackId;
   onLanguageChange: (language: Language) => void;
-  onTrackChange: (track: TrackId | 'portal') => void;
+  onTrackChange?: (track: TrackId | 'portal') => void;
+  onLogoClick?: () => void;
   onExperienceClick?: () => void;
+  onCompetenciesClick?: () => void;
   onTechClick: () => void;
   onProjectClick: () => void;
+  onOtherProjectsClick?: () => void;
   onAwardsClick: () => void;
   onPdfClick: () => void;
 }
 
 export const Header = ({
   language,
-  currentTrack,
   onLanguageChange,
-  onTrackChange,
+  onLogoClick,
   onExperienceClick,
+  onCompetenciesClick,
   onTechClick,
   onProjectClick,
+  onOtherProjectsClick,
   onAwardsClick,
   onPdfClick,
 }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const labels = {
+    brandName: language === 'ko' ? '이민우' : 'Minwoo Lee',
+    brandRole: language === 'ko' ? 'C++ Vision & Systems' : 'C++ Vision & Systems',
     experience: language === 'ko' ? '경력' : 'Experience',
-    tech: language === 'ko' ? '기술' : 'Tech',
-    project: language === 'ko' ? '프로젝트' : 'Projects',
+    competencies: language === 'ko' ? '핵심 역량' : 'Competencies',
+    tech: language === 'ko' ? '기술 스택' : 'Tech Stack',
+    project: language === 'ko' ? '핵심 프로젝트' : 'Core Projects',
+    otherProjects: language === 'ko' ? '기타 프로젝트' : 'Other Projects',
     awards: language === 'ko' ? '수상 및 연구' : 'Awards',
-    pdf: language === 'ko' ? 'PDF 다운로드' : 'Download PDF',
+    pdf: language === 'ko' ? '이력서 PDF' : 'Resume PDF',
     blog: language === 'ko' ? '블로그' : 'Blog',
     menu: language === 'ko' ? '메뉴 토글' : 'Toggle menu',
     language: language === 'ko' ? '언어' : 'Language',
-    trackSelect: language === 'ko' ? '트랙 선택' : 'Track',
-    portalOption: language === 'ko' ? '포트폴리오 홈' : 'Portfolio Home',
-    cvOption: 'Computer Vision & C++',
-    aiOption: 'Edge AI & AI Systems',
-    appOption: 'Mobile Applications',
-    seOption: 'Web & Full-Stack Projects',
   };
 
   const handleMenuClick = (callback?: () => void) => {
@@ -55,12 +57,12 @@ export const Header = ({
       <div className={styles.leftSection}>
         <div
           className={styles.dots}
-          onClick={() => onTrackChange('portal')}
-          title={labels.portalOption}
+          onClick={onLogoClick}
+          title={labels.brandName}
           role='button'
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') onTrackChange('portal');
+            if (e.key === 'Enter' || e.key === ' ') onLogoClick?.();
           }}
         >
           <div className={styles.dot} />
@@ -68,20 +70,17 @@ export const Header = ({
           <div className={styles.dot} />
         </div>
 
-        <div className={styles.desktopTrackSwitcher}>
-          <select
-            value={currentTrack}
-            onChange={(e) =>
-              onTrackChange(e.target.value as TrackId | 'portal')
-            }
-            aria-label={labels.trackSelect}
-          >
-            <option value='portal'>{labels.portalOption}</option>
-            <option value='computer-vision'>{labels.cvOption}</option>
-            <option value='ai-service-engineer'>{labels.aiOption}</option>
-            <option value='app-dev'>{labels.appOption}</option>
-            <option value='software-engineer'>{labels.seOption}</option>
-          </select>
+        <div
+          className={styles.brandTitle}
+          onClick={onLogoClick}
+          role='button'
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') onLogoClick?.();
+          }}
+        >
+          {labels.brandName}
+          <span>| {labels.brandRole}</span>
         </div>
       </div>
 
@@ -95,24 +94,6 @@ export const Header = ({
       </button>
 
       <div className={`${styles.selectTab} ${isOpen ? styles.open : ''}`}>
-        <div className={styles.trackSelectMobile}>
-          <label htmlFor='mobile-track-select'>{labels.trackSelect}</label>
-          <select
-            id='mobile-track-select'
-            value={currentTrack}
-            onChange={(e) => {
-              onTrackChange(e.target.value as TrackId | 'portal');
-              setIsOpen(false);
-            }}
-          >
-            <option value='portal'>{labels.portalOption}</option>
-            <option value='computer-vision'>{labels.cvOption}</option>
-            <option value='ai-service-engineer'>{labels.aiOption}</option>
-            <option value='app-dev'>{labels.appOption}</option>
-            <option value='software-engineer'>{labels.seOption}</option>
-          </select>
-        </div>
-
         <label className={styles.languageSelector}>
           <select
             value={language}
@@ -136,6 +117,18 @@ export const Header = ({
             {labels.experience}
           </div>
         )}
+
+        {onCompetenciesClick && (
+          <div
+            className={styles.tab}
+            onClick={() => handleMenuClick(onCompetenciesClick)}
+            role='button'
+            tabIndex={0}
+          >
+            {labels.competencies}
+          </div>
+        )}
+
         <div
           className={styles.tab}
           onClick={() => handleMenuClick(onTechClick)}
@@ -144,6 +137,7 @@ export const Header = ({
         >
           {labels.tech}
         </div>
+
         <div
           className={styles.tab}
           onClick={() => handleMenuClick(onProjectClick)}
@@ -152,6 +146,18 @@ export const Header = ({
         >
           {labels.project}
         </div>
+
+        {onOtherProjectsClick && (
+          <div
+            className={styles.tab}
+            onClick={() => handleMenuClick(onOtherProjectsClick)}
+            role='button'
+            tabIndex={0}
+          >
+            {labels.otherProjects}
+          </div>
+        )}
+
         <div
           className={styles.tab}
           onClick={() => handleMenuClick(onAwardsClick)}
@@ -160,6 +166,7 @@ export const Header = ({
         >
           {labels.awards}
         </div>
+
         <button
           type='button'
           className={`${styles.tab} ${styles.pdfButton}`}
@@ -167,6 +174,7 @@ export const Header = ({
         >
           {labels.pdf}
         </button>
+
         <a
           className={styles.tab}
           href='https://lmw1119.tistory.com/'
