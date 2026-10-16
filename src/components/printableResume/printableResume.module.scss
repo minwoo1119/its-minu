@@ -3,140 +3,393 @@
 }
 
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
   .printRoot {
     display: block;
     width: 100%;
-    color: #111827;
+    color: #0f172a;
     font-family:
-      -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    line-height: 1.45;
+      'Pretendard',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Apple SD Gothic Neo',
+      'Malgun Gothic',
+      'Segoe UI',
+      sans-serif;
+    line-height: 1.42;
     word-break: keep-all;
+    box-sizing: border-box;
+    font-size: 9pt;
   }
 
+  /* 1. Header (Identity & Contact) */
   .header {
-    display: grid;
-    grid-template-columns: 0.9fr 1.5fr;
-    gap: 1.2rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 2px solid #1f2937;
-
-    h1 {
-      margin: 0;
-      font-size: 1.85rem;
-      line-height: 1.1;
-      color: #0f172a;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #0f172a;
+    break-inside: avoid;
   }
 
-  .role {
-    margin-top: 0.25rem;
-    color: #005ecb;
+  .identityArea {
+    flex: 1 1 auto;
+  }
+
+  .nameRow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .name {
+    margin: 0;
+    font-size: 1.85rem;
+    font-weight: 850;
+    line-height: 1.1;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+
+  .nameEn {
     font-size: 0.95rem;
-    font-weight: 800;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .roleBadge {
+    display: inline-block;
+    margin: 0.35rem 0 0.4rem;
+    padding: 0.2rem 0.6rem;
+    background: #eaf2ff;
+    color: #004ea8;
+    border: 1px solid #bfd7ff;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 750;
+    letter-spacing: -0.01em;
   }
 
   .bio {
     margin: 0;
     color: #334155;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    max-width: 34rem;
   }
 
+  .contactCard {
+    flex: 0 0 auto;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.73rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    min-width: 13.5rem;
+  }
+
+  .contactItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .contactLabel {
+    font-weight: 700;
+    color: #004ea8;
+    width: 3.5rem;
+    flex-shrink: 0;
+  }
+
+  .contactValue {
+    color: #1e293b;
+    font-weight: 500;
+  }
+
+  /* 2. Common Section Styling */
   .section {
-    margin-top: 0.8rem;
-    break-inside: avoid;
+    margin-top: 0.68rem;
+    break-inside: avoid-page;
+  }
 
-    h2 {
-      margin: 0 0 0.35rem;
-      color: #0f172a;
-      font-size: 0.9rem;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      border-bottom: 1px solid #cbd5e1;
-      padding-bottom: 0.18rem;
-    }
+  .sectionTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-bottom: 1.5px solid #cbd5e1;
+    padding-bottom: 0.22rem;
+    margin-bottom: 0.45rem;
+    break-after: avoid;
+  }
 
-    ul {
-      margin: 0;
-      padding-left: 1rem;
-    }
+  .titleAccent {
+    width: 3.5px;
+    height: 13px;
+    background: #004ea8;
+    border-radius: 2px;
+  }
+
+  .sectionTitle {
+    margin: 0;
+    color: #0f172a;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .sectionSub {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.04em;
+    margin-left: 0.2rem;
+  }
+
+  /* 3. Bullet List (Summary) */
+  .bulletList {
+    margin: 0;
+    padding-left: 1.1rem;
 
     li {
-      margin-bottom: 0.18rem;
-      color: #334155;
-      font-size: 0.78rem;
-    }
-  }
-
-  .skillGrid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.45rem;
-  }
-
-  .skillCard {
-    border: 1px solid #dbe2ef;
-    border-radius: 6px;
-    padding: 0.45rem;
-    background: #f8fafc;
-
-    strong {
-      display: block;
       margin-bottom: 0.2rem;
-      color: #0f172a;
-      font-size: 0.74rem;
-    }
+      color: #334155;
+      font-size: 0.79rem;
+      line-height: 1.42;
 
-    span {
-      display: block;
-      color: #475569;
-      font-size: 0.7rem;
-      line-height: 1.35;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
-  .projectList {
+  /* 4. Experience & Projects Item Styling */
+  .itemList {
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
   }
 
-  .project {
+  .experienceCard,
+  .projectCard {
     break-inside: avoid;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
-    padding: 0.5rem 0.6rem;
-
-    ul {
-      margin-top: 0.25rem;
-    }
+    padding: 0.52rem 0.72rem;
+    background: #ffffff;
   }
 
-  .projectHeader {
+  .itemHeader {
     display: flex;
     justify-content: space-between;
-    gap: 0.75rem;
     align-items: baseline;
+    gap: 0.75rem;
+  }
 
-    h3 {
-      margin: 0;
-      color: #111827;
-      font-size: 0.82rem;
-      line-height: 1.25;
-    }
+  .companyGroup {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
 
-    span {
-      flex: 0 0 auto;
-      color: #005ecb;
-      font-size: 0.68rem;
-      font-weight: 800;
+  .companyName,
+  .projectName {
+    margin: 0;
+    color: #0f172a;
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .roleTag {
+    color: #004ea8;
+    font-size: 0.72rem;
+    font-weight: 750;
+    background: #eaf2ff;
+    padding: 0.08rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid #bfd7ff;
+  }
+
+  .periodBadge {
+    color: #475569;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .metaRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 0.25rem 0 0.3rem;
+    font-size: 0.73rem;
+    color: #475569;
+
+    strong {
+      color: #1e293b;
     }
   }
 
-  .tech {
-    margin: 0.2rem 0 0;
-    color: #1d4ed8;
-    font-size: 0.68rem;
-    font-weight: 700;
+  .expSummary {
+    margin: 0.25rem 0 0.35rem;
+    font-size: 0.77rem;
+    color: #334155;
+    line-height: 1.4;
+  }
+
+  .expBullets,
+  .projectBullets {
+    margin: 0;
+    padding-left: 1.1rem;
+
+    li {
+      margin-bottom: 0.16rem;
+      color: #334155;
+      font-size: 0.76rem;
+      line-height: 1.38;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .projectTech {
+    margin: 0.22rem 0 0.3rem;
+    color: #1e40af;
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .techBadge {
+    font-size: 0.62rem;
+    font-weight: 800;
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0.06rem 0.32rem;
+    border-radius: 3px;
+    border: 1px solid #bfdbfe;
+    text-transform: uppercase;
+  }
+
+  /* 5. Technical Skills Grid (2x2) */
+  .skillGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+
+  .skillCard {
+    break-inside: avoid;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0.45rem 0.65rem;
+    background: #f8fafc;
+  }
+
+  .skillHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.18rem;
+  }
+
+  .skillDot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #004ea8;
+  }
+
+  .skillTitle {
+    color: #0f172a;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .skillItems {
+    display: block;
+    color: #475569;
+    font-size: 0.72rem;
     line-height: 1.35;
+  }
+
+  /* 6. Bottom 2-Column Grid (Education & Awards) */
+  .bottomGrid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 0.85rem;
+    margin-top: 0.68rem;
+    break-inside: avoid;
+
+    .section {
+      margin-top: 0;
+    }
+  }
+
+  .bottomCard {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0.52rem 0.72rem;
+    background: #f8fafc;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .schoolHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.22rem;
+  }
+
+  .schoolName {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .periodText {
+    font-size: 0.7rem;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  .majorText {
+    font-size: 0.75rem;
+    color: #334155;
+    font-weight: 500;
+  }
+
+  .awardsList {
+    margin: 0;
+    padding-left: 1.1rem;
+
+    li {
+      margin-bottom: 0.2rem;
+      color: #334155;
+      font-size: 0.74rem;
+      line-height: 1.38;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
