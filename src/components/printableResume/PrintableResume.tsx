@@ -127,7 +127,6 @@ export const PrintableResume = ({
       {/* 2. Professional Summary */}
       <section className={styles.section}>
         <div className={styles.sectionTitleRow}>
-          <div className={styles.titleAccent} />
           <h2 className={styles.sectionTitle}>{labels.summary}</h2>
           <span className={styles.sectionSub}>{labels.summarySub}</span>
         </div>
@@ -141,7 +140,6 @@ export const PrintableResume = ({
       {/* 3. Work Experience */}
       <section className={styles.section}>
         <div className={styles.sectionTitleRow}>
-          <div className={styles.titleAccent} />
           <h2 className={styles.sectionTitle}>{labels.experience}</h2>
           <span className={styles.sectionSub}>{labels.experienceSub}</span>
         </div>
@@ -188,7 +186,6 @@ export const PrintableResume = ({
       {/* 4. Technical Skills (2x2 Grid) */}
       <section className={styles.section}>
         <div className={styles.sectionTitleRow}>
-          <div className={styles.titleAccent} />
           <h2 className={styles.sectionTitle}>{labels.skills}</h2>
           <span className={styles.sectionSub}>{labels.skillsSub}</span>
         </div>
@@ -208,7 +205,6 @@ export const PrintableResume = ({
       {/* 5. Featured Projects */}
       <section className={styles.section}>
         <div className={styles.sectionTitleRow}>
-          <div className={styles.titleAccent} />
           <h2 className={styles.sectionTitle}>{labels.projects}</h2>
           <span className={styles.sectionSub}>{labels.projectsSub}</span>
         </div>
@@ -237,7 +233,6 @@ export const PrintableResume = ({
       <div className={styles.bottomGrid}>
         <section className={styles.section}>
           <div className={styles.sectionTitleRow}>
-            <div className={styles.titleAccent} />
             <h2 className={styles.sectionTitle}>{labels.education}</h2>
             <span className={styles.sectionSub}>{labels.educationSub}</span>
           </div>
@@ -257,7 +252,6 @@ export const PrintableResume = ({
         {content.research.length > 0 && (
           <section className={styles.section}>
             <div className={styles.sectionTitleRow}>
-              <div className={styles.titleAccent} />
               <h2 className={styles.sectionTitle}>{labels.awards}</h2>
               <span className={styles.sectionSub}>{labels.awardsSub}</span>
             </div>
