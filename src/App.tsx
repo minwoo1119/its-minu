@@ -48,17 +48,27 @@ const normalizeTrackSegment = (segment: string): TrackId | null => {
   return null;
 };
 
-const getCurrentRoute = (): Route => {
+const getRelativePathname = (): string => {
   const baseUrl = import.meta.env.BASE_URL.replace(/\/+$/, '');
   const pathname = window.location.pathname.replace(/\/+$/, '');
-  const hash = window.location.hash.replace(/^#\/?|\/$/g, '');
 
-  let relativePath = '';
   if (baseUrl && pathname.startsWith(baseUrl)) {
-    relativePath = pathname.slice(baseUrl.length).replace(/^\/+|\/+$/g, '');
-  } else {
-    relativePath = pathname.replace(/^\/+|\/+$/g, '');
+    return pathname.slice(baseUrl.length).replace(/^\/+|\/+$/g, '');
   }
+
+  return pathname.replace(/^\/+|\/+$/g, '');
+};
+
+const getLanguageFromPath = (): Language => {
+  const [languageSegment] = getRelativePathname().split('/');
+  return languageSegment === 'en' ? 'en' : 'ko';
+};
+
+const getCurrentRoute = (): Route => {
+  const hash = window.location.hash.replace(/^#\/?|\/$/g, '');
+  const relativePath = getRelativePathname()
+    .replace(/^(ko|en)(?:\/|$)/, '')
+    .replace(/^\/+|\/+$/g, '');
 
   // 1. Check hash route first (most robust for GitHub Pages)
   if (hash) {
@@ -120,24 +130,25 @@ const getCurrentRoute = (): Route => {
   return { name: 'track', trackId: 'computer-vision' };
 };
 
-const buildPath = (route: Route): string => {
-  const baseUrl = import.meta.env.BASE_URL.replace(/\/+$/, '') + '/';
+const buildPath = (route: Route, language: Language): string => {
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/+$/, '');
+  const languagePath = `${baseUrl}/${language}`;
 
   if (route.name === 'portal') {
-    return `${baseUrl}#/portal`;
+    return `${languagePath}/portal`;
   }
 
   if (route.name === 'track') {
     return route.trackId === 'computer-vision'
-      ? `${baseUrl}`
-      : `${baseUrl}#/${route.trackId}`;
+      ? languagePath
+      : `${languagePath}/${route.trackId}`;
   }
 
   if (route.name === 'projectDetail') {
-    return `${baseUrl}#/${route.trackId}/projects/${route.projectId}`;
+    return `${languagePath}/${route.trackId}/projects/${route.projectId}`;
   }
 
-  return baseUrl;
+  return languagePath;
 };
 
 function App() {
@@ -147,7 +158,9 @@ function App() {
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const awardsRef = useRef<HTMLDivElement | null>(null);
 
-  const [language, setLanguage] = useState<Language>('ko');
+  const [language, setLanguage] = useState<Language>(() =>
+    getLanguageFromPath(),
+  );
   const [route, setRoute] = useState<Route>(() => getCurrentRoute());
   const [pendingSection, setPendingSection] = useState<SectionKey | null>(null);
 
@@ -176,17 +189,22 @@ function App() {
   };
 
   const navigateTo = (nextRoute: Route) => {
-    const nextPath = buildPath(nextRoute);
+    const nextPath = buildPath(nextRoute, language);
+    const currentPath = `${window.location.pathname}${window.location.hash}`;
 
-    if (
-      window.location.hash !== nextPath &&
-      window.location.pathname !== nextPath
-    ) {
+    if (currentPath !== nextPath) {
       window.history.pushState({}, '', nextPath);
     }
 
     setRoute(nextRoute);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLanguageChange = (nextLanguage: Language) => {
+    if (nextLanguage === language) return;
+
+    window.history.pushState({}, '', buildPath(route, nextLanguage));
+    setLanguage(nextLanguage);
   };
 
   const navigateTrack = (trackId: TrackId, section?: SectionKey) => {
@@ -217,6 +235,15 @@ function App() {
   }, [language]);
 
   useEffect(() => {
+    const canonicalPath = buildPath(route, language);
+    const currentPath = `${window.location.pathname}${window.location.hash}`;
+
+    if (currentPath !== canonicalPath) {
+      window.history.replaceState({}, '', canonicalPath);
+    }
+  }, [language, route]);
+
+  useEffect(() => {
     if (route.name === 'portal') {
       document.title =
         language === 'ko'
@@ -243,6 +270,7 @@ function App() {
 
   useEffect(() => {
     const handlePopState = () => {
+      setLanguage(getLanguageFromPath());
       setRoute(getCurrentRoute());
       setPendingSection(null);
       window.scrollTo({ top: 0, behavior: 'auto' });
@@ -273,7 +301,7 @@ function App() {
         {route.name === 'portal' ? (
           <Portal
             language={language}
-            onLanguageChange={setLanguage}
+            onLanguageChange={handleLanguageChange}
             onSelectTrack={(trackId) => navigateTrack(trackId)}
           />
         ) : (
@@ -281,7 +309,7 @@ function App() {
             <Header
               language={language}
               currentTrack={activeTrackId}
-              onLanguageChange={setLanguage}
+              onLanguageChange={handleLanguageChange}
               onLogoClick={scrollToTop}
               onPdfClick={handlePdfDownload}
               onExperienceClick={() =>
