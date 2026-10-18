@@ -48,32 +48,32 @@ export const experienceData: ExperienceItem[] = [
     techStack: [
       'C++',
       'MFC',
-      'OpenCV',
-      'HALCON',
+      'Python',
+      'React / TypeScript',
+      'C# / .NET',
+      'WebSocket',
       'Multithreading',
-      'Visual Studio',
-      'Win32',
     ],
     summary: {
-      ko: '산업용 머신비전 검사장비의 C++/MFC 소프트웨어를 개발 및 유지보수하고 있습니다. 생산 라인에 투입되는 비전 검사 장비의 기존 대규모 C++ 코드베이스를 분석하고, 멀티스레드 기반 실시간 영상 수집 및 정밀 영상처리/검사 알고리즘을 개발하고 있습니다.',
-      en: 'Developing and maintaining industrial machine vision inspection software in C++/MFC. Analyzing large-scale legacy C++ codebases, implementing multi-threaded real-time acquisition pipelines, and engineering high-precision image processing and defect inspection algorithms.',
+      ko: '산업용 비전 검사 소프트웨어와 설비 운영 플랫폼을 개발하고 있습니다. 기존 C++/MFC 검사 흐름의 기능 확장과 안정화, 설비 Client 통신, 관리자 Web 및 검사 데이터 분석 기능을 담당합니다.',
+      en: 'Developing industrial vision inspection software and an equipment operations platform, spanning C++/MFC feature work and stabilization, equipment-client communication, admin web UI, and inspection-data analytics.',
     },
     responsibilities: [
       {
-        ko: '산업용 비전 검사장비 C++/MFC 기반 소프트웨어 개발 및 대규모 레거시 코드베이스 분석·유지보수',
-        en: 'Developed C++/MFC software for industrial vision inspection equipment; analyzed and maintained large-scale legacy codebases.',
+        ko: 'C++/MFC 기반 검사 로직·ROI·결과 기록 기능 개발과 레거시 코드 분석',
+        en: 'Developing C++/MFC inspection logic, ROI and result-recording features while analyzing a legacy codebase.',
       },
       {
-        ko: '고속 멀티스레드 영상 수집(Frame Acquisition) 및 링 버퍼 파이프라인 분석과 안정성 개선',
-        en: 'Analyzed and maintained high-speed multi-threaded image acquisition and ring buffer pipelines.',
+        ko: '설비 Client TUI, WebSocket 통신, 설치·업데이트 및 운영 로그 흐름 구현',
+        en: 'Implementing an equipment-client TUI, WebSocket communication, packaging, updates, and operational logging.',
       },
       {
-        ko: 'OpenCV / HALCON 기반 정밀 영상처리, 결함 검출(Defect Inspection) 및 계측 알고리즘 개발',
-        en: 'Engineered high-precision image processing, defect inspection, and measurement algorithms using OpenCV and HALCON.',
+        ko: '관리자 Web UI와 검사 로그·이미지 수집·결함 분포 분석 기능 연계',
+        en: 'Connecting the admin web UI with inspection logs, image collection, and defect-distribution analytics.',
       },
       {
-        ko: '인라인 검사 장비의 실시간성 보장을 위한 스레드 동기화 최적화 및 현장 이슈 디버깅',
-        en: 'Optimized thread synchronization for real-time line inspection and resolved on-site runtime issues.',
+        ko: '멀티스레드 환경의 UI 프리징과 Heap Corruption 등 실행 안정성 이슈 분석·개선',
+        en: 'Investigating and improving runtime stability issues including UI freezing and heap corruption in multi-threaded paths.',
       },
     ],
     note: {

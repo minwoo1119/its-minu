@@ -29,10 +29,14 @@ export const Projects = ({
   }, [trackData.id]);
 
   // Main Projects Filtering
+  const mainProjectItems =
+    trackData.id === 'computer-vision'
+      ? projects.items.filter((project) => project.id !== 4)
+      : projects.items;
   const filteredMainProjects =
     selectedMainCategory === 'all'
-      ? projects.items
-      : projects.items.filter((p) => p.category === selectedMainCategory);
+      ? mainProjectItems
+      : mainProjectItems.filter((p) => p.category === selectedMainCategory);
 
   // Other Projects Filtering
   const otherConfig = projects.otherProjects;
@@ -57,11 +61,27 @@ export const Projects = ({
     <div className={styles.container}>
       {/* 1. Main Projects Section */}
       <div className={styles.subText}>
-        {getText(language, projects.subText)}
+        {trackData.id === 'computer-vision'
+          ? language === 'ko'
+            ? 'Independent · Research · Applied Engineering'
+            : 'Independent · Research · Applied Engineering'
+          : getText(language, projects.subText)}
       </div>
       <div className={styles.titleText}>
-        {getText(language, projects.titleText)}
+        {trackData.id === 'computer-vision'
+          ? language === 'ko'
+            ? 'Other Selected Projects'
+            : 'Other Selected Projects'
+          : getText(language, projects.titleText)}
       </div>
+
+      {trackData.id === 'computer-vision' && (
+        <p className={styles.sectionDescription}>
+          {language === 'ko'
+            ? '별도로 수행한 Edge AI, OCR, 영상 분석 프로젝트입니다. 실무 프로젝트의 하위 기능과 구분해 유지했습니다.'
+            : 'Independent Edge AI, OCR, and image-analysis projects, kept distinct from features within the professional case studies.'}
+        </p>
+      )}
 
       <SelectTabBar
         options={projects.categoryOptions}

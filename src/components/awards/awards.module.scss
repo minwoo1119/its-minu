@@ -14,13 +14,13 @@ $desktop: 1024px;
 }
 
 .container {
-  width: 90%;
-  max-width: 76rem;
+  width: min(calc(100% - (var(--page-gutter) * 2)), var(--content-max));
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
+  padding: var(--section-space) 0;
   box-sizing: border-box;
 }
 
@@ -28,14 +28,14 @@ $desktop: 1024px;
   color: #64748b;
   font-size: 0.95rem;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
 }
 
 .titleText {
   color: #0f172a;
   font-size: 2.2rem;
   font-weight: 800;
-  text-align: center;
+  text-align: left;
   margin-top: -0.5rem;
   margin-bottom: 1.5rem;
 

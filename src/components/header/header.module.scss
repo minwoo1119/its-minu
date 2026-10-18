@@ -2,9 +2,8 @@ $tablet: 768px;
 $desktop: 1024px;
 
 .container {
-  width: 90%;
-  max-width: 76rem;
-  padding: 1.2rem 1rem;
+  width: min(calc(100% - (var(--page-gutter) * 2)), var(--content-max));
+  padding: 1.2rem 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -56,7 +55,7 @@ $desktop: 1024px;
       display: none;
       letter-spacing: -0.01em;
 
-      @media (min-width: #{$tablet}) {
+      @media (min-width: 640px) {
         display: inline-block;
       }
 
@@ -96,7 +95,7 @@ $desktop: 1024px;
     cursor: pointer;
     color: #64748b;
 
-    @media (min-width: #{$tablet}) {
+    @media (min-width: 1180px) {
       display: none;
     }
   }
@@ -200,7 +199,7 @@ $desktop: 1024px;
       }
     }
 
-    @media (min-width: #{$tablet}) {
+    @media (min-width: 1180px) {
       display: flex;
       position: static;
       flex-direction: row;
@@ -208,7 +207,7 @@ $desktop: 1024px;
       background: none;
       box-shadow: none;
       padding: 0;
-      gap: 1.5rem;
+      gap: clamp(0.85rem, 1.6vw, 1.35rem);
       align-items: center;
 
       .trackSelectMobile {
@@ -217,12 +216,12 @@ $desktop: 1024px;
 
       .tab {
         padding: 0;
-        font-size: 0.95rem;
+        font-size: 0.88rem;
       }
 
       .pdfButton {
         padding: 0;
-        font-size: 0.95rem;
+        font-size: 0.88rem;
       }
     }
   }

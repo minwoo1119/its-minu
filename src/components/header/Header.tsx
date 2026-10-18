@@ -11,7 +11,7 @@ interface HeaderProps {
   onLogoClick?: () => void;
   onExperienceClick?: () => void;
   onCompetenciesClick?: () => void;
-  onTechClick: () => void;
+  onTechClick?: () => void;
   onProjectClick: () => void;
   onOtherProjectsClick?: () => void;
   onAwardsClick: () => void;
@@ -36,10 +36,10 @@ export const Header = ({
     brandName: language === 'ko' ? '이민우' : 'Minwoo Lee',
     brandRole: language === 'ko' ? 'C++ Vision & Systems' : 'C++ Vision & Systems',
     experience: language === 'ko' ? '경력' : 'Experience',
-    competencies: language === 'ko' ? '핵심 역량' : 'Competencies',
+    competencies: language === 'ko' ? '핵심 전문성' : 'Expertise',
     tech: language === 'ko' ? '기술 스택' : 'Tech Stack',
-    project: language === 'ko' ? '핵심 프로젝트' : 'Core Projects',
-    otherProjects: language === 'ko' ? '기타 프로젝트' : 'Other Projects',
+    project: language === 'ko' ? '실무 프로젝트' : 'Professional Work',
+    otherProjects: language === 'ko' ? '선별 프로젝트' : 'Selected Projects',
     awards: language === 'ko' ? '수상 및 연구' : 'Awards',
     pdf: language === 'ko' ? '이력서 PDF' : 'Resume PDF',
     blog: language === 'ko' ? '블로그' : 'Blog',
@@ -129,14 +129,16 @@ export const Header = ({
           </div>
         )}
 
-        <div
-          className={styles.tab}
-          onClick={() => handleMenuClick(onTechClick)}
-          role='button'
-          tabIndex={0}
-        >
-          {labels.tech}
-        </div>
+        {onTechClick && (
+          <div
+            className={styles.tab}
+            onClick={() => handleMenuClick(onTechClick)}
+            role='button'
+            tabIndex={0}
+          >
+            {labels.tech}
+          </div>
+        )}
 
         <div
           className={styles.tab}

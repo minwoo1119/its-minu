@@ -4,12 +4,12 @@
   padding: 6px;
   border-radius: 100px; /* 완전한 알약 형태 */
   width: fit-content;
-  margin: 2rem auto;
+  margin: 1.5rem 0;
   gap: 6px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 
   @media (max-width: 480px) {
-    width: 95%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     border-radius: 20px; /* 모바일 그리드 환경에서는 적절한 곡률 유지 */

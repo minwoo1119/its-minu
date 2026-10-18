@@ -727,20 +727,20 @@ export const tracksData: Record<TrackId, TrackData> = {
     ],
     intro: {
       title: {
-        ko: '실시간 컴퓨터 비전 및 시스템 SW를 구축하는 ',
-        en: 'Building Real-Time Computer Vision & Systems Software, ',
+        ko: '산업용 비전 검사 소프트웨어를 ',
+        en: 'I build and stabilize ',
       },
       role: {
-        ko: 'C++ 컴퓨터 비전 & 시스템 SW 엔지니어',
-        en: 'C++ Computer Vision & Systems Software Engineer',
+        ko: '개발하고 안정화합니다.',
+        en: 'industrial vision inspection software.',
       },
       name: {
-        ko: ' 이민우입니다.',
-        en: ' Minwoo Lee.',
+        ko: '',
+        en: '',
       },
       sub: {
-        ko: '산업용 비전 검사장비의 고속 C++/MFC 소프트웨어를 개발하며, 영상 수집 링 버퍼 파이프라인부터 OpenCV/HALCON 기반 서브픽셀 정밀 계측 및 결함 검출, TensorRT Edge AI 추론 가속까지 실시간 시스템을 구축해왔습니다. 결함 검출률 100%와 결정론적 초저지연 실행(Deterministic Low-Latency)을 지향하며, 향후 방위산업(Defense Systems), 로보틱스(Robotics), 스마트 팩토리 검사장비 등 미션 크리티컬한 고성능 시스템 소프트웨어와 알고리즘 최적화 영역으로 전문성을 지속 확장하고 있습니다.',
-        en: 'Developing high-speed C++/MFC software for industrial vision inspection systems, with hands-on expertise spanning real-time ring buffer pipelines, OpenCV/HALCON sub-pixel precision measurement, and TensorRT edge AI acceleration. Focused on deterministic low-latency execution and zero-defect reliability, actively advancing into mission-critical systems engineering across defense systems, robotics, and industrial automation.',
+        ko: 'C++/MFC 기반 검사 알고리즘부터 설비 운영 플랫폼과 데이터 분석 기능까지, 현장 문제를 해결하는 소프트웨어를 개발합니다.',
+        en: 'From C++/MFC inspection algorithms to equipment operations platforms and data analytics, I build software that addresses problems on the factory floor.',
       },
     },
     competencies: {
@@ -879,7 +879,6 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.pipetOcr('featured'),
         allCards.semParticle('featured'),
         allCards.sevenSegmentOcr('featured'),
-        allCards.qlogAnalyzer('featured'),
       ],
       otherProjects: {
         subText: {
@@ -1497,7 +1496,6 @@ export const tracksData: Record<TrackId, TrackData> = {
         allCards.joinUs('all'),
         allCards.babzip('all'),
         allCards.cakeWorkshop('all'),
-        allCards.qlogAnalyzer('all'),
       ],
     },
     printableResume: {

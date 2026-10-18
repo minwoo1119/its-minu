@@ -13,11 +13,11 @@ export const Intro = ({ language, trackData }: IntroProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>
+      <h1 className={styles.title}>
         {getText(language, intro.title)}
         <span>{getText(language, intro.role)}</span>
         {getText(language, intro.name)}
-      </div>
+      </h1>
       <div className={styles.sub}>{getText(language, intro.sub)}</div>
     </div>
   );

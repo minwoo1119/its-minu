@@ -9,10 +9,14 @@ import { Projects } from './components/projects/Projects';
 import { Techs } from './components/techs/Techs';
 import { Awards } from './components/awards/Awards';
 import { Experience } from './components/experience/Experience';
+import { ProfessionalWork } from './components/professionalWork/ProfessionalWork';
+import { ProfessionalProjectDetail } from './components/professionalProjectDetail/ProfessionalProjectDetail';
+import { CoreExpertise } from './components/coreExpertise/CoreExpertise';
 import { tracksData, type TrackId } from './data/tracks';
 import { projectsDetailData } from './data/projectsDetail';
+import { getProfessionalProject } from './data/professionalProjects';
 import styles from './App.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Language } from './i18n';
 import { getText } from './i18n';
 
@@ -158,14 +162,14 @@ function App() {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const scrollToOtherProjects = () => {
+  const scrollToOtherProjects = useCallback(() => {
     const el = document.getElementById('other-projects');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else if (projectsRef.current) {
-      scrollToSection(projectsRef);
+      projectsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -219,16 +223,23 @@ function App() {
           ? '이민우 | C++ 기반 실시간 컴퓨터 비전 & 시스템 SW 엔지니어'
           : 'Minwoo Lee | C++ Computer Vision & Systems Software Engineer';
     } else if (route.name === 'track') {
-      const role = getText(language, activeTrackData.intro.role);
+      const role =
+        activeTrackId === 'computer-vision'
+          ? language === 'ko'
+            ? '산업용 비전 검사 SW 엔지니어'
+            : 'Industrial Vision Software Engineer'
+          : getText(language, activeTrackData.intro.role);
       document.title = `${role} | 이민우 (Minwoo Lee)`;
     } else if (route.name === 'projectDetail') {
-      const project = projectsDetailData.find((p) => p.id === route.projectId);
+      const project =
+        getProfessionalProject(route.projectId) ??
+        projectsDetailData.find((p) => p.id === route.projectId);
       const title = project
         ? getText(language, project.title)
         : 'Project Detail';
       document.title = `${title} | 이민우 (Minwoo Lee)`;
     }
-  }, [route, language, activeTrackData]);
+  }, [route, language, activeTrackData, activeTrackId]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -254,7 +265,7 @@ function App() {
     else if (pendingSection === 'awards') scrollToSection(awardsRef);
 
     setPendingSection(null);
-  }, [pendingSection, route]);
+  }, [pendingSection, route, scrollToOtherProjects]);
 
   return (
     <div className={styles.container}>
@@ -283,10 +294,13 @@ function App() {
                   ? scrollToSection(competenciesRef)
                   : navigateTrack(activeTrackId, 'competencies')
               }
-              onTechClick={() =>
-                route.name === 'track'
-                  ? scrollToSection(techsRef)
-                  : navigateTrack(activeTrackId, 'techs')
+              onTechClick={
+                activeTrackId === 'computer-vision'
+                  ? undefined
+                  : () =>
+                      route.name === 'track'
+                        ? scrollToSection(techsRef)
+                        : navigateTrack(activeTrackId, 'techs')
               }
               onProjectClick={() =>
                 route.name === 'track'
@@ -311,22 +325,36 @@ function App() {
                 <div ref={experienceRef} style={{ width: '100%' }}>
                   <Experience language={language} />
                 </div>
-                <div ref={competenciesRef} style={{ width: '100%' }}>
-                  <CoreCompetencies
-                    language={language}
-                    trackData={activeTrackData}
-                  />
-                </div>
-                <div ref={techsRef} style={{ width: '100%' }}>
-                  <Techs language={language} trackData={activeTrackData} />
-                </div>
                 <div ref={projectsRef} style={{ width: '100%' }}>
+                  {activeTrackId === 'computer-vision' && (
+                    <ProfessionalWork
+                      language={language}
+                      onProjectClick={handleProjectOpen}
+                    />
+                  )}
                   <Projects
                     language={language}
                     trackData={activeTrackData}
                     onProjectClick={handleProjectOpen}
                   />
                 </div>
+                {activeTrackId === 'computer-vision' ? (
+                  <div ref={competenciesRef} style={{ width: '100%' }}>
+                    <CoreExpertise language={language} />
+                  </div>
+                ) : (
+                  <>
+                    <div ref={competenciesRef} style={{ width: '100%' }}>
+                      <CoreCompetencies
+                        language={language}
+                        trackData={activeTrackData}
+                      />
+                    </div>
+                    <div ref={techsRef} style={{ width: '100%' }}>
+                      <Techs language={language} trackData={activeTrackData} />
+                    </div>
+                  </>
+                )}
                 <div ref={awardsRef} style={{ width: '100%' }}>
                   <Awards language={language} />
                 </div>
@@ -342,10 +370,17 @@ function App() {
                     ? `← 프로젝트 목록으로 돌아가기`
                     : `← Back to Projects`}
                 </button>
-                <DetailProjects
-                  language={language}
-                  projectId={route.projectId}
-                />
+                {getProfessionalProject(route.projectId) ? (
+                  <ProfessionalProjectDetail
+                    language={language}
+                    project={getProfessionalProject(route.projectId)!}
+                  />
+                ) : (
+                  <DetailProjects
+                    language={language}
+                    projectId={route.projectId}
+                  />
+                )}
               </main>
             )}
 
