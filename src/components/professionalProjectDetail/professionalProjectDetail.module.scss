@@ -32,7 +32,7 @@
 .eyebrow,
 .sectionEyebrow {
   margin: 0;
-  color: #2563eb;
+  color: #64748b;
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -138,7 +138,7 @@
   border-bottom: 1px solid #dfe5ee;
 
   > span {
-    color: #2563eb;
+    color: #64748b;
     font-size: 0.7rem;
     font-weight: 800;
   }
@@ -170,7 +170,7 @@
   padding: 1.5rem 0;
   border-bottom: 1px solid #dfe5ee;
 
-  > span { color: #2563eb; font-size: 0.7rem; font-weight: 800; }
+  > span { color: #64748b; font-size: 0.7rem; font-weight: 800; }
   h3 { margin: 0; font-size: 1.05rem; }
   p { max-width: 48rem; margin: 0.55rem 0 0; color: #596779; font-size: 0.92rem; line-height: 1.75; word-break: keep-all; }
 
@@ -207,8 +207,8 @@
   header span {
     padding: 0.25rem 0.55rem;
     border-radius: 999px;
-    background: #edf6ff;
-    color: #1d5fbf;
+    background: #f2f5f9;
+    color: #435066;
     font-size: 0.7rem;
     font-weight: 750;
   }
@@ -231,7 +231,7 @@
     }
   }
 
-  dt { color: #2563eb; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
+  dt { color: #475569; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
   dd { margin: 0; color: #526071; font-size: 0.9rem; line-height: 1.7; word-break: keep-all; }
 }
 
@@ -257,7 +257,7 @@
       width: 0.4rem;
       height: 0.4rem;
       border-radius: 50%;
-      background: #2563eb;
+      background: #64748b;
     }
   }
 }
