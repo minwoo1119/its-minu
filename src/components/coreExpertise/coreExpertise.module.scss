@@ -1,7 +1,7 @@
 .container {
   width: min(calc(100% - (var(--page-gutter) * 2)), var(--content-max));
   margin: 0 auto;
-  padding: var(--section-space) 0;
+  padding: calc(var(--section-space) / 2) 0;
 }
 
 .heading {
@@ -9,17 +9,8 @@
   gap: 1rem;
   margin-bottom: 2rem;
 
-  > div > p {
-    margin: 0;
-    color: #2563eb;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
   h2 {
-    margin: 0.4rem 0 0;
+    margin: 0;
     color: #0f172a;
     font-size: clamp(1.9rem, 4vw, 3rem);
     line-height: 1.15;

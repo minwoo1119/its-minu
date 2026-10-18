@@ -6,10 +6,10 @@
   justify-content: start;
   align-items: flex-start;
   gap: 1rem;
-  padding: var(--section-space) 0;
+  padding: calc(var(--section-space) / 2) 0;
 
   @media (min-width: 768px) {
-    padding: var(--section-space) 0;
+    padding: calc(var(--section-space) / 2) 0;
   }
 
   .subText {

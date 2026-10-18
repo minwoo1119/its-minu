@@ -8,90 +8,64 @@ interface ProfessionalWorkProps {
   onProjectClick: (projectId: number) => void;
 }
 
-const SystemPreview = ({ projectId }: { projectId: number }) => {
-  const labels =
-    projectId === 30
-      ? ['Admin Web', 'App Server', 'Equipment Client', 'Inspection SW']
-      : ['Capture', 'Decision / ROI', 'Result', 'Record / Save'];
-
-  return (
-    <div className={styles.systemPreview} aria-hidden='true'>
-      <div className={styles.previewHeader}>
-        <span />
-        <span />
-        <span />
-        <b>{projectId === 30 ? 'SYSTEM MAP' : 'SOFTWARE FLOW'}</b>
-      </div>
-      <div className={styles.previewFlow}>
-        {labels.map((label, index) => (
-          <div className={styles.previewStep} key={label}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{label}</strong>
-          </div>
-        ))}
-      </div>
-      <div className={styles.previewSignal}>
-        <i />
-        <i />
-        <i />
-        <i />
-        <i />
-      </div>
-    </div>
-  );
-};
-
 export const ProfessionalWork = ({
   language,
   onProjectClick,
-}: ProfessionalWorkProps) => (
-  <section className={styles.container} aria-labelledby='professional-work-title'>
-    <header className={styles.sectionHeader}>
-      <div>
-        <p className={styles.eyebrow}>Featured Professional Work</p>
-        <h2 id='professional-work-title'>
-          {language === 'ko' ? '현장에서 만든 시스템' : 'Systems built for the field'}
-        </h2>
-      </div>
-      <p className={styles.sectionIntro}>
-        {language === 'ko'
-          ? '운영 플랫폼부터 C++ 검사 소프트웨어까지, 직접 구현하고 개선한 범위를 중심으로 정리했습니다.'
-          : 'From an operations platform to C++ inspection software, these case studies focus on the parts I implemented and improved.'}
-      </p>
-    </header>
+}: ProfessionalWorkProps) => {
+  const orderedProjects = [...professionalProjects].sort((a, b) => b.id - a.id);
 
-    <div className={styles.projectList}>
-      {professionalProjects.map((project) => (
-        <article className={styles.projectCard} key={project.id}>
-          <SystemPreview projectId={project.id} />
-          <div className={styles.projectCopy}>
-            <div className={styles.projectMeta}>
-              <span>Case {project.index}</span>
-              <span className={project.status === 'mixed' ? styles.progress : ''}>
-                {project.status === 'mixed'
-                  ? language === 'ko'
-                    ? '일부 진행 중'
-                    : 'Partly in progress'
-                  : language === 'ko'
-                    ? '구현 범위 정리'
-                    : 'Implemented scope'}
-              </span>
+  return (
+    <section className={styles.container} aria-labelledby='professional-work-title'>
+      <header className={styles.sectionHeader}>
+        <h2 id='professional-work-title'>
+          {language === 'ko' ? '주요 실무 프로젝트' : 'Professional Projects'}
+        </h2>
+        <p className={styles.sectionIntro}>
+          {language === 'ko'
+            ? '재직 중 수행한 기능 개발과 문제 해결 경험을 중심으로 정리했습니다.'
+            : 'Selected feature development and troubleshooting work completed in my current role.'}
+        </p>
+      </header>
+
+      <div className={styles.projectList}>
+        {orderedProjects.map((project) => (
+          <article className={styles.projectCard} key={project.id}>
+            <div className={styles.projectIntro}>
+              <div className={styles.projectHeading}>
+                <h3>{getText(language, project.title)}</h3>
+                {project.status === 'mixed' && (
+                  <span className={styles.status}>
+                    {language === 'ko' ? '일부 진행 중' : 'Partly in progress'}
+                  </span>
+                )}
+              </div>
+              <p className={styles.summary}>{getText(language, project.summary)}</p>
+              <div className={styles.techList} aria-label='Technology stack'>
+                {project.technologies.slice(0, 5).map((tech) => (
+                  <span key={tech}>{tech}</span>
+                ))}
+              </div>
             </div>
-            <p className={styles.projectEyebrow}>{getText(language, project.eyebrow)}</p>
-            <h3>{getText(language, project.title)}</h3>
-            <p className={styles.summary}>{getText(language, project.summary)}</p>
-            <div className={styles.techList} aria-label='Technology stack'>
-              {project.technologies.slice(0, 6).map((tech) => (
-                <span key={tech}>{tech}</span>
-              ))}
+
+            <div className={styles.contributionBlock}>
+              <p className={styles.contributionLabel}>
+                {language === 'ko' ? '직접 구현한 내용' : 'My contributions'}
+              </p>
+              <ul>
+                {project.cardContributions.map((item) => (
+                  <li key={getText(language, item)}>
+                    {getText(language, item)}
+                  </li>
+                ))}
+              </ul>
+              <button type='button' onClick={() => onProjectClick(project.id)}>
+                {language === 'ko' ? '프로젝트 상세 보기' : 'View project details'}
+                <span aria-hidden='true'>→</span>
+              </button>
             </div>
-            <button type='button' onClick={() => onProjectClick(project.id)}>
-              {language === 'ko' ? '케이스 스터디 보기' : 'View case study'}
-              <span aria-hidden='true'>→</span>
-            </button>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-);
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+};

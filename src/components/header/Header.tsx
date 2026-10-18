@@ -34,7 +34,7 @@ export const Header = ({
 
   const labels = {
     brandName: language === 'ko' ? '이민우' : 'Minwoo Lee',
-    brandRole: language === 'ko' ? 'C++ Vision & Systems' : 'C++ Vision & Systems',
+    brandRole: 'C++ Software Engineer',
     experience: language === 'ko' ? '경력' : 'Experience',
     competencies: language === 'ko' ? '핵심 전문성' : 'Expertise',
     tech: language === 'ko' ? '기술 스택' : 'Tech Stack',

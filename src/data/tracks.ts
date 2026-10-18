@@ -704,16 +704,16 @@ export const tracksData: Record<TrackId, TrackData> = {
     canonicalPath: '/computer-vision',
     aliases: ['computervision', 'vision', 'cv', 'cpp-vision'],
     navTitle: {
-      ko: 'C++ Vision & Systems',
-      en: 'C++ Vision & Systems',
+      ko: 'C++ Software Engineer',
+      en: 'C++ Software Engineer',
     },
     badge: {
-      ko: 'Primary Track · C++ / Vision / Systems',
-      en: 'Primary Track · C++ / Vision / Systems',
+      ko: 'Primary Track · C++ / Windows / Computer Vision',
+      en: 'Primary Track · C++ / Windows / Computer Vision',
     },
     portalDescription: {
-      ko: '산업용 비전 검사장비의 고속 C++/MFC 소프트웨어를 개발하며, 영상처리 파이프라인부터 Jetson 엣지 가속, 그리고 방산·로봇 지향 미션 크리티컬 시스템 SW로 확장',
-      en: 'Building high-performance C++/MFC industrial vision systems, scaling across real-time pipelines, Jetson edge AI acceleration, and defense/robotics systems.',
+      ko: 'C++/MFC 기반 Windows 애플리케이션 기능 개발, 기존 코드 개선, 멀티스레드 디버깅과 컴퓨터 비전 알고리즘 개발 경험',
+      en: 'Experience in C++/MFC Windows application development, existing-code improvement, multithreaded debugging, and computer vision algorithms.',
     },
     heroTags: [
       'C++',
@@ -727,20 +727,20 @@ export const tracksData: Record<TrackId, TrackData> = {
     ],
     intro: {
       title: {
-        ko: '산업용 비전 검사 소프트웨어를 ',
-        en: 'I build and stabilize ',
+        ko: 'C++ 기반 소프트웨어를 ',
+        en: 'I build and improve ',
       },
       role: {
-        ko: '개발하고 안정화합니다.',
-        en: 'industrial vision inspection software.',
+        ko: '개발하고 개선합니다.',
+        en: 'C++ software.',
       },
       name: {
         ko: '',
         en: '',
       },
       sub: {
-        ko: 'C++/MFC 기반 검사 알고리즘부터 설비 운영 플랫폼과 데이터 분석 기능까지, 현장 문제를 해결하는 소프트웨어를 개발합니다.',
-        en: 'From C++/MFC inspection algorithms to equipment operations platforms and data analytics, I build software that addresses problems on the factory floor.',
+        ko: 'Windows 애플리케이션의 기능 개발과 안정화, 멀티스레드 오류 분석, 컴퓨터 비전 알고리즘 및 데이터 플랫폼 개발을 경험했습니다.',
+        en: 'Experienced in Windows application development and stabilization, multithreaded error analysis, computer vision algorithms, and data-platform development.',
       },
     },
     competencies: {
@@ -749,8 +749,8 @@ export const tracksData: Record<TrackId, TrackData> = {
         en: 'Core Competencies',
       },
       title: {
-        ko: '핵심 역량 및 엔지니어링 지향점',
-        en: 'Core Competencies & Engineering Focus',
+        ko: '핵심 기술 역량',
+        en: 'Core Technical Skills',
       },
       items: [
         {
@@ -760,8 +760,8 @@ export const tracksData: Record<TrackId, TrackData> = {
             en: 'Real-Time Vision & High-Performance C++',
           },
           description: {
-            ko: 'C++/MFC 기반 산업용 비전 검사장비 소프트웨어 개발, 고속 영상 수집 링 버퍼 멀티스레드 동기화, 메모리 릭 제로 및 CPU 캐시 친화적 시스템 SW 설계',
-            en: 'Developing high-speed C++/MFC industrial vision software, multi-threaded ring buffer synchronization, zero-leak memory management, and cache-friendly systems architecture.',
+            ko: 'C++/MFC 기반 Windows 검사 소프트웨어의 기능을 개발하고 기존 코드의 처리 흐름을 분석·수정했습니다.',
+            en: 'Developed features for C++/MFC Windows inspection software and analyzed and modified existing execution flows.',
           },
         },
         {
@@ -789,12 +789,12 @@ export const tracksData: Record<TrackId, TrackData> = {
         {
           icon: 'C++',
           title: {
-            ko: 'Mission-Critical Reliability (방산·로봇·제조)',
-            en: 'Mission-Critical Reliability (Defense / Robotics / Manufacturing)',
+            ko: 'Debugging & Software Reliability',
+            en: 'Debugging & Software Reliability',
           },
           description: {
-            ko: '방위산업, 자율 로봇, 24/7 생산 라인의 무중단 연속 구동을 위한 강력한 예외 처리, 고속 IPC 통신 및 대규모 레거시 C++ 코드베이스 분석·유지보수',
-            en: 'Ensuring 24/7 mission-critical uptime for defense systems, robotics, and production lines through robust exception isolation, IPC, and large-scale legacy C++ refactoring.',
+            ko: '멀티스레드 처리 흐름과 로그를 추적해 UI 프리징을 개선하고 메모리 손상과 비정상 종료 원인을 분석하고 있습니다.',
+            en: 'Traced multithreaded execution and logs to address UI freezing and am investigating memory corruption and abnormal termination.',
           },
         },
       ],
@@ -815,13 +815,13 @@ export const tracksData: Record<TrackId, TrackData> = {
           en: 'Vision & Inspection',
         },
         systems: {
-          ko: 'Defense/Robotics & Tools (시스템/도구)',
+          ko: 'Systems & Integration (시스템/연동)',
           en: 'Systems & Infrastructure',
         },
       },
       subText: {
-        ko: 'C++/OpenCV/MFC 기반 고성능 실시간 비전 시스템을 코어로 하며, Jetson 엣지 가속과 임베디드·로봇·방산 지향 시스템 소프트웨어 및 메모리 최적화로 확장하고 있습니다.',
-        en: 'Anchored in high-performance C++/OpenCV/MFC real-time vision systems, scaling across Jetson edge acceleration, embedded robotics/defense systems, and low-level memory optimization.',
+        ko: 'C++/MFC 기반 Windows 소프트웨어 개발을 중심으로 컴퓨터 비전, 디버깅, 클라이언트·서버 연동 경험을 정리했습니다.',
+        en: 'C++/MFC Windows development with experience in computer vision, debugging, and client–server integration.',
       },
       stacks: {
         coreCpp: [
@@ -882,12 +882,12 @@ export const tracksData: Record<TrackId, TrackData> = {
       ],
       otherProjects: {
         subText: {
-          ko: '소프트웨어 엔지니어링 역량을 확장하며 수행한 온프레미스 AI/RAG 플랫폼, 모바일 실서비스 앱, 풀스택 웹 개발 및 학술 연구 프로젝트입니다.',
-          en: 'Complementary engineering endeavors spanning on-premise AI/RAG platforms, shipped production mobile apps, full-stack web platforms, and academic research.',
+          ko: 'Personal & Research Projects',
+          en: 'Personal & Research Projects',
         },
         titleText: {
-          ko: 'Other Projects & Experiments (기타 프로젝트 & 실험실)',
-          en: 'Other Projects & Experiments',
+          ko: '개인 및 연구 프로젝트',
+          en: 'Personal & Research Projects',
         },
         categoryOptions: ['all', 'ai', 'mobile', 'web'],
         categoryLabels: {
@@ -918,12 +918,12 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
     printableResume: {
       role: {
-        ko: 'C++ Computer Vision & Systems Software Engineer',
-        en: 'C++ Computer Vision & Systems Software Engineer',
+        ko: 'C++ Software Engineer (Windows & Computer Vision)',
+        en: 'C++ Software Engineer (Windows & Computer Vision)',
       },
       bio: {
-        ko: '산업용 비전 검사장비의 C++/MFC 소프트웨어를 개발하며, 영상 수집 링 버퍼 파이프라인부터 OpenCV/HALCON 기반 정밀 계측 및 TensorRT 엣지 가속까지 구축해온 실무 엔지니어 이민우입니다. 방위산업, 로보틱스, 지능형 검사 시스템 등 미션 크리티컬한 고성능 시스템 소프트웨어와 비전 알고리즘을 지향합니다.',
-        en: 'Developing C++/MFC software for industrial vision inspection equipment, with expertise spanning real-time ring buffers, OpenCV/HALCON precision measurement, and TensorRT edge AI acceleration, advancing toward mission-critical defense and robotics systems.',
+        ko: 'C++/MFC 기반 Windows 애플리케이션의 기능 개발과 기존 코드 개선, 멀티스레드 오류 분석, 컴퓨터 비전 알고리즘 및 시스템 연동을 수행해온 소프트웨어 엔지니어 이민우입니다.',
+        en: 'A software engineer experienced in C++/MFC Windows application development, existing-code improvement, multithreaded error analysis, computer vision algorithms, and system integration.',
       },
       summary: [
         {

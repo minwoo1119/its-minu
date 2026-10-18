@@ -226,8 +226,8 @@ function App() {
       const role =
         activeTrackId === 'computer-vision'
           ? language === 'ko'
-            ? '산업용 비전 검사 SW 엔지니어'
-            : 'Industrial Vision Software Engineer'
+            ? 'C++ 소프트웨어 엔지니어'
+            : 'C++ Software Engineer'
           : getText(language, activeTrackData.intro.role);
       document.title = `${role} | 이민우 (Minwoo Lee)`;
     } else if (route.name === 'projectDetail') {

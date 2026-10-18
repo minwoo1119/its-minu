@@ -28,7 +28,6 @@ export const ProfessionalProjectDetail = ({
   <article className={styles.page}>
     <header className={styles.hero}>
       <div className={styles.heroTopline}>
-        <span>Case Study {project.index}</span>
         <span>{getText(language, project.period)}</span>
       </div>
       <p className={styles.eyebrow}>{getText(language, project.eyebrow)}</p>
@@ -50,7 +49,7 @@ export const ProfessionalProjectDetail = ({
       <div className={styles.sectionIndex}>01</div>
       <div className={styles.sectionBody}>
         <p className={styles.sectionEyebrow}>Problem & Context</p>
-        <h2>{language === 'ko' ? '왜 이 시스템이 필요했는가' : 'Why the system was needed'}</h2>
+        <h2>{language === 'ko' ? '개발 배경' : 'Development context'}</h2>
         <p className={styles.bodyCopy}>{getText(language, project.context)}</p>
       </div>
     </section>
@@ -62,7 +61,13 @@ export const ProfessionalProjectDetail = ({
           {project.id === 30 ? 'System Architecture' : 'Software Flow'}
         </p>
         <h2>
-          {language === 'ko' ? '공개 가능한 수준의 구조' : 'Public conceptual architecture'}
+          {language === 'ko'
+            ? project.id === 30
+              ? '시스템 구성'
+              : '소프트웨어 처리 흐름'
+            : project.id === 30
+              ? 'System architecture'
+              : 'Software processing flow'}
         </h2>
         <div className={styles.architecture}>
           {project.architecture.map((step, index) => (
@@ -101,7 +106,7 @@ export const ProfessionalProjectDetail = ({
       <div className={styles.sectionIndex}>04</div>
       <div className={styles.sectionBody}>
         <p className={styles.sectionEyebrow}>Engineering Challenges</p>
-        <h2>{language === 'ko' ? '문제를 다룬 방식' : 'How the problems were approached'}</h2>
+        <h2>{language === 'ko' ? '오류 분석 및 개선 과정' : 'Investigation and improvements'}</h2>
         <div className={styles.challengeList}>
           {project.challenges.map((challenge) => (
             <article className={styles.challenge} key={getText(language, challenge.title)}>
@@ -148,7 +153,7 @@ export const ProfessionalProjectDetail = ({
       <div className={styles.sectionIndex}>06</div>
       <div className={styles.sectionBody}>
         <p className={styles.sectionEyebrow}>Reflection</p>
-        <h2>{language === 'ko' ? '배운 점과 한계' : 'Lessons and boundaries'}</h2>
+        <h2>{language === 'ko' ? '개발 과정에서 확인한 점' : 'Engineering notes'}</h2>
         <p className={styles.bodyCopy}>{getText(language, project.reflection)}</p>
       </div>
     </section>

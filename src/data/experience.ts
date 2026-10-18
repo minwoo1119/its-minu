@@ -55,8 +55,8 @@ export const experienceData: ExperienceItem[] = [
       'Multithreading',
     ],
     summary: {
-      ko: '산업용 비전 검사 소프트웨어와 설비 운영 플랫폼을 개발하고 있습니다. 기존 C++/MFC 검사 흐름의 기능 확장과 안정화, 설비 Client 통신, 관리자 Web 및 검사 데이터 분석 기능을 담당합니다.',
-      en: 'Developing industrial vision inspection software and an equipment operations platform, spanning C++/MFC feature work and stabilization, equipment-client communication, admin web UI, and inspection-data analytics.',
+      ko: 'C++/MFC 기반 검사 소프트웨어와 설비 운영 플랫폼의 기능 개발을 담당하고 있습니다. 검사 로직과 로깅 구조를 개선하고, 설비 클라이언트 통신·관리 UI·데이터 분석 기능을 개발했습니다.',
+      en: 'Developing features for C++/MFC inspection software and an equipment operations platform. Improved inspection logic and logging structures and developed equipment-client communication, admin UI, and data-analysis features.',
     },
     responsibilities: [
       {

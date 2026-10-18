@@ -3,9 +3,9 @@ a {
 }
 
 :root {
-  --content-max: 76rem;
+  --content-max: 70rem;
   --page-gutter: clamp(1.25rem, 5vw, 3rem);
-  --section-space: clamp(4.5rem, 8vw, 7rem);
+  --section-space: clamp(4rem, 7vw, 6rem);
 }
 
 html {

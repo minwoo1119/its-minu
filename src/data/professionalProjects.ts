@@ -11,6 +11,7 @@ export interface ProfessionalProject {
   status: ProfessionalProjectStatus;
   period: LocalizedText;
   technologies: string[];
+  cardContributions: LocalizedText[];
   context: LocalizedText;
   architecture: {
     label: LocalizedText;
@@ -36,16 +37,16 @@ export const professionalProjects: ProfessionalProject[] = [
     id: 30,
     index: '01',
     title: {
-      ko: '산업용 비전 검사 통합 관리 플랫폼',
-      en: 'Industrial Vision Management & Analytics Platform',
+      ko: '설비 운영 및 데이터 분석 플랫폼 개발',
+      en: 'Equipment Operations & Analytics Platform',
     },
     summary: {
-      ko: '여러 비전 검사 설비를 연결하고 운영 현황, 검사 로그, 이미지 수집과 분석 흐름을 하나의 운영 경험으로 통합한 온프레미스 플랫폼입니다.',
-      en: 'An on-premise platform that connects vision inspection equipment and unifies operational status, inspection logs, image collection, and analytics workflows.',
+      ko: '설비 클라이언트와 관리 웹을 연동하고, 검사 데이터 수집·로그 분석·불량 분포 분석 기능을 구현했습니다.',
+      en: 'Connected equipment clients with an admin web application and implemented inspection-data collection, log analytics, and defect-distribution analysis.',
     },
     eyebrow: {
-      ko: 'Professional Work · On-premise Systems · Platform & Analytics',
-      en: 'Professional Work · On-premise Systems · Platform & Analytics',
+      ko: 'Client / Web · Data Analytics',
+      en: 'Client / Web · Data Analytics',
     },
     status: 'completed',
     period: { ko: '실무 프로젝트', en: 'Professional project' },
@@ -53,15 +54,30 @@ export const professionalProjects: ProfessionalProject[] = [
       'Python',
       'WebSocket',
       'React',
-      'TypeScript',
       'C# / .NET',
+      'Data Analytics',
+      'TypeScript',
       'HDBSCAN',
       'Gaussian KDE',
       'Velopack',
     ],
+    cardContributions: [
+      {
+        ko: 'Client TUI, Server–Client WebSocket 통신, 설치·업데이트 및 자동 실행 기능을 개발했습니다.',
+        en: 'Developed the client TUI, server–client WebSocket communication, installation and update packaging, and automatic startup.',
+      },
+      {
+        ko: 'Admin Web UI와 API를 연동하고 검사 이미지 수집, 생산 모니터링, 검사 로그 재집계 기능을 구현했습니다.',
+        en: 'Integrated the admin web UI with APIs and implemented image collection, production monitoring, and inspection-log reaggregation.',
+      },
+      {
+        ko: 'C# 기반 HDBSCAN·2D Gaussian KDE 분석 엔진을 구현하고 기존 검사 소프트웨어와 DLL로 연동했습니다.',
+        en: 'Implemented a C# analysis engine using HDBSCAN and 2D Gaussian KDE and integrated it with existing inspection software through a DLL.',
+      },
+    ],
     context: {
-      ko: '현장마다 분산된 검사 설비의 상태와 결과를 중앙에서 살펴보고, 필요한 이미지와 생산 로그를 일관된 흐름으로 수집·분석할 수 있어야 했습니다. 공개 페이지에서는 실제 제품명, 설비명, 통신 주소와 식별 규칙을 제외하고 시스템의 역할과 직접 구현한 범위만 설명합니다.',
-      en: 'Inspection equipment distributed across sites needed a central way to expose status and results while collecting images and production logs through a consistent workflow. This public case study omits product names, equipment identifiers, network details, and proprietary identifier rules.',
+      ko: '분산된 검사 설비의 상태와 결과를 관리 웹에서 확인하고, 이미지와 생산 로그를 일관된 흐름으로 수집·분석할 수 있는 시스템이 필요했습니다.',
+      en: 'The system needed to expose the status and results of distributed inspection equipment through an admin web application and collect images and production logs through a consistent workflow.',
     },
     architecture: [
       {
@@ -179,29 +195,29 @@ export const professionalProjects: ProfessionalProject[] = [
         en: 'Integrated log analytics and teaching/heatmap capabilities as connected platform features.',
       },
       {
-        ko: '측정되지 않은 처리량·성능 수치는 공개 성과로 사용하지 않았습니다.',
-        en: 'No unmeasured throughput or performance figures are presented as outcomes.',
+        ko: 'LOT 식별자 형식을 검증하고 비정상 값에 대한 경고 처리를 추가했습니다.',
+        en: 'Added LOT identifier-format validation and warnings for invalid values.',
       },
     ],
     reflection: {
-      ko: '현장 소프트웨어는 개별 기능뿐 아니라 설치, 재시작, 통신 복구, 로그 관찰 가능성까지 하나의 운영 경험으로 설계해야 한다는 점을 배웠습니다. 전체 플랫폼의 모든 영역을 개인 기여로 표현하지 않고, 직접 구현한 Client·Web·분석 연계 범위만 구분해 기록했습니다.',
-      en: 'The work reinforced that on-site software must treat installation, restart behavior, communication recovery, and observability as one operational experience. The case study distinguishes my client, web, and analytics integration work from the broader platform scope.',
+      ko: '설비 소프트웨어는 기능 구현뿐 아니라 설치, 재시작, 통신 복구와 로그 확인 과정까지 함께 고려해야 했습니다. 이 프로젝트에서는 Client, Web UI, 데이터 분석 연동을 중심으로 담당했습니다.',
+      en: 'Equipment software required installation, restart behavior, communication recovery, and log visibility to be considered alongside feature development. My work focused on the client, web UI, and data-analysis integration.',
     },
   },
   {
     id: 31,
     index: '02',
     title: {
-      ko: '산업용 비전 검사 SW 안정화 및 알고리즘 고도화',
-      en: 'Industrial Vision Software Stabilization & Algorithm Enhancement',
+      ko: 'Windows 기반 검사 소프트웨어 기능 개선 및 안정화',
+      en: 'Windows Inspection Software Development & Reliability',
     },
     summary: {
-      ko: '기존 Windows 비전 검사 소프트웨어의 판정 로직과 결과 기록을 개선하고, 이상 탐지 알고리즘과 실행 안정성 문제를 분석·개선하는 프로젝트입니다.',
-      en: 'Improving decision logic and result logging in an existing Windows vision inspection application while evaluating anomaly detection and runtime stability.',
+      ko: '기존 C++/MFC 애플리케이션의 검사 판정 기능과 결과 저장 구조를 개선하고, 실행 중 발생하는 오류를 분석했습니다.',
+      en: 'Improved inspection decisions and result-storage structures in an existing C++/MFC application and investigated runtime failures.',
     },
     eyebrow: {
-      ko: 'Professional Work · C++ / MFC · Computer Vision',
-      en: 'Professional Work · C++ / MFC · Computer Vision',
+      ko: 'C++ / MFC · Windows Software',
+      en: 'C++ / MFC · Windows Software',
     },
     status: 'mixed',
     period: { ko: '실무 프로젝트 · 일부 진행 중', en: 'Professional project · Partly in progress' },
@@ -215,9 +231,23 @@ export const professionalProjects: ProfessionalProject[] = [
       'PatchCore',
       'EfficientAD',
     ],
+    cardContributions: [
+      {
+        ko: '양품조건 ROI 기능을 개발하고 Variation 검사 결과를 별도로 기록하도록 로깅 구조를 수정했습니다.',
+        en: 'Developed the good-condition ROI feature and changed the logging structure to record Variation results separately.',
+      },
+      {
+        ko: '결과 저장 스레드에서 발생하는 Heap Corruption과 프로그램 비정상 종료의 원인을 분석·수정하고 있습니다.',
+        en: 'Investigating and correcting heap corruption and abnormal termination in the result-saving thread.',
+      },
+      {
+        ko: 'PatchCore와 EfficientAD 기반 이상 탐지 모델의 구조와 추론 특성을 비교하며 개선하고 있습니다.',
+        en: 'Comparing and improving PatchCore- and EfficientAD-based anomaly-detection models and their inference characteristics.',
+      },
+    ],
     context: {
-      ko: '장기간 운영되는 Windows 검사 프로그램에 새로운 검사 조건과 기록 체계를 추가하면서도 기존 판정 흐름과 실행 안정성을 보존해야 했습니다. 공개 페이지에는 내부 코드, 실제 검사 조건과 재현 데이터 없이 담당 범위와 확인된 상태만 정리합니다.',
-      en: 'A long-running Windows inspection application needed new inspection conditions and result records without compromising its established decision flow or runtime stability. This case study describes only the contribution scope and verified status, without internal code, inspection rules, or reproduction data.',
+      ko: '운영 중인 Windows 검사 프로그램에 새로운 검사 조건과 결과 기록 방식을 추가하면서 기존 판정 흐름과 실행 안정성을 함께 유지해야 했습니다.',
+      en: 'New inspection conditions and result-recording behavior had to be added to an operating Windows application while preserving its existing decision flow and runtime stability.',
     },
     architecture: [
       {

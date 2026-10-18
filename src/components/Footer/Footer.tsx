@@ -19,7 +19,7 @@ export const Footer = ({
           sns: 'SNS',
           quickLinks: '빠른 링크',
           portal: '포트폴리오 상단으로',
-          projects: '핵심 프로젝트',
+          projects: '주요 실무 프로젝트',
           blog: '기술 블로그',
           copyright: '© 2026 Minwoo Lee. All rights reserved.',
         }
@@ -28,7 +28,7 @@ export const Footer = ({
           sns: 'Social',
           quickLinks: 'Quick Links',
           portal: 'Back to Top',
-          projects: 'Core Projects',
+          projects: 'Professional Projects',
           blog: 'Tech Blog',
           copyright: '© 2026 Minwoo Lee. All rights reserved.',
         };

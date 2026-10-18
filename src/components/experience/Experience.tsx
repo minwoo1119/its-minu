@@ -11,18 +11,15 @@ export const Experience = ({ language }: ExperienceProps) => {
   const content =
     language === 'ko'
       ? {
-          subText: 'Professional Experience',
           titleText: '경력 사항',
         }
       : {
-          subText: 'Professional Experience',
           titleText: 'Work Experience',
         };
 
   return (
     <section className={styles.container}>
-      <div className={styles.subText}>{content.subText}</div>
-      <div className={styles.titleText}>{content.titleText}</div>
+      <h2 className={styles.titleText}>{content.titleText}</h2>
 
       <div className={styles.experienceList}>
         {experienceData.map((exp) => (

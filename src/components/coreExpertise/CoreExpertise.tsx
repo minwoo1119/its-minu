@@ -8,39 +8,39 @@ interface CoreExpertiseProps {
 const expertise = [
   {
     index: '01',
-    title: { ko: 'Vision Software', en: 'Vision Software' },
+    title: { ko: 'C++ & Windows Development', en: 'C++ & Windows Development' },
     description: {
-      ko: 'C++/MFC 기반 검사 흐름, ROI·판정 로직, OpenCV/HALCON 영상 처리',
-      en: 'C++/MFC inspection flows, ROI and decision logic, OpenCV/HALCON image processing',
+      ko: 'C++/MFC 애플리케이션의 검사 로직과 ROI 기능을 수정하고 Win32 및 DLL 연동 작업을 수행했습니다.',
+      en: 'Modified inspection logic and ROI features in C++/MFC applications and worked with Win32 and DLL integration.',
     },
-    tools: ['C++', 'MFC', 'OpenCV', 'HALCON'],
+    tools: ['C++', 'MFC', 'Windows', 'Win32', 'DLL'],
   },
   {
     index: '02',
-    title: { ko: 'Systems & Reliability', en: 'Systems & Reliability' },
+    title: { ko: 'Debugging & Reliability', en: 'Debugging & Reliability' },
     description: {
-      ko: 'Windows 멀티스레딩, 레거시 코드 분석, 통신·메모리 문제 디버깅',
-      en: 'Windows multithreading, legacy-code analysis, communication and memory debugging',
+      ko: '멀티스레드 처리 흐름과 로그를 추적하며 UI 프리징을 개선했고, 메모리 손상과 크래시 원인을 분석하고 있습니다.',
+      en: 'Traced multithreaded execution and logs to address UI freezing and am currently investigating memory corruption and crashes.',
     },
-    tools: ['Windows', 'Multithreading', 'Debugging', 'WebSocket'],
+    tools: ['Multithreading', 'Debugging', 'Log Analysis', 'Memory Diagnostics'],
   },
   {
     index: '03',
-    title: { ko: 'Platform & Analytics', en: 'Platform & Analytics' },
+    title: { ko: 'Computer Vision & Inference', en: 'Computer Vision & Inference' },
     description: {
-      ko: '설비 Client, React 관리자 UI, 검사 로그 집계와 결함 분포 시각화',
-      en: 'Equipment clients, React admin UI, inspection-log aggregation, and defect visualization',
+      ko: 'ROI와 영상 처리 기능을 구현하고 OpenCV 기반 분석, 이상 탐지 모델 비교와 추론 실험을 수행했습니다.',
+      en: 'Implemented ROI and image-processing features and evaluated OpenCV-based analysis and anomaly-detection inference.',
     },
-    tools: ['Python', 'React', 'TypeScript', 'C# / .NET'],
+    tools: ['OpenCV', 'ROI', 'PatchCore', 'EfficientAD', 'TensorRT'],
   },
   {
     index: '04',
-    title: { ko: 'Applied Vision AI', en: 'Applied Vision AI' },
+    title: { ko: 'Systems & Platform Integration', en: 'Systems & Platform Integration' },
     description: {
-      ko: '이상 탐지 구조 비교, ONNX/TensorRT 변환과 엣지 추론 실험',
-      en: 'Anomaly-detection evaluation, ONNX/TensorRT conversion, and edge-inference experiments',
+      ko: '설비 클라이언트와 서버 통신을 구현하고 Python·C#·React 기반 기능을 연동했습니다.',
+      en: 'Implemented equipment client–server communication and integrated features across Python, C#, and React.',
     },
-    tools: ['PatchCore', 'EfficientAD', 'ONNX', 'TensorRT'],
+    tools: ['WebSocket', 'Python', 'C# / .NET', 'React', 'TypeScript'],
   },
 ];
 
@@ -48,15 +48,14 @@ export const CoreExpertise = ({ language }: CoreExpertiseProps) => (
   <section className={styles.container} aria-labelledby='expertise-title'>
     <div className={styles.heading}>
       <div>
-        <p>Core Expertise</p>
         <h2 id='expertise-title'>
-          {language === 'ko' ? '문제를 끝까지 연결하는 기술' : 'Expertise across the full problem'}
+          {language === 'ko' ? '핵심 기술 역량' : 'Core Technical Skills'}
         </h2>
       </div>
       <span>
         {language === 'ko'
-          ? '도구 목록보다 실제로 연결해 온 엔지니어링 영역을 기준으로 정리했습니다.'
-          : 'Grouped by the engineering responsibilities I connect in practice, rather than a wall of tool icons.'}
+          ? '실무에서 직접 사용하거나 분석한 기술을 개발 업무 기준으로 정리했습니다.'
+          : 'Technologies I have used or evaluated directly, organized by engineering responsibility.'}
       </span>
     </div>
     <div className={styles.list}>

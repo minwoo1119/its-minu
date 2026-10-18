@@ -4,22 +4,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 1.6rem;
-  min-height: 32rem;
-  padding: 5rem 0 4rem;
+  gap: 1.25rem;
+  min-height: 25rem;
+  padding: 4.5rem 0 3.5rem;
 
   @media (min-width: 768px) {
-    padding: 6rem 0 5rem;
+    padding: 5rem 0 4rem;
   }
 
   @media (min-width: 1024px) {
-    padding: 7rem 0 6rem;
+    padding: 5.5rem 0 4.5rem;
   }
 
   .title {
     width: min(100%, 1050px);
     padding: 0;
-    font-size: clamp(2.25rem, 8vw, 4.8rem);
+    font-size: clamp(2.25rem, 7vw, 4.4rem);
     font-weight: 760;
     text-align: left;
     line-height: 1.07;
@@ -28,11 +28,11 @@
     overflow-wrap: break-word;
 
     @media (min-width: 768px) {
-      font-size: clamp(3.5rem, 6.5vw, 4.8rem);
+      font-size: clamp(3.3rem, 6vw, 4.4rem);
     }
 
     @media (min-width: 1024px) {
-      font-size: clamp(4rem, 5.5vw, 4.8rem);
+      font-size: clamp(3.8rem, 5.2vw, 4.4rem);
     }
 
     span {

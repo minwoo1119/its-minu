@@ -60,26 +60,19 @@ export const Projects = ({
   return (
     <div className={styles.container}>
       {/* 1. Main Projects Section */}
-      <div className={styles.subText}>
+      <h2 className={styles.titleText}>
         {trackData.id === 'computer-vision'
           ? language === 'ko'
-            ? 'Independent · Research · Applied Engineering'
-            : 'Independent · Research · Applied Engineering'
-          : getText(language, projects.subText)}
-      </div>
-      <div className={styles.titleText}>
-        {trackData.id === 'computer-vision'
-          ? language === 'ko'
-            ? 'Other Selected Projects'
-            : 'Other Selected Projects'
+            ? '컴퓨터 비전 프로젝트'
+            : 'Computer Vision Projects'
           : getText(language, projects.titleText)}
-      </div>
+      </h2>
 
       {trackData.id === 'computer-vision' && (
         <p className={styles.sectionDescription}>
           {language === 'ko'
-            ? '별도로 수행한 Edge AI, OCR, 영상 분석 프로젝트입니다. 실무 프로젝트의 하위 기능과 구분해 유지했습니다.'
-            : 'Independent Edge AI, OCR, and image-analysis projects, kept distinct from features within the professional case studies.'}
+            ? '별도로 수행한 Edge AI, OCR, 영상 분석 프로젝트입니다.'
+            : 'Independent projects in edge AI, OCR, and image analysis.'}
         </p>
       )}
 
@@ -111,12 +104,9 @@ export const Projects = ({
           <div className={styles.divider} />
 
           <section className={styles.otherSection} id='other-projects'>
-            <div className={styles.subText}>
-              {getText(language, otherConfig.subText)}
-            </div>
-            <div className={styles.titleText}>
+            <h2 className={styles.titleText}>
               {getText(language, otherConfig.titleText)}
-            </div>
+            </h2>
 
             <SelectTabBar
               options={otherConfig.categoryOptions}

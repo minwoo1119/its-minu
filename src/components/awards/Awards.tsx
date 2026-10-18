@@ -11,18 +11,15 @@ export const Awards = ({ language }: AwardsProps) => {
   const content =
     language === 'ko'
       ? {
-          subText: 'Honors & Academic Research',
           titleText: '수상 및 연구 실적',
         }
       : {
-          subText: 'Honors & Academic Research',
           titleText: 'Honors & Research',
         };
 
   return (
     <div className={styles.container}>
-      <div className={styles.subText}>{content.subText}</div>
-      <div className={styles.titleText}>{content.titleText}</div>
+      <h2 className={styles.titleText}>{content.titleText}</h2>
 
       <div className={styles.awardsList}>
         {awardsData.map((award) => (
