@@ -918,17 +918,21 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
     printableResume: {
       role: {
-        ko: 'C++ Software Engineer (Windows & Computer Vision)',
-        en: 'C++ Software Engineer (Windows & Computer Vision)',
+        ko: 'Vision Software R&D Engineer (C++ / Windows & Computer Vision)',
+        en: 'Vision Software R&D Engineer (C++ / Windows & Computer Vision)',
       },
       bio: {
-        ko: 'C++/MFC 기반 Windows 애플리케이션의 기능 개발과 기존 코드 개선, 멀티스레드 오류 분석, 컴퓨터 비전 알고리즘 및 시스템 연동을 수행해온 소프트웨어 엔지니어 이민우입니다.',
-        en: 'A software engineer experienced in C++/MFC Windows application development, existing-code improvement, multithreaded error analysis, computer vision algorithms, and system integration.',
+        ko: 'C++/MFC 기반 산업용 머신비전 검사 소프트웨어의 기능 개발·안정화와 설비 관리·결함 데이터 분석·AI 모델 학습·평가·운영을 지원하는 통합 플랫폼(Vision Intelligence Platform) 개발을 수행하고 있는 Vision Software R&D Engineer 이민우입니다.',
+        en: 'Vision Software R&D Engineer developing and stabilizing C++/MFC industrial machine vision inspection software and building an integrated Vision Intelligence Platform for equipment management, defect analytics, and AI model training, evaluation, and operations.',
       },
       summary: [
         {
-          ko: 'C++/MFC 기반 산업용 비전 검사장비 소프트웨어 개발 및 대규모 레거시 코드베이스 분석·유지보수 실무 수행 (Synapse Imaging)',
-          en: 'Developing C++/MFC software for industrial machine vision inspection equipment and maintaining large-scale codebases (Synapse Imaging).',
+          ko: '시냅스이미징(Synapse Imaging)에서 C++/MFC 기반 산업용 비전 검사 SW 기능 개발(양품조건 특수 ROI, LotResult Variation 분리 로깅) 및 멀티스레드 안정화·이상 탐지 R&D 수행',
+          en: 'Developing C++/MFC industrial vision inspection SW features (good-condition ROI, LotResult Variation logging), multi-threaded stabilization, and anomaly detection R&D at Synapse Imaging.',
+        },
+        {
+          ko: '공장 내부망 Vision Intelligence Platform(Monitoring·Teaching·Engineering) Full-Stack 개발: Python 설비 Client TUI, Windows Named Pipe IPC, HDBSCAN·Gaussian KDE 결함 분석, DINOv2/DINOv3 기반 AI Experiment Lab 구축',
+          en: 'Full-Stack development of the Vision Intelligence Platform (Monitoring, Teaching, Engineering): Python Client TUI, Windows Named Pipe IPC, C# HDBSCAN/KDE analytics, and DINOv2/DINOv3 AI Experiment Lab.',
         },
         {
           ko: 'PatchCore 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 C++ 실시간 추론 (14ms, 70 FPS)',
@@ -937,10 +941,6 @@ export const tracksData: Record<TrackId, TrackData> = {
         {
           ko: 'YOLO 및 CNN 모델의 ONNX 변환 및 TensorRT 최적화를 통한 추론 시간 73% 단축 (300ms → 80ms)',
           en: 'Accelerated YOLO/CNN inference by 73% (300ms -> 80ms) using ONNX Runtime and TensorRT engines.',
-        },
-        {
-          ko: 'CLAHE, Distance Transform, Watershed 기반 나노/마이크로 입자 정밀 분할 및 Feret Diameter 정량 산출',
-          en: 'Engineered precision nano/micro particle segmentation and Feret Diameter measurement pipelines using Watershed.',
         },
         {
           ko: '한국정보기술학회(KIIT) 2년 연속 우수논문상(2026 금상, 2025 은상) 수상 및 KCI 등재 학술지 논문 게재',

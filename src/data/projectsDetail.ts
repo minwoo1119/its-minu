@@ -800,10 +800,10 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     startDate: new Date('2026-07-01'),
     endDate: new Date('2026-08-31'),
     affiliation: {
-      ko: '시냅스이미징 / 연구원',
-      en: 'Synapse Imaging / Researcher',
+      ko: '시냅스이미징 / Vision Software R&D Engineer',
+      en: 'Synapse Imaging / Vision Software R&D Engineer',
     },
-    teamInfo: { ko: 'Vision SW Researcher', en: 'Vision SW Researcher' },
+    teamInfo: { ko: 'Vision Software R&D Engineer', en: 'Vision Software R&D Engineer' },
     contribution: {
       ko: 'C# WPF 로그 파서 및 차트 시각화 구현, IQR 기반 이상치 검출 및 엑셀 데이터 내보내기/리포팅 기능 개발을 전담했습니다.',
       en: 'Built the C# WPF log parser and chart visualizer, IQR-based outlier detection, and Excel export/reporting functionality.',

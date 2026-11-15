@@ -22,8 +22,8 @@ export const ProfessionalWork = ({
         </h2>
         <p className={styles.sectionIntro}>
           {language === 'ko'
-            ? '재직 중 수행한 기능 개발과 문제 해결 경험을 중심으로 정리했습니다.'
-            : 'Selected feature development and troubleshooting work completed in my current role.'}
+            ? '시냅스이미징(Synapse Imaging)에서 Vision Software R&D Engineer로 수행하고 있는 핵심 실무 프로젝트입니다.'
+            : 'Key R&D and full-stack platform projects performed as a Vision Software R&D Engineer at Synapse Imaging.'}
         </p>
       </header>
 
@@ -31,17 +31,33 @@ export const ProfessionalWork = ({
         {orderedProjects.map((project) => (
           <article className={styles.projectCard} key={project.id}>
             <div className={styles.projectIntro}>
-              <div className={styles.projectHeading}>
-                <h3>{getText(language, project.title)}</h3>
+              <div className={styles.metaRow}>
+                <span className={styles.periodBadge}>
+                  {getText(language, project.period)}
+                </span>
                 {project.status === 'mixed' && (
                   <span className={styles.status}>
-                    {language === 'ko' ? '일부 진행 중' : 'Partly in progress'}
+                    {language === 'ko' ? '진행 중 (일부 완료)' : 'In Progress'}
                   </span>
                 )}
               </div>
+
+              <div className={styles.projectHeading}>
+                <h3>
+                  <span className={styles.indexNum}>{project.index}.</span>{' '}
+                  {getText(language, project.title)}
+                </h3>
+              </div>
+
+              <p className={styles.roleText}>
+                <strong>{language === 'ko' ? '역할:' : 'Role:'}</strong>{' '}
+                {getText(language, project.role)}
+              </p>
+
               <p className={styles.summary}>{getText(language, project.summary)}</p>
+
               <div className={styles.techList} aria-label='Technology stack'>
-                {project.technologies.slice(0, 5).map((tech) => (
+                {project.technologies.map((tech) => (
                   <span key={tech}>{tech}</span>
                 ))}
               </div>
@@ -49,7 +65,7 @@ export const ProfessionalWork = ({
 
             <div className={styles.contributionBlock}>
               <p className={styles.contributionLabel}>
-                {language === 'ko' ? '직접 구현한 내용' : 'My contributions'}
+                {language === 'ko' ? '주요 개발 내용 요약' : 'Key Development Highlights'}
               </p>
               <ul>
                 {project.cardContributions.map((item) => (

@@ -10,37 +10,37 @@ const expertise = [
     index: '01',
     title: { ko: 'C++ & Windows Development', en: 'C++ & Windows Development' },
     description: {
-      ko: 'C++/MFC 애플리케이션의 검사 로직과 ROI 기능을 수정하고 Win32 및 DLL 연동 작업을 수행했습니다.',
-      en: 'Modified inspection logic and ROI features in C++/MFC applications and worked with Win32 and DLL integration.',
+      ko: 'C++/MFC 검사 프로그램의 양품조건 특수 ROI 판정과 LotResult 내 Variation 분리 로깅을 개발하고, Windows Named Pipe IPC 및 DLL 인터페이스를 구현했습니다.',
+      en: 'Developed good-condition special ROI logic and separated Variation logging in LotResult for C++/MFC inspection software, and implemented Windows Named Pipe IPC and DLL interfaces.',
     },
-    tools: ['C++', 'MFC', 'Windows', 'Win32', 'DLL'],
+    tools: ['C++', 'MFC', 'Windows', 'Named Pipe IPC', 'DLL'],
   },
   {
     index: '02',
-    title: { ko: 'Debugging & Reliability', en: 'Debugging & Reliability' },
+    title: { ko: 'Debugging & System Reliability', en: 'Debugging & System Reliability' },
     description: {
-      ko: '멀티스레드 처리 흐름과 로그를 추적하며 UI 프리징을 개선했고, 메모리 손상과 크래시 원인을 분석하고 있습니다.',
-      en: 'Traced multithreaded execution and logs to address UI freezing and am currently investigating memory corruption and crashes.',
+      ko: '로그 표시 스레드 분리로 설비 Client UI 프리징을 해결하고, 모델 무결성 검증·원자적 교체·비정상 종료 후 복구 구현 및 결과 저장 스레드의 Heap Corruption 원인을 분석하고 있습니다.',
+      en: 'Resolved Client UI freezing via thread isolation, implemented atomic model replacement and post-crash state recovery, and am investigating heap corruption in the result-saving thread.',
     },
-    tools: ['Multithreading', 'Debugging', 'Log Analysis', 'Memory Diagnostics'],
+    tools: ['Multithreading', 'Debugging', 'Heap Diagnostics', 'Session Recovery', 'Velopack'],
   },
   {
     index: '03',
-    title: { ko: 'Computer Vision & Inference', en: 'Computer Vision & Inference' },
+    title: { ko: 'Computer Vision & AI Engineering', en: 'Computer Vision & AI Engineering' },
     description: {
-      ko: 'ROI와 영상 처리 기능을 구현하고 OpenCV 기반 분석, 이상 탐지 모델 비교와 추론 실험을 수행했습니다.',
-      en: 'Implemented ROI and image-processing features and evaluated OpenCV-based analysis and anomaly-detection inference.',
+      ko: 'C# 기반 HDBSCAN·2D Gaussian KDE 결함 분포·히트맵 엔진과 DINOv2·DINOv3·CNN Encoder 관리, 분류 Head 학습·평가, AI Experiment Lab 구축 및 PatchCore·EfficientAD 비교 연구를 수행했습니다.',
+      en: 'Built a C# HDBSCAN & 2D Gaussian KDE defect analytics engine, DINOv2/DINOv3/CNN Encoder registry, classification head training, AI Experiment Lab, and PatchCore/EfficientAD evaluations.',
     },
-    tools: ['OpenCV', 'ROI', 'PatchCore', 'EfficientAD', 'TensorRT'],
+    tools: ['DINOv2 / DINOv3', 'HDBSCAN / KDE', 'PatchCore', 'EfficientAD', 'OpenCV', 'TensorRT'],
   },
   {
     index: '04',
-    title: { ko: 'Systems & Platform Integration', en: 'Systems & Platform Integration' },
+    title: { ko: 'Platform & Data Integration', en: 'Platform & Data Integration' },
     description: {
-      ko: '설비 클라이언트와 서버 통신을 구현하고 Python·C#·React 기반 기능을 연동했습니다.',
-      en: 'Implemented equipment client–server communication and integrated features across Python, C#, and React.',
+      ko: '관리자 웹, Python 설비 Client TUI, WebSocket·Heartbeat 통신, 최대 5GB 디스크 스트리밍 다운로드, Q-Log 재집계 통합 및 Excel·CSV 리포트 내보내기를 구현했습니다.',
+      en: 'Implemented the Admin Web, Python Client TUI, WebSocket/Heartbeat communication, up to 5GB disk-streaming downloads, Q-Log reaggregation, and Excel/CSV report exports.',
     },
-    tools: ['WebSocket', 'Python', 'C# / .NET', 'React', 'TypeScript'],
+    tools: ['Python', 'C# / .NET', 'WebSocket', 'REST API', 'React / TypeScript'],
   },
 ];
 
