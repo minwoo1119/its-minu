@@ -64,6 +64,8 @@ export interface ProjectDetailInfo {
   performanceComparisons?: PerformanceComparisonItem[];
   startDate: Date | null;
   endDate: Date | null;
+  periodText?: LocalizedText;
+  isInProgress?: boolean;
   affiliation?: LocalizedText;
   teamInfo: LocalizedText;
   contribution: LocalizedText;
@@ -99,225 +101,229 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     id: 1,
     category: 'featuredVision',
     title: {
-      ko: 'Micro-pipette Detection & Hybrid OCR System',
-      en: 'Micro-pipette Detection & Hybrid OCR System',
+      ko: 'Micro-Pipette Detection & OCR System',
+      en: 'Micro-Pipette Detection & OCR System',
     },
     oneLiner: {
-      ko: 'YOLO, Custom CNN, PaddleOCR, TensorRT를 결합한 마이크로피펫 객체 탐지 및 OCR 시스템',
-      en: 'A micro-pipette detection and OCR system combining YOLO, custom CNN, PaddleOCR, and TensorRT.',
+      ko: 'YOLO 객체 탐지, Custom CNN, PaddleOCR 파이프라인과 ONNX Runtime·TensorRT 추론 최적화를 결합한 영상 인식 시스템',
+      en: 'A vision recognition pipeline combining YOLO detection, Custom CNN, and PaddleOCR, optimized with ONNX Runtime and TensorRT.',
     },
     overview: {
-      ko: '마이크로피펫 객체 탐지와 분주량 OCR을 위해 데이터 수집, 모델 학습, ONNX 변환, TensorRT FP16/INT8 엔진 변환까지 전체 파이프라인을 수행했습니다. TensorRT 최적화를 통해 추론 지연 시간을 300ms에서 80ms로 줄여 실시간 처리 가능성을 확보했습니다.',
-      en: 'Built the full pipeline for micro-pipette object detection and dispensing-value OCR, from data collection and training to ONNX conversion and TensorRT FP16/INT8 engine generation. TensorRT optimization reduced inference latency from 300ms to 80ms for real-time use.',
+      ko: '학부연구생 시절 수행한 마이크로피펫 분주량 자동 인식 프로젝트입니다. 데이터 수집·라벨링부터 YOLO 객체 탐지, Custom CNN, PaddleOCR 결합 인식 파이프라인 구현, ONNX Runtime 및 TensorRT 기반 추론 최적화까지 수행해 실측 처리 시간을 300ms에서 80ms로 약 73.3% 단축했습니다.',
+      en: 'An undergraduate research project for automated micro-pipette volume recognition. Built the pipeline from dataset labeling and combined YOLO, Custom CNN, and PaddleOCR recognition to ONNX Runtime and TensorRT inference optimization, reducing measured latency from 300ms to 80ms (~73.3% reduction).',
     },
     problemStatement: {
-      ko: '실험실 및 바이오 제조 공정에서 마이크로피펫의 분주량 설정 수치를 작업자가 일일이 수동 확인하는 과정에서 휴먼 에러와 검증 병목이 발생했습니다. 반사광과 곡면 왜곡이 심한 피펫 투명 창에서 숫자를 정확히 검출하고, 300ms가 넘던 딥러닝 추론 지연 시간을 80ms 이하로 단축하여 실시간 자동 검증 시스템을 구축해야 했습니다.',
-      en: 'Manual verification of micro-pipette volume settings in bio-manufacturing created human error risks and inspection bottlenecks. The goal was to accurately read digits through reflective, curved indicator windows while reducing deep learning inference latency from over 300ms to sub-80ms for real-time validation.',
+      ko: '실험실 및 바이오 공정 환경에서 작업자가 마이크로피펫의 분주량 눈금을 수동으로 확인하면 오독과 작업 병목이 발생합니다. 곡면 투명창의 반사광과 조명 변화 속에서 숫자를 안정적으로 검출·판독하는 동시에, 300ms 수준이던 초기 추론 지연을 실시간 운용 가능한 수준으로 단축해야 했습니다.',
+      en: 'Manual verification of micro-pipette volume dials introduces human error and workflow bottlenecks. The system needed to detect and read digits reliably despite curved-window reflections and lighting variations, while reducing the initial ~300ms inference latency for real-time operation.',
     },
     constraints: [
       {
         type: { ko: '추론 지연 시간', en: 'Inference Latency' },
         description: {
-          ko: '작업자 연속 조작 반응성을 위한 100ms 이내 실시간 응답 (목표: 80ms 달성)',
-          en: 'Sub-100ms latency budget for real-time operator feedback (achieved 80ms).',
+          ko: '초기 300ms 수준의 추론 지연을 실시간 처리 가능한 100ms 이하로 단축 (실측 80ms 달성)',
+          en: 'Reduce initial ~300ms latency below 100ms for real-time responsiveness (measured 80ms achieved).',
         },
       },
       {
         type: { ko: '광학적 왜곡 & 조명', en: 'Optical & Lighting' },
         description: {
-          ko: '플라스틱 곡면 투명창 반사광 및 다양한 작업 조도 변화 대응',
-          en: 'Curved acrylic window reflections and varying laboratory illumination conditions.',
-        },
-      },
-      {
-        type: { ko: 'OCR 인식 정확도', en: 'OCR Accuracy' },
-        description: {
-          ko: '소수점 및 회전된 폰트에 대한 98% 이상의 정확한 숫자 인식률 보장',
-          en: 'Over 98% digit and decimal point recognition accuracy across rotated fonts.',
+          ko: '투명 곡면 표시창의 반사광, LED 조명 변화 및 제한된 소규모 도메인 데이터 환경 대응',
+          en: 'Handling specular reflections on curved acrylic indicator windows, LED lighting shifts, and limited domain datasets.',
         },
       },
     ],
     architectureSteps: [
       {
         step: '01',
-        title: { ko: 'Pipette Scale Detection', en: 'Pipette Scale Detection' },
+        title: { ko: 'YOLO Object & Digit Region Detection', en: 'YOLO Object & Digit Region Detection' },
         description: {
-          ko: 'YOLO 모델을 통해 전체 프레임에서 마이크로피펫 본체 및 눈금 표시창 ROI 고속 검출',
-          en: 'YOLO model isolating the micro-pipette body and scale indicator window ROI.',
+          ko: '직접 구축·라벨링한 피펫 눈금 데이터셋으로 학습한 YOLO 모델로 숫자 표시 영역 ROI 검출',
+          en: 'Detecting pipette scale indicator regions using a YOLO model trained on a custom-labeled dataset.',
         },
       },
       {
         step: '02',
-        title: { ko: 'Perspective Rectification', en: 'Perspective Rectification' },
+        title: { ko: 'OpenCV 전처리 및 ROI 정규화', en: 'OpenCV Preprocessing & ROI Normalization' },
         description: {
-          ko: '기울어진 텍스트 영역을 수평으로 정규화하고 반사광 대비를 강화하는 OpenCV 전처리',
-          en: 'OpenCV perspective rectification and adaptive contrast enhancement.',
+          ko: '검출된 숫자 ROI 정렬과 대비 보정 전처리를 통해 반사광과 조명 편차 영향 완화',
+          en: 'Aligning detected digit ROIs and applying contrast preprocessing to mitigate reflections and illumination variance.',
         },
       },
       {
         step: '03',
-        title: { ko: 'Hybrid OCR & CTC Decoding', en: 'Hybrid OCR & CTC Decoding' },
+        title: { ko: 'Custom CNN & PaddleOCR Hybrid Recognition', en: 'Custom CNN & PaddleOCR Hybrid Recognition' },
         description: {
-          ko: 'Custom CNN과 PaddleOCR 하이브리드 파이프라인으로 소수점 포함 4자리 숫자 인식',
-          en: 'Custom CNN and PaddleOCR hybrid recognition with CTC sequence decoding.',
+          ko: '도메인 숫자 분류용 Custom CNN(EfficientNet 계열 비교 실험)과 PaddleOCR를 결합해 분주량 수치 판독',
+          en: 'Combining a domain-trained Custom CNN (with EfficientNet backbone comparisons) and PaddleOCR for numeric readout.',
         },
       },
       {
         step: '04',
-        title: { ko: 'TensorRT Acceleration', en: 'TensorRT Acceleration' },
+        title: { ko: 'ONNX Runtime & TensorRT 추론 최적화', en: 'ONNX Runtime & TensorRT Inference Optimization' },
         description: {
-          ko: 'ONNX 변환 후 TensorRT FP16/INT8 엔진 최적화로 300ms에서 80ms로 73% 가속',
-          en: 'TensorRT FP16/INT8 engine optimization slashing latency from 300ms to 80ms.',
+          ko: '모델을 ONNX로 변환하고 TensorRT 엔진으로 최적화해 실측 처리 시간을 300ms에서 80ms로 약 73.3% 단축',
+          en: 'Exporting models to ONNX and optimizing with TensorRT engines, reducing measured latency from 300ms to 80ms (~73.3% reduction).',
         },
       },
     ],
     performanceComparisons: [
       {
-        metric: { ko: '추론 지연 시간 (Latency)', en: 'Inference Latency' },
-        before: { ko: '300 ms (PyTorch Baseline)', en: '300 ms (PyTorch Baseline)' },
-        after: { ko: '80 ms (TensorRT Engine)', en: '80 ms (TensorRT Engine)' },
-        improvement: { ko: '-73.3% 단축 (3.75배 가속)', en: '73.3% Latency Reduction (3.75x Speedup)' },
-      },
-      {
-        metric: { ko: '인식 정확도 (Accuracy)', en: 'OCR Accuracy' },
-        before: { ko: '88.5% (단일 OCR)', en: '88.5% (Single OCR)' },
-        after: { ko: '98.8% (하이브리드 파이프라인)', en: '98.8% (Hybrid Pipeline)' },
-        improvement: { ko: '+10.3%p 향상', en: '+10.3%p Increase' },
+        metric: { ko: '실측 처리 시간 (Latency)', en: 'Measured Inference Latency' },
+        before: { ko: '300 ms (초기 파이프라인)', en: '300 ms (Initial Baseline)' },
+        after: { ko: '80 ms (ONNX Runtime / TensorRT 최적화)', en: '80 ms (ONNX Runtime / TensorRT)' },
+        improvement: { ko: '약 73.3% 감소', en: '~73.3% Reduction' },
       },
     ],
     startDate: new Date('2025-05-01'),
     endDate: new Date('2026-02-28'),
-    teamInfo: { ko: 'AI & Vision Engineer', en: 'AI & Vision Engineer' },
+    periodText: {
+      ko: '2025.05 ~ 2026.02',
+      en: '2025.05 ~ 2026.02',
+    },
+    affiliation: {
+      ko: '학부연구생 프로젝트',
+      en: 'Undergraduate Research Project',
+    },
+    teamInfo: { ko: '학부연구생 영상 인식 프로젝트', en: 'Undergraduate Vision Research' },
     contribution: {
-      ko: 'YOLO 객체 탐지, Custom CNN OCR, PaddleOCR/CTC 후처리, ONNX Runtime 및 TensorRT 최적화 파이프라인을 담당했습니다.',
-      en: 'Owned YOLO detection, custom CNN OCR, PaddleOCR/CTC post-processing, and the ONNX Runtime/TensorRT optimization pipeline.',
+      ko: '피펫 눈금 데이터셋 구축·라벨링, YOLO 객체 탐지, Custom CNN 분류 및 PaddleOCR 결합 파이프라인 구현, ONNX Runtime·TensorRT 추론 최적화를 수행했습니다.',
+      en: 'Handled dataset collection and labeling, YOLO detection, Custom CNN and PaddleOCR hybrid recognition pipeline implementation, and ONNX Runtime/TensorRT inference optimization.',
     },
     images: [
-      image('/img/tech/pipet_detection.png', '피펫 눈금 영역 검출', 'Pipette scale area detection'),
-      image('/img/tech/pipet_ocr_inference.png', '하이브리드 OCR 추론', 'Hybrid OCR inference flow'),
-      image('/img/tech/pipet_tensorrt_benchmark.png', 'TensorRT 엔진 최적화 결과', 'TensorRT engine optimization result'),
+      image('/img/tech/pipet_detection.png', '피펫 눈금 데이터셋 라벨링 및 YOLO 검출 결과', 'Pipette scale labeling and YOLO detection output'),
+      image('/img/tech/pipet_ocr_inference.png', 'LED 조명 환경 데이터 수집 및 분류 모델 비교 실험', 'LED lighting dataset collection and classifier evaluation'),
+      image('/img/tech/pipet_tensorrt_benchmark.png', 'Jetson Orin Nano 환경 TensorRT 엔진 실시간 추론 구동 화면', 'Real-time TensorRT engine execution on Jetson Orin Nano'),
     ],
     techChoices: [
       {
-        name: 'YOLO & Custom CNN',
+        name: 'YOLO + Custom CNN + PaddleOCR',
         reason: {
-          ko: '작은 피펫 눈금 영역을 빠르게 찾고 숫자 인식을 안정화하기 위해 분할 모델 구조를 사용했습니다.',
-          en: 'Used a split model architecture to quickly isolate the small scale region and stabilize digit recognition.',
+          ko: '일반 공개 숫자 데이터셋만으로는 피펫 특유의 곡면 폰트와 LED 조명 반사에 한계가 있어, 검출(YOLO)과 인식(Custom CNN·PaddleOCR)을 결합한 파이프라인으로 구성했습니다.',
+          en: 'Generic digit datasets struggled with curved pipette fonts and LED glare, so detection (YOLO) was combined with Custom CNN and PaddleOCR recognition.',
         },
       },
       {
-        name: 'TensorRT / ONNX Runtime',
+        name: 'ONNX Runtime & TensorRT',
         reason: {
-          ko: '추론 지연 시간을 100ms 이하로 낮춰 실시간 비전 검사 파이프라인에 통합하기 위해 엔진을 최적화했습니다.',
-          en: 'Optimized engines to reduce inference latency below 100 ms for real-time vision inspection integration.',
+          ko: '학습 프레임워크 기반 추론의 지연 병목(300ms)을 해소하고 엣지 장비(Jetson Orin Nano)에서 실시간 응답이 가능하도록 추론 엔진을 최적화했습니다.',
+          en: 'Eliminated baseline framework latency bottlenecks (300ms) by exporting to ONNX and building TensorRT engines for real-time execution on Jetson Orin Nano.',
         },
       },
       {
-        name: 'C++ / CUDA',
+        name: 'OpenCV & Python',
         reason: {
-          ko: '배포 환경에서의 메모리 효율성과 빠른 이미지 전처리/후처리를 위해 C++ 기반 런타임을 구성했습니다.',
-          en: 'Configured a C++ runtime for deployment-time memory efficiency and fast image pre/post-processing.',
+          ko: 'ROI 추출, 조명 반사 완화 전처리, 멀티스레드 프레임 드롭·배치 추론 구동을 구현하기 위해 사용했습니다.',
+          en: 'Used for ROI extraction, lighting preprocessing, and multi-threaded frame handling during real-time inference.',
         },
       },
     ],
     keyFeatures: [
       {
-        title: { ko: '마이크로피펫 ROI 자동 검출', en: 'Automatic Micro-pipette ROI Detection' },
+        title: { ko: '피펫 눈금 데이터셋 구축 및 YOLO 객체 탐지', en: 'Custom Pipette Dataset & YOLO Detection' },
         description: {
-          ko: '입력 영상에서 피펫 본체와 눈금 영역을 고속으로 분리해 후속 OCR 정확도를 극대화했습니다.',
-          en: 'Rapidly isolated the pipette body and scale area from input frames to maximize subsequent OCR accuracy.',
+          ko: '실제 피펫 분주량 이미지를 촬영하고 라벨링해 YOLO 모델을 학습했으며, 입력 영상에서 개별 숫자 영역 ROI를 빠르게 검출하도록 구현했습니다.',
+          en: 'Captured and labeled real pipette volume dial images to train YOLO for fast per-digit ROI localization.',
         },
         images: [
-          image('/img/tech/pipet_detection.png', '피펫 눈금 영역 검출', 'Pipette scale area detection'),
+          image('/img/tech/pipet_detection.png', '피펫 눈금 데이터셋 라벨링 및 YOLO 검출 결과', 'Pipette scale labeling and YOLO detection output'),
         ],
       },
       {
-        title: { ko: '하이브리드 OCR 및 CTC 디코딩', en: 'Hybrid OCR & CTC Decoding' },
+        title: { ko: 'Custom CNN & PaddleOCR 결합 인식 파이프라인', en: 'Hybrid Custom CNN & PaddleOCR Pipeline' },
         description: {
-          ko: 'Custom CNN과 PaddleOCR 백본을 결합하고 CTC Greedy Decoding으로 연속 숫자를 판독했습니다.',
-          en: 'Combined a custom CNN with a PaddleOCR backbone and decoded continuous digits using CTC greedy decoding.',
+          ko: 'LED 조명 부착 환경에서 숫자 클래스별 데이터를 수집하고, 경량 백본(EfficientNet-B0, MobileNetV3, ResNet 계열 비교)과 PaddleOCR를 조합해 인식 안정성을 개선했습니다.',
+          en: 'Collected per-digit training data under LED lighting and evaluated lightweight CNN backbones alongside PaddleOCR to stabilize numeric recognition.',
         },
         images: [
-          image('/img/tech/pipet_ocr_inference.png', '하이브리드 OCR 추론', 'Hybrid OCR inference flow'),
+          image('/img/tech/pipet_ocr_inference.png', 'LED 조명 환경 데이터 수집 및 분류 모델 비교 실험', 'LED lighting dataset collection and classifier evaluation'),
         ],
       },
       {
-        title: { ko: 'TensorRT FP16/INT8 가속 엔진', en: 'TensorRT FP16/INT8 Acceleration Engine' },
+        title: { ko: 'ONNX Runtime·TensorRT 기반 추론 최적화', en: 'ONNX Runtime & TensorRT Inference Optimization' },
         description: {
-          ko: 'ONNX 모델을 TensorRT 엔진으로 빌드하여 300ms였던 추론 시간을 80ms로 73% 단축했습니다.',
-          en: 'Built TensorRT engines from ONNX models, reducing inference latency from 300 ms to 80 ms (73% reduction).',
+          ko: 'ONNX 변환과 TensorRT 엔진 빌드를 적용하고 멀티스레드 입력 처리 구조를 구성해 실측 처리 시간을 300ms에서 80ms로 약 73.3% 단축했습니다.',
+          en: 'Converted models to ONNX and TensorRT engines with multi-threaded frame handling, reducing measured end-to-end latency from 300ms to 80ms (~73.3% reduction).',
         },
         images: [
-          image('/img/tech/pipet_tensorrt_benchmark.png', 'TensorRT 엔진 최적화 결과', 'TensorRT engine optimization result'),
+          image('/img/tech/pipet_tensorrt_benchmark.png', 'Jetson Orin Nano 환경 TensorRT 엔진 실시간 추론 구동 화면', 'Real-time TensorRT engine execution on Jetson Orin Nano'),
         ],
       },
     ],
     roleDetails: [
       {
-        ko: '피펫 눈금 데이터셋 레이블링 기준 수립 및 데이터 증강 파이프라인 구축',
-        en: 'Established labeling guidelines for pipette scales and built a data augmentation pipeline.',
+        ko: '피펫 분주량 이미지 직접 촬영 및 라벨링(makesense.ai)을 통한 도메인 데이터셋 구축',
+        en: 'Captured real pipette scale images and built a labeled domain dataset.',
       },
       {
-        ko: 'ONNX Runtime 및 TensorRT FP16/INT8 엔진 최적화로 엣지 장비 지연 시간 73% 감축',
-        en: 'Reduced edge inference latency by 73% through ONNX Runtime and TensorRT FP16/INT8 engine optimization.',
+        ko: 'YOLO 객체 탐지 + Custom CNN + PaddleOCR 결합 인식 파이프라인 설계 및 백본 비교 실험',
+        en: 'Designed the YOLO + Custom CNN + PaddleOCR recognition pipeline and compared candidate CNN backbones.',
       },
       {
-        ko: 'C++ CUDA 연동을 통한 실시간 비전 검사 파이프라인 안정화',
-        en: 'Stabilized the real-time vision inspection pipeline with C++ CUDA integration.',
+        ko: 'ONNX Runtime 및 TensorRT 엔진 변환·최적화를 통한 실측 처리 시간 300ms → 80ms(약 73.3% 감소) 달성',
+        en: 'Reduced measured inference latency from 300ms to 80ms (~73.3% reduction) via ONNX Runtime and TensorRT optimization.',
       },
     ],
     troubleshooting: [
       {
         problem: {
-          ko: '실험실 조명 반사와 피펫 표면 굴절로 인해 특정 각도에서 숫자 오인식이 발생했습니다.',
-          en: 'Lighting reflections and curved glass distortion caused misreads at certain viewing angles.',
+          ko: '곡면 투명창의 조명 반사와 범용 OCR의 도메인 폰트 한계로 특정 각도·조도에서 숫자 오인식이 발생했습니다.',
+          en: 'Curved window glare and domain-specific pipette dial fonts caused misreads with off-the-shelf OCR.',
         },
         solution: {
-          ko: 'CLAHE 기반 대비 향상과 반사광 마스킹 전처리를 추가하고 조명 변형 데이터를 증강해 재학습했습니다.',
-          en: 'Added CLAHE contrast enhancement and specular highlight masking, then retrained with augmented lighting variations.',
+          ko: 'LED 조명 조건에서 숫자별 도메인 데이터를 직접 수집하고, ROI 전처리와 Custom CNN·PaddleOCR 결합 구조로 인식 단계를 보완했습니다.',
+          en: 'Collected domain digit samples under controlled LED lighting and combined ROI preprocessing with a domain-trained Custom CNN and PaddleOCR.',
         },
         result: {
-          ko: '불균일 조명 환경에서도 인식 신뢰도를 96% 이상으로 끌어올렸습니다.',
-          en: 'Boosted recognition reliability above 96% even under non-uniform lighting conditions.',
+          ko: '실시간 카메라 입력 환경에서도 숫자 검출 및 판독 안정성을 개선했습니다.',
+          en: 'Improved digit detection and recognition stability under live camera feeds.',
+        },
+      },
+      {
+        problem: {
+          ko: '초기 파이프라인은 추론 처리 시간이 300ms 수준에 달해 실시간 카메라 스트림에 그대로 적용하기 어려웠습니다.',
+          en: 'The initial pipeline took ~300ms per frame, making live camera feedback sluggish.',
+        },
+        solution: {
+          ko: 'ONNX 변환 후 TensorRT 엔진을 빌드하고 입력 스레드·프레임 드롭 구조를 적용해 추론 병목을 제거했습니다.',
+          en: 'Exported models to ONNX, compiled TensorRT engines, and added multi-threaded frame handling to remove inference bottlenecks.',
+        },
+        result: {
+          ko: '실측 처리 시간을 300ms에서 80ms로 약 73.3% 단축해 실시간 운용 기반을 확보했습니다.',
+          en: 'Cut measured latency from 300ms to 80ms (~73.3% reduction), enabling real-time operation.',
         },
       },
     ],
     resultMetrics: [
       {
-        label: { ko: '추론 지연 시간', en: 'Inference Latency' },
-        value: { ko: '80ms (73% 감소)', en: '80ms (-73%)' },
+        label: { ko: '실측 처리 시간', en: 'Measured Latency' },
+        value: { ko: '300ms → 80ms', en: '300ms → 80ms' },
         description: {
-          ko: 'TensorRT 최적화로 300ms에서 80ms로 단축',
-          en: 'Reduced from 300ms to 80ms with TensorRT optimization',
+          ko: 'ONNX Runtime·TensorRT 추론 최적화를 통해 처리 시간 약 73.3% 감소',
+          en: '~73.3% latency reduction via ONNX Runtime and TensorRT optimization',
         },
       },
       {
-        label: { ko: '인식 신뢰도', en: 'Recognition Accuracy' },
-        value: { ko: '96.4%', en: '96.4%' },
+        label: { ko: '파이프라인 통합', en: 'Pipeline Integration' },
+        value: { ko: 'YOLO + CNN + PaddleOCR', en: 'YOLO + CNN + PaddleOCR' },
         description: {
-          ko: '다양한 조명과 각도 조건에서의 검증 결과',
-          en: 'Validated across varied lighting and angle conditions',
+          ko: '검출·분류·OCR과 엣지 실시간 추론 실행까지 단일 흐름으로 연결',
+          en: 'Connected detection, classification, OCR, and edge inference into one workflow',
         },
       },
     ],
     lessonsLearned: [
       {
-        ko: '비전 모델의 정확도뿐만 아니라 실제 배포 파이프라인에서의 추론 속도와 메모리 최적화가 필수적임을 체득했습니다.',
-        en: 'Learned that real-time deployment requires as much focus on inference speed and memory footprint as on raw model accuracy.',
+        ko: '영상 인식 시스템은 모델 학습 자체만큼 실제 실행 환경에서의 추론 지연 최적화(ONNX Runtime·TensorRT)와 데이터 수집 조건 설계가 중요함을 경험했습니다.',
+        en: 'Learned that practical vision systems depend as much on runtime inference optimization (ONNX Runtime, TensorRT) and controlled data collection as on model training.',
       },
     ],
     limitations: [
       {
-        ko: '극도로 노후화된 피펫의 마모된 눈금은 추가적인 복원 알고리즘이 필요합니다.',
-        en: 'Heavily worn scales on older pipettes require additional image restoration steps.',
+        ko: '심하게 마모된 구형 피펫 눈금이나 극단적인 비정면 촬영 각도에서는 별도 기하 보정이 추가로 필요합니다.',
+        en: 'Heavily worn pipette dials and extreme off-axis camera angles still require additional geometric rectification.',
       },
     ],
-    nextSteps: [
-      {
-        ko: '초해상화(Super-Resolution) 전처리를 추가하여 저해상도 입력에 대한 강건성을 강화할 계획입니다.',
-        en: 'Plan to integrate super-resolution preprocessing to strengthen robustness on low-resolution inputs.',
-      },
-    ],
+    nextSteps: [],
     links: [
       {
         label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
@@ -2505,8 +2511,8 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     ],
     nextSteps: [
       {
-        ko: 'EAS Build를 통한 App Store 및 Google Play 정식 출시 심사 제출 및 실서비스 운영을 준비하고 있습니다.',
-        en: 'Preparing production store submission to App Store and Google Play via EAS Build.',
+        ko: 'Google Play 및 App Store 정식 출시 이후 사용자 피드백 기반으로 백업·내보내기 기능을 점진적으로 확장할 계획입니다.',
+        en: 'Following live release on Google Play and the App Store, planning incremental export and backup improvements based on user feedback.',
       },
     ],
     links: [
@@ -2542,9 +2548,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
       ko: 'GIS 데이터 전처리 파이프라인(GeoJSON → SVG Path JSON) 구축, SVG ClipPath 기반 커스텀 포토 렌더러 구현, 60fps Pinch-to-Zoom & Pan 제스처 개발, Local-first 파일 영속화 및 Turborepo 모노레포 아키텍처 설계를 전담했습니다.',
       en: 'Engineered the GIS data pre-processing pipeline (GeoJSON -> SVG Path JSON), custom SVG ClipPath photo renderer, 60fps pinch-and-pan gesture animations, local-first image persistence, and the Turborepo monorepo architecture.',
     },
-    images: [
-      image('/img/tech/chripaid.png', 'SaSang 인터랙티브 여행 지도 화면', 'SaSang Interactive Travel Map screen'),
-    ],
+    images: [],
     techChoices: [
       {
         name: 'React Native & Expo',
@@ -2589,9 +2593,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '한국 161개 행정구역 및 전 세계 175개 국가의 Polygon/MultiPolygon 데이터를 SVG Path 경량 JSON 에셋으로 사전 가공하여 모바일 런타임 파싱 부하를 없앴습니다.',
           en: 'Pre-processed GIS Polygon datasets for 161 Korean districts and 175 global nations into lightweight SVG Path assets, eliminating runtime parsing overhead.',
         },
-        images: [
-          image('/img/tech/chripaid.png', '벡터 지도 데이터 시각화', 'Vector map visualization'),
-        ],
+        images: [],
       },
       {
         title: { ko: 'SVG ClipPath 기반 여행 사진 마스킹 렌더러', en: 'SVG ClipPath Photo Masking Renderer' },
@@ -2599,9 +2601,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '선택한 사진을 각 행정구역의 실제 기하학적 형태에 맞추어 클리핑 마스킹하여, 사진 자체가 지도를 이루는 직관적인 시각적 기록을 구현했습니다.',
           en: 'Renders travel photos dynamically masked to exact geographic borders using SVG ClipPath for a photo-first journey diary.',
         },
-        images: [
-          image('/img/tech/chripaid.png', '사진 클리핑 렌더링 화면', 'Photo clipped map view'),
-        ],
+        images: [],
       },
       {
         title: { ko: '부드러운 지도 줌 & 팬 제스처 인터랙션', en: 'Smooth Pinch-to-Zoom & Pan Gestures' },
@@ -2609,9 +2609,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: 'Pinch-to-zoom 및 Pan 제스처를 결합하고, 줌 배율과 이동 한계선을 뷰포트 상태에 맞춰 실시간 보정하여 안정적인 탐색 경험을 제공합니다.',
           en: 'Provides smooth 60fps pinch-zoom and pan navigation with boundary clamping and viewport translation adjustments.',
         },
-        images: [
-          image('/img/tech/chripaid.png', '지도 제스처 인터랙션', 'Map gesture interaction'),
-        ],
+        images: [],
       },
       {
         title: { ko: 'Local-first 사진 아카이빙 & 지역 검색', en: 'Local-first Photo Archiving & Search' },
@@ -2619,9 +2617,7 @@ export const projectsDetailData: ProjectDetailInfo[] = [
           ko: '국내/해외 지역 검색, 사진 등록·교체·삭제, Expo FileSystem 영속화를 지원하며 오프라인 환경에서도 모든 기능을 독립적으로 사용 가능합니다.',
           en: 'Supports region search, photo upload/replace/delete, and offline-first storage via Expo FileSystem and Zustand persist.',
         },
-        images: [
-          image('/img/tech/chripaid.png', '지역 검색 및 사진 관리', 'Region search and photo management'),
-        ],
+        images: [],
       },
     ],
     roleDetails: [
@@ -2731,301 +2727,245 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     id: 18,
     category: 'fullstack',
     title: {
-      ko: 'dograc : 사내 기밀 정보 유출 제로(Zero Data Egress) 로컬 오픈소스 데스크톱-웹 하이브리드 RAG 플랫폼',
-      en: 'dograc: Zero Data Egress Local Desktop-Web Hybrid RAG Platform',
+      ko: 'Offline RAG Platform for Document Question Answering',
+      en: 'Offline RAG Platform for Document Question Answering',
     },
     oneLiner: {
-      ko: '외부 전송 데이터량 0 바이트를 보장하며, 로컬 LLM/임베딩과 원클릭 데스크톱 런처 및 Docker/SQLite 자동 폴백을 갖춘 데스크톱-웹 하이브리드 RAG 플랫폼',
-      en: 'A zero data egress desktop-web hybrid RAG platform powered by local LLMs, on-device embeddings, one-click desktop launcher, and hybrid Docker/SQLite persistence.',
+      ko: '외부 네트워크 의존성을 줄인 로컬 RAG 문서 검색·질의응답 플랫폼 (dograc) — FastAPI, 로컬 LLM, 벡터 검색, Windows 런처 및 스토리지 폴백 구현',
+      en: 'A local RAG document retrieval and Q&A platform (dograc) minimizing external network dependency, with FastAPI, local LLM, vector search, Windows launcher, and storage fallback.',
     },
     overview: {
-      ko: '사내 규정, 계약서, 특허 등 민감 문서가 외부 클라우드 API로 전송되는 데이터 유출 리스크와 종량제 비용을 원천 차단하기 위해 구축한 오픈소스 데스크톱-웹 하이브리드 RAG(Retrieval-Augmented Generation) 플랫폼입니다. 외부 전송 데이터 0 바이트(Zero Data Egress) 원칙 하에 Ollama(Qwen2.5-7B) 로컬 LLM과 BAAI/bge-m3 온디바이스 임베딩을 100% 자립 구동합니다. Windows Tkinter 기반 원클릭 데스크톱 런처를 통해 비개발자도 인프라·서버·UI를 즉시 가동할 수 있으며, Docker 가동 시 컨테이너(PostgreSQL 16, Qdrant HNSW, MinIO S3) 모드로, Docker 미가동 시 SQLite + In-Memory Qdrant + 로컬 디렉터리 스토리지로 무중단 자동 폴백되는 하이브리드 영속성 계층을 제공합니다. 교보 디자인 시스템(KDS) 기반의 정갈한 2열 작업대, 답변 내 [파일명, p.숫자] 상호작용 인라인 인용 배지, 검색 점수·원본 프롬프트·소요시간(ms)을 투명하게 감사할 수 있는 TraceDrawer를 단독 설계 및 구현했습니다.',
-      en: 'An enterprise Retrieval-Augmented Generation (RAG) platform guaranteeing Zero Data Egress and eliminating commercial cloud API dependencies and recurring subscription costs for sensitive corporate documents, contracts, and patents. Operates 100% self-sufficiently using local LLMs (Ollama / Qwen2.5-7B) and on-device embeddings (BAAI/bge-m3). Features a Windows Tkinter-based one-click desktop launcher enabling non-developers to run infrastructure, backend, and UI instantly with zero setup barriers. Implements an adaptive hybrid persistence layer that automatically connects to containerized infrastructure (PostgreSQL 16, Qdrant HNSW, MinIO S3) when Docker Desktop is running, and seamlessly falls back to SQLite, In-Memory Qdrant, and local disk storage without Docker. Integrates a Kyobo Design System (KDS) reading-first 2-column workspace, interactive inline citation badges [filename, p.page], and a transparent TraceDrawer auditing retrieval similarity scores, full prompts, and latency (ms).',
+      ko: '민감한 문서를 외부 클라우드 API로 전송하지 않고 로컬 환경에서 검색·질의응답할 수 있도록 구축한 오프라인 지향 RAG 플랫폼(dograc)입니다. 문서 파싱, 청킹, 임베딩, 벡터 검색, 로컬 LLM 답변 생성 파이프라인과 함께 Windows 데스크톱 런처, 자식 프로세스 수명주기 관리, Docker 유무에 따른 스토리지 폴백 등 실제 서비스 실행과 운영 안정성을 중심으로 구현했습니다.',
+      en: 'A local-first RAG platform (dograc) built to index and query sensitive documents without relying on external cloud APIs. Focused on practical system engineering across document parsing, chunking, embedding, vector retrieval, local LLM generation, a Windows desktop launcher, child-process lifecycle management, and adaptive storage fallback.',
     },
-    startDate: new Date('2026-07-31'),
-    endDate: new Date('2026-09-09'),
+    problemStatement: {
+      ko: '사내 규정이나 기술 문서를 상용 클라우드 LLM에 업로드하면 데이터 유출 우려와 API 비용이 발생합니다. 또한 기존 오픈소스 RAG 스택은 Docker·DB·백엔드·프론트엔드를 수동으로 실행해야 해 일반 사용자가 로컬 환경에서 바로 구동하기 어렵고, Windows 서브프로세스 관리 시 파이프 버퍼 데드락이나 잔여 프로세스 문제가 발생하기 쉽습니다.',
+      en: 'Uploading internal documents to cloud LLM APIs introduces privacy concerns and recurring costs. Meanwhile, self-hosted RAG stacks often require manual Docker, database, and server orchestration, and Windows launchers are prone to pipe-buffer deadlocks and orphaned child processes.',
+    },
+    constraints: [
+      {
+        type: { ko: '로컬 실행 환경', en: 'Local Execution' },
+        description: {
+          ko: '외부 클라우드 API 의존성을 줄이고 로컬 LLM(Ollama) 및 온디바이스 임베딩 모델로 문서 검색·응답 수행',
+          en: 'Minimize external cloud API dependency by running local LLMs (Ollama) and on-device embeddings.',
+        },
+      },
+      {
+        type: { ko: '실행 환경 적응성', en: 'Environment Adaptability' },
+        description: {
+          ko: 'Docker Desktop 가동 환경과 미가동 환경 모두에서 서비스가 기동되도록 스토리지 폴백 구조 필요',
+          en: 'Require adaptive storage fallback so the platform runs both with and without Docker Desktop.',
+        },
+      },
+    ],
+    architectureSteps: [
+      {
+        step: '01',
+        title: { ko: 'Windows Desktop Launcher & Process Lifecycle', en: 'Windows Desktop Launcher & Process Lifecycle' },
+        description: {
+          ko: '비동기 로그 스트림 리더, 소켓 기반 포트 헬스체크 및 종료 시 프로세스 트리 일괄 정리(taskkill /F /T)',
+          en: 'Async log stream reader, socket-based port health checks, and full process-tree cleanup on exit (taskkill /F /T).',
+        },
+      },
+      {
+        step: '02',
+        title: { ko: 'Document Ingestion & Chunking', en: 'Document Ingestion & Chunking' },
+        description: {
+          ko: 'PDF 텍스트 추출(PyMuPDF), 단락 경계 보존 청킹(800자 / 120자 오버랩) 및 임베딩 벡터 색인',
+          en: 'PDF text extraction (PyMuPDF), paragraph-preserving chunking (800 chars / 120 overlap), and dense vector indexing.',
+        },
+      },
+      {
+        step: '03',
+        title: { ko: 'Hybrid Storage Fallback & Retrieval', en: 'Hybrid Storage Fallback & Retrieval' },
+        description: {
+          ko: 'Docker 가동 시 PostgreSQL·Qdrant·MinIO 연동, 미가동 시 SQLite·인메모리 Qdrant·로컬 스토리지 자동 폴백',
+          en: 'Connects to Postgres/Qdrant/MinIO when Docker is active, falling back automatically to SQLite, in-memory Qdrant, and local disk.',
+        },
+      },
+      {
+        step: '04',
+        title: { ko: 'Local LLM Generation & Trace Audit', en: 'Local LLM Generation & Trace Audit' },
+        description: {
+          ko: 'FastAPI 비동기 API, 로컬 Ollama 추론 어댑터, 출처 페이지 인용 및 검색·생성 Trace 조회 UI 제공',
+          en: 'Async FastAPI backend, local Ollama inference adapter, page-level citation markers, and retrieval/generation trace inspection.',
+        },
+      },
+    ],
+    startDate: new Date('2026-07-01'),
+    endDate: new Date('2026-10-31'),
+    periodText: {
+      ko: '2026.07 ~ 2026.10',
+      en: '2026.07 ~ 2026.10',
+    },
     teamInfo: {
-      ko: '풀스택 & AI 엔지니어 (1인 단독 개발)',
-      en: 'Full-Stack & AI Engineer (Solo Project, 100% Ownership)',
+      ko: '개인 프로젝트 (1인 개발)',
+      en: 'Solo Project',
     },
     contribution: {
-      ko: '원클릭 데스크톱 런처(Tkinter/Velopack), Next.js 14 KDS 웹 프론트엔드, FastAPI 비동기 API 서버, Qdrant/SQLite 하이브리드 영속성 계층, Ollama 로컬 추론 파이프라인, pytest 59건 자동화 테스트까지 전 과정을 100% 단독 설계 및 구현했습니다.',
-      en: 'Solely architected and engineered the entire stack end-to-end: Tkinter/Velopack one-click desktop launcher, Next.js 14 KDS web frontend, async FastAPI API server, Qdrant/SQLite hybrid persistence layer, local Ollama inference pipeline, and 59 automated pytest suites.',
+      ko: 'Windows 데스크톱 런처 및 프로세스 관리, FastAPI 비동기 백엔드, Docker/SQLite 하이브리드 스토리지 폴백, 로컬 임베딩·LLM RAG 파이프라인, Next.js 웹 인터페이스와 백엔드 자동화 테스트를 단독 설계·구현했습니다.',
+      en: 'Independently designed and implemented the Windows desktop launcher and process manager, async FastAPI backend, Docker/SQLite storage fallback, local RAG pipeline, Next.js web UI, and backend automated tests.',
     },
-    images: [
-      image('/img/tech/dograc_main.jpg', 'dograc Neural Retrieval 아키텍처 및 시스템 개요', 'dograc Neural Retrieval Architecture & System Overview'),
-      image('/img/tech/dograc_chat_citations.png', 'Reading-First KDS 작업공간 및 인라인 원문 출처 인용', 'Reading-First KDS Workspace & Grounded Inline Citations'),
-      image('/img/tech/dograc_trace_drawer.png', '투명한 RAG 실행 추적기(Trace Drawer) 및 유사도 분석', 'Execution Trace Drawer & Similarity Score Audit'),
-    ],
+    images: [],
     techChoices: [
       {
-        name: 'Desktop Launcher (Python / Tkinter & Velopack)',
+        name: 'Python / FastAPI (Async)',
         reason: {
-          ko: '개발 도구(Docker, Node, Python CLI)를 직접 다루지 못하는 사내 실무자도 인스톨러 더블클릭 한 번으로 즉시 사내 문서 질의응답을 시작할 수 있도록 Windows KDS 테마 데스크톱 런처를 구현하고, 64KB 파이프 버퍼 데드락 방지 비동기 로그 리더 및 Velopack 원클릭 설치/포터블 패키징을 적용했습니다.',
-          en: 'Enabled non-developers to launch services with a single double-click without manual CLI/Docker setups, incorporating an async log reader preventing 64KB pipe buffer deadlocks and packaging via Velopack installer/portable ZIP.',
+          ko: '문서 업로드·파싱·검색·응답 생성 API와 어댑터 계층(LLM·임베딩·저장소)을 프레임워크 종속성 없이 Python Protocol 기반으로 분리 구현했습니다.',
+          en: 'Implemented async ingestion, retrieval, and Q&A APIs with decoupled LLM, embedding, and storage adapters via Python Protocols.',
         },
       },
       {
-        name: 'Next.js 14 (App Router) & Tailwind CSS',
+        name: 'Windows Launcher (Tkinter & Subprocess Management)',
         reason: {
-          ko: '장시간 문서 판독 피로도를 낮추기 위해 교보 디자인 시스템(KDS) 시각 원칙(이모지 배제, 1px 정갈한 헤어라인, 차분한 Indigo 테마)을 준수한 Reading-First 2열 단일 사용자 작업대를 구현하고, 클릭 가능한 [파일명, p.숫자] 상호작용 인용 배지와 TraceDrawer를 제공하기 위해 채택했습니다.',
-          en: 'Applied Kyobo Design System (KDS) visual language (no emojis, 1px hairlines, muted Indigo) for comfortable long-form reading, paired with interactive [filename, p.page] citation badges and slide-in TraceDrawer.',
+          ko: '백엔드·프론트엔드·스토리지 실행을 단일 런처로 묶고, 비동기 로그 리더와 소켓 헬스체크, 종료 시 자식 프로세스 트리 정리까지 시스템 실행 안정성을 확보했습니다.',
+          en: 'Unified service startup in a single Windows launcher with async log draining, socket health checks, and clean child-process shutdown.',
         },
       },
       {
-        name: 'FastAPI 0.115 Async & Python Protocol Clean Architecture',
+        name: 'Adaptive Storage (Docker Compose / SQLite & Qdrant)',
         reason: {
-          ko: '특정 프레임워크(LangChain 등) 종속 없이 Python Protocol 기반으로 LLM 및 임베딩 어댑터를 추상화하여 도메인 독립성을 확보하고, 문서 수집·청킹·벡터 검색·스트리밍 생성 전 과정을 비동기(AsyncIO) 논블로킹으로 처리하기 위해 채택했습니다.',
-          en: 'Abstracted LLM and embedding adapters via Python Protocols without framework lock-in (e.g., LangChain), executing document parsing, chunking, retrieval, and generation in non-blocking async pipelines.',
+          ko: 'Docker 가동 시 PostgreSQL·Qdrant·MinIO를 사용하고, Docker 미가동 환경에서도 SQLite·인메모리 Qdrant·로컬 디렉터리로 자동 폴백해 실행 장벽을 낮췄습니다.',
+          en: 'Uses Postgres/Qdrant/MinIO with Docker and automatically falls back to SQLite, in-memory Qdrant, and local disk without Docker.',
         },
       },
       {
-        name: 'Hybrid Persistence (Docker Compose / SQLite & In-Memory Qdrant)',
+        name: 'Local LLM (Ollama) & BAAI/bge-m3',
         reason: {
-          ko: 'Docker Desktop 가동 시 컨테이너 인프라(PostgreSQL 16, Qdrant HNSW, MinIO S3)로 연결되고, Docker 미가동 시에도 SQLite, 인메모리 Qdrant, 로컬 디스크 파일 스토리지로 100% 무중단 자동 폴백되는 환경 적응형 하이브리드 영속성 계층을 구현하기 위해 채택했습니다.',
-          en: 'Architected adaptive persistence that connects to containerized Postgres/Qdrant/MinIO when Docker is running, while seamlessly falling back to SQLite, in-memory Qdrant, and local storage when Docker is absent.',
+          ko: '외부 API 호출 없이 로컬 환경에서 한국어 문서 임베딩과 질의응답 생성을 수행하기 위해 구성했습니다.',
+          en: 'Enabled local Korean document embedding and answer generation without external API calls.',
         },
       },
       {
-        name: 'Local Ollama (Qwen2.5-7B) & BAAI/bge-m3 (1024-dim)',
+        name: 'Next.js & TypeScript',
         reason: {
-          ko: '외부 전송 데이터량 0 바이트(Zero Data Egress)를 보장하기 위해 한국어 의미 밀집도가 높은 온디바이스 BGE-M3 임베딩과 로컬 GPU에서 완전 자립 구동되는 Qwen2.5-7B 모델 및 추론 어댑터를 설계했습니다.',
-          en: 'Eliminated enterprise data privacy risks and cloud costs by running open-source Qwen2.5-7B locally via Ollama and generating 1024-dim dense embeddings via on-device BAAI/bge-m3.',
-        },
-      },
-      {
-        name: 'Pytest (59 Automated Tests, 100% Pass)',
-        reason: {
-          ko: '워크스페이스 격리, 문서 수집, 벡터 검색, 어댑터 폴백 등 핵심 엔터프라이즈 RAG 로직의 안정성을 보증하기 위해 apps/api 기준 59건의 자동화 테스트를 전건 통과 검증했습니다.',
-          en: 'Ensured enterprise-grade stability across tenant isolation, ingestion, retrieval, and fallback mechanisms with 59 automated pytest suites passing at 100%.',
+          ko: '문서 목록 관리, 출처 페이지 인용 표시 및 검색 유사도·지연시간 Trace 확인용 웹 인터페이스를 구현했습니다.',
+          en: 'Built the web workspace for document management, inline source citations, and retrieval/latency trace inspection.',
         },
       },
     ],
     keyFeatures: [
       {
         title: {
-          ko: '원클릭 데스크톱 런처 (Zero Setup Barrier)',
-          en: 'One-Click Desktop Launcher (Zero Setup Barrier)',
+          ko: '구현 완료: 문서 파싱·청킹·임베딩 및 로컬 LLM 질의응답 파이프라인',
+          en: 'Implemented: Document Parsing, Chunking, Embedding & Local LLM Q&A',
         },
         description: {
-          ko: '개발 도구(Docker, Node.js, Python CLI)를 다루지 못하는 사내 실무자도 인스톨러 더블클릭 한 번으로 백엔드, 프론트엔드, 영속성 계층을 자동 일괄 기동할 수 있습니다. 64KB 파이프 버퍼 데드락을 방지하는 비동기 UTF-8 로그 리더 스레드, 소켓 바인딩(is_port_open) 기반 1초 초고속 헬스체크, 브라우저 자동 오픈, 런처 종료 시 taskkill /F /T 기반 자식/손자 프로세스 완전 정리를 보장하며, Velopack 기반 원클릭 인스톨러(dograc-win-Setup.exe ~53MB) 및 무설치본(Portable.zip ~46MB) 패키징을 완비했습니다.',
-          en: 'Allows non-developers to launch the backend, frontend, and persistence layers simultaneously with a single double-click. Features an async UTF-8 log reader preventing 64KB pipe buffer deadlocks, 1-second socket health checks, auto-browser launch, complete child process cleanup via taskkill /F /T, and Velopack-packaged installer (~53MB) / portable ZIP (~46MB).',
+          ko: 'PyMuPDF 기반 PDF 페이지 텍스트 추출, 단락 경계를 유지하는 재귀적 청킹(800자 / 120자 오버랩), 로컬 임베딩(bge-m3), 벡터 검색 및 로컬 Ollama LLM 답변 생성을 구현했습니다. 답변에 문서·페이지 출처를 표시하고 Trace 화면에서 검색된 청크와 유사도 점수를 확인할 수 있습니다.',
+          en: 'Implemented PyMuPDF page extraction, recursive paragraph-aware chunking (800 chars / 120 overlap), local bge-m3 embeddings, vector retrieval, and local Ollama answer generation with page citations and a Trace view.',
         },
         images: [],
       },
       {
         title: {
-          ko: '투명한 실행 추적 및 감사 (Transparency First - TraceDrawer)',
-          en: 'Transparent Execution Trace & Audit (TraceDrawer)',
+          ko: '구현 완료: Windows 데스크톱 런처 및 프로세스 수명주기 관리',
+          en: 'Implemented: Windows Desktop Launcher & Process Lifecycle Management',
         },
         description: {
-          ko: '검색(Retrieval)과 생성(Generation)을 단일 블랙박스로 감추지 않고 명확히 분리 기록합니다. 각 답변마다 실행 분석(Trace) 서랍을 열어 추출된 청크들의 코사인 유사도 점수, 매칭 본문, 전체 지연시간(ms), LLM에 실제 주입된 프롬프트 전문을 전수 감사(Audit)할 수 있어 검색 실패(문서 미발견)와 생성 실패(환각)를 명확히 구분하고 디버깅할 수 있습니다.',
-          en: 'Decouples retrieval from generation into a transparent TraceDrawer. Users and auditors can inspect chunk cosine similarity scores, matched excerpt previews, latency breakdowns (ms), and exact prompts fed to the LLM, clearly distinguishing between retrieval misses and generation hallucinations.',
-        },
-        images: [
-          image('/img/tech/dograc_trace_drawer.png', '코사인 유사도 점수 및 프롬프트 전수 감사 드로어', 'Cosine similarity scores and prompt audit trace drawer'),
-        ],
-      },
-      {
-        title: {
-          ko: '신뢰 기반 근거 인용 배지 (Grounded Citations) & 엄격한 환각 거절',
-          en: 'Grounded Inline Citations & Strict Hallucination Refusal',
-        },
-        description: {
-          ko: 'AI 답변의 모든 문장에 참조 문서 위치([파일명, p.숫자])를 인식하여 클릭 가능한 상호작용 배지로 렌더링합니다. 사용자는 배지를 클릭하여 원문 발췌문과 페이지를 즉시 대조할 수 있으며, 문서에 없는 내용에 대해서는 거짓 답변(환각)을 지어내지 않고 정직하게 답변 불가를 안내하는 엄격한 거절 지침(Refusal Constraint)을 확립했습니다.',
-          en: 'Anchors every generated sentence to verified document pages using interactive [filename, p.page] badges that allow instant source inspection. Enforces strict refusal prompts so the LLM honestly declines to answer when grounding evidence is absent.',
-        },
-        images: [
-          image('/img/tech/dograc_chat_citations.png', '인라인 출처 인용 및 원본 문서 앵커링 UI', 'Inline citation badge and document page anchoring'),
-        ],
-      },
-      {
-        title: {
-          ko: '환경 적응형 하이브리드 영속성 계층 (Dual Storage Auto-Fallback)',
-          en: 'Adaptive Hybrid Persistence Layer (Dual Storage Auto-Fallback)',
-        },
-        description: {
-          ko: 'Docker Desktop 실행 상태를 스스로 감지하여, Docker 가동 시 컨테이너 인프라(PostgreSQL 16 메타데이터/Trace, Qdrant HNSW 인덱스, MinIO S3 문서 불변 보관)로 자동 연결되고, Docker 미가동 시에도 시스템 중단 없이 SQLite(dograc_local.db) + 인메모리 Qdrant(:memory:) + 로컬 디렉터리 스토리지(data/storage/)로 100% 무중단 자동 전환됩니다.',
-          en: 'Automatically detects Docker Desktop state: connects to containerized Postgres 16, Qdrant HNSW, and MinIO S3 when active, and seamlessly falls back to SQLite (dograc_local.db), In-Memory Qdrant (:memory:), and local disk storage without Docker.',
-        },
-        images: [
-          image('/img/tech/dograc_main.jpg', 'dograc Neural Retrieval 아키텍처 및 시스템 개요', 'dograc Neural Retrieval Architecture & System Overview'),
-        ],
-      },
-      {
-        title: {
-          ko: 'PyMuPDF 정밀 파싱 & 이중 보안 인가 (Dual Authorization)',
-          en: 'PyMuPDF Parsing & Dual Authorization Tenant Isolation',
-        },
-        description: {
-          ko: 'PyMuPDF 기반 정밀 페이지 텍스트 추출 및 단락(\n\n) 경계를 보존하는 재귀적 문자 청킹(800자 청크, 120자 오버랩), BGE-M3(1024차원) 임베딩을 지원합니다. 또한 Qdrant 벡터 검색 후 관계형 DB(PostgreSQL/SQLite)에서 워크스페이스 소유권 및 문서 ready 상태를 관계형 조인으로 재검증하는 이중 보안 인가(Dual Authorization)를 통해 완벽한 데이터 격리를 보장합니다.',
-          en: 'Performs precise PyMuPDF page text extraction and paragraph-preserving recursive character chunking (800 chars, 120 overlap) with 1024-dim BGE-M3 embeddings. Implements Dual Authorization re-verifying workspace ownership and document ready state in relational DB after vector retrieval.',
+          ko: 'Tkinter 기반 Windows 런처에서 백엔드와 프론트엔드를 일괄 기동하고, 비동기 UTF-8 로그 리더로 파이프 버퍼 블로킹을 방지했습니다. 소켓 기반 포트 헬스체크로 준비 상태를 확인하며, 런처 종료 시 taskkill /F /T로 자식 프로세스 트리를 정리하도록 구현했습니다.',
+          en: 'Built a Tkinter Windows launcher that starts backend and frontend services together, drains stdout/stderr asynchronously to avoid pipe deadlocks, checks port readiness via sockets, and cleans up child process trees with taskkill /F /T on exit.',
         },
         images: [],
       },
       {
         title: {
-          ko: 'Reading-First KDS 웹 인터페이스 & 즉시 작업대 진입',
-          en: 'Reading-First KDS Web Workspace & Zero-Friction Onboarding',
+          ko: '구현 완료: Docker / SQLite 환경 적응형 스토리지 폴백',
+          en: 'Implemented: Adaptive Docker / SQLite Storage Fallback',
         },
         description: {
-          ko: '교보 디자인 시스템(KDS) 시각 원칙(이모지 배제, 1px 정갈한 헤어라인, 차분한 Indigo 테마)을 준수하여 장시간 문서 판독에 최적화했습니다. 불필요한 로그인/회원가입 절차를 걷어내고 접속 즉시 문서 보관함과 채팅 패널을 활용할 수 있는 2열 단일 사용자 작업대를 제공합니다.',
-          en: 'Complies with Kyobo Design System (KDS) reading principles with muted colors and 1px hairlines. Eliminates signup/login friction to present an immediate 2-column workspace for document management and grounded conversations.',
+          ko: '기동 시 Docker 인프라 가용 여부를 확인해 가동 중이면 PostgreSQL·Qdrant·MinIO에 연결하고, 미가동 환경에서는 SQLite·인메모리 Qdrant·로컬 디렉터리 스토리지로 자동 전환되도록 영속성 계층을 추상화했습니다.',
+          en: 'Abstracted the persistence layer to detect Docker availability at startup—connecting to Postgres/Qdrant/MinIO when running, or falling back automatically to SQLite, in-memory Qdrant, and local disk storage.',
         },
-        images: [
-          image('/img/tech/dograc_chat_citations.png', 'KDS 미니멀 디자인 시스템 및 2열 작업대 인터페이스', 'KDS minimalist UI and 2-column workspace interface'),
-        ],
+        images: [],
       },
     ],
     roleDetails: [
       {
-        ko: 'Windows KDS 테마 데스크톱 런처(launcher/gui.py) 개발: 64KB 파이프 버퍼 데드락 방지 비동기 UTF-8 로그 리더 스레드, 소켓 바인딩 헬스체크, 프로세스 트리 일괄 강제 종료(taskkill /F /T), Velopack 인스톨러(~53MB) 및 포터블 ZIP(~46MB) 패키징',
-        en: 'Built Windows KDS desktop launcher (launcher/gui.py): async UTF-8 log reader preventing 64KB pipe buffer deadlocks, socket health checks, taskkill /F /T process tree cleanup, and Velopack installer/portable packaging.',
+        ko: 'FastAPI 비동기 REST API 및 Python Protocol 기반 LLM·임베딩·저장소 어댑터 계층 구현',
+        en: 'Implemented async FastAPI REST APIs and Protocol-based LLM, embedding, and storage adapters.',
       },
       {
-        ko: 'Next.js 14 App Router, TypeScript, Tailwind CSS 기반 Reading-First KDS 웹 작업대 단독 구현: 로그인 없는 즉시 작업대, 클릭 가능한 [파일명, p.숫자] 상호작용 인용 배지 및 TraceDrawer 개발',
-        en: 'Single-handedly built Next.js 14 App Router KDS web workspace: friction-free onboarding, interactive [filename, p.page] citation badges, and slide-in TraceDrawer.',
+        ko: 'Windows 데스크톱 런처: 비동기 로그 리더, 포트 헬스체크, 프로세스 트리 정리(taskkill /F /T) 구현',
+        en: 'Implemented the Windows desktop launcher with async log readers, port health checks, and process-tree cleanup.',
       },
       {
-        ko: 'FastAPI 0.115 Async 기반 REST API 라우터(/workspaces, /documents, /conversations, /traces) 구축 및 Python Protocol 기반 Clean Architecture 어댑터 추상화',
-        en: 'Engineered async FastAPI 0.115 REST API routers and Python Protocol-based Clean Architecture adapter abstractions without framework dependencies.',
+        ko: 'Docker(Postgres/Qdrant/MinIO) ↔ 로컬(SQLite/In-Memory Qdrant/로컬 파일) 자동 폴백 영속성 계층 구현',
+        en: 'Implemented automatic storage fallback between Docker containers and local SQLite/in-memory Qdrant/disk storage.',
       },
       {
-        ko: '환경 적응형 하이브리드 영속성 엔진(main.py) 설계: Docker 가동 시 Postgres/Qdrant/MinIO 연동, 미가동 시 SQLite + In-Memory Qdrant + 로컬 디렉터리 스토리지 100% 무중단 자동 폴백',
-        en: 'Architected adaptive hybrid persistence engine (main.py): auto-connects to Docker Postgres/Qdrant/MinIO or falls back to SQLite, in-memory Qdrant, and local storage.',
-      },
-      {
-        ko: 'PyMuPDF 기반 정밀 텍스트 추출, BGE-M3 1024차원 임베딩, 재귀적 문자 청킹(800자, 120자 오버랩), Qdrant 벡터 검색 후 관계형 DB 재검증 이중 보안 인가(Dual Authorization) 구현',
-        en: 'Implemented PyMuPDF extraction, BGE-M3 embeddings, recursive character chunking (800 chars, 120 overlap), and Dual Authorization joining vector search with relational ownership.',
-      },
-      {
-        ko: 'Ollama(Qwen2.5-7B) 및 vLLM 추론 엔진 연동 Decoupled Generator Adapter 및 환각 억제·엄격한 답변 거절 프롬프트 템플릿 설계',
-        en: 'Engineered decoupled generator adapters for local Ollama (Qwen2.5-7B) / vLLM runtimes with anti-hallucination and strict refusal prompt templates.',
-      },
-      {
-        ko: '품질 검증: apps/api pytest 59건 자동화 테스트 100% 통과 달성 및 apps/web Next.js 14 TypeScript 컴파일 에러 0건 검증',
-        en: 'Achieved 100% pass across 59 automated pytest suites in apps/api and zero TypeScript compilation errors in apps/web.',
+        ko: 'Next.js 웹 작업대, 페이지 출처 인용 표시, 검색·생성 Trace 조회 화면 및 백엔드 단위/통합 테스트 작성',
+        en: 'Built the Next.js workspace, page citation display, Trace audit view, and backend automated tests.',
       },
     ],
     troubleshooting: [
       {
         problem: {
-          ko: '데스크톱 런처에서 서브프로세스 기동 시 Windows 파이프 버퍼 용량(64KB) 초과로 프로세스가 멈추는 데드락 현상과, 런처 종료 시 백엔드/프론트엔드가 백그라운드에 남아 포트를 점유하는 고아 프로세스 문제가 발생했습니다.',
-          en: 'Subprocess execution in the desktop launcher froze due to Windows 64KB pipe buffer overflow deadlocks, while orphaned backend/frontend processes continued occupying ports upon launcher closure.',
+          ko: 'Windows 런처에서 서브프로세스 실행 시 파이프 버퍼(64KB)가 가득 차면 프로세스가 멈추는 데드락이 발생했고, 런처 종료 후에도 자식 프로세스가 포트를 점유하는 문제가 있었습니다.',
+          en: 'Launching subprocesses on Windows caused pipe-buffer deadlocks when stdout filled up, and orphaned child processes held onto ports after launcher exit.',
         },
         solution: {
-          ko: '비동기 UTF-8 로그 리더 스레드를 적용하여 실시간 스트림 버퍼 비우기를 구현하고, 소켓 바인딩(is_port_open) 기반 1초 초고속 헬스체크를 도입했습니다. 런처 종료 시에는 taskkill /F /T로 자식 및 손자 프로세스 트리를 일괄 강제 종료하도록 생명주기를 오케스트레이션했습니다.',
-          en: 'Implemented async UTF-8 log reader threads to flush pipe buffers continuously and added a 1-second socket health check. Configured taskkill /F /T to terminate entire child/grandchild process trees upon launcher shutdown.',
+          ko: '별도 비동기 로그 리더 스레드로 파이프 출력을 지속적으로 소비하고, 소켓 바인딩으로 서비스 준비 상태를 확인한 뒤 종료 시 taskkill /F /T로 프로세스 트리를 일괄 종료하도록 구현했습니다.',
+          en: 'Added dedicated async log reader threads to drain pipes continuously, socket readiness probes, and taskkill /F /T teardown for the entire process tree.',
         },
         result: {
-          ko: '버퍼 오버플로우에 의한 기동 데드락을 원천 차단(0건)하고, 런처 종료 시 잔여 고아 프로세스가 100% 깨끗이 정리되는 안정적인 데스크톱 라이프사이클을 완성했습니다.',
-          en: 'Eliminated startup buffer deadlocks completely and ensured 100% clean process termination upon exit, stabilizing the desktop app lifecycle.',
+          ko: '파이프 블로킹으로 인한 기동 멈춤과 종료 후 잔여 프로세스 문제를 해결했습니다.',
+          en: 'Resolved startup pipe-blocking freezes and lingering orphan processes after exit.',
         },
       },
       {
         problem: {
-          ko: '사내 규정 및 기밀 문서를 다루는 환경에서 상용 클라우드 API 호출 시 외부 유출 위험과 종량제 비용이 발생하며, 문맥에 없는 내용에 대해 LLM이 허위 사실을 지어내거나 출처 페이지를 왜곡하는 환각(Hallucination)이 발생했습니다.',
-          en: 'Commercial cloud APIs posed data egress risks and token costs for sensitive corporate documents, while LLMs generated ungrounded hallucinations and fabricated citation page numbers.',
+          ko: 'Docker Desktop이 없는 PC에서는 PostgreSQL·Qdrant·MinIO 컨테이너를 구동할 수 없어 실행 자체가 불가능했습니다.',
+          en: 'Machines without Docker Desktop could not start Postgres, Qdrant, or MinIO containers.',
         },
         solution: {
-          ko: '외부 전송 데이터량 0 바이트 원칙 하에 Ollama(Qwen2.5-7B) 로컬 모델과 BGE-M3 온디바이스 임베딩을 100% 로컬 GPU에서 구동했습니다. 시스템 프롬프트에 엄격한 거절 지침(Refusal Constraint)과 정규화된 Few-shot을 주입하고, [파일명, p.숫자] 문법을 정규화하여 프론트엔드 인터랙티브 인용 배지와 1:1로 결합했습니다.',
-          en: 'Enforced Zero Data Egress by running Qwen2.5-7B and BGE-M3 100% locally on user GPUs via Ollama. Injected strict refusal constraints with normalized few-shot prompts, standardizing [filename, p.page] syntax synchronized with the interactive frontend citation badges.',
+          ko: '저장소·벡터 인덱스 인터페이스를 추상화해 Docker 미가동 시 SQLite, 인메모리 Qdrant, 로컬 디스크 스토리지로 자동 전환되는 폴백 경로를 구현했습니다.',
+          en: 'Abstracted relational, vector, and object storage interfaces to fall back automatically to SQLite, in-memory Qdrant, and local disk.',
         },
         result: {
-          ko: '외부 네트워크 통신 없는 완벽한 사내 데이터 주권을 확립하고, 근거 없는 답변 생성률을 0%로 통제하며 모든 생성 문장에 대해 실제 문서 페이지와 일치하는 정밀한 원문 앵커링을 달성했습니다.',
-          en: 'Achieved complete data sovereignty with zero external leakage, eliminated ungrounded hallucinations, and guaranteed precise page-level grounding across all answers.',
-        },
-      },
-      {
-        problem: {
-          ko: 'Docker Desktop이 설치되지 않았거나 실행되지 않은 실무자 단말기에서는 PostgreSQL, Qdrant, MinIO 컨테이너를 구동할 수 없어 서비스 진입 장벽이 극도로 높아지는 문제가 있었습니다.',
-          en: 'Users without Docker Desktop installed or running could not start PostgreSQL, Qdrant, and MinIO containers, creating an insurmountable entry barrier for non-developers.',
-        },
-        solution: {
-          ko: '백엔드 기동 시 Docker 상태를 실시간 진단하여, 가동 중이면 컨테이너 인프라로 자동 연결하고 미가동 시 시스템 중단 없이 SQLite(dograc_local.db) + 인메모리 Qdrant(:memory:) + 로컬 디렉터리 스토리지(data/storage/)로 100% 자동 폴백 전환되는 환경 적응형 하이브리드 영속성 엔진(main.py)을 구축했습니다.',
-          en: 'Engineered an adaptive hybrid persistence engine in main.py: auto-connects to containerized Postgres/Qdrant/MinIO if Docker is active, while seamlessly falling back to SQLite, in-memory Qdrant, and local disk storage without Docker.',
-        },
-        result: {
-          ko: '개발 환경이나 Docker 설치 없이 인스톨러 실행만으로 비개발자도 즉시 사내 RAG 서비스를 활용할 수 있는 Zero Setup Barrier를 완성했습니다.',
-          en: 'Delivered a Zero Setup Barrier enabling any corporate employee to use enterprise RAG immediately via a one-click installer without requiring Docker or developer tools.',
+          ko: 'Docker 설치 여부에 관계없이 로컬 환경에서 문서 업로드·검색·질의응답을 실행할 수 있게 했습니다.',
+          en: 'Enabled local document ingestion, retrieval, and Q&A execution with or without Docker.',
         },
       },
     ],
     resultMetrics: [
       {
-        label: { ko: '데이터 주권', en: 'Data Sovereignty' },
-        value: { ko: 'Zero Data Egress', en: 'Zero Data Egress' },
+        label: { ko: '로컬 실행 아키텍처', en: 'Local-First Architecture' },
+        value: { ko: '로컬 LLM + 온디바이스 임베딩', en: 'Local LLM + On-Device Embedding' },
         description: {
-          ko: '외부 전송 데이터량 0 바이트, 로컬 LLM 및 온디바이스 임베딩 100% 자립 구동',
-          en: '0 bytes external egress, 100% air-gapped local LLMs and on-device embeddings',
+          ko: '외부 클라우드 API 의존성을 줄인 문서 파싱·검색·응답 생성 파이프라인 구현',
+          en: 'End-to-end local parsing, vector retrieval, and LLM generation pipeline',
         },
       },
       {
-        label: { ko: '테스트 신뢰도', en: 'Test Coverage' },
-        value: { ko: '59 / 59 Passed', en: '59 / 59 Passed' },
+        label: { ko: '시스템 실행 안정성', en: 'Runtime Reliability' },
+        value: { ko: 'Launcher + Storage Fallback', en: 'Launcher + Storage Fallback' },
         description: {
-          ko: 'apps/api pytest 59건 자동화 테스트 100% 통과 및 Next.js 14 컴파일 에러 0건',
-          en: '100% pass across 59 automated pytest suites and zero Next.js 14 build errors',
-        },
-      },
-      {
-        label: { ko: '설치 구동 장벽', en: 'Setup Barrier' },
-        value: { ko: 'Zero Setup Barrier', en: 'Zero Setup Barrier' },
-        description: {
-          ko: '원클릭 런처(~53MB 설치본, ~46MB 포터블) 및 Docker/SQLite 무중단 자동 폴백',
-          en: 'One-click launcher (~53MB installer, ~46MB portable) and seamless Docker/SQLite fallback',
-        },
-      },
-      {
-        label: { ko: '근거 신뢰성', en: 'Grounded Citations' },
-        value: { ko: '1:1 Page Anchoring', en: '1:1 Page Anchoring' },
-        description: {
-          ko: '[파일명, p.숫자] 상호작용 배지 렌더링 및 근거 부재 시 정직한 답변 거절',
-          en: 'Interactive [filename, p.page] badges and honest refusal when evidence is missing',
-        },
-      },
-      {
-        label: { ko: '투명한 감사성', en: 'Observability' },
-        value: { ko: 'Full Trace Audit', en: 'Full Trace Audit' },
-        description: {
-          ko: '검색 청크 코사인 유사도 점수, 전체 지연시간(ms), 프롬프트 전문 전수 감사',
-          en: 'Full audit drawer of chunk similarity scores, latency (ms), and exact prompt injected',
+          ko: 'Windows 프로세스 수명주기 관리 및 Docker/SQLite 환경 적응형 스토리지 전환 구현',
+          en: 'Windows process lifecycle management and adaptive Docker/SQLite storage fallback',
         },
       },
     ],
     lessonsLearned: [
       {
-        ko: 'RAG 파이프라인의 핵심은 단순히 거대한 LLM을 붙이는 것이 아니라, 검색(Retrieval)과 생성(Generation)을 단일 블랙박스로 감추지 않고 분리 감사(Trace)할 수 있는 투명성과, 사내 보안을 완벽히 지키는 데이터 주권(Zero Data Egress)에 있음을 체득했습니다.',
-        en: 'Learned that enterprise RAG success hinges on transparent Trace auditing separating retrieval from generation, coupled with airtight data sovereignty guaranteeing Zero Data Egress.',
-      },
-      {
-        ko: '기업 실무 환경에서는 화려한 기능보다 비개발자도 더블클릭 한 번으로 구동 가능한 Zero Setup Barrier와, "정직하게 모른다고 답하고 아는 것은 원문 페이지를 명확히 짚어주는 신뢰성(Grounded Citations)"이 제품의 성패를 가른다는 것을 실감했습니다.',
-        en: 'Realized that enterprise adoption demands a Zero Setup Barrier for non-technical users and uncompromised trust: an assistant that honestly refuses when ungrounded and pinpoints verified page numbers when grounded.',
+        ko: '로컬 AI 서비스는 모델 연동 자체보다 프로세스 실행·종료 관리, 환경별 스토리지 폴백, 검색과 생성 단계의 분리 추적(Trace) 같은 시스템 구현 완성도가 실사용성을 좌우한다는 점을 확인했습니다.',
+        en: 'Confirmed that usability of local AI software depends heavily on systems engineering—process lifecycle control, storage fallbacks, and transparent retrieval/generation tracing.',
       },
     ],
     limitations: [
       {
-        ko: '현재는 PDF 포맷을 중심으로 색인 파이프라인이 최적화되어 있어, 사내 주요 문서 포맷(DOCX, PPTX, Markdown)의 추가 파서 확장이 요구됩니다.',
-        en: 'The current ingestion pipeline is optimized primarily for PDFs, requiring extension to additional enterprise formats such as DOCX, PPTX, and Markdown.',
-      },
-      {
-        ko: '고밀도 벡터 검색(Dense Retrieval) 중심 구조로 특정 고유명사나 모델명, 부품 번호 검색 시 키워드 매칭 보완(Hybrid Search)이 요구됩니다.',
-        en: 'Dense vector retrieval alone occasionally lacks precision for exact keywords, model numbers, or serial identifiers, highlighting the need for hybrid search.',
+        ko: '구현 범위 기준 PDF 문서 파싱과 밀집 벡터(Dense) 검색 중심으로 구성되어 있으며, DOCX·PPTX·Markdown 파서 확장과 키워드(BM25) 결합 하이브리드 검색은 미구현 상태입니다.',
+        en: 'Current completed scope focuses on PDF parsing and dense vector retrieval; DOCX/PPTX/Markdown parsers and BM25 hybrid search remain unimplemented.',
       },
     ],
     nextSteps: [
       {
-        ko: '[검색 품질 고도화 (Phase 2)] DOCX, PPTX, Markdown 등 사내 주요 문서 포맷 파서 확장, BM25 키워드 검색 + BGE-M3 밀집 벡터 하이브리드 검색(RRF 순위 융합), Cross-Encoder Reranker 도입으로 상위 랭킹 정확도를 극대화할 계획입니다.',
-        en: '[Phase 2: Retrieval Enhancement] Expand parsers to DOCX, PPTX, and Markdown; implement BM25 + BGE-M3 Hybrid Search with Reciprocal Rank Fusion (RRF); and introduce Cross-Encoder reranking for maximized precision.',
-      },
-      {
-        ko: '[도메인 파인튜닝 파이프라인 (Phase 3)] Trace 감사 로그 및 RAG 평가 골든 데이터셋 기반 LoRA / QLoRA 모델 튜닝 파이프라인을 자동화하여, 사내 도메인 근거 인용 준수율 및 답변 거절 정확도 행동을 지속 교정할 예정입니다.',
-        en: '[Phase 3: Domain Fine-Tuning Pipeline] Automate LoRA / QLoRA model tuning pipelines using Trace audit logs and golden evaluation datasets to continuously refine citation compliance and refusal accuracy.',
+        ko: '향후 확장 과제: DOCX·PPTX·Markdown 문서 파서 추가, BM25 + 벡터 하이브리드 검색 및 Reranker 도입 검토.',
+        en: 'Future scope: adding DOCX/PPTX/Markdown parsers and evaluating BM25 + vector hybrid search with reranking.',
       },
     ],
     links: [
       {
-        label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
+        label: { ko: 'GitHub 저장소 (dograc)', en: 'GitHub Repository (dograc)' },
         url: 'https://github.com/minwoo1119/dograc',
       },
     ],
@@ -3278,269 +3218,214 @@ export const projectsDetailData: ProjectDetailInfo[] = [
     id: 21,
     category: 'featuredVision',
     title: {
-      ko: 'Industrial Anomaly Detection on Edge : 산업용 비전 이상 탐지 및 Edge 추론 최적화',
-      en: 'Industrial Anomaly Detection on Edge: PatchCore & Jetson TensorRT Inference',
+      ko: 'PatchCore-Based Visual Anomaly Detection',
+      en: 'PatchCore-Based Visual Anomaly Detection',
     },
     oneLiner: {
-      ko: 'PatchCore 기반 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속과 C++ 추론 벤치마크 (14.3ms 실시간 달성)',
-      en: 'PatchCore unsupervised anomaly detection, ONNX export, and TensorRT FP16/INT8 quantization for 14.3ms real-time C++ inference on Jetson Orin Nano.',
+      ko: '정상 이미지 기반 비지도 이상 탐지 프로젝트 — 사전학습 CNN 특징 추출, Memory Bank 및 Coreset Sampling 구현 (진행 중)',
+      en: 'Unsupervised visual anomaly detection trained on normal images—implementing pretrained CNN feature extraction, Memory Bank, and Coreset Sampling (In Progress).',
+    },
+    overview: {
+      ko: '불량 샘플 확보가 어려운 검사 환경을 고려해 정상 이미지만으로 이상 여부를 탐지하는 PatchCore 기반 비지도 이상 탐지 프로젝트입니다. 현재 사전학습 CNN 중간 계층 특징 추출, Memory Bank 구축 및 Coreset Sampling 기반 특징 저장 최적화를 구현했으며, ONNX/TensorRT 기반 추론 파이프라인 연동과 정량 벤치마크 측정은 진행 중입니다.',
+      en: 'An unsupervised visual anomaly detection project based on PatchCore for inspection scenarios where defect samples are scarce. Currently implemented pretrained CNN mid-level feature extraction, Memory Bank construction, and Coreset Sampling memory optimization; ONNX/TensorRT inference integration and quantitative benchmarking are in progress.',
     },
     problemStatement: {
-      ko: '산업용 제조 라인은 불량품 샘플을 사전에 대량 수집하기 어려워 정상 제품 데이터만으로 미세 결함을 찾아내는 비지도(Unsupervised) 이상 탐지가 필수적입니다. 그러나 기존 PatchCore 모델은 방대한 메모리 뱅크로 인해 저전력 엣지 보드(Jetson Orin Nano)에서 실시간 추론이 불가능했습니다. 본 프로젝트는 CoreSet 샘플링과 TensorRT FP16/INT8 양자화, C++ 추론 파이프라인을 구축하여 엣지 디바이스 상에서 실시간 70 FPS 불량 판독을 실현하는 것을 목표로 했습니다.',
-      en: 'Manufacturing lines cannot collect large defect datasets in advance, demanding unsupervised anomaly detection trained on normal samples only. However, vanilla PatchCore is computationally prohibitive on low-power edge boards like Jetson Orin Nano. This project engineered CoreSet memory subsampling, TensorRT FP16/INT8 quantization, and a C++ inference runtime to achieve 70 FPS real-time anomaly detection on edge devices.',
+      ko: '제조·검사 현장에서는 정상 제품 이미지는 충분히 확보할 수 있지만 다양한 유형의 불량 샘플을 사전에 수집하기 어렵습니다. 정상 데이터만으로 미세 결함을 탐지할 수 있는 비지도 이상 탐지 구조를 구현하는 동시에, 패치 특징을 모두 저장할 때 급증하는 Memory Bank 크기와 최근접 이웃 탐색 비용을 줄여야 합니다.',
+      en: 'In inspection environments, normal product images are abundant while diverse defect samples are difficult to collect beforehand. The challenge is to build a normal-only unsupervised anomaly detection pipeline while reducing the Memory Bank size and nearest-neighbor search overhead caused by storing all patch features.',
     },
     constraints: [
       {
-        type: { ko: '컴퓨팅 및 전력', en: 'Compute & Power' },
+        type: { ko: '정상 데이터 기반 학습', en: 'Normal-Only Training' },
         description: {
-          ko: 'NVIDIA Jetson Orin Nano 8GB, 15W 저전력 임베디드 엣지 보드 환경',
-          en: 'NVIDIA Jetson Orin Nano 8GB, 15W low-power embedded edge board.',
+          ko: '불량 라벨 데이터 없이 정상 이미지의 패치 특징 분포만으로 이상 점수를 산출하는 비지도 구조',
+          en: 'Unsupervised scoring relying strictly on normal-sample patch feature distributions without defect labels.',
         },
       },
       {
-        type: { ko: '지연시간 & 처리량', en: 'Latency & Throughput' },
+        type: { ko: '메모리 및 탐색 비용', en: 'Memory & Search Cost' },
         description: {
-          ko: '제조 라인 실시간 검사를 위한 30 FPS 이상 (33ms 이하) 인라인 판정',
-          en: 'Sub-33ms (<30 FPS) processing deadline for inline factory inspection.',
-        },
-      },
-      {
-        type: { ko: '정확도 손실 한계', en: 'Accuracy Budget' },
-        description: {
-          ko: '양자화(Quantization) 시 이상치 검출 AUROC 정확도 손실 0.5%p 미만 유지',
-          en: 'Retaining anomaly detection AUROC degradation within 0.5%p after quantization.',
-        },
-      },
-      {
-        type: { ko: '비지도 학습', en: 'Unsupervised Learning' },
-        description: {
-          ko: '불량 이미지 없이 정상 제품 이미지만으로 이상치 판정 기준 자동 수립',
-          en: 'Unsupervised boundary formulation trained strictly on defect-free samples.',
+          ko: '전체 패치 특징 저장 시 발생하는 메모리 증가와 거리 계산 병목을 Coreset Sampling으로 완화',
+          en: 'Mitigating memory footprint growth and distance computation overhead via Coreset Sampling.',
         },
       },
     ],
     architectureSteps: [
       {
         step: '01',
-        title: { ko: 'Patch Feature Extraction', en: 'Patch Feature Extraction' },
+        title: { ko: 'Pretrained CNN Feature Extraction (구현)', en: 'Pretrained CNN Feature Extraction (Implemented)' },
         description: {
-          ko: '정상 제품 이미지로부터 WideResNet 중간 레이어 패치 특징 맵 추출',
-          en: 'Extracting mid-level patch feature representations via WideResNet backbone.',
+          ko: '사전학습 CNN 백본의 중간 레이어에서 지역 패치 특징 맵을 추출하고 공간 해상도를 정렬',
+          en: 'Extracting local patch feature maps from mid-level layers of a pretrained CNN backbone and aligning spatial resolutions.',
         },
       },
       {
         step: '02',
-        title: { ko: 'CoreSet Subsampling', en: 'CoreSet Subsampling' },
+        title: { ko: 'Memory Bank Construction (구현)', en: 'Memory Bank Construction (Implemented)' },
         description: {
-          ko: '메모리 뱅크 10% 희소 샘플링을 통해 k-NN 최근접 탐색 연산량 90% 축소',
-          en: '10% greedy CoreSet subsampling reducing k-NN distance computation by 90%.',
+          ko: '정상 학습 이미지들로부터 추출한 패치 임베딩을 집계해 정상 특징 Memory Bank 구성',
+          en: 'Aggregating patch embeddings from normal training images into a reference Memory Bank.',
         },
       },
       {
         step: '03',
-        title: { ko: 'ONNX Export & INT8 Calibration', en: 'ONNX Export & INT8 Calibration' },
+        title: { ko: 'Coreset Sampling Optimization (구현)', en: 'Coreset Sampling Optimization (Implemented)' },
         description: {
-          ko: '대표 데이터셋 캘리브레이션을 통한 FP16 / INT8 고속 추론 엔진 빌드',
-          en: 'Building TensorRT FP16/INT8 engines with representative dataset calibration.',
+          ko: '대표 패치 부분집합을 선택하는 Coreset Sampling으로 특징 저장량과 탐색 대상 축소',
+          en: 'Selecting representative patch subsets via Coreset Sampling to reduce stored features and search cost.',
         },
       },
       {
         step: '04',
-        title: { ko: 'C++ Inference Runtime on Jetson', en: 'C++ Inference Runtime on Jetson' },
+        title: { ko: 'ONNX / TensorRT C++ Inference (진행 중)', en: 'ONNX / TensorRT C++ Inference (In Progress)' },
         description: {
-          ko: 'Python GIL 오버헤드 없는 C++ 네이티브 실행 및 히트맵 이상치 산출',
-          en: 'C++ native runtime executing zero-GIL inference and anomaly score heatmaps.',
+          ko: '특징 추출 모델의 ONNX 변환 및 TensorRT/C++ 추론 파이프라인 연동과 실측 벤치마크 검증 진행 중',
+          en: 'ONNX export, TensorRT/C++ inference runtime integration, and empirical latency/accuracy benchmarking in progress.',
         },
       },
     ],
-    performanceComparisons: [
-      {
-        metric: { ko: '추론 지연 시간 (Latency)', en: 'Inference Latency' },
-        before: { ko: 'PyTorch FP32: 128.5 ms', en: 'PyTorch FP32: 128.5 ms' },
-        after: { ko: 'TensorRT INT8: 14.3 ms', en: 'TensorRT INT8: 14.3 ms' },
-        improvement: { ko: '-88.9% (약 9배 단축)', en: '8.9x Speedup' },
-      },
-      {
-        metric: { ko: '처리량 (Throughput)', en: 'Throughput' },
-        before: { ko: '7.8 FPS (실시간 불가)', en: '7.8 FPS (Non real-time)' },
-        after: { ko: '69.9 FPS (초고속 실시간)', en: '69.9 FPS (Real-time)' },
-        improvement: { ko: '+796% 향상', en: '+796% Increase' },
-      },
-      {
-        metric: { ko: '메모리 점유율 (VRAM)', en: 'VRAM Usage' },
-        before: { ko: '1,420 MB', en: '1,420 MB' },
-        after: { ko: '420 MB', en: '420 MB' },
-        improvement: { ko: '-70.4% 절감', en: '-70.4% Reduction' },
-      },
-      {
-        metric: { ko: '이상치 탐지 정확도 (AUROC)', en: 'Detection AUROC' },
-        before: { ko: 'FP32: 99.2%', en: 'FP32: 99.2%' },
-        after: { ko: 'INT8: 99.0%', en: 'INT8: 99.0%' },
-        improvement: { ko: '정확도 손실 0.2%p 불과', en: 'Negligible 0.2%p loss' },
-      },
-    ],
-    overview: {
-      ko: '제조 현장에서 결함 데이터가 부족한 문제를 해결하기 위해 PatchCore 비지도 이상 탐지 알고리즘을 도입하고, 저전력 엣지 보드(NVIDIA Jetson Orin Nano) 환경에서 실시간으로 동작하도록 TensorRT FP16/INT8 양자화 및 C++ 추론 파이프라인을 엔드투엔드로 구축했습니다. PyTorch 기준 128ms였던 지연 시간을 INT8 엔진 최적화를 통해 14.3ms(약 70 FPS)까지 단축시키며 엣지 환경에서의 결함 검출 실용성을 입증했습니다.',
-      en: 'Deployed PatchCore unsupervised anomaly detection on an NVIDIA Jetson Orin Nano edge board, optimizing the pipeline via TensorRT FP16/INT8 quantization and a C++ native runtime. Slashed latency from 128.5ms (PyTorch) to 14.3ms (INT8), achieving 70 FPS real-time defect localization on edge.',
+    startDate: null,
+    endDate: null,
+    periodText: {
+      ko: '진행 중',
+      en: 'In Progress',
     },
-    startDate: new Date('2026-04-01'),
-    endDate: new Date('2026-06-30'),
-    teamInfo: { ko: '개인 연구 및 성능 최적화 프로젝트 (100%)', en: 'Solo Research & Performance Optimization (100%)' },
+    isInProgress: true,
+    teamInfo: { ko: '개인 연구 및 구현 프로젝트 (진행 중)', en: 'Personal R&D Project (In Progress)' },
     contribution: {
-      ko: 'PatchCore 모델 학습 파이프라인 구축, CoreSet 탐욕 샘플링 최적화, ONNX 커스텀 오퍼레이터 익스포트, TensorRT FP16/INT8 양자화 캘리브레이션, Jetson Orin Nano 상의 C++ 추론 벤치마크 전 과정을 100% 단독 수행했습니다.',
-      en: '100% ownership: built PatchCore training pipeline, CoreSet subsampling, ONNX export, TensorRT FP16/INT8 calibration, and C++ inference benchmarks on Jetson Orin Nano.',
+      ko: '사전학습 CNN 패치 특징 추출, 정상 특징 Memory Bank 구축, Coreset Sampling 특징 저장 최적화를 구현했으며, ONNX/TensorRT 기반 추론 연동 및 성능 측정 작업을 진행하고 있습니다.',
+      en: 'Implemented pretrained CNN patch feature extraction, normal Memory Bank construction, and Coreset Sampling optimization; currently working on ONNX/TensorRT inference integration and benchmarking.',
     },
-    images: [
-      image('/img/tech/edge_anomaly_patchcore.png', 'Jetson Orin Nano 타겟 PatchCore 엣지 이상 탐지 아키텍처 및 벤치마크', 'PatchCore Edge Anomaly Detection Architecture & Benchmark on Jetson Orin Nano'),
-    ],
+    images: [],
     techChoices: [
       {
-        name: 'PatchCore Algorithm',
+        name: 'PyTorch & Pretrained CNN Backbone',
         reason: {
-          ko: '결함 데이터 없이 정상 샘플만으로 높은 결함 국소화(Localization) 성능을 발휘하여 산업용 제조 라인 콜드 스타트에 최적이기 때문에 채택했습니다.',
-          en: 'Delivers superior anomaly localization trained exclusively on normal samples, ideal for manufacturing cold starts.',
+          ko: '별도 불량 데이터 학습 없이도 중간 계층의 지역 텍스처·구조 특징을 안정적으로 추출하기 위해 사용했습니다.',
+          en: 'Used to extract local texture and structural features from mid-level layers without defect-supervised training.',
         },
       },
       {
-        name: 'TensorRT FP16 & INT8 Quantization',
+        name: 'PatchCore Memory Bank & Coreset Sampling',
         reason: {
-          ko: '제한된 엣지 연산 자원(15W)에서 메모리 대역폭 한계를 극복하고 4.8배 이상의 속도 향상을 얻기 위해 적용했습니다.',
-          en: 'Overcomes edge memory bandwidth bottlenecks on 15W Jetson boards, delivering 4.8x throughput acceleration.',
+          ko: '정상 패치 분포를 유지하면서 저장되는 특징 벡터 수를 줄여 최근접 이웃 거리 계산 부담을 완화하기 위해 적용했습니다.',
+          en: 'Applied to reduce the number of stored feature vectors and nearest-neighbor search cost while preserving normal feature coverage.',
         },
       },
       {
-        name: 'C++ Inference Runtime',
+        name: 'ONNX / TensorRT / C++ (진행 중)',
         reason: {
-          ko: 'Python의 인터프리터 오버헤드와 GIL을 배제하고 실시간 카메라 입력과 직결되는 저지연 런타임을 구성하기 위해 선택했습니다.',
-          en: 'Eliminates Python GIL overhead to provide a deterministic, zero-latency C++ inference loop for camera streams.',
+          ko: 'Python 프로토타입 이후 실제 검사 환경에 적용 가능한 추론 런타임 구성을 목표로 연동 및 검증을 진행하고 있습니다.',
+          en: 'Under ongoing integration and validation to move from the Python prototype toward a deployable inference runtime.',
         },
       },
     ],
     keyFeatures: [
       {
         title: {
-          ko: '정상 데이터 기반 비지도 이상 탐지 파이프라인',
-          en: 'Normal-Only Unsupervised Anomaly Detection',
+          ko: '구현 완료: 사전학습 CNN 기반 패치 특징 추출',
+          en: 'Implemented: Pretrained CNN Patch Feature Extraction',
         },
         description: {
-          ko: '불량 샘플이 없는 상태에서도 정상 제품 이미지 패치 특징 맵을 메모리 뱅크로 구축하여 미세 스크래치, 이물, 균열을 자동 검출합니다.',
-          en: 'Extracts patch representations into memory banks to detect minute scratches, foreign particles, and cracks without defect training samples.',
-        },
-        images: [
-          image('/img/tech/edge_anomaly_patchcore.png', 'PatchCore 파이프라인 및 정밀도별 벤치마크', 'PatchCore pipeline and precision benchmark'),
-        ],
-      },
-      {
-        title: {
-          ko: 'CoreSet 메모리 뱅크 90% 압축',
-          en: 'CoreSet Memory Bank Subsampling (90% Reduction)',
-        },
-        description: {
-          ko: '탐욕적 CoreSet 샘플링 알고리즘을 적용하여 메모리 뱅크 크기를 10%로 줄이면서도 결함 검출 AUROC 손실을 최소화했습니다.',
-          en: 'Applied greedy CoreSet subsampling to reduce memory bank size by 90% while preserving anomaly boundary coverage.',
+          ko: '사전학습 CNN 백본의 중간 레이어 출력에서 지역 문맥을 반영한 패치 단위 특징 벡터를 추출하고 결합하는 파이프라인을 구현했습니다.',
+          en: 'Implemented mid-level feature extraction and local neighborhood aggregation from a pretrained CNN backbone.',
         },
         images: [],
       },
       {
         title: {
-          ko: 'Jetson Orin Nano C++ 실시간 70 FPS 서빙',
-          en: 'Real-time 70 FPS C++ Edge Serving',
+          ko: '구현 완료: Memory Bank 및 Coreset Sampling 특징 저장 최적화',
+          en: 'Implemented: Memory Bank & Coreset Sampling Optimization',
         },
         description: {
-          ko: 'TensorRT C++ API와 GStreamer 파이프라인을 연동하여 14.3ms 내에 히트맵을 생성하고 불량을 판정하는 엣지 서빙 환경을 완성했습니다.',
-          en: 'Integrated TensorRT C++ API with video streams to generate anomaly heatmaps within 14.3ms on Jetson Orin Nano.',
+          ko: '정상 이미지 패치 특징으로 Memory Bank를 구축하고, Coreset Sampling을 통해 대표 패치만 유지하도록 저장 구조를 최적화했습니다.',
+          en: 'Built the normal-patch Memory Bank and applied Coreset Sampling to retain representative patches and reduce storage overhead.',
+        },
+        images: [],
+      },
+      {
+        title: {
+          ko: '진행 중: ONNX/TensorRT 기반 추론 파이프라인 및 정량 검증',
+          en: 'In Progress: ONNX/TensorRT Inference Pipeline & Benchmarking',
+        },
+        description: {
+          ko: 'ONNX 변환과 TensorRT/C++ 추론 파이프라인 연동, 그리고 동일 하드웨어 조건에서의 지연시간·메모리·탐지 성능 실측 검증을 진행하고 있습니다.',
+          en: 'Working on ONNX export, TensorRT/C++ runtime integration, and reproducible latency, memory, and detection-accuracy measurements.',
         },
         images: [],
       },
     ],
     roleDetails: [
       {
-        ko: 'PatchCore 모델 학습 및 MVTec AD 데이터셋 기반 벤치마크 환경 구축',
-        en: 'Constructed PatchCore training and MVTec AD benchmark evaluation suites.',
+        ko: '사전학습 CNN 중간 레이어 특징 추출 및 패치 임베딩 집계 구조 구현',
+        en: 'Implemented mid-level pretrained CNN feature extraction and patch embedding aggregation.',
       },
       {
-        ko: '메모리 뱅크 CoreSet 최적화 및 k-NN 최근접 이웃 탐색 연산 병목 해결',
-        en: 'Optimized CoreSet greedy selection to resolve k-NN distance computation bottlenecks.',
+        ko: '정상 이미지 기반 Memory Bank 생성 및 Coreset Sampling 특징 압축 구현',
+        en: 'Implemented normal-image Memory Bank creation and Coreset Sampling feature compression.',
       },
       {
-        ko: 'PyTorch → ONNX 그래프 변환 및 TensorRT INT8 캘리브레이션 프로파일러 작성',
-        en: 'Engineered PyTorch-to-ONNX export and TensorRT INT8 dataset calibrator.',
-      },
-      {
-        ko: 'Jetson Orin Nano 타겟 C++ 런타임 구현 및 FP32/FP16/INT8 정밀도별 레이턴시/메모리 측정',
-        en: 'Built Jetson C++ inference runtime and measured latency, throughput, and VRAM profiles across precisions.',
+        ko: 'ONNX/TensorRT 기반 추론 연동 및 실측 벤치마크 검증 진행 중 (미확정 성능 수치는 공개하지 않음)',
+        en: 'ONNX/TensorRT inference integration and reproducible benchmarking currently in progress (no unverified metrics claimed).',
       },
     ],
     troubleshooting: [
       {
         problem: {
-          ko: 'INT8 양자화 시 메모리 뱅크 거리 계산 과정에서 오버플로우 및 미세 결함에 대한 이상치 점수 왜곡이 발생했습니다.',
-          en: 'Full INT8 quantization caused numerical overflow during memory bank distance calculation, distorting anomaly scores.',
+          ko: '전체 정상 이미지의 패치 특징을 그대로 Memory Bank에 적재하면 메모리 사용량과 k-NN 거리 계산 시간이 크게 증가합니다.',
+          en: 'Storing every patch embedding from normal images increases memory footprint and nearest-neighbor distance search cost.',
         },
         solution: {
-          ko: '백본 피처 맵 레이어만 INT8로 양자화하고 k-NN 거리 계산 레이어는 FP16 혼합 정밀도(Mixed Precision)를 유지하도록 레이어별 정밀도를 매핑했습니다.',
-          en: 'Configured layer-wise mixed precision: quantized backbone layers to INT8 while keeping distance metrics in FP16.',
+          ko: 'Coreset Sampling을 적용해 특징 공간의 분포를 대표하는 패치 부분집합만 선택·보관하도록 Memory Bank 구성을 최적화했습니다.',
+          en: 'Applied Coreset Sampling to select and retain a representative subset of patch embeddings in the Memory Bank.',
         },
         result: {
-          ko: 'FP32 대비 AUROC 손실을 0.2%p 이내로 완벽히 방어하면서 14.3ms의 압도적인 추론 속도를 확보했습니다.',
-          en: 'Defended AUROC degradation within 0.2%p while securing outstanding 14.3ms edge inference speeds.',
+          ko: '특징 저장량 축소 구조를 구현했으며, 샘플링 비율에 따른 탐지 성능과 추론 시간 트레이드오프를 검증하고 있습니다.',
+          en: 'Implemented compressed feature storage and am evaluating the accuracy-latency trade-off across sampling ratios.',
         },
       },
     ],
     resultMetrics: [
       {
-        label: { ko: '추론 지연 시간', en: 'Inference Latency' },
-        value: { ko: '14.3 ms (69.9 FPS)', en: '14.3 ms (69.9 FPS)' },
+        label: { ko: '구현 완료 범위', en: 'Implemented Scope' },
+        value: { ko: 'Feature Bank + Coreset', en: 'Feature Bank + Coreset' },
         description: {
-          ko: 'Jetson Orin Nano 15W 저전력 보드 실시간 인라인 검사 달성',
-          en: 'Real-time inline inspection achieved on 15W low-power edge board',
+          ko: '사전학습 CNN 특징 추출, 정상 Memory Bank 구축, Coreset Sampling 최적화 구현',
+          en: 'Pretrained CNN feature extraction, Memory Bank, and Coreset Sampling implemented',
         },
       },
       {
-        label: { ko: '속도 가속률', en: 'Speedup' },
-        value: { ko: '4.8배 가속', en: '4.8x Speedup' },
+        label: { ko: '진행 상태', en: 'Current Status' },
+        value: { ko: 'In Progress', en: 'In Progress' },
         description: {
-          ko: 'PyTorch FP32 baseline 대비 압도적 처리량 향상',
-          en: 'Over 4.8x throughput acceleration compared to PyTorch FP32',
-        },
-      },
-      {
-        label: { ko: '이상치 탐지율', en: 'Detection AUROC' },
-        value: { ko: '99.0% AUROC', en: '99.0% AUROC' },
-        description: {
-          ko: 'INT8 양자화 후에도 결함 검출 정확도 손실 0.2%p 이내 방어',
-          en: 'Less than 0.2%p accuracy degradation following INT8 quantization',
+          ko: 'ONNX/TensorRT C++ 추론 파이프라인 연동 및 실측 벤치마크 결과 검증 진행 중',
+          en: 'ONNX/TensorRT C++ inference pipeline integration and benchmark verification ongoing',
         },
       },
     ],
     lessonsLearned: [
       {
-        ko: '엣지 디바이스에서의 딥러닝 서빙은 단순히 모델을 작게 만드는 것을 넘어, 타겟 하드웨어의 메모리 대역폭과 텐서 코어 특성에 맞춘 양자화 캘리브레이션이 결정적인 차이를 만든다는 것을 배웠습니다.',
-        en: 'Learned that edge deep learning serving requires hardware-aware quantization calibration matching memory bandwidth.',
-      },
-      {
-        ko: 'C++ 런타임으로의 전환을 통해 Python 생태계의 래퍼 비용을 걷어내고 순수한 하드웨어 성능을 끝까지 끌어올리는 시스템 엔지니어링의 위력을 확인했습니다.',
-        en: 'Demonstrated the power of C++ systems engineering in eliminating language wrapper overhead to maximize silicon throughput.',
+        ko: '비지도 이상 탐지에서는 백본 특징 추출뿐 아니라 Memory Bank 크기 제어(Coreset Sampling)와 배포 런타임 설계가 현장 적용성을 결정한다는 점을 확인하고 있습니다.',
+        en: 'Observing that practical unsupervised anomaly detection relies on balancing Memory Bank compression (Coreset Sampling) with deployable inference runtime design.',
       },
     ],
     limitations: [
       {
-        ko: '더 다양한 제조 조명 변화 환경에 대응하기 위한 조명 불변(Illumination-invariant) 피처 정규화 연구가 추가로 필요합니다.',
-        en: 'Requires further research into illumination-invariant feature normalization across varied manufacturing lighting.',
+        ko: 'ONNX/TensorRT 기반 C++ 추론 파이프라인과 정량 벤치마크(지연시간·AUROC·메모리)는 아직 측정 및 검증이 완료되지 않았습니다.',
+        en: 'The ONNX/TensorRT C++ inference pipeline and quantitative benchmarks (latency, AUROC, memory) are not yet finalized or verified.',
       },
     ],
     nextSteps: [
       {
-        ko: '실제 산업용 라인 카메라와 연동하여 결함 배출 PLC 트리거 신호까지 통합된 엔드투엔드 C++ 인라인 비전 검사 시스템으로 확장할 예정입니다.',
-        en: 'Planning to integrate industrial line cameras and PLC digital IO triggers into a full end-to-end C++ inline inspection station.',
+        ko: 'ONNX/TensorRT 변환 및 C++ 추론 런타임 구현을 완료하고, 재현 가능한 측정 스크립트로 추론 지연시간과 탐지 성능을 검증할 예정입니다.',
+        en: 'Complete ONNX/TensorRT conversion and C++ inference runtime, then validate latency and detection performance with reproducible benchmark scripts.',
       },
     ],
     links: [
       {
         label: { ko: 'GitHub 저장소', en: 'GitHub Repository' },
         note: {
-          ko: '코드 정리 및 벤치마크 결과 리포지토리 공개 준비 중',
-          en: 'Repository and benchmark reproduction scripts preparing for release',
+          ko: '구현 및 벤치마크 검증 진행 중이며 정리 후 공개 예정입니다.',
+          en: 'Implementation and benchmark verification in progress; planned for release after cleanup.',
         },
       },
     ],

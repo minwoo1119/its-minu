@@ -101,6 +101,7 @@ export const Projects = ({
             <ProjectBox
               key={item.id}
               {...item}
+              hideImage={isVisionTrack}
               language={language}
               onClick={() => onProjectClick(item.id)}
             />

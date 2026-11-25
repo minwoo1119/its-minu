@@ -12,6 +12,7 @@ export interface ProjectBoxProps {
   period?: LocalizedText;
   statusBadge?: LocalizedText;
   techs: string[];
+  hideImage?: boolean;
   language: Language;
   onClick: () => void;
 }
@@ -23,26 +24,31 @@ export const ProjectBox = ({
   period,
   statusBadge,
   techs,
+  hideImage = false,
   language,
   onClick,
 }: ProjectBoxProps) => {
   const [hasImageError, setHasImageError] = useState(false);
-  const fullImgUrl = `${import.meta.env.BASE_URL}${
-    imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl
-  }`;
+  const shouldShowImage = !hideImage && Boolean(imgUrl);
+  const fullImgUrl = shouldShowImage
+    ? `${import.meta.env.BASE_URL}${
+        imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl
+      }`
+    : '';
   const localizedTitle = getText(language, title);
 
   return (
     <button type='button' className={styles.container} onClick={onClick}>
-      {hasImageError ? (
-        <div className={styles.imageFallback}>{localizedTitle}</div>
-      ) : (
-        <img
-          src={fullImgUrl}
-          alt={localizedTitle}
-          onError={() => setHasImageError(true)}
-        />
-      )}
+      {shouldShowImage &&
+        (hasImageError ? (
+          <div className={styles.imageFallback}>{localizedTitle}</div>
+        ) : (
+          <img
+            src={fullImgUrl}
+            alt={localizedTitle}
+            onError={() => setHasImageError(true)}
+          />
+        ))}
 
       {(period || statusBadge) && (
         <div className={styles.metaRow}>
