@@ -9,6 +9,8 @@ export interface ProjectBoxProps {
   imgUrl: string;
   title: LocalizedText;
   description: LocalizedText;
+  period?: LocalizedText;
+  statusBadge?: LocalizedText;
   techs: string[];
   language: Language;
   onClick: () => void;
@@ -18,6 +20,8 @@ export const ProjectBox = ({
   imgUrl,
   title,
   description,
+  period,
+  statusBadge,
   techs,
   language,
   onClick,
@@ -39,15 +43,32 @@ export const ProjectBox = ({
           onError={() => setHasImageError(true)}
         />
       )}
+
+      {(period || statusBadge) && (
+        <div className={styles.metaRow}>
+          {period && (
+            <span className={styles.period}>{getText(language, period)}</span>
+          )}
+          {statusBadge && (
+            <span className={styles.statusBadge}>
+              {getText(language, statusBadge)}
+            </span>
+          )}
+        </div>
+      )}
+
       <div className={styles.title}>{localizedTitle}</div>
       <div className={styles.description}>{getText(language, description)}</div>
       <div className={styles.techRow}>
-        {techs.map((ele) => (
+        {techs.slice(0, 5).map((ele) => (
           <span key={ele} className={styles.techItemBox}>
             {ele}
           </span>
         ))}
       </div>
+      <span className={styles.detailLink}>
+        {language === 'ko' ? '상세 보기 →' : 'View details →'}
+      </span>
     </button>
   );
 };

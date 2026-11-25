@@ -12,6 +12,8 @@ export interface ProjectCardInfo {
   imgUrl: string;
   title: LocalizedText;
   description: LocalizedText;
+  period?: LocalizedText;
+  statusBadge?: LocalizedText;
   techs: string[];
 }
 
@@ -110,14 +112,22 @@ const allCards = {
     category,
     imgUrl: '/img/tech/edge_anomaly_patchcore.png',
     title: {
-      ko: 'Industrial Anomaly Detection on Edge : 산업용 비전 이상 탐지 및 Edge 추론 최적화',
-      en: 'Industrial Anomaly Detection on Edge : PatchCore & Jetson TensorRT Inference',
+      ko: 'PatchCore-Based Visual Anomaly Detection',
+      en: 'PatchCore-Based Visual Anomaly Detection',
     },
     description: {
-      ko: 'PatchCore 비지도 이상 탐지 모델 학습 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속 (지연시간 14ms, 70 FPS 실시간 C++ 추론 엔진 구축)',
-      en: 'PatchCore unsupervised anomaly detection with TensorRT FP16/INT8 quantization for ultra-low latency (14ms, 70 FPS) C++ inference on Jetson Orin Nano.',
+      ko: '정상 이미지 기반 비지도 이상 탐지 프로젝트. 사전학습 CNN 특징 추출, Memory Bank 및 Coreset Sampling 기반 특징 저장 최적화를 구현하며 ONNX/TensorRT 기반 추론 연동을 진행 중입니다.',
+      en: 'Unsupervised visual anomaly detection trained on normal images, implementing pretrained CNN feature extraction, Memory Bank, and Coreset Sampling, with ONNX/TensorRT inference work in progress.',
     },
-    techs: ['C++', 'TensorRT', 'Jetson Orin Nano', 'PatchCore', 'ONNX', 'CUDA'],
+    period: {
+      ko: '진행 중',
+      en: 'In Progress',
+    },
+    statusBadge: {
+      ko: '진행 중',
+      en: 'In Progress',
+    },
+    techs: ['Python', 'PyTorch', 'PatchCore', 'Coreset Sampling', 'OpenCV'],
   }),
 
   pipetOcr: (category: string): ProjectCardInfo => ({
@@ -125,14 +135,18 @@ const allCards = {
     category,
     imgUrl: '/img/tech/pipet_detection.png',
     title: {
-      ko: 'Micro-pipette Detection & Hybrid OCR System',
-      en: 'Micro-pipette Detection & Hybrid OCR System',
+      ko: 'Micro-Pipette Detection & OCR System',
+      en: 'Micro-Pipette Detection & OCR System',
     },
     description: {
-      ko: 'YOLO 객체 검출 + Custom CNN + PaddleOCR 파이프라인의 TensorRT C++ 가속 최적화를 통한 추론 지연 시간 73% 단축 (300ms → 80ms) 및 정밀 수치 판독',
-      en: 'Optimized hybrid vision pipeline with YOLO, Custom CNN, PaddleOCR, and TensorRT C++ acceleration, cutting latency by 73% (300ms -> 80ms).',
+      ko: '학부연구생 시절 수행한 영상 인식 프로젝트. YOLO 객체 탐지, Custom CNN, PaddleOCR 파이프라인에 ONNX Runtime·TensorRT 추론 최적화를 적용해 실측 처리 시간을 300ms에서 80ms로 약 73.3% 단축했습니다.',
+      en: 'Undergraduate vision research combining YOLO detection, Custom CNN, and PaddleOCR, optimized with ONNX Runtime and TensorRT to reduce measured latency from 300ms to 80ms (~73.3% reduction).',
     },
-    techs: ['C++', 'TensorRT', 'OpenCV', 'YOLO', 'PaddleOCR', 'ONNX', 'Python'],
+    period: {
+      ko: '2025.05 ~ 2026.02',
+      en: '2025.05 ~ 2026.02',
+    },
+    techs: ['Python', 'YOLO', 'Custom CNN', 'PaddleOCR', 'ONNX Runtime', 'TensorRT'],
   }),
 
   semParticle: (category: string): ProjectCardInfo => ({
@@ -367,14 +381,18 @@ const allCards = {
     category,
     imgUrl: '/img/tech/dograc_main.jpg',
     title: {
-      ko: 'dograc : 사내 기밀 유출 제로 로컬 오픈소스 데스크톱-웹 RAG 플랫폼',
-      en: 'dograc: Zero Data Egress Local Desktop-Web Hybrid RAG Platform',
+      ko: 'Offline RAG Platform for Document Question Answering',
+      en: 'Offline RAG Platform for Document Question Answering',
     },
     description: {
-      ko: '외부 전송 데이터량 0 바이트 보장, 로컬 LLM/임베딩, 원클릭 데스크톱 런처 및 Docker/SQLite 자동 폴백 RAG 플랫폼',
-      en: 'Zero Data Egress desktop-web hybrid RAG platform with local LLM, on-device embeddings, one-click launcher, and Docker/SQLite auto-fallback.',
+      ko: '외부 네트워크 의존성을 줄인 로컬 RAG 문서 검색·질의응답 플랫폼. 문서 파싱·청킹·임베딩·벡터 검색·로컬 LLM 생성과 Windows 런처·프로세스 관리·스토리지 폴백을 구현했습니다.',
+      en: 'Local RAG document retrieval and Q&A platform minimizing external network dependency, featuring parsing, chunking, embedding, vector search, local LLM generation, Windows launcher, process management, and storage fallback.',
     },
-    techs: ['Next.js 14', 'FastAPI', 'Python', 'Qdrant', 'Ollama', 'bge-m3', 'Tkinter', 'Docker'],
+    period: {
+      ko: '2026.07 ~ 2026.10',
+      en: '2026.07 ~ 2026.10',
+    },
+    techs: ['Python', 'FastAPI', 'Local LLM', 'Qdrant', 'Windows Launcher', 'SQLite'],
   }),
 
   chwieolUpAi: (category: string): ProjectCardInfo => ({
@@ -727,20 +745,20 @@ export const tracksData: Record<TrackId, TrackData> = {
     ],
     intro: {
       title: {
-        ko: 'C++ 기반 소프트웨어를 ',
-        en: 'I build and improve ',
+        ko: 'C++ 기반 소프트웨어를 개발하고 개선합니다.',
+        en: 'Building and improving software with C++.',
       },
       role: {
-        ko: '개발하고 개선합니다.',
-        en: 'C++ software.',
+        ko: '',
+        en: '',
       },
       name: {
         ko: '',
         en: '',
       },
       sub: {
-        ko: 'Windows 애플리케이션의 기능 개발과 안정화, 멀티스레드 오류 분석, 컴퓨터 비전 알고리즘 및 데이터 플랫폼 개발을 경험했습니다.',
-        en: 'Experienced in Windows application development and stabilization, multithreaded error analysis, computer vision algorithms, and data-platform development.',
+        ko: '산업용 Vision 검사 SW와 AI 시스템을 개발하며, 영상처리 알고리즘부터 Windows 애플리케이션, 시스템 연동 및 AI 추론까지 경험을 쌓고 있습니다.',
+        en: 'I develop industrial vision software and AI systems, working across computer vision, Windows applications, system integration, and AI inference.',
       },
     },
     competencies: {
@@ -862,43 +880,45 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
     projects: {
       subText: {
-        ko: 'C++, 컴퓨터 비전, 영상처리, 실시간 시스템 및 임베디드 엣지 추론 가속에 집중된 핵심 엔지니어링 프로젝트입니다. 알고리즘 설계와 프레임 레이트/지연시간 최적화 과정을 중점적으로 다룹니다.',
-        en: 'High-impact engineering projects focused on C++, computer vision, image processing, real-time systems, and edge AI inference optimization.',
+        ko: '영상 인식·추론 최적화, 비지도 이상 탐지, 로컬 RAG 시스템 구현 역량을 보여주는 선별 프로젝트입니다.',
+        en: 'Selected projects demonstrating computer vision inference optimization, visual anomaly detection, and local RAG system engineering.',
       },
       titleText: {
-        ko: 'Core Vision & Systems Projects (핵심 프로젝트)',
-        en: 'Core Vision & Systems Projects',
+        ko: '개인·연구 프로젝트',
+        en: 'Selected Projects',
       },
-      categoryOptions: ['all', 'featured'],
+      categoryOptions: ['all'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        featured: { ko: '산업용 비전 & 엣지 가속', en: 'Vision & Edge Acceleration' },
       },
       items: [
-        allCards.edgeAnomaly('featured'),
-        allCards.pipetOcr('featured'),
-        allCards.semParticle('featured'),
-        allCards.sevenSegmentOcr('featured'),
+        allCards.pipetOcr('all'),
+        allCards.edgeAnomaly('all'),
+        allCards.dograc('all'),
       ],
       otherProjects: {
         subText: {
-          ko: 'Personal & Research Projects',
-          en: 'Personal & Research Projects',
+          ko: '이전 영상처리 유틸리티, LLM 연구, 모바일 앱 및 웹 개발 프로젝트 아카이브입니다.',
+          en: 'Archive of earlier image-processing utilities, LLM research, mobile apps, and web systems.',
         },
         titleText: {
-          ko: '개인 및 연구 프로젝트',
-          en: 'Personal & Research Projects',
+          ko: '기타 작업 (Other Work)',
+          en: 'Other Work',
         },
-        categoryOptions: ['all', 'ai', 'mobile', 'web'],
+        categoryOptions: ['all', 'vision', 'ai', 'mobile', 'web'],
         categoryLabels: {
-          all: { ko: '전체 (All)', en: 'All' },
-          ai: { ko: 'AI / RAG / 연구', en: 'AI & Research' },
-          mobile: { ko: '모바일 실서비스 앱', en: 'Mobile Apps' },
-          web: { ko: '웹 & 풀스택 시스템', en: 'Web & Full-Stack' },
+          all: { ko: '전체', en: 'All' },
+          vision: { ko: '영상처리 & 유틸리티', en: 'Vision & Utilities' },
+          ai: { ko: 'AI / LLM 연구', en: 'AI & Research' },
+          mobile: { ko: '모바일 앱', en: 'Mobile Apps' },
+          web: { ko: '웹 시스템', en: 'Web Systems' },
         },
         items: [
-          // AI & RAG
-          allCards.dograc('ai'),
+          // Earlier Vision & Utilities
+          allCards.semParticle('vision'),
+          allCards.sevenSegmentOcr('vision'),
+          allCards.qlogAnalyzer('vision'),
+          // AI & Research
           allCards.chwieolUpAi('ai'),
           allCards.llmAlignment('ai'),
           allCards.slowAgingLlm('ai'),
@@ -908,7 +928,7 @@ export const tracksData: Record<TrackId, TrackData> = {
           allCards.saSang('mobile'),
           allCards.uhdyl('mobile'),
           allCards.chirpaid('mobile'),
-          // Web & Full-Stack
+          // Web Systems
           allCards.jobForeigner('web'),
           allCards.joinUs('web'),
           allCards.babzip('web'),
