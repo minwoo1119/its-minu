@@ -13,12 +13,12 @@ interface ProfessionalProjectDetailProps {
 
 const statusLabel = (status: ProfessionalProjectStatus, language: Language) => {
   if (status === 'in-progress') {
-    return language === 'ko' ? '분석·수정 진행 중' : 'Analysis & remediation in progress';
+    return language === 'ko' ? '분석·검토 진행 중' : 'In progress';
   }
   if (status === 'mixed') {
-    return language === 'ko' ? '완료·진행 범위 구분' : 'Completed and ongoing scope';
+    return language === 'ko' ? '완료·진행 범위 구분' : 'Completed & ongoing';
   }
-  return language === 'ko' ? '구현 완료' : 'Implemented';
+  return language === 'ko' ? '구현 완료' : 'Completed';
 };
 
 export const ProfessionalProjectDetail = ({
@@ -47,35 +47,45 @@ export const ProfessionalProjectDetail = ({
       </div>
       <p className={styles.confidentialNote}>
         {language === 'ko'
-          ? '공개 범위 안내 · 내부 제품명, 고객·설비 정보, API·통신 주소, 원시 데이터와 코드는 포함하지 않았습니다.'
-          : 'Public-scope note · Product names, customer/equipment data, API and network details, raw data, and source code are intentionally omitted.'}
+          ? '공개 범위 안내 · 회사 내부 소스코드, API 명세, 인증 정보, 설비 식별 규칙 및 원시 데이터는 포함하지 않았습니다.'
+          : 'Confidentiality notice · Internal source code, API specs, credentials, equipment identification rules, and raw data are omitted.'}
       </p>
     </header>
 
+    {/* 1. Overview */}
     <section className={styles.section}>
       <div className={styles.sectionIndex}>01</div>
       <div className={styles.sectionBody}>
-        <p className={styles.sectionEyebrow}>Project Overview</p>
-        <h2>{language === 'ko' ? '프로젝트 개요' : 'Project overview'}</h2>
-        <p className={styles.bodyCopy}>{getText(language, project.context)}</p>
+        <p className={styles.sectionEyebrow}>Overview</p>
+        <h2>{language === 'ko' ? '프로젝트 목표와 담당 범위' : 'Project goal & scope'}</h2>
+        <p className={styles.bodyCopy}>{getText(language, project.overview)}</p>
+        {project.scopeNote && (
+          <p className={styles.scopeBox}>{getText(language, project.scopeNote)}</p>
+        )}
       </div>
     </section>
 
+    {/* 2. Problem */}
     <section className={styles.section}>
       <div className={styles.sectionIndex}>02</div>
       <div className={styles.sectionBody}>
-        <p className={styles.sectionEyebrow}>
-          {project.id === 30 ? 'Platform Architecture' : 'Software Flow'}
-        </p>
-        <h2>
-          {language === 'ko'
-            ? project.id === 30
-              ? '플랫폼 주요 영역 및 구성'
-              : '소프트웨어 처리 흐름'
-            : project.id === 30
-              ? 'Platform areas & architecture'
-              : 'Software processing flow'}
-        </h2>
+        <p className={styles.sectionEyebrow}>Problem</p>
+        <h2>{language === 'ko' ? '해결하려는 기술적 문제' : 'Technical problems'}</h2>
+        <ul className={styles.plainList}>
+          {project.problems.map((item) => (
+            <li key={getText(language, item)}>{getText(language, item)}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* 3. Implementation */}
+    <section className={styles.section}>
+      <div className={styles.sectionIndex}>03</div>
+      <div className={styles.sectionBody}>
+        <p className={styles.sectionEyebrow}>Implementation</p>
+        <h2>{language === 'ko' ? '실제 구현한 기능과 아키텍처' : 'Implementation & architecture'}</h2>
+
         <div className={styles.architecture}>
           {project.architecture.map((step, index) => (
             <div className={styles.architectureStep} key={getText(language, step.label)}>
@@ -87,14 +97,7 @@ export const ProfessionalProjectDetail = ({
             </div>
           ))}
         </div>
-      </div>
-    </section>
 
-    <section className={styles.section}>
-      <div className={styles.sectionIndex}>03</div>
-      <div className={styles.sectionBody}>
-        <p className={styles.sectionEyebrow}>Key Development Details</p>
-        <h2>{language === 'ko' ? '주요 개발 내용' : 'Key development details'}</h2>
         <div className={styles.contributionList}>
           {project.contributions.map((item, index) => (
             <div className={styles.contribution} key={getText(language, item.title)}>
@@ -141,32 +144,12 @@ export const ProfessionalProjectDetail = ({
       </div>
     </section>
 
-    {project.keyExperiences && project.keyExperiences.length > 0 && (
-      <section className={styles.section}>
-        <div className={styles.sectionIndex}>04</div>
-        <div className={styles.sectionBody}>
-          <p className={styles.sectionEyebrow}>Core Experience</p>
-          <h2>{language === 'ko' ? '핵심 경험' : 'Core experience'}</h2>
-          <div className={styles.keyExpGrid}>
-            {project.keyExperiences.map((exp) => (
-              <div
-                className={styles.keyExpCard}
-                key={getText(language, exp.title)}
-              >
-                <h3>{getText(language, exp.title)}</h3>
-                <p>{getText(language, exp.description)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
+    {/* 4. Engineering Challenges */}
     <section className={styles.section}>
-      <div className={styles.sectionIndex}>05</div>
+      <div className={styles.sectionIndex}>04</div>
       <div className={styles.sectionBody}>
         <p className={styles.sectionEyebrow}>Engineering Challenges</p>
-        <h2>{language === 'ko' ? '오류 분석 및 개선 과정' : 'Investigation and improvements'}</h2>
+        <h2>{language === 'ko' ? '어려웠던 점과 접근 방법' : 'Challenges & approach'}</h2>
         <div className={styles.challengeList}>
           {project.challenges.map((challenge) => (
             <article className={styles.challenge} key={getText(language, challenge.title)}>
@@ -182,8 +165,8 @@ export const ProfessionalProjectDetail = ({
                   <dd>{getText(language, challenge.problem)}</dd>
                 </div>
                 <div>
-                  <dt>Investigation</dt>
-                  <dd>{getText(language, challenge.investigation)}</dd>
+                  <dt>Approach</dt>
+                  <dd>{getText(language, challenge.approach)}</dd>
                 </div>
                 <div>
                   <dt>Status</dt>
@@ -196,11 +179,12 @@ export const ProfessionalProjectDetail = ({
       </div>
     </section>
 
+    {/* 5. Results & Validation */}
     <section className={styles.section}>
-      <div className={styles.sectionIndex}>06</div>
+      <div className={styles.sectionIndex}>05</div>
       <div className={styles.sectionBody}>
-        <p className={styles.sectionEyebrow}>Outcomes & Deliverables</p>
-        <h2>{language === 'ko' ? '주요 구현 결과' : 'Key outcomes & deliverables'}</h2>
+        <p className={styles.sectionEyebrow}>Results &amp; Validation</p>
+        <h2>{language === 'ko' ? '검증 가능한 결과' : 'Verifiable results'}</h2>
         <ul className={styles.outcomes}>
           {project.outcomes.map((outcome) => (
             <li key={getText(language, outcome)}>{getText(language, outcome)}</li>
@@ -209,12 +193,20 @@ export const ProfessionalProjectDetail = ({
       </div>
     </section>
 
-    <section className={`${styles.section} ${styles.reflection}`}>
-      <div className={styles.sectionIndex}>07</div>
+    {/* 6. Tech Stack */}
+    <section className={`${styles.section} ${styles.lastSection}`}>
+      <div className={styles.sectionIndex}>06</div>
       <div className={styles.sectionBody}>
-        <p className={styles.sectionEyebrow}>Reflection</p>
-        <h2>{language === 'ko' ? '개발 과정에서 확인한 점' : 'Engineering notes'}</h2>
-        <p className={styles.bodyCopy}>{getText(language, project.reflection)}</p>
+        <p className={styles.sectionEyebrow}>Tech Stack</p>
+        <h2>{language === 'ko' ? '실제 사용한 기술' : 'Technologies used'}</h2>
+        <div className={styles.techDetailGrid}>
+          {project.techDetails.map((item) => (
+            <div className={styles.techDetailCard} key={item.name}>
+              <h3>{item.name}</h3>
+              <p>{getText(language, item.usage)}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   </article>
