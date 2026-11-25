@@ -9,6 +9,7 @@ interface HeaderProps {
   onLanguageChange: (language: Language) => void;
   onTrackChange?: (track: TrackId | 'portal') => void;
   onLogoClick?: () => void;
+  onAboutClick?: () => void;
   onExperienceClick?: () => void;
   onCompetenciesClick?: () => void;
   onTechClick?: () => void;
@@ -22,6 +23,7 @@ export const Header = ({
   language,
   onLanguageChange,
   onLogoClick,
+  onAboutClick,
   onExperienceClick,
   onCompetenciesClick,
   onTechClick,
@@ -35,11 +37,12 @@ export const Header = ({
   const labels = {
     brandName: language === 'ko' ? '이민우' : 'Minwoo Lee',
     brandRole: 'C++ Software Engineer',
+    about: language === 'ko' ? '소개' : 'About',
     experience: language === 'ko' ? '경력' : 'Experience',
-    competencies: language === 'ko' ? '핵심 전문성' : 'Expertise',
+    competencies: language === 'ko' ? '핵심 역량' : 'Skills',
     tech: language === 'ko' ? '기술 스택' : 'Tech Stack',
-    project: language === 'ko' ? '실무 프로젝트' : 'Professional Work',
-    otherProjects: language === 'ko' ? '선별 프로젝트' : 'Selected Projects',
+    project: language === 'ko' ? '실무 프로젝트' : 'Professional',
+    otherProjects: language === 'ko' ? '선별 프로젝트' : 'Selected',
     awards: language === 'ko' ? '수상 및 연구' : 'Awards',
     pdf: language === 'ko' ? '이력서 PDF' : 'Resume PDF',
     blog: language === 'ko' ? '블로그' : 'Blog',
@@ -107,6 +110,17 @@ export const Header = ({
           </select>
         </label>
 
+        {onAboutClick && (
+          <div
+            className={styles.tab}
+            onClick={() => handleMenuClick(onAboutClick)}
+            role='button'
+            tabIndex={0}
+          >
+            {labels.about}
+          </div>
+        )}
+
         {onExperienceClick && (
           <div
             className={styles.tab}
@@ -115,6 +129,26 @@ export const Header = ({
             tabIndex={0}
           >
             {labels.experience}
+          </div>
+        )}
+
+        <div
+          className={styles.tab}
+          onClick={() => handleMenuClick(onProjectClick)}
+          role='button'
+          tabIndex={0}
+        >
+          {labels.project}
+        </div>
+
+        {onOtherProjectsClick && (
+          <div
+            className={styles.tab}
+            onClick={() => handleMenuClick(onOtherProjectsClick)}
+            role='button'
+            tabIndex={0}
+          >
+            {labels.otherProjects}
           </div>
         )}
 
@@ -137,26 +171,6 @@ export const Header = ({
             tabIndex={0}
           >
             {labels.tech}
-          </div>
-        )}
-
-        <div
-          className={styles.tab}
-          onClick={() => handleMenuClick(onProjectClick)}
-          role='button'
-          tabIndex={0}
-        >
-          {labels.project}
-        </div>
-
-        {onOtherProjectsClick && (
-          <div
-            className={styles.tab}
-            onClick={() => handleMenuClick(onOtherProjectsClick)}
-            role='button'
-            tabIndex={0}
-          >
-            {labels.otherProjects}
           </div>
         )}
 

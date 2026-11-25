@@ -12,6 +12,8 @@ export interface ProjectCardInfo {
   imgUrl: string;
   title: LocalizedText;
   description: LocalizedText;
+  period?: LocalizedText;
+  statusBadge?: LocalizedText;
   techs: string[];
 }
 
@@ -108,16 +110,20 @@ const allCards = {
   edgeAnomaly: (category: string): ProjectCardInfo => ({
     id: 21,
     category,
-    imgUrl: '/img/tech/edge_anomaly_patchcore.png',
+    imgUrl: '',
     title: {
-      ko: 'Industrial Anomaly Detection on Edge : 산업용 비전 이상 탐지 및 Edge 추론 최적화',
-      en: 'Industrial Anomaly Detection on Edge : PatchCore & Jetson TensorRT Inference',
+      ko: 'PatchCore-Based Visual Anomaly Detection',
+      en: 'PatchCore-Based Visual Anomaly Detection',
     },
     description: {
-      ko: 'PatchCore 비지도 이상 탐지 모델 학습 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 가속 (지연시간 14ms, 70 FPS 실시간 C++ 추론 엔진 구축)',
-      en: 'PatchCore unsupervised anomaly detection with TensorRT FP16/INT8 quantization for ultra-low latency (14ms, 70 FPS) C++ inference on Jetson Orin Nano.',
+      ko: '정상 이미지 기반 비지도 이상 탐지 프로젝트. 사전학습 CNN 특징 추출, Memory Bank 및 Coreset Sampling 기반 특징 저장 최적화를 구현하며 ONNX/TensorRT 기반 추론 연동을 진행 중입니다.',
+      en: 'Unsupervised visual anomaly detection trained on normal images, implementing pretrained CNN feature extraction, Memory Bank, and Coreset Sampling, with ONNX/TensorRT inference work in progress.',
     },
-    techs: ['C++', 'TensorRT', 'Jetson Orin Nano', 'PatchCore', 'ONNX', 'CUDA'],
+    statusBadge: {
+      ko: '진행 중',
+      en: 'In Progress',
+    },
+    techs: ['Python', 'PyTorch', 'PatchCore', 'Coreset Sampling', 'OpenCV'],
   }),
 
   pipetOcr: (category: string): ProjectCardInfo => ({
@@ -125,14 +131,18 @@ const allCards = {
     category,
     imgUrl: '/img/tech/pipet_detection.png',
     title: {
-      ko: 'Micro-pipette Detection & Hybrid OCR System',
-      en: 'Micro-pipette Detection & Hybrid OCR System',
+      ko: 'Micro-Pipette Detection & OCR System',
+      en: 'Micro-Pipette Detection & OCR System',
     },
     description: {
-      ko: 'YOLO 객체 검출 + Custom CNN + PaddleOCR 파이프라인의 TensorRT C++ 가속 최적화를 통한 추론 지연 시간 73% 단축 (300ms → 80ms) 및 정밀 수치 판독',
-      en: 'Optimized hybrid vision pipeline with YOLO, Custom CNN, PaddleOCR, and TensorRT C++ acceleration, cutting latency by 73% (300ms -> 80ms).',
+      ko: '학부연구생 시절 수행한 영상 인식 프로젝트. YOLO 객체 탐지, Custom CNN, PaddleOCR 파이프라인에 ONNX Runtime·TensorRT 추론 최적화를 적용해 실측 처리 시간을 300ms에서 80ms로 약 73.3% 단축했습니다.',
+      en: 'Undergraduate vision research combining YOLO detection, Custom CNN, and PaddleOCR, optimized with ONNX Runtime and TensorRT to reduce measured latency from 300ms to 80ms (~73.3% reduction).',
     },
-    techs: ['C++', 'TensorRT', 'OpenCV', 'YOLO', 'PaddleOCR', 'ONNX', 'Python'],
+    period: {
+      ko: '2025.05 ~ 2026.02',
+      en: '2025.05 ~ 2026.02',
+    },
+    techs: ['Python', 'YOLO', 'Custom CNN', 'PaddleOCR', 'ONNX Runtime', 'TensorRT'],
   }),
 
   semParticle: (category: string): ProjectCardInfo => ({
@@ -274,7 +284,7 @@ const allCards = {
   saSang: (category: string): ProjectCardInfo => ({
     id: 17,
     category,
-    imgUrl: '/img/tech/chripaid.png',
+    imgUrl: '',
     title: {
       ko: 'SaSang (사상) : 사진으로 기록하는 개인 여행 지도 모바일 앱',
       en: 'SaSang: Personalized Photo Travel Map Mobile App',
@@ -365,16 +375,20 @@ const allCards = {
   dograc: (category: string): ProjectCardInfo => ({
     id: 18,
     category,
-    imgUrl: '/img/tech/dograc_main.jpg',
+    imgUrl: '',
     title: {
-      ko: 'dograc : 사내 기밀 유출 제로 로컬 오픈소스 데스크톱-웹 RAG 플랫폼',
-      en: 'dograc: Zero Data Egress Local Desktop-Web Hybrid RAG Platform',
+      ko: 'Offline RAG Platform for Document Question Answering',
+      en: 'Offline RAG Platform for Document Question Answering',
     },
     description: {
-      ko: '외부 전송 데이터량 0 바이트 보장, 로컬 LLM/임베딩, 원클릭 데스크톱 런처 및 Docker/SQLite 자동 폴백 RAG 플랫폼',
-      en: 'Zero Data Egress desktop-web hybrid RAG platform with local LLM, on-device embeddings, one-click launcher, and Docker/SQLite auto-fallback.',
+      ko: '외부 네트워크 의존성을 줄인 로컬 RAG 문서 검색·질의응답 플랫폼. 문서 파싱·청킹·임베딩·벡터 검색·로컬 LLM 생성과 Windows 런처·프로세스 관리·스토리지 폴백을 구현했습니다.',
+      en: 'Local RAG document retrieval and Q&A platform minimizing external network dependency, featuring parsing, chunking, embedding, vector search, local LLM generation, Windows launcher, process management, and storage fallback.',
     },
-    techs: ['Next.js 14', 'FastAPI', 'Python', 'Qdrant', 'Ollama', 'bge-m3', 'Tkinter', 'Docker'],
+    period: {
+      ko: '2026.07 ~ 2026.10',
+      en: '2026.07 ~ 2026.10',
+    },
+    techs: ['Python', 'FastAPI', 'Local LLM', 'Qdrant', 'Windows Launcher', 'SQLite'],
   }),
 
   chwieolUpAi: (category: string): ProjectCardInfo => ({
@@ -727,20 +741,20 @@ export const tracksData: Record<TrackId, TrackData> = {
     ],
     intro: {
       title: {
-        ko: 'C++ 기반 소프트웨어를 ',
-        en: 'I build and improve ',
+        ko: 'C++ 기반 소프트웨어를 개발하고 개선합니다.',
+        en: 'Building and improving software with C++.',
       },
       role: {
-        ko: '개발하고 개선합니다.',
-        en: 'C++ software.',
+        ko: '',
+        en: '',
       },
       name: {
         ko: '',
         en: '',
       },
       sub: {
-        ko: 'Windows 애플리케이션의 기능 개발과 안정화, 멀티스레드 오류 분석, 컴퓨터 비전 알고리즘 및 데이터 플랫폼 개발을 경험했습니다.',
-        en: 'Experienced in Windows application development and stabilization, multithreaded error analysis, computer vision algorithms, and data-platform development.',
+        ko: '산업용 Vision 검사 SW와 AI 시스템을 개발하며, 영상처리 알고리즘부터 Windows 애플리케이션, 시스템 연동 및 AI 추론까지 경험을 쌓고 있습니다.',
+        en: 'I develop industrial vision software and AI systems, working across computer vision, Windows applications, system integration, and AI inference.',
       },
     },
     competencies: {
@@ -862,43 +876,45 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
     projects: {
       subText: {
-        ko: 'C++, 컴퓨터 비전, 영상처리, 실시간 시스템 및 임베디드 엣지 추론 가속에 집중된 핵심 엔지니어링 프로젝트입니다. 알고리즘 설계와 프레임 레이트/지연시간 최적화 과정을 중점적으로 다룹니다.',
-        en: 'High-impact engineering projects focused on C++, computer vision, image processing, real-time systems, and edge AI inference optimization.',
+        ko: '영상 인식·추론 최적화, 비지도 이상 탐지, 로컬 RAG 시스템 구현 역량을 보여주는 선별 프로젝트입니다.',
+        en: 'Selected projects demonstrating computer vision inference optimization, visual anomaly detection, and local RAG system engineering.',
       },
       titleText: {
-        ko: 'Core Vision & Systems Projects (핵심 프로젝트)',
-        en: 'Core Vision & Systems Projects',
+        ko: '개인·연구 프로젝트',
+        en: 'Selected Projects',
       },
-      categoryOptions: ['all', 'featured'],
+      categoryOptions: ['all'],
       categoryLabels: {
         all: { ko: '전체', en: 'All' },
-        featured: { ko: '산업용 비전 & 엣지 가속', en: 'Vision & Edge Acceleration' },
       },
       items: [
-        allCards.edgeAnomaly('featured'),
-        allCards.pipetOcr('featured'),
-        allCards.semParticle('featured'),
-        allCards.sevenSegmentOcr('featured'),
+        allCards.pipetOcr('all'),
+        allCards.edgeAnomaly('all'),
+        allCards.dograc('all'),
       ],
       otherProjects: {
         subText: {
-          ko: 'Personal & Research Projects',
-          en: 'Personal & Research Projects',
+          ko: '이전 영상처리 유틸리티, LLM 연구, 모바일 앱 및 웹 개발 프로젝트 아카이브입니다.',
+          en: 'Archive of earlier image-processing utilities, LLM research, mobile apps, and web systems.',
         },
         titleText: {
-          ko: '개인 및 연구 프로젝트',
-          en: 'Personal & Research Projects',
+          ko: '기타 작업 (Other Work)',
+          en: 'Other Work',
         },
-        categoryOptions: ['all', 'ai', 'mobile', 'web'],
+        categoryOptions: ['all', 'vision', 'ai', 'mobile', 'web'],
         categoryLabels: {
-          all: { ko: '전체 (All)', en: 'All' },
-          ai: { ko: 'AI / RAG / 연구', en: 'AI & Research' },
-          mobile: { ko: '모바일 실서비스 앱', en: 'Mobile Apps' },
-          web: { ko: '웹 & 풀스택 시스템', en: 'Web & Full-Stack' },
+          all: { ko: '전체', en: 'All' },
+          vision: { ko: '영상처리 & 유틸리티', en: 'Vision & Utilities' },
+          ai: { ko: 'AI / LLM 연구', en: 'AI & Research' },
+          mobile: { ko: '모바일 앱', en: 'Mobile Apps' },
+          web: { ko: '웹 시스템', en: 'Web Systems' },
         },
         items: [
-          // AI & RAG
-          allCards.dograc('ai'),
+          // Earlier Vision & Utilities
+          allCards.semParticle('vision'),
+          allCards.sevenSegmentOcr('vision'),
+          allCards.qlogAnalyzer('vision'),
+          // AI & Research
           allCards.chwieolUpAi('ai'),
           allCards.llmAlignment('ai'),
           allCards.slowAgingLlm('ai'),
@@ -908,7 +924,7 @@ export const tracksData: Record<TrackId, TrackData> = {
           allCards.saSang('mobile'),
           allCards.uhdyl('mobile'),
           allCards.chirpaid('mobile'),
-          // Web & Full-Stack
+          // Web Systems
           allCards.jobForeigner('web'),
           allCards.joinUs('web'),
           allCards.babzip('web'),
@@ -918,122 +934,96 @@ export const tracksData: Record<TrackId, TrackData> = {
     },
     printableResume: {
       role: {
-        ko: 'Vision Software R&D Engineer (C++ / Windows & Computer Vision)',
-        en: 'Vision Software R&D Engineer (C++ / Windows & Computer Vision)',
+        ko: 'C++ Software Engineer | Computer Vision & AI Inference | Windows & Systems Integration',
+        en: 'C++ Software Engineer | Computer Vision & AI Inference | Windows & Systems Integration',
       },
       bio: {
-        ko: 'C++/MFC 기반 산업용 머신비전 검사 소프트웨어의 기능 개발·안정화와 설비 관리·결함 데이터 분석·AI 모델 학습·평가·운영을 지원하는 통합 플랫폼(Vision Intelligence Platform) 개발을 수행하고 있는 Vision Software R&D Engineer 이민우입니다.',
-        en: 'Vision Software R&D Engineer developing and stabilizing C++/MFC industrial machine vision inspection software and building an integrated Vision Intelligence Platform for equipment management, defect analytics, and AI model training, evaluation, and operations.',
+        ko: '산업용 Vision 검사 SW와 AI 시스템을 개발하며, 영상처리 알고리즘부터 Windows 애플리케이션, 시스템 연동 및 AI 추론 최적화까지 실제 시스템의 성능과 안정성을 개선하는 소프트웨어 엔지니어 이민우입니다.',
+        en: 'Software engineer developing industrial vision inspection software and AI systems across computer vision algorithms, Windows applications, system integration, and AI inference optimization.',
       },
       summary: [
         {
-          ko: '시냅스이미징(Synapse Imaging)에서 C++/MFC 기반 산업용 비전 검사 SW 기능 개발(양품조건 특수 ROI, LotResult Variation 분리 로깅) 및 멀티스레드 안정화·이상 탐지 R&D 수행',
-          en: 'Developing C++/MFC industrial vision inspection SW features (good-condition ROI, LotResult Variation logging), multi-threaded stabilization, and anomaly detection R&D at Synapse Imaging.',
+          ko: '시냅스이미징(Synapse Imaging)에서 C++/MFC 기반 산업용 비전 검사 SW 개발(양품조건 ROI 판정 통합, Variation 결과 분리 로깅) 및 멀티스레드 메모리 오류 분석(진행 중)·이상 탐지 검토 수행',
+          en: 'Developing C++/MFC industrial vision inspection SW at Synapse Imaging (good-condition ROI, separated Variation logging), investigating multi-threaded memory errors (in progress), and evaluating anomaly detection models.',
         },
         {
-          ko: '공장 내부망 Vision Intelligence Platform(Monitoring·Teaching·Engineering) Full-Stack 개발: Python 설비 Client TUI, Windows Named Pipe IPC, HDBSCAN·Gaussian KDE 결함 분석, DINOv2/DINOv3 기반 AI Experiment Lab 구축',
-          en: 'Full-Stack development of the Vision Intelligence Platform (Monitoring, Teaching, Engineering): Python Client TUI, Windows Named Pipe IPC, C# HDBSCAN/KDE analytics, and DINOv2/DINOv3 AI Experiment Lab.',
+          ko: 'Industrial Vision Intelligence Platform(Monitoring·Teaching·Engineering 영역 및 설비 Client·서버·AI Worker 일부): Python Client TUI, WebSocket·Windows Named Pipe IPC, C# HDBSCAN·Gaussian KDE(DLL 연동), DINOv2·DINOv3 AI Experiment Lab 구현',
+          en: 'Industrial Vision Intelligence Platform (Monitoring, Teaching, Engineering, equipment Client, server & AI Worker): Python Client TUI, WebSocket/Windows Named Pipe IPC, C# HDBSCAN/KDE via DLL, and DINOv2/DINOv3 AI Experiment Lab.',
         },
         {
-          ko: 'PatchCore 비지도 이상 탐지 모델 학습, ONNX 변환 및 Jetson Orin Nano 타겟 TensorRT FP16/INT8 양자화 C++ 실시간 추론 (14ms, 70 FPS)',
-          en: 'Optimized PatchCore unsupervised anomaly detection via TensorRT FP16/INT8 quantization for low-latency (<14ms) C++ edge inference on Jetson Orin Nano.',
+          ko: '학부연구생 프로젝트로 YOLO + Custom CNN + PaddleOCR 파이프라인을 구축하고 ONNX Runtime·TensorRT 추론 최적화를 통해 실측 처리 시간 300ms → 80ms(약 73.3% 감소) 달성',
+          en: 'Built a YOLO + Custom CNN + PaddleOCR vision pipeline during undergraduate research, reducing measured latency from 300ms to 80ms (~73.3% reduction) via ONNX Runtime and TensorRT.',
         },
         {
-          ko: 'YOLO 및 CNN 모델의 ONNX 변환 및 TensorRT 최적화를 통한 추론 시간 73% 단축 (300ms → 80ms)',
-          en: 'Accelerated YOLO/CNN inference by 73% (300ms -> 80ms) using ONNX Runtime and TensorRT engines.',
+          ko: 'PatchCore 기반 비지도 이상 탐지(사전학습 CNN 특징 추출·Memory Bank·Coreset Sampling, 진행 중) 및 로컬 RAG 문서 질의응답 플랫폼(FastAPI·Windows 런처·스토리지 폴백, 2026.07~2026.10) 개발',
+          en: 'Developing PatchCore visual anomaly detection (pretrained CNN features, Memory Bank, Coreset Sampling, in progress) and built an Offline RAG Platform (FastAPI, Windows launcher, storage fallback, 2026.07~2026.10).',
         },
         {
           ko: '한국정보기술학회(KIIT) 2년 연속 우수논문상(2026 금상, 2025 은상) 수상 및 KCI 등재 학술지 논문 게재',
-          en: 'Won consecutive KIIT Best Paper Awards (2026 Gold, 2025 Silver) and published in KCI-indexed journal.',
+          en: 'Won consecutive KIIT Best Paper Awards (2026 Gold, 2025 Silver) and published in a KCI-indexed journal.',
         },
       ],
       skills: [
         {
-          title: { ko: 'Core C++ & Systems', en: 'Core C++ & Systems' },
-          items: 'C++ (C++17/20), OpenCV, Multithreading & Concurrency, Memory Optimization, MFC, Visual Studio, Win32 API',
+          title: { ko: 'C++ & Windows Systems', en: 'C++ & Windows Systems' },
+          items: 'C++, MFC, Windows, Multithreading, Debugging, Windows Named Pipe IPC, DLL Interface',
         },
         {
-          title: { ko: 'Vision AI & Edge Acceleration', en: 'Vision AI & Edge Acceleration' },
-          items: 'TensorRT (FP16/INT8), CUDA, NVIDIA Jetson Orin Nano, ONNX Runtime, YOLO, PyTorch, Python',
+          title: { ko: 'Computer Vision & AI Inference', en: 'Computer Vision & AI Inference' },
+          items: 'OpenCV, YOLO, PaddleOCR, ONNX Runtime, TensorRT, PatchCore, EfficientAD, HDBSCAN, Gaussian KDE',
         },
         {
-          title: { ko: 'Computer Vision & Inspection', en: 'Computer Vision & Inspection' },
-          items: 'HALCON, Watershed / Morphology, Sub-pixel Measurement, Ring Buffer Pipeline, Defect Inspection',
+          title: { ko: 'Platform & Backend Integration', en: 'Platform & Backend Integration' },
+          items: 'Python, C#, WebSocket, REST API, FastAPI, Velopack, DINOv2 / DINOv3',
         },
         {
-          title: { ko: 'Systems & Infrastructure', en: 'Systems & Infrastructure' },
-          items: 'Linux / Ubuntu, Socket / IPC, CMake, Git, Docker, C# / WPF',
+          title: { ko: 'Development Environment', en: 'Development Environment' },
+          items: 'Visual Studio, Git, Linux / Ubuntu, Docker, SQLite, Qdrant',
         },
       ],
       projects: [
         {
-          title: 'Industrial Anomaly Detection on Edge',
-          role: 'AI & Performance Engineer (100%)',
-          tech: 'C++, PatchCore, ONNX, TensorRT, Jetson Orin Nano, PyTorch',
+          title: 'Micro-Pipette Detection & OCR System (2025.05 ~ 2026.02)',
+          role: 'Undergraduate Research Project',
+          tech: 'Python, YOLO, Custom CNN, PaddleOCR, ONNX Runtime, TensorRT, OpenCV',
           bullets: [
             {
-              ko: '정상 샘플 기반 PatchCore 이상 탐지 모델 학습 및 CoreSet 10% 희소 샘플링 메모리 뱅크 압축',
-              en: 'Trained PatchCore anomaly detection on normal samples with 10% CoreSet memory bank compression.',
+              ko: 'YOLO 객체 탐지, Custom CNN, PaddleOCR를 결합한 마이크로피펫 분주량 인식 파이프라인 구축',
+              en: 'Built a micro-pipette volume recognition pipeline combining YOLO detection, Custom CNN, and PaddleOCR.',
             },
             {
-              ko: 'TensorRT INT8 양자화 및 C++ 추론 파이프라인으로 Jetson Orin Nano 상 14.3ms(69.9 FPS) 실시간 달성',
-              en: 'Achieved 14.3ms (69.9 FPS) real-time inference on Jetson Orin Nano via TensorRT INT8 C++ runtime.',
+              ko: 'ONNX Runtime 및 TensorRT 추론 최적화를 통해 실측 처리 시간 300ms → 80ms(약 73.3% 감소) 달성',
+              en: 'Reduced measured inference latency from 300ms to 80ms (~73.3% reduction) using ONNX Runtime and TensorRT.',
             },
           ],
         },
         {
-          title: 'Micro-pipette Detection & Hybrid OCR System',
-          role: 'AI & Vision Engineer (100%)',
-          tech: 'C++, TensorRT, OpenCV, YOLO, PaddleOCR, ONNX, Python',
+          title: 'PatchCore-Based Visual Anomaly Detection (In Progress)',
+          role: 'Personal / Vision R&D Project',
+          tech: 'Python, PyTorch, PatchCore, Coreset Sampling, OpenCV',
           bullets: [
             {
-              ko: '마이크로피펫 객체 탐지 및 수치 OCR 파이프라인 구축 및 C++ 런타임 최적화',
-              en: 'Built end-to-end detection and OCR pipeline for micro-pipettes with C++ runtime.',
+              ko: '정상 이미지만으로 학습하는 비지도 이상 탐지 파이프라인에서 사전학습 CNN 특징 추출, Memory Bank, Coreset Sampling 최적화 구현',
+              en: 'Implemented pretrained CNN feature extraction, Memory Bank, and Coreset Sampling for normal-only unsupervised anomaly detection.',
             },
             {
-              ko: 'TensorRT 최적화로 추론 시간 300ms에서 80ms로 73% 단축',
-              en: 'Reduced inference latency from 300ms to 80ms (73% speedup) with TensorRT.',
+              ko: 'ONNX/TensorRT 기반 추론 연동 및 벤치마크 검증 진행 중',
+              en: 'ONNX/TensorRT inference integration and benchmark verification currently in progress.',
             },
           ],
         },
         {
-          title: 'SEM Particle Analyzer',
-          role: 'Vision SW Engineer (100%)',
-          tech: 'OpenCV, Watershed, Image Processing, CLAHE, C# .NET 8, ScottPlot',
+          title: 'Offline RAG Platform for Document Question Answering (2026.07 ~ 2026.10)',
+          role: 'Solo Systems & AI Project (dograc)',
+          tech: 'Python, FastAPI, Ollama, Qdrant, SQLite, Windows Launcher, Next.js',
           bullets: [
             {
-              ko: '전자현미경(SEM) 이미지 나노 입자 크기·형상 자동 분석 시스템 구축',
-              en: 'Constructed automated SEM nano-particle morphology and size analyzer.',
+              ko: '외부 네트워크 의존성을 줄인 로컬 문서 파싱·청킹·임베딩·벡터 검색·로컬 LLM 질의응답 파이프라인 구현',
+              en: 'Implemented local document parsing, chunking, embedding, vector retrieval, and local LLM Q&A with minimal external dependency.',
             },
             {
-              ko: 'Watershed 정밀 분할 및 픽셀 캘리브레이션 기반 Feret Diameter 정량 산출',
-              en: 'Implemented calibrated Watershed segmentation for Feret Diameter computation.',
-            },
-          ],
-        },
-        {
-          title: 'Video-based 7-Segment OCR System',
-          role: 'Vision Engineer (100%)',
-          tech: 'C++, MFC, OpenCV, Multithreading, Ring Buffer',
-          bullets: [
-            {
-              ko: 'C++ MFC 멀티스레드 링 버퍼 기반 실시간 영상 스트림 7-Segment 자동 판독 시스템 구현',
-              en: 'Implemented real-time 7-segment digital display reader in C++ MFC multi-threaded ring buffer.',
-            },
-          ],
-        },
-        {
-          title: 'Q-Log Analyzer & Vision System Utilities',
-          role: 'Vision SW Researcher',
-          tech: 'C#, WPF, Regex Engine, LiveCharts, Excel Export, Synapse Imaging',
-          bullets: [
-            {
-              ko: '정규표현식 컴파일 및 스트리밍 파서로 대용량 비전 로그 파싱 속도 4배 가속 및 메모리 90% 절감',
-              en: 'Accelerated high-throughput vision log parsing 4x with compiled regex streaming parser and 90% memory reduction.',
-            },
-            {
-              ko: 'IQR 기반 지연 이상치 자동 검출 및 검사 통계·Tact Time 차트 시각화 및 엑셀 리포트 자동 생성',
-              en: 'Automated IQR latency outlier detection, inspection statistics charting, and Excel report generation.',
+              ko: 'Windows 데스크톱 런처, 자식 프로세스 수명주기 관리 및 Docker/SQLite 환경 적응형 스토리지 폴백 구현',
+              en: 'Built Windows desktop launcher, child-process lifecycle management, and adaptive Docker/SQLite storage fallback.',
             },
           ],
         },

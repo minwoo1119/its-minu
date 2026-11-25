@@ -18,54 +18,41 @@ export const ProfessionalWork = ({
     <section className={styles.container} aria-labelledby='professional-work-title'>
       <header className={styles.sectionHeader}>
         <h2 id='professional-work-title'>
-          {language === 'ko' ? '주요 실무 프로젝트' : 'Professional Projects'}
+          {language === 'ko' ? '실무 프로젝트' : 'Professional Experience'}
         </h2>
         <p className={styles.sectionIntro}>
           {language === 'ko'
-            ? '시냅스이미징(Synapse Imaging)에서 Vision Software R&D Engineer로 수행하고 있는 핵심 실무 프로젝트입니다.'
-            : 'Key R&D and full-stack platform projects performed as a Vision Software R&D Engineer at Synapse Imaging.'}
+            ? '시냅스이미징(Synapse Imaging)에서 수행 중인 산업용 Vision 검사 소프트웨어와 통합 운영 플랫폼 프로젝트입니다.'
+            : 'Industrial vision inspection software and platform engineering work at Synapse Imaging.'}
         </p>
       </header>
 
-      <div className={styles.projectList}>
+      <div className={styles.projectGrid}>
         {orderedProjects.map((project) => (
           <article className={styles.projectCard} key={project.id}>
-            <div className={styles.projectIntro}>
+            <div className={styles.cardTop}>
               <div className={styles.metaRow}>
-                <span className={styles.periodBadge}>
+                <span className={styles.indexLabel}>Project {project.index}</span>
+                <span className={styles.periodText}>
                   {getText(language, project.period)}
                 </span>
                 {project.status === 'mixed' && (
-                  <span className={styles.status}>
-                    {language === 'ko' ? '진행 중 (일부 완료)' : 'In Progress'}
+                  <span className={styles.statusBadge}>
+                    {language === 'ko' ? '일부 진행 중' : 'Partly in progress'}
                   </span>
                 )}
               </div>
 
-              <div className={styles.projectHeading}>
-                <h3>
-                  <span className={styles.indexNum}>{project.index}.</span>{' '}
-                  {getText(language, project.title)}
-                </h3>
-              </div>
+              <h3 className={styles.title}>{getText(language, project.title)}</h3>
 
-              <p className={styles.roleText}>
-                <strong>{language === 'ko' ? '역할:' : 'Role:'}</strong>{' '}
-                {getText(language, project.role)}
-              </p>
+              <p className={styles.roleText}>{getText(language, project.role)}</p>
 
               <p className={styles.summary}>{getText(language, project.summary)}</p>
-
-              <div className={styles.techList} aria-label='Technology stack'>
-                {project.technologies.map((tech) => (
-                  <span key={tech}>{tech}</span>
-                ))}
-              </div>
             </div>
 
             <div className={styles.contributionBlock}>
               <p className={styles.contributionLabel}>
-                {language === 'ko' ? '주요 개발 내용 요약' : 'Key Development Highlights'}
+                {language === 'ko' ? '주요 구현 및 담당 범위' : 'Key Contributions & Scope'}
               </p>
               <ul>
                 {project.cardContributions.map((item) => (
@@ -74,9 +61,21 @@ export const ProfessionalWork = ({
                   </li>
                 ))}
               </ul>
-              <button type='button' onClick={() => onProjectClick(project.id)}>
-                {language === 'ko' ? '프로젝트 상세 보기' : 'View project details'}
-                <span aria-hidden='true'>→</span>
+            </div>
+
+            <div className={styles.cardFooter}>
+              <div className={styles.techList} aria-label='Technology stack'>
+                {project.technologies.map((tech) => (
+                  <span key={tech}>{tech}</span>
+                ))}
+              </div>
+
+              <button
+                type='button'
+                className={styles.detailButton}
+                onClick={() => onProjectClick(project.id)}
+              >
+                {language === 'ko' ? '프로젝트 상세 보기 →' : 'View project details →'}
               </button>
             </div>
           </article>

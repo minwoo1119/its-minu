@@ -9,7 +9,10 @@ export interface ProjectBoxProps {
   imgUrl: string;
   title: LocalizedText;
   description: LocalizedText;
+  period?: LocalizedText;
+  statusBadge?: LocalizedText;
   techs: string[];
+  hideImage?: boolean;
   language: Language;
   onClick: () => void;
 }
@@ -18,36 +21,60 @@ export const ProjectBox = ({
   imgUrl,
   title,
   description,
+  period,
+  statusBadge,
   techs,
+  hideImage = false,
   language,
   onClick,
 }: ProjectBoxProps) => {
   const [hasImageError, setHasImageError] = useState(false);
-  const fullImgUrl = `${import.meta.env.BASE_URL}${
-    imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl
-  }`;
+  const shouldShowImage = !hideImage && Boolean(imgUrl);
+  const fullImgUrl = shouldShowImage
+    ? `${import.meta.env.BASE_URL}${
+        imgUrl.startsWith('/') ? imgUrl.slice(1) : imgUrl
+      }`
+    : '';
   const localizedTitle = getText(language, title);
 
   return (
     <button type='button' className={styles.container} onClick={onClick}>
-      {hasImageError ? (
-        <div className={styles.imageFallback}>{localizedTitle}</div>
-      ) : (
-        <img
-          src={fullImgUrl}
-          alt={localizedTitle}
-          onError={() => setHasImageError(true)}
-        />
+      {shouldShowImage &&
+        (hasImageError ? (
+          <div className={styles.imageFallback}>{localizedTitle}</div>
+        ) : (
+          <img
+            src={fullImgUrl}
+            alt={localizedTitle}
+            onError={() => setHasImageError(true)}
+          />
+        ))}
+
+      {(period || statusBadge) && (
+        <div className={styles.metaRow}>
+          {period && (
+            <span className={styles.period}>{getText(language, period)}</span>
+          )}
+          {statusBadge && (
+            <span className={styles.statusBadge}>
+              {getText(language, statusBadge)}
+            </span>
+          )}
+        </div>
       )}
+
       <div className={styles.title}>{localizedTitle}</div>
       <div className={styles.description}>{getText(language, description)}</div>
       <div className={styles.techRow}>
-        {techs.map((ele) => (
+        {techs.slice(0, 5).map((ele) => (
           <span key={ele} className={styles.techItemBox}>
             {ele}
           </span>
         ))}
       </div>
+      <span className={styles.detailLink}>
+        {language === 'ko' ? '상세 보기 →' : 'View details →'}
+      </span>
     </button>
   );
 };

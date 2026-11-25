@@ -14,9 +14,9 @@ export interface ProfessionalContributionItem {
   subSections?: ProfessionalContributionSubSection[];
 }
 
-export interface ProfessionalKeyExperienceItem {
-  title: LocalizedText;
-  description: LocalizedText;
+export interface ProfessionalTechItem {
+  name: string;
+  usage: LocalizedText;
 }
 
 export interface ProfessionalProject {
@@ -30,22 +30,23 @@ export interface ProfessionalProject {
   period: LocalizedText;
   technologies: string[];
   cardContributions: LocalizedText[];
-  context: LocalizedText;
+  overview: LocalizedText;
+  scopeNote?: LocalizedText;
+  problems: LocalizedText[];
   architecture: {
     label: LocalizedText;
     description: LocalizedText;
   }[];
   contributions: ProfessionalContributionItem[];
-  keyExperiences: ProfessionalKeyExperienceItem[];
   challenges: {
     title: LocalizedText;
     status: ProfessionalProjectStatus;
     problem: LocalizedText;
-    investigation: LocalizedText;
+    approach: LocalizedText;
     currentStatus: LocalizedText;
   }[];
   outcomes: LocalizedText[];
-  reflection: LocalizedText;
+  techDetails: ProfessionalTechItem[];
 }
 
 export const professionalProjects: ProfessionalProject[] = [
@@ -53,16 +54,16 @@ export const professionalProjects: ProfessionalProject[] = [
     id: 31,
     index: '01',
     title: {
-      ko: '산업용 Vision 검사 SW 기능 개발 및 안정화',
-      en: 'Industrial Vision Inspection SW Development & Stabilization',
+      ko: 'Industrial Vision Software Development & Reliability',
+      en: 'Industrial Vision Software Development & Reliability',
     },
     role: {
-      ko: 'C++/MFC 검사 소프트웨어 개발 및 유지보수',
-      en: 'C++/MFC Inspection Software Development & Maintenance',
+      ko: 'C++/MFC 검사 소프트웨어 기능 개발, 데이터 구조 개선 및 안정화',
+      en: 'C++/MFC Inspection Software Feature Development, Data Structure & Reliability',
     },
     summary: {
-      ko: '산업용 머신비전 검사장비에서 실행되는 C++/MFC 기반 소프트웨어의 기능을 개발하고 기존 코드를 개선하는 프로젝트입니다. 기존 검사 알고리즘의 실행 구조와 검사 결과 처리 과정을 분석하고, 신규 검사 조건을 지원하는 기능과 결과 저장 로직을 구현했습니다. 현재는 이상 탐지 알고리즘 개선과 프로그램 안정화 작업을 진행하고 있습니다.',
-      en: 'Developing features and improving existing code for C++/MFC-based software running on industrial machine vision inspection equipment. Analyzed the execution structure of existing inspection algorithms and result-processing flows, implemented features supporting new inspection conditions and result-storage logic, and am currently working on anomaly-detection algorithm improvements and program stabilization.',
+      ko: 'C++/MFC 기반 산업용 머신비전 검사 소프트웨어의 기존 코드베이스를 분석해 신규 ROI 판정 기능과 Variation 결과 분리 로깅 구조를 구현했습니다. 현재는 멀티스레드 결과 저장 구간의 메모리 오류 분석과 AI 기반 이상 탐지 적용 가능성 연구를 진행하고 있습니다.',
+      en: 'Analyzed an existing C++/MFC industrial machine vision inspection codebase to implement good-condition ROI logic and separated Variation result logging. Currently investigating multi-threaded memory errors in the result-saving path and evaluating AI-based anomaly detection feasibility.',
     },
     eyebrow: {
       ko: 'C++ / MFC · Windows · Machine Vision',
@@ -77,292 +78,262 @@ export const professionalProjects: ProfessionalProject[] = [
       'C++',
       'MFC',
       'Windows',
-      'Multithreading',
       'Debugging',
+      'Multithreading',
       'Machine Vision',
-      'PatchCore',
-      'EfficientAD',
     ],
     cardContributions: [
       {
-        ko: '양품조건 ROI 기능 개발: 기존 검사 프로그램의 ROI 판정 구조를 분석하고 특정 영역 검사 결과를 양품으로 처리하는 특수 ROI 기능을 통합했습니다.',
-        en: 'Good-Condition ROI Development: Analyzed existing ROI decision structures and integrated a special ROI feature treating specific region results as good.',
+        ko: '양품조건 ROI 판정 기능: 기존 ROI 판정 및 실행 구조를 분석해 특정 영역 결과를 양품으로 처리하는 특수 ROI 조건을 C++/MFC 검사 로직에 통합',
+        en: 'Good-Condition ROI Logic: Analyzed existing ROI decision flows and integrated a special ROI rule treating specified region results as good in C++/MFC.',
       },
       {
-        ko: 'Variation 검사 결과 로깅 개선: LotResult 데이터 구조에 전용 저장 변수를 추가하고 다른 검사 결과와 구분해 기록하도록 로깅 로직을 수정했습니다.',
-        en: 'Variation Result Logging Improvement: Added dedicated storage variables to LotResult and updated logging logic to record Variation results separately.',
+        ko: 'Variation 결과 로깅 개선: 검사 결과 데이터 구조에 전용 저장 필드를 추가하고 기존 처리 흐름을 유지하면서 Variation 결과를 구분 기록하도록 수정',
+        en: 'Variation Result Logging: Extended the inspection result data structure with dedicated fields to record Variation outcomes separately without breaking existing flows.',
       },
       {
-        ko: '검사 소프트웨어 안정화 및 디버깅: 결과 저장 스레드와 관련된 Heap Corruption 및 비정상 종료 문제를 조사하고 객체 수명주기와 스레드 흐름을 분석·수정 중입니다.',
-        en: 'SW Stabilization & Debugging: Investigating heap corruption and abnormal termination in the result-saving thread by reviewing object lifetimes and multi-threaded data flows.',
+        ko: '안정화 및 디버깅(진행 중): 검사 결과 저장 스레드 관련 Heap Corruption 및 비정상 종료 문제의 원인을 객체 수명주기와 스레드 경계 중심으로 분석 중',
+        en: 'Reliability & Debugging (In Progress): Investigating heap corruption and abnormal termination in the result-saving thread across object lifetimes and thread boundaries.',
       },
       {
-        ko: 'AI 기반 이상 탐지 알고리즘 개선 연구: 기존 Variation Model을 분석하고 EfficientAD 및 PatchCore 기반 특징 추출·이상 점수 계산 구조의 적용 가능성을 평가 중입니다.',
-        en: 'AI Anomaly Detection R&D: Analyzing the existing Variation Model and evaluating EfficientAD and PatchCore feature extraction and anomaly scoring structures.',
+        ko: '이상 탐지 적용성 연구(진행 중): 기존 통계적 이상 검사 구조를 분석하고 EfficientAD·PatchCore 기반 특징 추출 및 이상 점수 계산의 적용 가능성 검토 중',
+        en: 'Anomaly Detection Feasibility (In Progress): Reviewing existing statistical inspection flows and comparing EfficientAD and PatchCore feature extraction and scoring.',
       },
     ],
-    context: {
-      ko: '산업용 머신비전 검사장비에서 실행되는 C++/MFC 기반 소프트웨어의 기능을 개발하고 기존 코드를 개선하는 프로젝트입니다. 기존 검사 알고리즘의 실행 구조와 검사 결과 처리 과정을 분석하여 신규 검사 조건을 지원하는 양품조건 ROI 기능과 Variation 결과 분리 로깅 로직을 구현했으며, 현재 이상 탐지 알고리즘 개선 연구와 멀티스레드 환경의 프로그램 안정화 작업을 진행하고 있습니다.',
-      en: 'This project focuses on developing new capabilities and improving legacy code for C++/MFC software running on industrial machine vision inspection equipment. By analyzing the existing inspection algorithm execution flow and result-handling pipeline, I implemented good-condition ROI logic for new inspection criteria and separated Variation result logging, while continuing work on multi-threaded stability and deep-learning anomaly detection evaluation.',
+    overview: {
+      ko: '산업용 머신비전 검사장비에서 동작하는 C++/MFC Windows 애플리케이션의 기능 확장과 안정화를 담당하고 있습니다. 기존 검사 알고리즘의 실행 경로와 결과 저장 구조를 코드 레벨에서 분석한 뒤, 현장 검사 조건을 반영하는 신규 판정 기능과 로깅 구조를 기존 동작과 호환되도록 구현했습니다. 멀티스레드 환경의 비정상 종료 원인 분석과 딥러닝 기반 이상 탐지 적용성 검토는 현재 진행 중입니다.',
+      en: 'Responsible for extending features and improving runtime reliability of a C++/MFC Windows application running on industrial machine vision inspection equipment. After analyzing the existing inspection execution paths and result persistence flow at the code level, I implemented new decision logic and separated logging while preserving backward compatibility. Multi-threaded crash investigation and deep-learning anomaly detection evaluation are currently in progress.',
     },
+    scopeNote: {
+      ko: '담당 범위: C++/MFC 검사 소프트웨어 내 양품조건 ROI 판정 통합, Variation 결과 데이터 구조·로깅 수정, 결과 저장 스레드 메모리 오류 분석(진행 중), 이상 탐지 알고리즘 적용성 검토(진행 중).',
+      en: 'Scope: Good-condition ROI integration in C++/MFC, Variation result data structure and logging updates, result-saving thread memory error investigation (in progress), and anomaly detection feasibility study (in progress).',
+    },
+    problems: [
+      {
+        ko: '기존 검사 프로그램에 새로운 영역별 양품 판정 조건을 추가하면서도 기존 검사 파이프라인과 판정 일관성을 유지해야 했습니다.',
+        en: 'New region-specific good-condition rules had to be added without disrupting the existing inspection pipeline or decision consistency.',
+      },
+      {
+        ko: 'Variation 검사 결과가 다른 검사 항목과 분리되지 않아 별도 추적과 사후 분석이 어려웠습니다.',
+        en: 'Variation inspection outcomes were not separated from other inspection results in the logging structure, complicating tracking and post-analysis.',
+      },
+      {
+        ko: '멀티스레드로 동작하는 검사 결과 저장 구간에서 Heap Corruption 및 프로그램 비정상 종료가 간헐적으로 관찰되어 원인 특정이 필요합니다.',
+        en: 'Intermittent heap corruption and abnormal termination observed around the multi-threaded result-saving path require root-cause isolation.',
+      },
+      {
+        ko: '기존 통계적 이상 검사 방식의 한계를 보완할 수 있는 딥러닝 기반 이상 탐지 알고리즘의 현장 적용 가능성을 검토해야 합니다.',
+        en: 'Deep-learning anomaly detection alternatives need structured evaluation against existing statistical methods under field inspection constraints.',
+      },
+    ],
     architecture: [
       {
-        label: { ko: 'Capture / Inspect', en: 'Capture / Inspect' },
+        label: { ko: '영상 입력 및 검사 실행', en: 'Acquisition & Inspection' },
         description: {
-          ko: '영상 입력 및 기존 C++/MFC 검사 알고리즘 실행 구조',
+          ko: '장비 영상 입력과 기존 C++/MFC 검사 알고리즘 실행 흐름',
           en: 'Image acquisition and existing C++/MFC inspection algorithm execution',
         },
       },
       {
         label: { ko: '양품조건 ROI 판정', en: 'Good-Condition ROI' },
         description: {
-          ko: '검사 조건에 따라 특정 영역 판정 방식을 조정·통합하는 단계',
-          en: 'Decision stage adjusting and integrating special ROI good-condition criteria',
+          ko: '검사 조건에 따라 특정 영역 결과를 양품으로 조정하는 판정 계층',
+          en: 'Decision layer applying configurable good-condition rules to designated ROIs',
         },
       },
       {
-        label: { ko: 'LotResult & Variation 로깅', en: 'LotResult & Variation Logging' },
+        label: { ko: '결과 구조화 및 분리 로깅', en: 'Structured Result Logging' },
         description: {
-          ko: 'LotResult 전용 저장 변수를 통해 일반 검사와 Variation 결과를 구분 기록',
-          en: 'Distinguishing and recording standard and Variation results via dedicated LotResult fields',
+          ko: '검사 결과 데이터 구조 내 전용 필드로 Variation 결과를 구분 기록',
+          en: 'Recording Variation results separately via dedicated fields in the result structure',
         },
       },
       {
-        label: { ko: '결과 저장 스레드 & 안정화', en: 'Result-Saving Thread & Stability' },
+        label: { ko: '멀티스레드 결과 저장', en: 'Multi-Threaded Persistence' },
         description: {
-          ko: '멀티스레드 데이터 전달, 객체 수명주기 관리 및 결과 저장 처리',
-          en: 'Multi-threaded data handoff, object lifetime management, and persistence',
+          ko: '스레드 간 데이터 전달, 객체 수명주기 관리 및 저장 처리 경계',
+          en: 'Inter-thread data handoff, object lifecycle management, and storage boundary',
         },
       },
     ],
     contributions: [
       {
         title: {
-          ko: '양품조건 ROI 기능 개발',
-          en: 'Good-Condition ROI Feature Development',
-        },
-        description: {
-          ko: '특정 영역에서 발생한 검사 결과를 검사 조건에 맞춰 양품으로 처리할 수 있도록 판정 로직을 확장했습니다.',
-          en: 'Extended decision logic so inspection results occurring within specific regions can be treated as good according to configured inspection criteria.',
+          ko: '양품조건 ROI 판정 기능 구현',
+          en: 'Good-Condition ROI Decision Implementation',
         },
         bullets: [
           {
-            ko: '기존 검사 프로그램의 ROI 판정 및 검사 실행 구조 분석',
-            en: 'Analyzed the ROI decision and inspection execution structure of the existing inspection program',
+            ko: '기존 C++/MFC 검사 프로그램의 ROI 판정 분기와 검사 실행 순서를 분석',
+            en: 'Analyzed ROI decision branches and inspection execution order in the existing C++/MFC codebase',
           },
           {
-            ko: '특정 영역에서 발생한 검사 결과를 양품으로 처리하는 특수 ROI 기능 개발',
-            en: 'Developed a special ROI feature that processes inspection results within designated regions as good (pass)',
+            ko: '특정 영역에서 발생한 검사 결과를 검사 조건에 따라 양품으로 처리하는 특수 ROI 기능 개발',
+            en: 'Developed a special ROI mechanism that evaluates results in configured regions as good',
           },
           {
-            ko: '기존 C++/MFC 검사 로직에 신규 ROI 판정 조건 통합',
-            en: 'Integrated the new ROI decision criteria into the existing C++/MFC inspection logic',
-          },
-          {
-            ko: '검사 조건에 따라 특정 영역의 판정 방식을 조정할 수 있도록 기능 확장',
-            en: 'Expanded functionality to allow flexible adjustment of region-specific decision rules based on inspection conditions',
+            ko: '기존 검사 로직 및 UI 설정 흐름과 충돌하지 않도록 신규 ROI 판정 조건 통합',
+            en: 'Integrated the new ROI criteria cleanly into the existing inspection logic and configuration flow',
           },
         ],
       },
       {
         title: {
-          ko: 'Variation 검사 결과 로깅 개선',
-          en: 'Variation Inspection Result Logging Improvement',
-        },
-        description: {
-          ko: '기존 검사 결과 처리 구조를 유지하면서 Variation 검사 결과를 독립적으로 추적·기록할 수 있도록 개선했습니다.',
-          en: 'Improved the logging structure to independently track and record Variation inspection results while preserving compatibility with existing result processing.',
+          ko: 'Variation 검사 결과 데이터 구조 및 로깅 개선',
+          en: 'Variation Result Data Structure & Logging Improvement',
         },
         bullets: [
           {
-            ko: '기존 검사 알고리즘 실행 및 결과 저장 흐름 분석',
-            en: 'Analyzed existing inspection algorithm execution and result-saving flows',
+            ko: '기존 검사 실행부터 결과 집계·저장까지의 데이터 처리 흐름 분석',
+            en: 'Traced the end-to-end data flow from inspection execution to result aggregation and saving',
           },
           {
-            ko: 'LotResult 데이터 구조에 Variation 결과 전용 저장 변수 추가',
-            en: 'Added dedicated Variation result storage variables to the LotResult data structure',
+            ko: '검사 결과 데이터 구조에 Variation 결과 전용 저장 필드를 추가해 기존 항목과 분리',
+            en: 'Added dedicated storage fields for Variation outcomes in the inspection result data structure',
           },
           {
-            ko: 'Variation 검사 결과를 다른 검사 결과와 구분하여 기록하도록 로깅 로직 수정',
-            en: 'Modified logging logic to record Variation inspection results separately from other inspection outcomes',
-          },
-          {
-            ko: '기존 검사 결과 처리 구조를 유지하면서 신규 데이터 기록 기능 구현',
-            en: 'Implemented the new data-recording capability while maintaining the existing result-handling architecture',
+            ko: '기존 결과 처리 호환성을 유지하면서 Variation 결과를 구분 기록하도록 로깅 로직 수정',
+            en: 'Updated logging logic to record Variation results separately while preserving existing result compatibility',
           },
         ],
       },
       {
         title: {
-          ko: '검사 소프트웨어 안정화 및 디버깅',
-          en: 'Inspection Software Stabilization & Debugging',
-        },
-        description: {
-          ko: '멀티스레드 실행 환경에서 발생하는 메모리 손상 및 비정상 종료 문제를 추적하고 안정화 작업을 수행하고 있습니다.',
-          en: 'Tracing memory corruption and abnormal termination issues occurring in a multi-threaded execution environment and performing stabilization work.',
+          ko: '멀티스레드 실행 안정화 및 디버깅 (진행 중)',
+          en: 'Multi-Threaded Reliability & Debugging (In Progress)',
         },
         bullets: [
           {
-            ko: 'C++/MFC 기반 기존 코드베이스 및 멀티스레드 실행 구조 분석',
-            en: 'Analyzed the existing C++/MFC codebase and multi-threaded execution architecture',
+            ko: 'C++/MFC 코드베이스의 스레드 생성·동기화 및 데이터 공유 구조 분석',
+            en: 'Analyzing thread creation, synchronization, and shared-data structures across the C++/MFC codebase',
           },
           {
-            ko: '검사 결과 저장 스레드와 관련된 Heap Corruption 및 비정상 종료 문제 조사',
-            en: 'Investigated Heap Corruption and abnormal termination issues associated with the inspection result-saving thread',
+            ko: '검사 결과 저장 스레드와 연관된 Heap Corruption 및 비정상 종료 현상 조사',
+            en: 'Investigating heap corruption and abnormal termination associated with the result-saving thread',
           },
           {
-            ko: '메모리 관리, 객체 수명주기 및 스레드 간 데이터 처리 흐름 검토',
-            en: 'Reviewed memory management, object lifecycles, and inter-thread data processing flows',
-          },
-          {
-            ko: '프로그램 비정상 종료 문제의 원인 분석 및 수정 진행 중',
-            en: 'Root-cause analysis and remediation for abnormal program termination currently in progress',
+            ko: '메모리 할당·해제 경계, 객체 수명주기, 스레드 간 데이터 전달 흐름을 점검하며 원인 분석 진행 중',
+            en: 'Reviewing allocation/deallocation boundaries, object lifetimes, and inter-thread handoffs to isolate the root cause',
           },
         ],
       },
       {
         title: {
-          ko: 'AI 기반 이상 탐지 알고리즘 개선 연구',
-          en: 'AI-Based Anomaly Detection Algorithm Improvement Research',
-        },
-        description: {
-          ko: '기존 통계적 Variation Model과 최신 딥러닝 기반 이상 탐지 알고리즘의 구조를 비교·검토하고 있습니다.',
-          en: 'Comparing and reviewing the existing statistical Variation Model against modern deep-learning anomaly detection architectures.',
+          ko: 'AI 기반 이상 탐지 알고리즘 적용 가능성 연구 (진행 중)',
+          en: 'AI-Based Anomaly Detection Feasibility Research (In Progress)',
         },
         bullets: [
           {
-            ko: '기존 Variation Model의 구조와 적용 방식 분석',
-            en: 'Analyzed the architecture and application method of the existing Variation Model',
+            ko: '기존 통계 기반 Variation 검사 구조와 현장 적용 방식 분석',
+            en: 'Analyzed the existing statistical Variation inspection architecture and operational usage',
           },
           {
-            ko: 'EfficientAD 및 PatchCore 기반 이상 탐지 알고리즘 비교',
-            en: 'Compared anomaly detection algorithms based on EfficientAD and PatchCore',
+            ko: 'EfficientAD 및 PatchCore 기반 이상 탐지 방식의 특징 추출·이상 점수 계산 구조 비교',
+            en: 'Compared feature extraction and anomaly scoring designs of EfficientAD and PatchCore',
           },
           {
-            ko: '특징 추출 및 이상 점수 계산 구조 검토',
-            en: 'Reviewed feature extraction pipelines and anomaly score computation structures',
-          },
-          {
-            ko: '기존 검사 프로그램의 알고리즘 개선을 위한 적용 가능성 평가 진행 중',
-            en: 'Evaluating feasibility for algorithm enhancement within the existing inspection software',
+            ko: '기존 검사 소프트웨어 환경에서의 추론 특성 및 통합 가능성 평가 진행 중',
+            en: 'Evaluating inference characteristics and integration feasibility for the existing inspection software',
           },
         ],
-      },
-    ],
-    keyExperiences: [
-      {
-        title: { ko: '기존 C++ 코드베이스 분석', en: 'Legacy C++ Codebase Analysis' },
-        description: {
-          ko: '검사 실행 흐름과 데이터 처리 구조를 이해하고 기존 기능을 확장',
-          en: 'Understood inspection execution flows and data processing structures to safely extend existing functionality',
-        },
-      },
-      {
-        title: { ko: '검사 알고리즘 개발', en: 'Inspection Algorithm Development' },
-        description: {
-          ko: '실제 검사 조건에 대응하는 양품조건 ROI 판정 기능 구현',
-          en: 'Implemented good-condition ROI decision logic responding to real-world inspection criteria',
-        },
-      },
-      {
-        title: { ko: '데이터 구조 및 로깅', en: 'Data Structure & Logging' },
-        description: {
-          ko: 'LotResult 등 검사 결과 저장 구조를 수정하여 Variation 결과를 별도로 기록',
-          en: 'Modified result storage structures including LotResult to record Variation outcomes separately',
-        },
-      },
-      {
-        title: { ko: '디버깅 및 안정화', en: 'Debugging & Stabilization' },
-        description: {
-          ko: '멀티스레드 환경에서 발생하는 Heap Corruption 등 메모리 관련 문제 분석',
-          en: 'Analyzed memory-related issues such as Heap Corruption occurring in multi-threaded environments',
-        },
-      },
-      {
-        title: { ko: 'AI 알고리즘 검토', en: 'AI Algorithm Evaluation' },
-        description: {
-          ko: '기존 Variation 검사 알고리즘과 EfficientAD·PatchCore 등 딥러닝 기반 이상 탐지 방식의 적용 가능성 비교',
-          en: 'Compared the applicability of deep-learning anomaly detection (EfficientAD, PatchCore) against existing Variation inspection algorithms',
-        },
       },
     ],
     challenges: [
       {
         title: {
-          ko: '결과 저장 스레드 Heap Corruption 및 비정상 종료 분석',
-          en: 'Result-Saving Thread Heap Corruption & Crash Investigation',
+          ko: '결과 저장 스레드의 Heap Corruption 및 비정상 종료 분석',
+          en: 'Heap Corruption & Crash Analysis in the Result-Saving Thread',
         },
         status: 'in-progress',
         problem: {
-          ko: 'C++/MFC 멀티스레드 실행 중 검사 결과 저장 스레드와 관련된 구간에서 Heap Corruption 및 프로그램 비정상 종료 현상이 관찰되었습니다.',
-          en: 'Heap corruption and abnormal termination have been observed in paths associated with the inspection result-saving thread during multi-threaded C++/MFC execution.',
+          ko: '검사 결과 저장 스레드와 연결된 멀티스레드 실행 구간에서 Heap Corruption 및 프로그램 비정상 종료 현상이 관찰되었습니다.',
+          en: 'Heap corruption and abnormal termination have been observed in multi-threaded paths tied to the result-saving thread.',
         },
-        investigation: {
-          ko: '메모리 관리 방식, 객체 수명주기(Object Lifecycle), 스레드 간 데이터 전달 및 공유 자원 처리 흐름을 면밀히 검토하며 원인 구간을 좁히고 있습니다.',
-          en: 'Reviewing memory management, object lifecycles, and inter-thread data handoff boundaries to isolate the root cause.',
+        approach: {
+          ko: '단정적인 추정 대신 공유 객체의 소유권, 메모리 할당·해제 시점, 스레드 간 데이터 전달 경계를 단계적으로 추적하며 재현 조건을 좁히고 있습니다.',
+          en: 'Rather than assuming a single cause prematurely, I am systematically tracing object ownership, memory lifetime boundaries, and inter-thread data transfers to isolate reproducible conditions.',
         },
         currentStatus: {
-          ko: '원인 분석 및 수정 진행 중 — 재현 조건 확인 및 스레드 간 메모리 경계 검증을 바탕으로 안정화 작업을 진행하고 있습니다.',
-          en: 'Root-cause analysis and remediation in progress — validating thread memory boundaries and stabilizing the persistence flow.',
+          ko: '원인 분석 진행 중 (아직 해결 완료로 단정하지 않으며, 재현·진단·검증 단계를 순차 진행 중입니다.)',
+          en: 'Analysis in progress (not yet resolved; proceeding through reproduction, memory diagnostics, and boundary verification).',
         },
       },
       {
         title: {
-          ko: '기존 Variation Model 대비 AI 이상 탐지 알고리즘 적용성 검토',
-          en: 'Evaluating AI Anomaly Detection vs. Legacy Variation Model',
+          ko: '기존 검사 구조와 딥러닝 이상 탐지 알고리즘의 적용성 비교',
+          en: 'Evaluating Deep-Learning Anomaly Detection vs. Existing Inspection',
         },
         status: 'in-progress',
         problem: {
-          ko: '기존 Variation Model의 한계를 보완하고 검사 프로그램의 이상 탐지 성능을 개선할 수 있는 알고리즘 구조 검토가 필요했습니다.',
-          en: 'Needed to evaluate candidate anomaly detection architectures capable of complementing the existing Variation Model in production inspection.',
+          ko: '기존 Variation 방식의 적용 한계를 보완하되, 현장 검사 소프트웨어의 실시간성 및 운용 조건을 충족하는 대안 검토가 필요합니다.',
+          en: 'Alternatives to complement the existing Variation method must fit the latency and operational constraints of production inspection software.',
         },
-        investigation: {
-          ko: '기존 Variation Model의 적용 방식을 분석하고, EfficientAD와 PatchCore의 특징 추출 구조 및 이상 점수 계산 방식을 비교 검토하고 있습니다.',
-          en: 'Analyzing the existing Variation Model workflow and comparing feature extraction and anomaly scoring structures of EfficientAD and PatchCore.',
+        approach: {
+          ko: 'EfficientAD와 PatchCore의 특징 추출 구조, 메모리 사용 특성, 이상 점수 계산 방식을 비교 분석하고 있습니다.',
+          en: 'Comparing EfficientAD and PatchCore across feature extraction architecture, memory footprint, and anomaly score computation.',
         },
         currentStatus: {
-          ko: '적용 가능성 평가 진행 중 — 현장 검사 조건과 추론 특성을 고려해 기존 검사 SW 내 통합 가능성을 검증하고 있습니다.',
-          en: 'Feasibility evaluation in progress — assessing integration viability against field inspection constraints and inference characteristics.',
+          ko: '적용 가능성 평가 진행 중 (검증된 성능 수치는 확정 전입니다.)',
+          en: 'Feasibility assessment in progress (no production performance gains are claimed yet).',
         },
       },
     ],
     outcomes: [
       {
-        ko: '특정 영역의 검사 결과를 조건에 따라 양품으로 처리하는 양품조건 특수 ROI 기능을 개발하고 기존 C++/MFC 판정 로직에 통합했습니다.',
-        en: 'Developed the good-condition special ROI feature and integrated it into the existing C++/MFC inspection decision logic.',
+        ko: '구현 완료: 기존 C++/MFC 검사 로직의 호환성을 유지하면서 특정 영역을 양품 처리하는 양품조건 ROI 판정 기능을 통합했습니다.',
+        en: 'Completed: Integrated good-condition ROI decision logic into the existing C++/MFC inspection flow while preserving compatibility.',
       },
       {
-        ko: 'LotResult 데이터 구조에 전용 저장 변수를 추가하여 기존 처리 구조를 유지하면서 Variation 검사 결과를 구분 기록하도록 개선했습니다.',
-        en: 'Added dedicated variables to the LotResult structure to log Variation results separately while preserving existing result processing.',
+        ko: '구현 완료: 검사 결과 데이터 구조와 로깅 흐름을 수정해 Variation 검사 결과를 다른 검사 결과와 구분하여 기록할 수 있게 했습니다.',
+        en: 'Completed: Extended the inspection result data structure and logging logic to record Variation outcomes separately.',
       },
       {
-        ko: '멀티스레드 결과 저장 스레드의 Heap Corruption 원인 분석·수정 및 EfficientAD·PatchCore 기반 이상 탐지 개선 연구를 수행하고 있습니다.',
-        en: 'Conducting root-cause remediation for result-saving thread heap corruption and evaluating EfficientAD/PatchCore anomaly detection improvements.',
+        ko: '진행 중: 결과 저장 스레드의 Heap Corruption 원인 분석과 EfficientAD·PatchCore 기반 이상 탐지 적용성 평가를 지속 수행하고 있습니다.',
+        en: 'In Progress: Continuing root-cause analysis for result-saving thread heap corruption and feasibility evaluation of EfficientAD/PatchCore.',
       },
     ],
-    reflection: {
-      ko: '기존 C++/MFC 기반 산업용 비전 소프트웨어에서는 전체 검사 실행 흐름과 데이터 구조(LotResult 등)를 정확히 파악한 뒤 기존 동작과의 호환성을 지키며 기능을 확장하는 것이 핵심이었습니다. 또한 멀티스레드 환경의 안정성을 확보하기 위해 메모리 관리와 객체 수명주기를 체계적으로 추적하는 경험을 쌓고 있습니다.',
-      en: 'Working on production C++/MFC vision software highlighted the importance of thoroughly understanding existing execution flows and data structures like LotResult to extend features without breaking compatibility, while systematically tracing memory ownership and object lifecycles across threads.',
-    },
+    techDetails: [
+      {
+        name: 'C++ / MFC / Windows',
+        usage: {
+          ko: '기존 산업용 머신비전 검사 애플리케이션 코드베이스 분석, ROI 판정 로직 통합 및 결과 데이터 구조 수정',
+          en: 'Analyzing legacy industrial vision codebase, integrating ROI decision logic, and updating result data structures',
+        },
+      },
+      {
+        name: 'Multithreading / Debugging',
+        usage: {
+          ko: '결과 저장 스레드 간 데이터 전달 흐름, 객체 수명주기 및 Heap Corruption 원인 추적',
+          en: 'Tracing inter-thread data flows, object lifecycles, and heap corruption in the result-saving path',
+        },
+      },
+      {
+        name: 'Machine Vision / PatchCore / EfficientAD',
+        usage: {
+          ko: '기존 ROI·Variation 검사 구조 분석 및 딥러닝 이상 탐지 알고리즘 적용 가능성 비교 검토',
+          en: 'Analyzing existing ROI/Variation inspection pipelines and evaluating deep-learning anomaly detection models',
+        },
+      },
+    ],
   },
   {
     id: 30,
     index: '02',
     title: {
-      ko: '산업용 Vision Intelligence Platform 개발',
-      en: 'Industrial Vision Intelligence Platform Development',
+      ko: 'Industrial Vision Intelligence Platform',
+      en: 'Industrial Vision Intelligence Platform',
     },
     role: {
-      ko: 'Full-Stack 개발 — 관리자 웹, 설비 Client, Teaching·Engineering, 서버 및 AI Worker 일부',
-      en: 'Full-Stack Development — Admin Web, Equipment Client, Teaching & Engineering, Server & AI Worker (Partial)',
+      ko: 'Full-Stack 개발 (Monitoring, Teaching, Engineering 및 설비 Client·서버·AI Worker 일부)',
+      en: 'Full-Stack Development (Monitoring, Teaching, Engineering, Equipment Client, Server & AI Worker)',
     },
     summary: {
-      ko: '공장 내부망에서 여러 Vision 검사 설비를 중앙 관리하고, 검사 데이터 수집과 AI 모델의 티칭·학습·평가·배포를 지원하는 통합 플랫폼을 개발하는 프로젝트입니다. 플랫폼은 Monitoring, Teaching, Engineering, Library의 네 가지 주요 영역으로 구성되어 있으며, 이 중 Monitoring, Teaching, Engineering 영역의 기능과 설비 PC Client 및 서버 연동 기능을 개발했습니다.',
-      en: 'Developing an integrated platform on the factory intranet to centrally manage multiple Vision inspection machines and support inspection data collection as well as AI model teaching, training, evaluation, and deployment. Among the platform’s four core areas (Monitoring, Teaching, Engineering, Library), I developed features across Monitoring, Teaching, and Engineering along with the equipment PC Client and server integration.',
+      ko: '공장 내부망에서 여러 Vision 검사 설비를 중앙 관리하고, 검사 데이터 분석과 AI 모델의 티칭·학습·평가·배포를 지원하는 통합 플랫폼입니다. 플랫폼의 4개 영역(Monitoring, Teaching, Engineering, Library) 중 Monitoring·Teaching·Engineering과 설비 Client·서버·AI Worker 연동 기능 개발에 참여했습니다.',
+      en: 'An integrated factory-intranet platform for centralized management of Vision inspection machines, inspection data analytics, and AI model teaching, training, evaluation, and deployment. Among the platform’s four areas (Monitoring, Teaching, Engineering, Library), I developed features across Monitoring, Teaching, Engineering, and related equipment Client, server, and AI Worker components.',
     },
     eyebrow: {
-      ko: 'Monitoring · Teaching · Engineering · Equipment Client',
-      en: 'Monitoring · Teaching · Engineering · Equipment Client',
+      ko: 'Monitoring · Teaching · Engineering · Systems Integration',
+      en: 'Monitoring · Teaching · Engineering · Systems Integration',
     },
     status: 'completed',
     period: {
@@ -374,162 +345,134 @@ export const professionalProjects: ProfessionalProject[] = [
       'C++',
       'C#',
       'WebSocket',
-      'Windows Named Pipe',
+      'Windows IPC',
       'REST API',
-      'Velopack',
       'HDBSCAN',
       'Gaussian KDE',
-      'DINOv2',
-      'DINOv3',
+      'AI Engineering',
     ],
     cardContributions: [
       {
-        ko: 'Monitoring (설비 관리·수집): 관리자 웹, Python 설비 Client TUI, WebSocket·Heartbeat 및 Windows Named Pipe IPC, 모델 무결성 검증·원자적 교체·Velopack 업데이트, 최대 5GB 스트리밍 수집 및 Q-Log 통합 기능을 개발했습니다.',
-        en: 'Monitoring (Equipment & Collection): Built Admin Web, Python Client TUI, WebSocket/Heartbeat & Windows Named Pipe IPC, atomic model replacement & Velopack updates, up to 5GB streaming downloads, and Q-Log analytics integration.',
+        ko: 'Monitoring · 설비 Client: 관리자 웹·API 연동, Python 설비 Client TUI, WebSocket·Windows Named Pipe IPC, AI 모델 무결성 검증·원자적 교체·장애 복구·자동 업데이트 구현',
+        en: 'Monitoring & Equipment Client: Built Admin Web/API integration, Python Client TUI, WebSocket & Windows Named Pipe IPC, and verified atomic model deployment with crash recovery and auto-updates.',
       },
       {
-        ko: 'Teaching (결함 분석·조건 관리): C# 기반 HDBSCAN 군집 분석·2D Gaussian KDE 결함 분포 엔진, 히트맵·등고선·핫스팟 시각화, ROI 탐색 Workbench, 군집 라벨링 및 Vision 검사 SW 연동 DLL 인터페이스를 구현했습니다.',
-        en: 'Teaching (Defect Analytics & Condition Management): Built a C# HDBSCAN & 2D Gaussian KDE defect distribution engine, heatmap/contour/hotspot visualizations, ROI Workbench, cluster labeling, and DLL interface to the inspection SW.',
+        ko: '데이터 수집·통합 및 UI 안정화: 검사 이미지·로그 수집과 대용량 파일 스트리밍 구현, 기존 C# WPF Q-Log Analyzer의 Monitoring 통합 및 별도 스레드 처리로 로그 화면 프리징 해결',
+        en: 'Data Collection & UI Stability: Built image/log collection and large-file streaming, integrated the C# WPF Q-Log Analyzer into Monitoring, and resolved log UI freezing via thread isolation.',
       },
       {
-        ko: 'Engineering (AI 학습·평가·실험 관리): Dataset Manager, DINOv2·DINOv3·CNN Encoder 등록·관리, GOOD/NG 분류 Head 학습·평가, PCA·유사 이미지 검색 및 AI Experiment Lab(Matrix 실험·임베딩 레시피·파생 Encoder 운영 적용)을 개발했습니다.',
-        en: 'Engineering (AI Training, Evaluation & Experiment Lab): Developed Dataset Manager, DINOv2/DINOv3/CNN Encoder management, GOOD/NG classification head training, PCA/similarity search, and AI Experiment Lab with derived encoder deployment.',
+        ko: 'Teaching · 결함 분석: C# 기반 HDBSCAN·Gaussian KDE 결함 분석과 핫스팟 시각화, ROI Workbench·군집 라벨링·시그니처 검증 및 기존 Vision 검사 SW와의 DLL 연동 구현',
+        en: 'Teaching & Defect Analytics: Developed C# HDBSCAN and Gaussian KDE defect/hotspot analysis, ROI Workbench, cluster labeling, signature verification, and DLL integration with the Vision SW.',
+      },
+      {
+        ko: 'Engineering · AI 운영 워크플로: DINOv2·DINOv3·CNN Encoder 관리·임베딩, GOOD/NG 분류 Head 학습·평가, PCA·유사 이미지 검색, AI Worker·Experiment Lab 및 임베딩 레시피 운영 적용 구현',
+        en: 'Engineering & AI Workflow: Built DINOv2/DINOv3/CNN Encoder management, GOOD/NG classification head training/eval, PCA and similarity search, AI Experiment Lab, and embedding recipe deployment.',
       },
     ],
-    context: {
-      ko: '공장 내부망에서 여러 Vision 검사 설비를 중앙 관리하고, 검사 데이터 수집과 AI 모델의 티칭·학습·평가·배포를 일관된 워크플로로 지원하는 통합 플랫폼(Monitoring, Teaching, Engineering, Library)이 필요했습니다. 이 중 Monitoring, Teaching, Engineering 3개 핵심 영역과 설비 PC Client–Vision 검사 SW–서버 간 통신·연동 및 AI Worker 일부를 전방위로 개발했습니다.',
-      en: 'The factory intranet required a unified platform (Monitoring, Teaching, Engineering, Library) to centrally manage distributed Vision inspection equipment and streamline data collection, defect analysis, and AI model training, evaluation, and deployment. I developed features spanning Monitoring, Teaching, Engineering, the equipment PC Client, Vision SW IPC/DLL integration, and parts of the server and AI Worker.',
+    overview: {
+      ko: '공장 내부망 환경에서 다수의 Vision 검사 설비를 중앙에서 모니터링하고, 수집된 검사 이미지·로그를 바탕으로 결함 분석(Teaching)과 AI 모델 학습·실험·운영 배포(Engineering)까지 일관되게 연결하는 통합 플랫폼 개발 프로젝트입니다. 전체 플랫폼은 Monitoring, Teaching, Engineering, Library의 4개 영역으로 구성됩니다.',
+      en: 'An integrated platform project on a factory intranet that centrally monitors multiple Vision inspection machines and connects collected images and logs to defect analysis (Teaching) and AI model training, experimentation, and deployment (Engineering). The overall platform consists of four modules: Monitoring, Teaching, Engineering, and Library.',
     },
+    scopeNote: {
+      ko: '담당 범위: Monitoring, Teaching, Engineering 영역과 관련 설비 PC Client, 서버 API·AI Worker 일부 개발에 참여했습니다. (Library는 전체 플랫폼의 구성 요소이며 본인의 직접 개발 범위가 아닙니다.)',
+      en: 'Scope: Participated in developing Monitoring, Teaching, and Engineering along with related equipment PC Client, server API, and AI Worker features. (Library is a platform component outside my direct development scope.)',
+    },
+    problems: [
+      {
+        ko: '분산된 현장 Vision 검사 설비의 상태 확인, 모델 배포, 대용량 이미지·로그 수집을 설비마다 수동으로 처리해야 하는 운영 부담이 있었습니다.',
+        en: 'Checking machine status, deploying AI models, and collecting large inspection images and logs across distributed Vision equipment required manual per-machine intervention.',
+      },
+      {
+        ko: '현장 설비 PC 환경에서는 네트워크 단절, 비정상 종료, 대용량 파일 전송, 연속 로그 출력 시 UI 멈춤 같은 시스템 안정성 문제를 함께 해결해야 했습니다.',
+        en: 'Factory equipment PCs required resilience against network drops, abnormal shutdowns, large-file transfers, and UI freezes under continuous log streaming.',
+      },
+      {
+        ko: '독립 도구(C# WPF Q-Log Analyzer)로 분산되어 있던 검사 로그 분석과 결함 분포 분석, AI 모델 실험·운영 반영 과정을 하나의 플랫폼 흐름으로 통합할 필요가 있었습니다.',
+        en: 'Standalone log analysis (C# WPF Q-Log Analyzer), defect distribution analysis, and AI model experimentation needed to be unified into a single operational workflow.',
+      },
+    ],
     architecture: [
       {
         label: { ko: 'Monitoring', en: 'Monitoring' },
         description: {
-          ko: '관리자 웹, 설비·호기·PC 계층 관리, 운영·수율 통계, 모델 배포 및 Q-Log 재집계',
-          en: 'Admin web, equipment/unit/PC hierarchy, yield statistics, model deployment, and Q-Log reaggregation',
+          ko: '관리자 웹 대시보드, 설비·모델 관리, Q-Log 재집계 및 Excel·CSV 내보내기',
+          en: 'Admin web dashboard, equipment/model management, Q-Log reaggregation, and Excel/CSV export',
         },
       },
       {
         label: { ko: '설비 Client & IPC', en: 'Equipment Client & IPC' },
         description: {
-          ko: 'Python TUI, WebSocket·Heartbeat, Windows Named Pipe IPC, 5GB 스트리밍 및 Velopack 업데이트',
-          en: 'Python TUI, WebSocket/Heartbeat, Windows Named Pipe IPC, 5GB streaming, and Velopack updates',
+          ko: 'Python TUI, WebSocket·Heartbeat, Windows Named Pipe IPC, 모델 원자적 교체 및 업데이트',
+          en: 'Python TUI, WebSocket/Heartbeat, Windows Named Pipe IPC, atomic model replacement, and updates',
         },
       },
       {
         label: { ko: 'Teaching & DLL', en: 'Teaching & DLL' },
         description: {
-          ko: 'C# HDBSCAN·2D Gaussian KDE 결함 분포 엔진, 히트맵·Workbench 및 검사 SW DLL 인터페이스',
-          en: 'C# HDBSCAN & 2D Gaussian KDE defect engine, heatmap/Workbench, and inspection SW DLL interface',
+          ko: 'C# HDBSCAN·Gaussian KDE 결함 분석, 핫스팟·ROI Workbench 및 검사 SW DLL 연동',
+          en: 'C# HDBSCAN/Gaussian KDE defect analytics, hotspot/ROI Workbench, and Vision SW DLL interface',
         },
       },
       {
-        label: { ko: 'Engineering & AI Lab', en: 'Engineering & AI Lab' },
+        label: { ko: 'Engineering & Worker', en: 'Engineering & Worker' },
         description: {
-          ko: 'DINOv2·DINOv3·CNN Encoder, 분류 Head 학습·평가, AI Experiment Lab 및 파생 Encoder 운영 적용',
-          en: 'DINOv2/DINOv3/CNN Encoders, classification head training/eval, AI Experiment Lab, and derived encoder ops',
+          ko: 'DINOv2·DINOv3·CNN Encoder, GOOD/NG 분류 Head, Experiment Lab 및 임베딩 레시피 적용',
+          en: 'DINOv2/DINOv3/CNN Encoders, GOOD/NG classification head, Experiment Lab, and recipe deployment',
         },
       },
     ],
     contributions: [
       {
         title: {
-          ko: 'Monitoring — 설비 관리 및 데이터 모니터링',
-          en: 'Monitoring — Equipment Management & Data Monitoring',
-        },
-        description: {
-          ko: '관리자 웹과 설비 PC Client를 구축하고, 검사 SW 연동부터 대용량 이미지·로그 수집 및 통계 분석까지 엔드투엔드로 구현했습니다.',
-          en: 'Built the Admin Web and Equipment PC Client, implementing end-to-end inspection SW IPC, large-scale image/log collection, and statistical analytics.',
+          ko: 'Monitoring — 설비 관리, Client 연동 및 데이터 수집',
+          en: 'Monitoring — Equipment Management, Client IPC & Data Collection',
         },
         subSections: [
           {
             subtitle: {
-              ko: '관리자 웹 및 데이터 분석',
-              en: 'Admin Web & Data Analytics',
+              ko: '관리자 웹 및 검사 데이터 대시보드',
+              en: 'Admin Web & Inspection Data Dashboard',
             },
             bullets: [
               {
-                ko: '관리자 웹 초기 구축 및 서버 API 연동',
-                en: 'Initial setup of the Admin Web and integration with server REST APIs',
+                ko: '설비 관리자 웹 초기 구축 및 서버 REST API 연동',
+                en: 'Initial build of the equipment Admin Web and server REST API integration',
               },
               {
-                ko: '설비·호기·PC 계층 관리와 신규 Client 승인·반려 기능 개발',
-                en: 'Developed equipment, unit, and PC hierarchy management with approval/rejection workflows for new Clients',
+                ko: '설비 계층 관리, 신규 Client 승인·반려, 운영 현황·수율·불량 통계 대시보드 구현',
+                en: 'Implemented equipment hierarchy management, new Client approval/rejection, and yield/defect dashboards',
               },
               {
-                ko: '설비별 운영 현황, 검사 시간, 수율 및 불량 통계 모니터링 화면 구현',
-                en: 'Implemented monitoring views for per-equipment operational status, tact time, yield, and defect statistics',
+                ko: 'AI 모델 배포·로드·이력 조회 및 실시간 진행률 표시 기능 개발',
+                en: 'Developed AI model deployment, loading, history tracking, and real-time progress reporting',
               },
               {
-                ko: '모델 관리·배포·로드·이력 조회 및 실시간 진행률 표시 기능 개발',
-                en: 'Built model management, deployment, loading, history tracking, and real-time progress display features',
-              },
-              {
-                ko: 'C# WPF로 먼저 개발했던 Q-Log Analyzer의 불량 코드 재분류, LOT 형식 검증, 통계 재집계 기능을 Monitoring에 통합',
-                en: 'Integrated defect-code reclassification, LOT format validation, and statistical reaggregation from the C# WPF Q-Log Analyzer into Monitoring',
-              },
-              {
-                ko: '검사 데이터의 Excel·CSV 리포트 내보내기 기능 개발',
-                en: 'Developed Excel and CSV report export functionality for inspection data',
+                ko: '독립적으로 개발했던 C# WPF Q-Log Analyzer의 불량 코드 재분류·LOT 형식 검증·통계 재집계 기능을 Monitoring에 통합 및 Excel·CSV 내보내기 지원',
+                en: 'Integrated defect reclassification, LOT format validation, and statistical reaggregation from the standalone C# WPF Q-Log Analyzer into Monitoring with Excel/CSV export',
               },
             ],
           },
           {
             subtitle: {
-              ko: '설비 Client 및 시스템 연동',
-              en: 'Equipment Client & System Integration',
+              ko: '설비 Client, IPC 및 안정적 모델 배포',
+              en: 'Equipment Client, IPC & Reliable Model Deployment',
             },
             bullets: [
               {
-                ko: 'Python 기반 설비 PC Client TUI 개발',
-                en: 'Developed the Python-based equipment PC Client TUI',
+                ko: 'Python 기반 설비 PC Client TUI 개발 및 WebSocket·Heartbeat 연결 상태 관리',
+                en: 'Developed Python-based equipment PC Client TUI with WebSocket and Heartbeat connection tracking',
               },
               {
-                ko: 'WebSocket·Heartbeat를 활용한 서버 통신 및 연결 상태 관리',
-                en: 'Implemented server communication and connection state management using WebSocket and Heartbeat',
+                ko: 'Windows Named Pipe 기반 Vision 검사 SW–Client 간 IPC 구현 및 통신 실패 시 자동 재시도·세션 복구',
+                en: 'Implemented Windows Named Pipe IPC between Vision inspection SW and Client with automatic retry and session recovery',
               },
               {
-                ko: 'Windows Named Pipe 기반 Vision 검사 SW–Client 간 IPC 구현',
-                en: 'Implemented IPC between the Vision inspection SW and Client using Windows Named Pipe',
+                ko: 'AI 모델 다운로드·무결성 검증·원자적 파일 교체·장애 복구 및 Velopack 기반 자동 업데이트·Windows 자동 실행 구현',
+                en: 'Implemented model download integrity checks, atomic file replacement, crash recovery, Velopack auto-updates, and Windows auto-start',
               },
               {
-                ko: '통신 실패 시 자동 재시도 및 세션 복구 기능 개발',
-                en: 'Developed automatic retry and session recovery mechanisms upon communication failure',
-              },
-              {
-                ko: '모델 다운로드·무결성 검증·원자적 파일 교체 및 비정상 종료 후 상태 복구 기능 구현',
-                en: 'Implemented model download, integrity verification, atomic file replacement, and post-crash state recovery',
-              },
-              {
-                ko: 'Velopack 기반 Client 업데이트 및 Windows 자동 실행 기능 개발',
-                en: 'Built Velopack-based Client auto-update and Windows startup registration features',
-              },
-            ],
-          },
-          {
-            subtitle: {
-              ko: '이미지·로그 수집 및 처리',
-              en: 'Image & Log Collection and Processing',
-            },
-            bullets: [
-              {
-                ko: '검사 이미지 수동·예약 수집 및 작업 진행률 관리 기능 개발',
-                en: 'Developed manual and scheduled inspection image collection with job progress management',
-              },
-              {
-                ko: '최대 5GB 수준의 수집 파일을 위한 디스크 스트리밍 다운로드 구현',
-                en: 'Implemented disk-streaming downloads capable of handling collection archives up to 5GB',
-              },
-              {
-                ko: 'Handler Inspector 로그 수집 및 네트워크 공유 경로 재연결 기능 개발',
-                en: 'Developed Handler Inspector log collection and automatic reconnection for network share paths',
-              },
-              {
-                ko: '대용량 로그 처리 Worker 분리 및 과거 로그 Catch-up 기능 개발',
-                en: 'Separated large-scale log processing into dedicated Workers and implemented historical log Catch-up',
-              },
-              {
-                ko: '로그 표시 처리를 별도 스레드로 분리하여 Client UI 프리징 문제 해결',
-                en: 'Resolved Client UI freezing by isolating log display processing onto a separate thread',
+                ko: '검사 이미지·로그 수집 및 대용량 파일 디스크 스트리밍 다운로드 구현, 별도 스레드 처리로 로그 화면 UI 프리징 해결',
+                en: 'Implemented inspection image/log collection with large-file disk streaming and resolved Client log UI freezing via dedicated threading',
               },
             ],
           },
@@ -537,254 +480,157 @@ export const professionalProjects: ProfessionalProject[] = [
       },
       {
         title: {
-          ko: 'Teaching — 결함 분석 및 검사 조건 관리',
-          en: 'Teaching — Defect Analysis & Inspection Condition Management',
-        },
-        description: {
-          ko: '결함 분포를 정량 분석·시각화하고 군집 기반 라벨링 및 검사 조건 검증을 수행하는 Teaching 엔진과 인터페이스를 개발했습니다.',
-          en: 'Developed the Teaching analytics engine, interactive visualizations, and DLL interface for defect distribution analysis, cluster labeling, and inspection condition verification.',
+          ko: 'Teaching — 결함 분포 분석, Workbench 및 DLL 연동',
+          en: 'Teaching — Defect Distribution Analytics, Workbench & DLL Integration',
         },
         bullets: [
           {
-            ko: 'C# 기반 HDBSCAN 군집 분석 및 2D Gaussian KDE 결함 분포 분석 엔진 개발',
-            en: 'Developed a C#-based HDBSCAN clustering and 2D Gaussian KDE defect distribution analysis engine',
+            ko: 'C# 기반 HDBSCAN 군집 분석 및 2D Gaussian KDE 결함 분포·핫스팟 분석 엔진 개발',
+            en: 'Developed C#-based HDBSCAN clustering and 2D Gaussian KDE defect distribution and hotspot engine',
           },
           {
-            ko: '결함 히트맵·등고선·핫스팟 시각화 및 미니맵 탐색 기능 구현',
-            en: 'Implemented defect heatmap, contour, and hotspot visualizations along with minimap navigation',
+            ko: '결함 히트맵·등고선·핫스팟 시각화, 미니맵 탐색 및 ROI별 영상 탐색·확대 뷰어 Workbench 구현',
+            en: 'Implemented defect heatmap, contour, and hotspot visualizations with minimap navigation and per-ROI Workbench viewer',
           },
           {
-            ko: 'ROI별 영상 탐색, 위치 표시 및 확대 뷰어를 지원하는 Workbench 개발',
-            en: 'Built a Workbench supporting per-ROI image exploration, location indicators, and zoom viewers',
+            ko: '군집 단위 라벨링, 개별 라벨 수정, 예외 표본 검수 및 시그니처 결과 시각화·승인본 비교 검증 흐름 개발',
+            en: 'Built cluster-level labeling, individual label editing, outlier review, and signature verification workflows',
           },
           {
-            ko: '군집 단위 라벨링, 개별 라벨 수정 및 예외 표본 검수 기능 개발',
-            en: 'Developed cluster-level labeling, individual label editing, and outlier/exception sample review features',
-          },
-          {
-            ko: 'GMM·HDBSCAN·임베딩 활용 군집 분석 옵션과 특징 변환 기능 구현',
-            en: 'Implemented clustering options utilizing GMM, HDBSCAN, and embeddings alongside feature transformation functions',
-          },
-          {
-            ko: '시그니처 결과 시각화, 승인본 비교 및 검증 흐름 개발',
-            en: 'Developed signature result visualization, approved-baseline comparison, and verification workflows',
-          },
-          {
-            ko: 'Vision 검사 SW와 Teaching 기능 간 DLL 인터페이스 구현',
-            en: 'Implemented the DLL interface bridging the Vision inspection software and Teaching module',
+            ko: '기존 Vision 검사 소프트웨어와 Teaching 분석 기능을 연결하는 DLL 인터페이스 구현',
+            en: 'Implemented the DLL interface connecting the existing Vision inspection software with Teaching analysis capabilities',
           },
         ],
       },
       {
         title: {
-          ko: 'Engineering — AI 모델 학습·평가 및 실험 관리',
-          en: 'Engineering — AI Model Training, Evaluation & Experiment Management',
+          ko: 'Engineering — Encoder 관리, 분류 학습 및 Experiment Lab',
+          en: 'Engineering — Encoder Management, Classification & Experiment Lab',
         },
-        description: {
-          ko: '데이터셋·Encoder 관리부터 분류 Head 학습·평가, AI Experiment Lab 실험 실행 및 파생 Encoder 운영 적용까지 이어지는 AI Engineering 워크플로를 개발했습니다.',
-          en: 'Built the end-to-end AI Engineering workflow spanning dataset/encoder management, classification head training and evaluation, AI Experiment Lab matrix runs, and derived encoder operationalization.',
-        },
-        subSections: [
+        bullets: [
           {
-            subtitle: {
-              ko: '모델 및 데이터 관리',
-              en: 'Model & Data Management',
-            },
-            bullets: [
-              {
-                ko: 'Dataset Manager, Training, Evaluation, Registry 및 Recommendation Lab 개발',
-                en: 'Developed Dataset Manager, Training, Evaluation, Registry, and Recommendation Lab modules',
-              },
-              {
-                ko: '데이터셋 표본 관리, 버전 고정 및 학습·검증·테스트 분할 기능 구현',
-                en: 'Implemented dataset sample management, version pinning, and train/validation/test split features',
-              },
-              {
-                ko: 'DINOv2·DINOv3·CNN 기반 Encoder 등록 및 관리 기능 개발',
-                en: 'Developed registration and management features for DINOv2, DINOv3, and CNN-based Encoders',
-              },
-              {
-                ko: '신규 이미지 자동 임베딩 큐 및 모델 파일 무결성·호환성 검증 기능 구현',
-                en: 'Implemented an automatic embedding queue for new images and model file integrity/compatibility validation',
-              },
-              {
-                ko: 'GOOD/NG 분류 Head 학습·점수 계산·저장 API 개발',
-                en: 'Developed APIs for training, scoring, and saving GOOD/NG classification heads',
-              },
-              {
-                ko: 'PCA 임베딩 시각화, 유사 이미지 검색 및 분류 성능 평가 기능 구현',
-                en: 'Implemented PCA embedding visualization, similar-image retrieval, and classification performance evaluation',
-              },
-            ],
+            ko: '데이터셋 표본 관리·버전 고정·학습/검증/테스트 분할 및 DINOv2·DINOv3·CNN 기반 Encoder 등록·이미지 임베딩 관리 구현',
+            en: 'Implemented dataset version pinning, train/val/test splits, and DINOv2/DINOv3/CNN Encoder registration with automated image embedding',
           },
           {
-            subtitle: {
-              ko: 'AI Experiment Lab',
-              en: 'AI Experiment Lab',
-            },
-            bullets: [
-              {
-                ko: 'AI Worker 기반 Encoder 실험 실행 기능 개발',
-                en: 'Developed AI Worker-based Encoder experiment execution capabilities',
-              },
-              {
-                ko: '이미지·정량 특징·혼합 입력과 특징 및 클래스 가중치 설정 지원',
-                en: 'Supported image, quantitative-feature, and hybrid inputs along with feature and class weight configuration',
-              },
-              {
-                ko: '실험 그룹(Matrix) 생성, 실행 상태 모니터링, 구성 복제·재실행 및 결과 보관 기능 개발',
-                en: 'Built experiment matrix creation, execution status monitoring, config cloning/re-running, and result archiving',
-              },
-              {
-                ko: '임베딩 표현 품질, 클러스터링 지표, 신뢰구간 및 중복 이미지 제외 효과 분석 기능 구현',
-                en: 'Implemented analysis for embedding representation quality, clustering metrics, confidence intervals, and duplicate-image exclusion effects',
-              },
-              {
-                ko: '실험별 임베딩 공간과 유사 이미지 비교 기능 개발',
-                en: 'Developed cross-experiment embedding space and similar-image comparison features',
-              },
-              {
-                ko: '실험 결과를 임베딩 레시피로 저장하고 파생 Encoder 생성·재임베딩으로 연결하는 운영 적용 기능 개발',
-                en: 'Implemented operationalization workflows saving experiment results as embedding recipes and linking them to derived Encoder generation and re-embedding',
-              },
-            ],
+            ko: 'GOOD/NG 분류 Head 학습·점수 계산·저장 API와 PCA 임베딩 시각화·유사 이미지 검색·모델 성능 평가 기능 개발',
+            en: 'Built GOOD/NG classification head training/scoring APIs alongside PCA visualization, similar-image search, and evaluation views',
+          },
+          {
+            ko: 'AI Worker와 Experiment Lab 기반 다중 조건 실험(Matrix) 실행·모니터링·구성 복제·표현 품질 및 클러스터링 지표 비교 기능 개발',
+            en: 'Developed AI Worker and Experiment Lab matrix runs with monitoring, config cloning, and embedding/clustering quality comparison',
+          },
+          {
+            ko: '실험 결과를 운영용 임베딩 레시피로 저장하고 파생 Encoder 생성·재임베딩으로 연결하는 운영 적용 워크플로 구현',
+            en: 'Built operational workflows saving experiment outcomes as embedding recipes linked to derived Encoder generation and re-embedding',
           },
         ],
-      },
-    ],
-    keyExperiences: [
-      {
-        title: { ko: 'Windows 설비 소프트웨어 개발', en: 'Windows Equipment SW Development' },
-        description: {
-          ko: 'Client TUI, Windows Named Pipe IPC, 서버 통신, 모델 배포 및 Velopack 자동 업데이트',
-          en: 'Client TUI, Windows Named Pipe IPC, server communication, model deployment, and Velopack auto-updates',
-        },
-      },
-      {
-        title: { ko: '시스템 안정성', en: 'System Reliability' },
-        description: {
-          ko: '통신 재연결, 파일 무결성 검증, 원자적 파일 교체, 비정상 종료 후 상태 복구 및 UI 프리징 해결',
-          en: 'Communication reconnection, file integrity verification, atomic replacement, post-crash state recovery, and UI freeze resolution',
-        },
-      },
-      {
-        title: { ko: 'Full-Stack 개발', en: 'Full-Stack Development' },
-        description: {
-          ko: '관리자 웹, REST API 연동, 설비·호기·PC 계층 및 모델·데이터 통합 관리',
-          en: 'Admin web, REST API integration, and unified management of equipment hierarchies, models, and datasets',
-        },
-      },
-      {
-        title: { ko: '데이터 처리', en: 'Data Processing' },
-        description: {
-          ko: '검사 이미지·로그 수집, 최대 5GB 대용량 파일 디스크 스트리밍, Worker 분리 및 통계 재집계',
-          en: 'Inspection image/log collection, up to 5GB disk streaming, background workers, and statistical reaggregation',
-        },
-      },
-      {
-        title: { ko: 'AI Engineering', en: 'AI Engineering' },
-        description: {
-          ko: 'DINOv2·DINOv3·CNN Encoder 관리, GOOD/NG 분류 Head 학습·평가, AI Worker 및 Experiment Lab 개발',
-          en: 'DINOv2/DINOv3/CNN Encoder management, GOOD/NG classification head training/eval, AI Worker, and Experiment Lab development',
-        },
-      },
-      {
-        title: { ko: 'Computer Vision 분석', en: 'Computer Vision Analytics' },
-        description: {
-          ko: 'HDBSCAN 결함 군집화, 2D Gaussian KDE 히트맵·등고선·핫스팟, ROI Workbench, PCA 임베딩 시각화 및 유사 이미지 검색',
-          en: 'HDBSCAN defect clustering, 2D Gaussian KDE heatmaps/contours/hotspots, ROI Workbench, PCA visualization, and similar-image retrieval',
-        },
       },
     ],
     challenges: [
       {
         title: {
-          ko: '설비 Client 실시간 로그 표시로 인한 UI 프리징 해결',
-          en: 'Resolving Equipment Client UI Freezing Under Continuous Log Output',
+          ko: '설비 Client 로그 표시로 인한 UI 프리징 해결',
+          en: 'Resolving Equipment Client UI Freezing During Log Output',
         },
         status: 'completed',
         problem: {
-          ko: '설비 Client에서 연속적인 로그 수신·처리와 TUI 화면 갱신이 동일 실행 흐름에서 수행되어 UI 프리징과 응답 지연이 발생했습니다.',
-          en: 'Continuous log ingestion, processing, and TUI rendering shared an execution flow, causing UI freezes and degraded responsiveness.',
+          ko: '연속적인 설비 로그 처리와 TUI 화면 렌더링이 같은 실행 흐름에 묶여 로그량이 증가할 때 UI 프리징이 발생했습니다.',
+          en: 'Continuous log ingestion and TUI rendering shared an execution thread, causing UI freezes under heavy log output.',
         },
-        investigation: {
-          ko: '대용량 로그 수집·처리 경로와 UI 표시 스레드의 경계를 분석하고 백그라운드 Worker와 렌더링 책임을 분리했습니다.',
-          en: 'Analyzed the boundary between high-volume log processing and UI rendering, separating background workers from display updates.',
+        approach: {
+          ko: '대용량 로그 처리 Worker와 화면 표시 스레드의 경계를 분리해 UI 갱신이 백그라운드 I/O에 블로킹되지 않도록 재구성했습니다.',
+          en: 'Decoupled heavy log processing workers from display rendering on a separate thread so UI updates are never blocked by I/O.',
         },
         currentStatus: {
-          ko: '대용량 로그 처리 Worker를 분리하고 로그 표시 처리를 별도 스레드로 격리하여 Client UI 프리징 문제를 해결했습니다.',
-          en: 'Resolved Client UI freezing by isolating log display processing into a dedicated thread and offloading heavy log parsing to workers.',
+          ko: '해결 완료 — 로그 표시 처리를 별도 스레드로 분리하여 Client UI 프리징 문제를 해소했습니다.',
+          en: 'Resolved — isolated log display processing onto a separate thread, eliminating Client UI freezes.',
         },
       },
       {
         title: {
-          ko: '모델 배포 무결성 보장 및 최대 5GB 수집 데이터 스트리밍',
-          en: 'Atomic Model Deployment & Up to 5GB Streaming Data Collection',
+          ko: '현장 모델 배포 안정성 및 대용량 파일 스트리밍',
+          en: 'Reliable On-Site Model Deployment & Large-File Streaming',
         },
         status: 'completed',
         problem: {
-          ko: '현장 설비 네트워크 환경에서 모델 배포 중 비정상 종료나 파일 손상 위험이 있었고, 최대 5GB에 달하는 수집 이미지·로그 처리 시 메모리 부하를 방지해야 했습니다.',
-          en: 'Field equipment networks posed risks of interrupted transfers or corrupted model files, while up to 5GB collection archives required constant-memory handling.',
+          ko: '현장 설비 PC의 네트워크 단절이나 비정상 종료 시 모델 파일 손상 위험이 있었으며, 대용량 수집 파일 전송 시 메모리 급증을 방지해야 했습니다.',
+          en: 'Network interruptions or unexpected shutdowns risked corrupted model files, while large inspection archives risked memory spikes during transfer.',
         },
-        investigation: {
-          ko: '다운로드 단계별 해시·무결성 검증, 임시 파일을 통한 원자적 교체, 작업 상태 체크포인트와 디스크 스트리밍 구조를 설계했습니다.',
-          en: 'Designed staged integrity checks, atomic file replacement, state checkpointing, and chunked disk-streaming downloads.',
+        approach: {
+          ko: '다운로드 무결성 검증, 원자적 파일 교체, 비정상 종료 후 작업 상태 복구와 디스크 기반 스트리밍 다운로드 구조를 설계했습니다.',
+          en: 'Designed integrity verification, atomic file replacement, post-crash state recovery, and disk-based streaming downloads.',
         },
         currentStatus: {
-          ko: '모델 무결성 검증·원자적 파일 교체·비정상 종료 후 상태 복구 및 최대 5GB 디스크 스트리밍 다운로드를 안정적으로 구현했습니다.',
-          en: 'Implemented verified atomic model replacement, post-crash state recovery, and disk-streaming downloads supporting files up to 5GB.',
+          ko: '구현 완료 — 무결성 검증·원자적 교체·장애 복구 및 대용량 파일 스트리밍을 적용했습니다.',
+          en: 'Implemented — verified atomic replacement, crash recovery, and large-file streaming are in place.',
         },
       },
       {
         title: {
-          ko: 'Q-Log Analyzer 통합 및 필터 이후 통계 일관성 확보',
-          en: 'Q-Log Analyzer Integration & Post-Filter Statistical Consistency',
+          ko: 'Q-Log Analyzer 통합 시 필터 기준 통계 일관성 확보',
+          en: 'Post-Filter Statistical Consistency After Q-Log Integration',
         },
         status: 'completed',
         problem: {
-          ko: '불량 코드 재분류 및 포함·제외 조건 적용 시 요약 집계, LOT 통계, 차트, Excel·CSV 내보내기 결과가 서로 달라질 수 있는 문제가 있었습니다.',
-          en: 'Defect-code reclassification and include/exclude filters risked producing divergent totals across summary metrics, LOT views, charts, and exports.',
+          ko: '독립 도구(C# WPF)로 개발했던 로그 분석 기능을 플랫폼 Monitoring에 통합할 때, 불량 코드 재분류 조건에 따라 대시보드·LOT 집계·내보내기 결과가 달라질 우려가 있었습니다.',
+          en: 'Integrating standalone C# WPF log analysis risked divergent totals across dashboards, LOT summaries, and exports under defect reclassification rules.',
         },
-        investigation: {
-          ko: 'C# WPF로 선행 개발했던 Q-Log Analyzer의 파싱·검증 로직을 플랫폼 Monitoring 구조에 맞춰 재설계하고 단일 재집계 파이프라인으로 통합했습니다.',
-          en: 'Redesigned the parsing and validation logic from the standalone C# WPF Q-Log Analyzer into a unified reaggregation pipeline within Monitoring.',
+        approach: {
+          ko: '불량 코드 재분류, LOT 형식 검증, 통계 재집계를 단일 데이터 흐름으로 정리해 차트와 Excel·CSV 내보내기가 동일한 결과 집합을 참조하도록 통합했습니다.',
+          en: 'Consolidated reclassification, LOT validation, and reaggregation into a single data pipeline consumed consistently by charts and Excel/CSV exports.',
         },
         currentStatus: {
-          ko: '불량 코드 재분류, LOT 형식 검증, 통계 재집계, 차트 시각화 및 Excel·CSV 리포트 내보내기가 동일한 기준의 결과 집합을 사용하도록 구현했습니다.',
-          en: 'Unified defect-code reclassification, LOT format validation, statistical reaggregation, charts, and Excel/CSV exports around a single consistent dataset.',
+          ko: '구현 완료 — 필터 및 재분류 기준이 화면과 리포트 내보내기에 일관되게 반영됩니다.',
+          en: 'Implemented — filters and reclassification criteria apply consistently across views and exported reports.',
         },
       },
     ],
     outcomes: [
       {
-        ko: 'Vision 검사 SW(Windows Named Pipe IPC · DLL 인터페이스), 설비 Client(Python TUI) 및 서버(WebSocket · REST API) 간 통신·연동 기능 구현',
-        en: 'Implemented communication and integration across the Vision inspection SW (Windows Named Pipe IPC & DLL), Equipment Client (Python TUI), and Server (WebSocket & REST API).',
+        ko: 'Vision 검사 SW(Windows Named Pipe IPC · DLL), 설비 Client(Python TUI), 서버(WebSocket · REST API) 간 연동 흐름 구현',
+        en: 'Implemented integration across Vision inspection SW (Windows Named Pipe IPC & DLL), Equipment Client (Python TUI), and Server (WebSocket & REST API).',
       },
       {
-        ko: '모델 배포의 무결성 검증, 원자적 파일 교체 및 비정상 종료 후 작업 상태 복구 기능 개발',
-        en: 'Developed model deployment integrity verification, atomic file replacement, and post-crash task state recovery.',
+        ko: 'AI 모델 배포의 무결성 검증, 원자적 파일 교체, 장애 복구 및 Velopack 기반 자동 업데이트 구현',
+        en: 'Implemented integrity-checked atomic AI model replacement, crash recovery, and Velopack-based auto-updates.',
       },
       {
-        ko: '별도 스레드 처리 및 대용량 로그 Worker 분리로 설비 Client의 로그 화면 프리징 문제 해결',
-        en: 'Resolved Equipment Client log screen freezing through dedicated thread separation and background log workers.',
+        ko: '로그 표시 스레드 분리를 통해 설비 Client UI 프리징 문제 해결 및 대용량 검사 데이터 스트리밍 지원',
+        en: 'Resolved Equipment Client UI freezing via thread isolation and enabled streaming for large inspection archives.',
       },
       {
-        ko: '최대 5GB 수준의 대용량 검사 데이터 디스크 스트리밍 처리 및 Q-Log 재집계·Excel/CSV 리포트 내보내기 지원',
-        en: 'Supported disk-streaming processing for up to 5GB inspection archives alongside Q-Log reaggregation and Excel/CSV report exports.',
+        ko: 'C# 기반 HDBSCAN·Gaussian KDE 결함 분석·핫스팟 시각화, ROI Workbench 및 검사 SW DLL 인터페이스 구현',
+        en: 'Implemented C# HDBSCAN/Gaussian KDE defect analytics, hotspot visualization, ROI Workbench, and Vision SW DLL interface.',
       },
       {
-        ko: 'C# 기반 HDBSCAN·2D Gaussian KDE 결함 분포 분석, 히트맵·등고선·핫스팟 시각화 및 ROI Workbench 등 Teaching 작업 기능 구현',
-        en: 'Implemented Teaching capabilities including C# HDBSCAN & 2D Gaussian KDE defect analytics, heatmap/contour/hotspot visualizations, and the ROI Workbench.',
-      },
-      {
-        ko: 'DINOv2·DINOv3·CNN Encoder 관리부터 분류 Head 학습·평가, AI Experiment Lab(Matrix 실험) 및 파생 Encoder 운영 적용까지 이어지는 Engineering 워크플로 개발',
-        en: 'Developed the complete Engineering workflow from DINOv2/DINOv3/CNN Encoder management and classification head training to AI Experiment Lab matrix runs and derived encoder deployment.',
+        ko: 'DINOv2·DINOv3·CNN Encoder 관리부터 GOOD/NG 분류 Head 학습·Experiment Lab 실험 비교·운영용 임베딩 레시피 적용까지 이어지는 워크플로 구현',
+        en: 'Built the Engineering workflow from DINOv2/DINOv3/CNN Encoder management and GOOD/NG head training to Experiment Lab comparison and operational embedding recipes.',
       },
     ],
-    reflection: {
-      ko: '설비 현장과 맞닿아 있는 플랫폼 개발에서는 웹·서버 기능뿐만 아니라 프로세스 간 통신(Windows Named Pipe, DLL), 네트워크 재연결, 원자적 파일 교체, 대용량 스트리밍 등 시스템 레벨의 안정성이 필수적이었습니다. Monitoring·Teaching·Engineering 전 영역을 연결하며 데이터 수집부터 결함 분석, AI 모델 실험과 현장 배포까지의 전체 사이클을 구축할 수 있었습니다.',
-      en: 'Building a platform connected to factory floor equipment required system-level reliability—such as Windows Named Pipe IPC, DLL interfaces, automatic reconnection, atomic file replacement, and disk streaming—alongside full-stack web and AI engineering across Monitoring, Teaching, and Engineering.',
-    },
+    techDetails: [
+      {
+        name: 'Python / WebSocket / Windows IPC / Velopack',
+        usage: {
+          ko: '설비 PC Client TUI, 서버 양방향 통신·Heartbeat, Windows Named Pipe IPC, 대용량 스트리밍 및 자동 업데이트',
+          en: 'Equipment Client TUI, server WebSocket/Heartbeat, Windows Named Pipe IPC, streaming transfers, and auto-updates',
+        },
+      },
+      {
+        name: 'C++ / C# / HDBSCAN / Gaussian KDE',
+        usage: {
+          ko: '결함 군집·밀도 분포 분석 엔진, 기존 Vision 검사 SW 연동 DLL 인터페이스 및 Q-Log 분석 로직 통합',
+          en: 'Defect clustering/density engine, DLL interface to existing Vision inspection SW, and Q-Log analytics integration',
+        },
+      },
+      {
+        name: 'REST API / AI Engineering (DINOv2, DINOv3, CNN)',
+        usage: {
+          ko: '관리자 웹·서버 연동, Encoder 및 임베딩 관리, GOOD/NG 분류 Head 학습·평가, AI Worker 및 Experiment Lab',
+          en: 'Admin Web/API integration, Encoder and embedding management, GOOD/NG head training/eval, AI Worker, and Experiment Lab',
+        },
+      },
+    ],
   },
 ];
 
