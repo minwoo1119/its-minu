@@ -1,4 +1,5 @@
 import { About } from './components/about/About';
+import { ProjectArchive } from './components/archive/ProjectArchive';
 import { CoreCompetencies } from './components/coreCompetencies/CoreCompetencies';
 import { DetailProjects } from './components/detailProjects/DetailProjects';
 import { Footer } from './components/Footer/Footer';
@@ -23,6 +24,7 @@ import { getText } from './i18n';
 
 type Route =
   | { name: 'portal' }
+  | { name: 'archive' }
   | { name: 'track'; trackId: TrackId }
   | { name: 'projectDetail'; trackId: TrackId; projectId: number };
 
@@ -77,6 +79,9 @@ const getCurrentRoute = (): Route => {
     if (hash === 'portal') {
       return { name: 'portal' };
     }
+    if (hash === 'archive') {
+      return { name: 'archive' };
+    }
 
     // Pattern: {trackId}/projects/{projectId}
     const hashProjectMatch = hash.match(/^([^/]+)\/projects\/(\d+)$/);
@@ -111,6 +116,9 @@ const getCurrentRoute = (): Route => {
     if (relativePath === 'portal') {
       return { name: 'portal' };
     }
+    if (relativePath === 'archive') {
+      return { name: 'archive' };
+    }
 
     const pathProjectMatch = relativePath.match(/^([^/]+)\/projects\/(\d+)$/);
     if (pathProjectMatch) {
@@ -138,6 +146,10 @@ const buildPath = (route: Route, language: Language): string => {
 
   if (route.name === 'portal') {
     return `${languagePath}/portal`;
+  }
+
+  if (route.name === 'archive') {
+    return `${languagePath}/archive`;
   }
 
   if (route.name === 'track') {
@@ -252,6 +264,11 @@ function App() {
         language === 'ko'
           ? '이민우 | C++ Software Engineer'
           : 'Minwoo Lee | C++ Software Engineer';
+    } else if (route.name === 'archive') {
+      document.title =
+        language === 'ko'
+          ? '프로젝트 아카이브 | 이민우 (Minwoo Lee)'
+          : 'Project Archive | Minwoo Lee';
     } else if (route.name === 'track') {
       const role =
         activeTrackId === 'computer-vision'
@@ -315,7 +332,7 @@ function App() {
               onLogoClick={
                 route.name === 'track'
                   ? scrollToTop
-                  : () => navigateTrack(activeTrackId)
+                  : () => navigateTrack('computer-vision')
               }
               onPdfClick={handlePdfDownload}
               onAboutClick={
@@ -354,6 +371,8 @@ function App() {
                   ? scrollToSelectedProjects()
                   : navigateTrack(activeTrackId, 'selectedProjects')
               }
+              onArchiveClick={() => navigateTo({ name: 'archive' })}
+              onPortalClick={() => navigateTo({ name: 'portal' })}
               onAwardsClick={() =>
                 route.name === 'track'
                   ? scrollToSection(awardsRef)
@@ -361,9 +380,20 @@ function App() {
               }
             />
 
-            {route.name === 'track' ? (
+            {route.name === 'archive' ? (
+              <ProjectArchive
+                language={language}
+                onProjectClick={handleProjectOpen}
+                onBackClick={() => navigateTrack('computer-vision')}
+              />
+            ) : route.name === 'track' ? (
               <>
-                <Intro language={language} trackData={activeTrackData} />
+                <Intro
+                  language={language}
+                  trackData={activeTrackData}
+                  onProjectsClick={() => scrollToSection(projectsRef)}
+                  onPdfClick={handlePdfDownload}
+                />
                 {activeTrackId === 'computer-vision' && (
                   <div ref={aboutRef} style={{ width: '100%' }}>
                     <About language={language} />
@@ -383,6 +413,7 @@ function App() {
                     language={language}
                     trackData={activeTrackData}
                     onProjectClick={handleProjectOpen}
+                    onArchiveClick={() => navigateTo({ name: 'archive' })}
                   />
                 </div>
                 {activeTrackId === 'computer-vision' ? (
@@ -433,12 +464,14 @@ function App() {
 
             <Footer
               language={language}
-              onPortalClick={
+              onTopClick={
                 route.name === 'track'
                   ? scrollToTop
                   : () => navigateTrack(activeTrackId)
               }
               onProjectsClick={() => navigateTrack(activeTrackId, 'projects')}
+              onArchiveClick={() => navigateTo({ name: 'archive' })}
+              onPortalClick={() => navigateTo({ name: 'portal' })}
             />
           </>
         )}

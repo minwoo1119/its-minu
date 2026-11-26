@@ -1,4 +1,6 @@
 import type { Language } from '../../i18n';
+import { SectionHeading } from '../common/sectionHeading/SectionHeading';
+import { SkillCard } from '../common/skillCard/SkillCard';
 import styles from './coreExpertise.module.scss';
 
 interface CoreExpertiseProps {
@@ -45,32 +47,30 @@ const expertise = [
 ];
 
 export const CoreExpertise = ({ language }: CoreExpertiseProps) => (
-  <section className={styles.container} aria-labelledby='expertise-title'>
-    <div className={styles.heading}>
-      <div>
-        <h2 id='expertise-title'>
-          {language === 'ko' ? '핵심 기술 역량' : 'Core Technical Skills'}
-        </h2>
+  <section className={styles.wrapper} aria-labelledby='expertise-title'>
+    <div className={styles.container}>
+      <SectionHeading
+        id='expertise-title'
+        eyebrow='Technical Skills'
+        title={language === 'ko' ? '핵심 기술 역량' : 'Core Technical Skills'}
+        description={
+          language === 'ko'
+            ? '실무와 선별 프로젝트에서 직접 구현하거나 분석한 기술을 4개 영역으로 정리했습니다.'
+            : 'Core engineering domains directly implemented or investigated across production and selected projects.'
+        }
+      />
+
+      <div className={styles.grid}>
+        {expertise.map((item) => (
+          <SkillCard
+            key={item.index}
+            index={item.index}
+            title={item.title[language]}
+            description={item.description[language]}
+            items={item.tools}
+          />
+        ))}
       </div>
-      <span>
-        {language === 'ko'
-          ? '실무와 선별 프로젝트에서 직접 구현하거나 분석한 기술을 중심으로 정리했습니다.'
-          : 'Core engineering technologies directly implemented or investigated across production and selected projects.'}
-      </span>
-    </div>
-    <div className={styles.list}>
-      {expertise.map((item) => (
-        <article key={item.index}>
-          <span className={styles.index}>{item.index}</span>
-          <div>
-            <h3>{item.title[language]}</h3>
-            <p>{item.description[language]}</p>
-          </div>
-          <ul>
-            {item.tools.map((tool) => <li key={tool}>{tool}</li>)}
-          </ul>
-        </article>
-      ))}
     </div>
   </section>
 );

@@ -1,73 +1,86 @@
 import type { Language } from '../../i18n';
 import { getText } from '../../i18n';
 import { experienceData } from '../../data/experience';
+import { SectionHeading } from '../common/sectionHeading/SectionHeading';
 import styles from './experience.module.scss';
 
 interface ExperienceProps {
   language: Language;
 }
 
-export const Experience = ({ language }: ExperienceProps) => {
-  const content =
-    language === 'ko'
-      ? {
-          titleText: '경력 사항',
-        }
-      : {
-          titleText: 'Work Experience',
-        };
+const splitLead = (text: string): { lead: string | null; body: string } => {
+  const idx = text.indexOf(':');
+  if (idx > 0 && idx < 48) {
+    return {
+      lead: text.slice(0, idx).trim(),
+      body: text.slice(idx + 1).trim(),
+    };
+  }
+  return { lead: null, body: text };
+};
 
-  return (
-    <section className={styles.container}>
-      <h2 className={styles.titleText}>{content.titleText}</h2>
+export const Experience = ({ language }: ExperienceProps) => (
+  <section className={styles.wrapper} aria-labelledby='experience-section-title'>
+    <div className={styles.container}>
+      <SectionHeading
+        id='experience-section-title'
+        eyebrow='Experience'
+        title={language === 'ko' ? '경력 사항' : 'Work Experience'}
+        compact
+      />
 
-      <div className={styles.experienceList}>
+      <div className={styles.list}>
         {experienceData.map((exp) => (
-          <div key={exp.id} className={styles.experienceCard}>
-            <div className={styles.cardHeader}>
-              <div className={styles.headerMain}>
-                <div className={styles.companyRow}>
-                  <h3 className={styles.companyName}>
-                    {getText(language, exp.company)}
-                  </h3>
-                  <span className={styles.statusBadge}>
-                    {getText(language, exp.statusBadge)}
+          <article key={exp.id} className={styles.card}>
+            <div className={styles.metaCol}>
+              <div className={styles.companyRow}>
+                <h3 className={styles.companyName}>
+                  {getText(language, exp.company)}
+                </h3>
+                <span className={styles.statusBadge}>
+                  {getText(language, exp.statusBadge)}
+                </span>
+              </div>
+              <p className={styles.role}>{getText(language, exp.role)}</p>
+              <p className={styles.period}>{getText(language, exp.period)}</p>
+              <p className={styles.domain}>{getText(language, exp.domain)}</p>
+
+              <div className={styles.techRow}>
+                {exp.techStack.map((tech, index) => (
+                  <span
+                    key={tech}
+                    className={`${styles.techTag} ${
+                      index >= 6 ? styles.hideOnMobile : ''
+                    }`}
+                  >
+                    {tech}
                   </span>
-                </div>
-                <p className={styles.roleAndDomain}>
-                  {getText(language, exp.role)} · {getText(language, exp.domain)}
-                </p>
-              </div>
-
-              <div className={styles.periodRow}>
-                <span className={styles.periodText}>
-                  {getText(language, exp.period)}
-                </span>
+                ))}
               </div>
             </div>
 
-            <p className={styles.summaryText}>{getText(language, exp.summary)}</p>
+            <div className={styles.detailCol}>
+              <p className={styles.summary}>{getText(language, exp.summary)}</p>
 
-            <ul className={styles.responsibilitiesList}>
-              {exp.responsibilities.map((resp, idx) => (
-                <li key={idx}>{getText(language, resp)}</li>
-              ))}
-            </ul>
+              <ul className={styles.responsibilities}>
+                {exp.responsibilities.map((resp, idx) => {
+                  const { lead, body } = splitLead(getText(language, resp));
+                  return (
+                    <li key={idx}>
+                      {lead && <strong>{lead}: </strong>}
+                      {body}
+                    </li>
+                  );
+                })}
+              </ul>
 
-            <div className={styles.techStackRow}>
-              {exp.techStack.map((tech) => (
-                <span key={tech} className={styles.techTag}>
-                  {tech}
-                </span>
-              ))}
+              {exp.note && (
+                <p className={styles.note}>{getText(language, exp.note)}</p>
+              )}
             </div>
-
-            {exp.note && (
-              <p className={styles.noteText}>{getText(language, exp.note)}</p>
-            )}
-          </div>
+          </article>
         ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
