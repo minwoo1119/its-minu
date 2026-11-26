@@ -1,6 +1,7 @@
-import { SelectTabBar } from '../common/selectTabBar/SelectTabBar';
-import styles from './techs.module.scss';
 import { useEffect, useState } from 'react';
+import { SelectTabBar } from '../common/selectTabBar/SelectTabBar';
+import { SectionHeading } from '../common/sectionHeading/SectionHeading';
+import styles from './techs.module.scss';
 import type { Language } from '../../i18n';
 import { getText } from '../../i18n';
 import type { TrackData } from '../../data/tracks';
@@ -26,21 +27,28 @@ export const Techs = ({ language, trackData }: TechsProps) => {
     : selected;
 
   return (
-    <div className={styles.container}>
-      <SelectTabBar
-        options={techs.options}
-        onSelect={(op: string) => setSelected(op)}
-        selected={selected}
-        getLabel={(option) =>
-          techs.labels[option]
-            ? getText(language, techs.labels[option])
-            : option
-        }
-      />
-      <div className={styles.text}>{getText(language, techs.subText)}</div>
-      <div className={styles.techStacks}>
-        <div
-          className={styles.stackGrid}
+    <section className={styles.wrapper}>
+      <div className={styles.container}>
+        <SectionHeading
+          eyebrow='Tech Stack'
+          title={language === 'ko' ? '트랙 기술 스택' : 'Track Tech Stack'}
+          description={getText(language, techs.subText)}
+          compact
+        />
+
+        <SelectTabBar
+          options={techs.options}
+          onSelect={(op: string) => setSelected(op)}
+          selected={selected}
+          getLabel={(option) =>
+            techs.labels[option]
+              ? getText(language, techs.labels[option])
+              : option
+          }
+        />
+
+        <ul
+          className={styles.stackList}
           aria-label={
             language === 'ko'
               ? `${currentLabel} 기술 스택`
@@ -48,26 +56,12 @@ export const Techs = ({ language, trackData }: TechsProps) => {
           }
         >
           {activeStack.map((tech) => (
-            <div className={styles.stackItem} key={tech.name}>
-              <img
-                src={`https://cdn.simpleicons.org/${tech.icon}`}
-                alt=''
-                loading='lazy'
-                onError={(event) => {
-                  const image = event.currentTarget;
-                  if (image.dataset.fallback === 'true') return;
-
-                  image.dataset.fallback = 'true';
-                  image.src = `https://img.shields.io/badge/${encodeURIComponent(
-                    tech.name
-                  )}-334155?style=flat-square`;
-                }}
-              />
-              <span>{tech.name}</span>
-            </div>
+            <li className={styles.stackItem} key={tech.name}>
+              {tech.name}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };

@@ -75,8 +75,8 @@ export const ProjectSchematic = ({
             <line x1='470' y1='81' x2='494' y2='81' className={styles.edge} markerEnd='url(#arrow-sw)' />
 
             {/* Lower R&D band */}
-            <rect x='176' y='140' width='444' height='46' rx='6' className={styles.band} />
-            <text x='194' y='167' className={styles.bandText}>
+            <rect x='20' y='140' width='600' height='46' rx='6' className={styles.band} />
+            <text x='320' y='167' textAnchor='middle' className={styles.bandText}>
               {isKo
                 ? 'R&D (진행 중): Variation 비교 · EfficientAD / PatchCore 적용성 평가 · 메모리 경계 진단'
                 : 'Ongoing R&D: Variation Comparison · EfficientAD / PatchCore Evaluation · Memory Diagnostics'}

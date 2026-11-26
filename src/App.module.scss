@@ -42,6 +42,44 @@
   }
 }
 
+.trackContextWrap {
+  width: 100%;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.trackContextBar {
+  width: min(calc(100% - (var(--page-gutter) * 2)), var(--container-max));
+  margin: 0 auto;
+  padding: 0.85rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+
+  span {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    word-break: keep-all;
+  }
+
+  button {
+    border: 0;
+    background: transparent;
+    padding: 0.2rem 0;
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 650;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 @media print {
   @page {
     size: A4 portrait;

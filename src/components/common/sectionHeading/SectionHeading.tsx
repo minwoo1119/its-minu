@@ -3,6 +3,7 @@ import styles from './sectionHeading.module.scss';
 
 interface SectionHeadingProps {
   id?: string;
+  as?: 'h1' | 'h2';
   eyebrow?: string;
   title: string;
   description?: string;
@@ -12,20 +13,24 @@ interface SectionHeadingProps {
 
 export const SectionHeading = ({
   id,
+  as = 'h2',
   eyebrow,
   title,
   description,
   action,
   compact = false,
-}: SectionHeadingProps) => (
-  <header className={`${styles.header} ${compact ? styles.compact : ''}`}>
-    <div className={styles.copy}>
-      {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
-      <h2 id={id} className={styles.title}>
-        {title}
-      </h2>
-      {description && <p className={styles.description}>{description}</p>}
-    </div>
-    {action && <div className={styles.action}>{action}</div>}
-  </header>
-);
+}: SectionHeadingProps) => {
+  const HeadingTag = as;
+  return (
+    <header className={`${styles.header} ${compact ? styles.compact : ''}`}>
+      <div className={styles.copy}>
+        {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+        <HeadingTag id={id} className={styles.title}>
+          {title}
+        </HeadingTag>
+        {description && <p className={styles.description}>{description}</p>}
+      </div>
+      {action && <div className={styles.action}>{action}</div>}
+    </header>
+  );
+};

@@ -72,7 +72,6 @@ export const ProjectCard = ({
             <img
               src={fullImgUrl}
               alt={title}
-              loading='lazy'
               onError={() => setHasImageError(true)}
             />
           ) : schematicVariant ? (

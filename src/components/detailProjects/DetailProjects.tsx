@@ -107,7 +107,6 @@ const ImageCard = ({
       <img
         src={resolveAssetUrl(image.imageUrl)}
         alt={caption}
-        loading='lazy'
         className={`${imageClassName} ${isPortrait ? styles.portraitImage : ''}`}
         onLoad={handleImageLoad}
         onError={() => setHasError(true)}

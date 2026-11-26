@@ -39,6 +39,7 @@ export const ProjectArchive = ({
       </button>
 
       <SectionHeading
+        as='h1'
         eyebrow='Project Archive'
         title={language === 'ko' ? '전체 프로젝트 아카이브' : 'Project Archive'}
         description={

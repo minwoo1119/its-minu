@@ -1,513 +1,313 @@
 import type { Language } from '../../i18n';
 import { getText } from '../../i18n';
 import { tracksData, type TrackId } from '../../data/tracks';
+import { awardsData } from '../../data/awards';
+import { Header } from '../header/Header';
+import { Footer } from '../Footer/Footer';
+import { SectionHeading } from '../common/sectionHeading/SectionHeading';
 import styles from './portal.module.scss';
 
 interface PortalProps {
   language: Language;
   onLanguageChange: (language: Language) => void;
   onSelectTrack: (trackId: TrackId) => void;
+  onArchiveClick?: () => void;
 }
+
+const PRIMARY_HIGHLIGHTS = {
+  ko: [
+    '시냅스이미징(Synapse Imaging) — C++/MFC 산업용 Vision 검사 SW 개발 및 안정화',
+    'Industrial Vision Intelligence Platform — Monitoring · Teaching · Engineering 및 설비 IPC 연동',
+    'Micro-Pipette Detection & OCR — ONNX Runtime · TensorRT 최적화 (300ms → 80ms, -73.3%)',
+    'PatchCore Visual Anomaly Detection (진행 중) & Offline RAG Platform (2026.07~2026.10)',
+  ],
+  en: [
+    'Synapse Imaging — C++/MFC Industrial Vision Inspection SW Development & Reliability',
+    'Industrial Vision Intelligence Platform — Monitoring, Teaching, Engineering & Equipment IPC',
+    'Micro-Pipette Detection & OCR — ONNX Runtime & TensorRT Optimization (300ms → 80ms, -73.3%)',
+    'PatchCore Visual Anomaly Detection (In Progress) & Offline RAG Platform (2026.07–2026.10)',
+  ],
+};
+
+const SECONDARY_TRACKS: {
+  id: TrackId;
+  eyebrow: { ko: string; en: string };
+  highlights: { ko: string; en: string }[];
+}[] = [
+  {
+    id: 'ai-service-engineer',
+    eyebrow: { ko: 'AI Systems', en: 'AI Systems' },
+    highlights: [
+      {
+        ko: 'Offline RAG Platform (dograc) — FastAPI · 로컬 LLM · Windows 런처 · 스토리지 폴백',
+        en: 'Offline RAG Platform (dograc) — FastAPI, Local LLM, Windows Launcher & Storage Fallback',
+      },
+      {
+        ko: 'ChwieolUp-AI — Ubuntu Server · Docker · Ollama AI 서빙 마이크로서비스',
+        en: 'ChwieolUp-AI — Ollama AI Microservice on Ubuntu Server & Docker',
+      },
+      {
+        ko: 'Gemma SFT / DPO 정렬 연구 — KIIT 2026 금상 · 2025 은상 수상',
+        en: 'Gemma SFT/DPO Alignment Research — KIIT 2026 Gold & 2025 Silver Awards',
+      },
+    ],
+  },
+  {
+    id: 'app-dev',
+    eyebrow: { ko: 'Mobile Apps', en: 'Mobile Apps' },
+    highlights: [
+      {
+        ko: '예상(Yesang) · 사상(SaSang) · 금품타 — App Store & Google Play 출시 경험',
+        en: 'Yesang, SaSang & Geumpumta — Shipped to App Store & Google Play',
+      },
+      {
+        ko: 'Flutter(Riverpod) & React Native(Expo · Zustand · Reanimated) 크로스플랫폼 구현',
+        en: 'Cross-platform architecture in Flutter (Riverpod) & React Native (Expo/Zustand)',
+      },
+      {
+        ko: 'KCI 등재 학술지 논문 게재 (Chirp-aid 모바일 투명성 연구)',
+        en: 'Published in KCI-indexed journal (Chirp-aid mobile transparency architecture)',
+      },
+    ],
+  },
+  {
+    id: 'software-engineer',
+    eyebrow: { ko: 'Web & Full-Stack', en: 'Web & Full-Stack' },
+    highlights: [
+      {
+        ko: 'React / TypeScript 프론트엔드 및 NestJS / FastAPI 백엔드 시스템 구축',
+        en: 'React/TypeScript frontends paired with NestJS/FastAPI backend services',
+      },
+      {
+        ko: 'PostgreSQL / MySQL 데이터 모델링, Docker 컨테이너 구성 및 API 연동',
+        en: 'Relational modeling (PostgreSQL/MySQL), Docker setups & REST API integration',
+      },
+      {
+        ko: 'JobForeigner · JoinUs · Babzip 등 웹 서비스 설계·구현',
+        en: 'End-to-end web delivery across JobForeigner, JoinUs & Babzip',
+      },
+    ],
+  },
+];
 
 export const Portal = ({
   language,
   onLanguageChange,
   onSelectTrack,
+  onArchiveClick,
 }: PortalProps) => {
   const isKo = language === 'ko';
-
-  const content = isKo
-    ? {
-        eyebrow: 'C++ Computer Vision & Systems Software Engineer',
-        titlePrefix: 'C++ 기반의 실시간 컴퓨터 비전 및 시스템 SW 엔지니어, ',
-        titleHighlight: '이민우',
-        titleSuffix: '입니다.',
-        description:
-          '산업용 비전 검사장비의 고속 C++/MFC 소프트웨어를 개발하며, 영상 수집 링 버퍼 파이프라인부터 OpenCV/HALCON 기반 서브픽셀 정밀 계측 및 결함 검출, TensorRT Edge AI 추론 가속까지 구축해왔습니다. 결함 검출률 100%와 결정론적 초저지연 실행을 지향하며, 향후 방위산업, 로보틱스, 첨단 검사장비 등 미션 크리티컬한 고성능 시스템 소프트웨어와 알고리즘 최적화 영역으로 전문성을 확장하고 있습니다.',
-        heroTags: [
-          'C++',
-          'Computer Vision',
-          'OpenCV',
-          'Multithreading',
-          'TensorRT',
-          'Jetson Orin Nano',
-          'HALCON',
-          'Real-Time Systems',
-        ],
-        viewVisionBtn: 'C++ 비전 & 시스템 포트폴리오 보기',
-        blog: '블로그',
-        github: 'GitHub',
-        linkedin: 'LinkedIn',
-        email: 'minwoo1119@naver.com',
-        previousHeading: '확장 소프트웨어 개발 프로젝트',
-        previousDesc:
-          '소프트웨어 엔지니어링 역량을 확장하며 구축한 온프레미스 AI/RAG 플랫폼, 모바일 실서비스 및 풀스택 개발 경험입니다.',
-        awardsHeading: '수상 및 학술 활동',
-        selectBtn: '포트폴리오 보기',
-        projectCountSuffix: '개 프로젝트',
-        awards: [
-          {
-            date: '2026.05',
-            title:
-              '2026 한국정보기술학회(KIIT) 하계 학술대회 대학생 논문경진대회 금상',
-            desc: 'DPO(Direct Preference Optimization) 기반 소형 언어 모델의 한국어 정렬 성능 최적화 연구',
-          },
-          {
-            date: '2025.11',
-            title:
-              '2025 한국정보기술학회(KIIT) 추계 학술대회 대학생 논문경진대회 은상',
-            desc: '저속노화 건강 정보 특화 데이터셋 구축 및 경량 언어 모델 파인튜닝 연구',
-          },
-          {
-            date: '2025.04',
-            title: 'App Store & Google Play 모바일 앱 정식 출시 및 서비스 운영',
-            desc: '금품타(Geumpumta) 모바일 서비스 출시 및 실제 유저 피드백 기반 지속 개선',
-          },
-        ],
-        copyright: '© 2026 Minwoo Lee. All rights reserved.',
-      }
-    : {
-        eyebrow: 'C++ Computer Vision & Systems Software Engineer',
-        titlePrefix: 'Building Real-Time Computer Vision & Systems Software in C++, ',
-        titleHighlight: 'Minwoo Lee',
-        titleSuffix: '',
-        description:
-          'Developing high-speed C++/MFC software for industrial vision inspection systems, with hands-on expertise spanning real-time ring buffers, OpenCV/HALCON sub-pixel precision measurement, and TensorRT edge AI acceleration. Advancing into mission-critical systems engineering in defense systems, robotics, and industrial automation.',
-        heroTags: [
-          'C++',
-          'Computer Vision',
-          'OpenCV',
-          'Multithreading',
-          'TensorRT',
-          'Jetson Orin Nano',
-          'HALCON',
-          'Real-Time Systems',
-        ],
-        viewVisionBtn: 'View C++ Vision & Systems Portfolio',
-        blog: 'Blog',
-        github: 'GitHub',
-        linkedin: 'LinkedIn',
-        email: 'minwoo1119@naver.com',
-        previousHeading: 'Expanded Software Projects',
-        previousDesc:
-          'Engineering background spanning on-premise AI/RAG platforms, production mobile apps, and full-stack systems shipped to real users.',
-        awardsHeading: 'Awards & Research',
-        selectBtn: 'View Portfolio',
-        projectCountSuffix: ' Projects',
-        awards: [
-          {
-            date: '2026.05',
-            title:
-              '2026 KIIT Summer Conference Paper Competition - Gold Prize',
-            desc: 'Research on Korean alignment performance optimization for SLMs based on DPO',
-          },
-          {
-            date: '2025.11',
-            title:
-              '2025 KIIT Fall Conference Paper Competition - Silver Prize',
-            desc: 'Domain-specific healthcare dataset curation and lightweight SLM fine-tuning',
-          },
-          {
-            date: '2025.04',
-            title: 'App Store & Google Play Official Market Release',
-            desc: 'Geumpumta mobile application release and iterative operational improvement',
-          },
-        ],
-        copyright: '© 2026 Minwoo Lee. All rights reserved.',
-      };
-
-  const primaryHighlights = [
-    {
-      ko: '산업용 비전 검사장비 C++/MFC 실시간 검사 소프트웨어 개발 (Synapse Imaging)',
-      en: 'Production C++/MFC industrial vision inspection software engineering (Synapse Imaging)',
-    },
-    {
-      ko: 'Industrial Anomaly Detection on Edge (PatchCore · TensorRT INT8 · Jetson Orin Nano · 14ms 추론)',
-      en: 'Edge anomaly detection with PatchCore, TensorRT INT8 quantization, and 14ms inference on Jetson',
-    },
-    {
-      ko: 'Micro-pipette Vision System (YOLO + OCR + TensorRT C++ 가속 · 300ms → 80ms, -73%)',
-      en: 'Micro-pipette detection and OCR accelerated via TensorRT (300ms → 80ms, 73% speedup)',
-    },
-    {
-      ko: 'SEM Particle Analyzer (OpenCV Watershed · 거리 변환 · Feret Diameter 정량 계측)',
-      en: 'SEM Particle quantitative analysis using OpenCV Watershed, distance transform, and Feret diameter',
-    },
-    {
-      ko: 'Real-time 7-Segment Vision (C++ / MFC / OpenCV 고속 영상 스트림 판독)',
-      en: 'High-speed digital readout pipeline in C++ MFC and OpenCV',
-    },
-  ];
-
-  const secondaryHighlights = [
-    {
-      ko: 'Next.js 14 + FastAPI + Qdrant 100% 온프레미스 RAG 지식 검색 플랫폼 (dograc)',
-      en: '100% on-premise enterprise RAG platform with Next.js 14 & Qdrant (dograc)',
-    },
-    {
-      ko: 'Ubuntu Server 24.04 LTS + Docker + Ollama Gemma 기반 AI 서빙 마이크로서비스 (ChwieolUp-AI)',
-      en: 'Ollama AI microservice deployed on Ubuntu Server 24.04 LTS & Docker (ChwieolUp-AI)',
-    },
-    {
-      ko: '대형 언어모델(LLM) SFT/DPO 정렬 연구 (2026 한국정보기술학회 KIIT 하계 학술대회 금상 수상)',
-      en: 'Published LLM DPO alignment research winning 2026 KIIT Gold Prize',
-    },
-  ];
-
-  const previousCards: {
-    id: TrackId;
-    highlights: { ko: string; en: string }[];
-  }[] = [
-    {
-      id: 'app-dev',
-      highlights: [
-        {
-          ko: '금품타 : iOS / Android 양대 마켓 정식 출시 및 실제 사용자 대상 운영',
-          en: 'Geumpumta: Shipped and operated on App Store & Google Play',
-        },
-        {
-          ko: 'iOS Screen Time API 연동 및 교내 Wi-Fi IP 게이트웨이 인증 로직 설계',
-          en: 'iOS Screen Time API & campus Wi-Fi IP verification logic',
-        },
-        {
-          ko: 'Heartbeat 기반 무오차 백그라운드 타이머 & Riverpod MVVM 아키텍처',
-          en: 'Zero-drift background timer & Riverpod MVVM architecture',
-        },
-      ],
-    },
-    {
-      id: 'software-engineer',
-      highlights: [
-        {
-          ko: 'React / TS + NestJS / FastAPI + PostgreSQL + Docker 풀스택 시스템 구축',
-          en: 'Full-stack systems built with React/TS, NestJS/FastAPI, and Docker',
-        },
-        {
-          ko: 'JWT 분산 인증 및 확장 가능한 RESTful API 아키텍처 설계',
-          en: 'Designed scalable RESTful APIs with distributed authentication',
-        },
-        {
-          ko: 'TanStack Query 기반 비동기 상태 관리 및 캐싱 최적화',
-          en: 'Async state management and caching optimization via TanStack Query',
-        },
-      ],
-    },
-  ];
-
   const primaryTrack = tracksData['computer-vision'];
-  const secondaryTrack = tracksData['ai-service-engineer'];
 
   return (
-    <div className={styles.portalContainer}>
-      {/* Top Bar */}
-      <header className={styles.topBar}>
-        <div className={styles.dots}>
-          <div className={styles.dot} />
-          <div className={styles.dot} />
-          <div className={styles.dot} />
-        </div>
-        <div className={styles.topActions}>
-          <label className={styles.languageSelector}>
-            <select
-              value={language}
-              onChange={(e) => onLanguageChange(e.target.value as Language)}
-              aria-label='Select language'
+    <div className={styles.page}>
+      <Header
+        language={language}
+        onLanguageChange={onLanguageChange}
+        onLogoClick={() => onSelectTrack('computer-vision')}
+        onArchiveClick={onArchiveClick}
+      />
+
+      <main className={styles.main}>
+        {/* Hero */}
+        <section className={styles.hero}>
+          <p className={styles.eyebrow}>
+            Portfolio Track Portal · C++ / Computer Vision / Systems Engineering
+          </p>
+          <h1>
+            {isKo
+              ? '직무 영역별 포트폴리오를 선택해 확인하세요.'
+              : 'Explore engineering tracks by domain.'}
+          </h1>
+          <p className={styles.lead}>
+            {isKo
+              ? '핵심 전문 분야인 C++ · Computer Vision · Systems Engineering을 중심으로, 확장 영역인 AI Systems, Mobile, Full-Stack 트랙을 별도로 정리했습니다.'
+              : 'Centered on C++, Computer Vision, and Systems Engineering as the primary focus, with supporting tracks across AI Systems, Mobile, and Full-Stack development.'}
+          </p>
+          <div className={styles.ctaRow}>
+            <button
+              type='button'
+              className={styles.primaryCta}
+              onClick={() => onSelectTrack('computer-vision')}
             >
-              <option value='ko'>한국어</option>
-              <option value='en'>English</option>
-            </select>
-          </label>
-          <a
-            href='https://lmw1119.tistory.com/'
-            target='_blank'
-            rel='noopener noreferrer'
-            className={styles.blogLink}
-          >
-            {content.blog}
-          </a>
-        </div>
-      </header>
+              {isKo
+                ? '메인 포트폴리오 열기 (C++ / Vision / Systems) →'
+                : 'Open Primary Portfolio (C++ / Vision / Systems) →'}
+            </button>
+            {onArchiveClick && (
+              <button
+                type='button'
+                className={styles.secondaryCta}
+                onClick={onArchiveClick}
+              >
+                {isKo ? '전체 프로젝트 아카이브' : 'Project Archive'}
+              </button>
+            )}
+          </div>
+        </section>
 
-      {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <div className={styles.eyebrow}>{content.eyebrow}</div>
-        <h1 className={styles.mainTitle}>
-          {content.titlePrefix}
-          <span>{content.titleHighlight}</span>
-          {content.titleSuffix}
-        </h1>
-        <p className={styles.description}>{content.description}</p>
+        {/* Primary Track */}
+        <section className={styles.section}>
+          <SectionHeading
+            eyebrow='Primary Track'
+            title={
+              isKo
+                ? 'C++ Software Engineer · Computer Vision · Systems'
+                : 'C++ Software Engineer · Computer Vision · Systems'
+            }
+            compact
+          />
 
-        <div className={styles.heroTags}>
-          {content.heroTags.map((tag) => (
-            <span key={tag} className={styles.heroTag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className={styles.heroCtaRow}>
-          <button
-            type='button'
-            className={styles.primaryBtn}
+          <article
+            className={styles.primaryCard}
             onClick={() => onSelectTrack('computer-vision')}
+            role='button'
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onSelectTrack('computer-vision');
+              }
+            }}
           >
-            {content.viewVisionBtn} →
-          </button>
-          <a
-            href='https://github.com/minwoo1119'
-            target='_blank'
-            rel='noopener noreferrer'
-            className={styles.secondaryBtn}
-          >
-            {content.github}
-          </a>
-          <a
-            href='https://lmw1119.tistory.com/'
-            target='_blank'
-            rel='noopener noreferrer'
-            className={styles.secondaryBtn}
-          >
-            {content.blog}
-          </a>
-          <a
-            href='https://www.linkedin.com/in/sksmsalsndi/'
-            target='_blank'
-            rel='noopener noreferrer'
-            className={styles.secondaryBtn}
-          >
-            {content.linkedin}
-          </a>
-        </div>
-      </section>
-
-      {/* 1. Primary Track (Computer Vision & C++) */}
-      <div className={styles.featuredTrackGrid}>
-        <div
-          className={styles.trackCard}
-          onClick={() => onSelectTrack('computer-vision')}
-          role='button'
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              onSelectTrack('computer-vision');
-            }
-          }}
-        >
-          <div className={styles.cardTop}>
-            <div className={styles.badgeRow}>
-              <span className={styles.badge}>
-                {getText(language, primaryTrack.badge)}
-              </span>
-              <span className={styles.projectCountPill}>
-                {primaryTrack.projects.items.length}
-                {content.projectCountSuffix}
-              </span>
-            </div>
-
-            <h2 className={styles.cardTitle}>
-              {getText(language, primaryTrack.intro.role)}
-            </h2>
-
-            <p className={styles.cardDescription}>
-              {getText(language, primaryTrack.portalDescription)}
-            </p>
-
-            <ul className={styles.highlightsList}>
-              {primaryHighlights.map((h, idx) => (
-                <li key={idx}>{getText(language, h)}</li>
-              ))}
-            </ul>
-
-            <div className={styles.tagList}>
-              {primaryTrack.heroTags.map((tag) => (
-                <span key={tag} className={styles.tag}>
-                  {tag}
+            <div className={styles.primaryBody}>
+              <div className={styles.cardMeta}>
+                <span className={styles.primaryBadge}>PRIMARY</span>
+                <span className={styles.metaCount}>
+                  {isKo ? '실무 2 + 핵심 3 프로젝트' : '2 Professional + 3 Core Projects'}
                 </span>
-              ))}
+              </div>
+
+              <h3 className={styles.cardTitle}>
+                {isKo
+                  ? '산업용 Vision 검사 SW, AI 추론 최적화 및 시스템 연동'
+                  : 'Industrial Vision Software, AI Inference & Systems Integration'}
+              </h3>
+
+              <p className={styles.cardDesc}>
+                {getText(language, primaryTrack.intro.sub)}
+              </p>
+
+              <ul className={styles.highlightList}>
+                {PRIMARY_HIGHLIGHTS[language].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          <div className={styles.cardBottom}>
-            <span className={styles.actionLink}>
-              {content.selectBtn} <span>→</span>
-            </span>
-          </div>
-        </div>
-      </div>
+            <div className={styles.cardFooter}>
+              <div className={styles.tagRow}>
+                {['C++', 'MFC', 'Windows IPC', 'OpenCV', 'ONNX / TensorRT', 'Python'].map(
+                  (tag) => (
+                    <span key={tag}>{tag}</span>
+                  )
+                )}
+              </div>
+              <span className={styles.openCue}>
+                {isKo ? '트랙 열기 →' : 'Open Track →'}
+              </span>
+            </div>
+          </article>
+        </section>
 
-      {/* 2. Secondary Track (AI Systems) */}
-      <div className={styles.featuredTrackGrid}>
-        <div
-          className={styles.trackCard}
-          onClick={() => onSelectTrack('ai-service-engineer')}
-          role='button'
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              onSelectTrack('ai-service-engineer');
+        {/* Secondary Specializations */}
+        <section className={styles.section}>
+          <SectionHeading
+            eyebrow='Secondary Specializations'
+            title={isKo ? '보조 전문 분야 트랙' : 'Secondary Specializations'}
+            description={
+              isKo
+                ? '시스템 엔지니어링 역량을 확장하며 수행한 AI 시스템, 모바일 앱, 웹·풀스택 트랙입니다.'
+                : 'Supporting engineering tracks covering AI serving systems, mobile applications, and full-stack web software.'
             }
-          }}
-        >
-          <div className={styles.cardTop}>
-            <div className={styles.badgeRow}>
-              <span className={styles.badge}>
-                {getText(language, secondaryTrack.badge)}
-              </span>
-              <span className={styles.projectCountPill}>
-                {secondaryTrack.projects.items.length}
-                {content.projectCountSuffix}
-              </span>
-            </div>
+            compact
+          />
 
-            <h2 className={styles.cardTitle}>
-              {getText(language, secondaryTrack.intro.role)}
-            </h2>
+          <div className={styles.secondaryGrid}>
+            {SECONDARY_TRACKS.map(({ id, eyebrow, highlights }) => {
+              const track = tracksData[id];
+              return (
+                <article
+                  key={id}
+                  className={styles.secondaryCard}
+                  onClick={() => onSelectTrack(id)}
+                  role='button'
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelectTrack(id);
+                    }
+                  }}
+                >
+                  <div className={styles.secondaryBody}>
+                    <div className={styles.cardMeta}>
+                      <span className={styles.secondaryBadge}>
+                        {getText(language, eyebrow)}
+                      </span>
+                      <span className={styles.metaCount}>
+                        {track.projects.items.length}
+                        {isKo ? '개 프로젝트' : ' projects'}
+                      </span>
+                    </div>
 
-            <p className={styles.cardDescription}>
-              {getText(language, secondaryTrack.portalDescription)}
-            </p>
+                    <h3 className={styles.secondaryTitle}>
+                      {getText(language, track.intro.role)}
+                    </h3>
 
-            <ul className={styles.highlightsList}>
-              {secondaryHighlights.map((h, idx) => (
-                <li key={idx}>{getText(language, h)}</li>
-              ))}
-            </ul>
+                    <p className={styles.secondaryDesc}>
+                      {getText(language, track.portalDescription)}
+                    </p>
 
-            <div className={styles.tagList}>
-              {secondaryTrack.heroTags.map((tag) => (
-                <span key={tag} className={styles.tag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+                    <ul className={styles.compactList}>
+                      {highlights.map((item) => (
+                        <li key={item.en}>{getText(language, item)}</li>
+                      ))}
+                    </ul>
+                  </div>
 
-          <div className={styles.cardBottom}>
-            <span className={styles.actionLink}>
-              {content.selectBtn} <span>→</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Previous Software Projects */}
-      <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>{content.previousHeading}</h2>
-        <p className={styles.sectionDesc}>{content.previousDesc}</p>
-      </div>
-
-      <div className={styles.trackGrid}>
-        {previousCards.map(({ id, highlights }) => {
-          const track = tracksData[id];
-          const projectCount = track.projects.items.length;
-
-          return (
-            <div
-              key={id}
-              className={styles.trackCard}
-              onClick={() => onSelectTrack(id)}
-              role='button'
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  onSelectTrack(id);
-                }
-              }}
-            >
-              <div className={styles.cardTop}>
-                <div className={styles.badgeRow}>
-                  <span className={styles.badge}>
-                    {getText(language, track.badge)}
-                  </span>
-                  <span className={styles.projectCountPill}>
-                    {projectCount}
-                    {content.projectCountSuffix}
-                  </span>
-                </div>
-
-                <h2 className={styles.cardTitle}>
-                  {getText(language, track.intro.role)}
-                </h2>
-
-                <p className={styles.cardDescription}>
-                  {getText(language, track.portalDescription)}
-                </p>
-
-                <ul className={styles.highlightsList}>
-                  {highlights.map((h, idx) => (
-                    <li key={idx}>{getText(language, h)}</li>
-                  ))}
-                </ul>
-
-                <div className={styles.tagList}>
-                  {track.heroTags.map((tag) => (
-                    <span key={tag} className={styles.tag}>
-                      {tag}
+                  <div className={styles.cardFooter}>
+                    <div className={styles.tagRow}>
+                      {track.heroTags.slice(0, 3).map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+                    <span className={styles.openCue}>
+                      {isKo ? '열기 →' : 'Open →'}
                     </span>
-                  ))}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Honors & Research */}
+        <section className={styles.section}>
+          <SectionHeading
+            eyebrow='Honors & Research'
+            title={isKo ? '주요 수상 및 연구' : 'Honors & Research'}
+            compact
+          />
+          <ol className={styles.awardsList}>
+            {awardsData.map((award) => (
+              <li key={award.id} className={styles.awardItem}>
+                <span className={styles.awardDate}>{award.date}</span>
+                <div>
+                  <strong>{getText(language, award.title)}</strong>
+                  <p>{getText(language, award.subtitle)}</p>
                 </div>
-              </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </main>
 
-              <div className={styles.cardBottom}>
-                <span className={styles.actionLink}>
-                  {content.selectBtn} <span>→</span>
-                </span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 4. Awards & Research */}
-      <section className={styles.awardsSection}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>{content.awardsHeading}</h2>
-        </div>
-        <div className={styles.awardsList}>
-          {content.awards.map((award, idx) => (
-            <div key={idx} className={styles.awardItem}>
-              <span className={styles.awardDate}>{award.date}</span>
-              <div>
-                <h3 className={styles.awardTitle}>{award.title}</h3>
-                <p className={styles.awardDesc}>{award.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className={styles.footerSection}>
-        <div className={styles.socialLinks}>
-          <a
-            href='https://github.com/minwoo1119'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            {content.github}
-          </a>
-          <a
-            href='https://www.linkedin.com/in/sksmsalsndi/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            {content.linkedin}
-          </a>
-          <a
-            href='https://lmw1119.tistory.com/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            {content.blog}
-          </a>
-          <a href='mailto:minwoo1119@naver.com'>{content.email}</a>
-        </div>
-        <div className={styles.copyright}>{content.copyright}</div>
-      </footer>
+      <Footer
+        language={language}
+        onProjectsClick={() => onSelectTrack('computer-vision')}
+        onArchiveClick={onArchiveClick}
+      />
     </div>
   );
 };

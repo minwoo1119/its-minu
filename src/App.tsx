@@ -322,6 +322,7 @@ function App() {
             language={language}
             onLanguageChange={handleLanguageChange}
             onSelectTrack={(trackId) => navigateTrack(trackId)}
+            onArchiveClick={() => navigateTo({ name: 'archive' })}
           />
         ) : (
           <>
@@ -343,10 +344,13 @@ function App() {
                         : navigateTrack(activeTrackId, 'about')
                   : undefined
               }
-              onExperienceClick={() =>
-                route.name === 'track'
-                  ? scrollToSection(experienceRef)
-                  : navigateTrack(activeTrackId, 'experience')
+              onExperienceClick={
+                activeTrackId === 'computer-vision'
+                  ? () =>
+                      route.name === 'track'
+                        ? scrollToSection(experienceRef)
+                        : navigateTrack(activeTrackId, 'experience')
+                  : undefined
               }
               onCompetenciesClick={() =>
                 route.name === 'track'
@@ -394,14 +398,34 @@ function App() {
                   onProjectsClick={() => scrollToSection(projectsRef)}
                   onPdfClick={handlePdfDownload}
                 />
-                {activeTrackId === 'computer-vision' && (
-                  <div ref={aboutRef} style={{ width: '100%' }}>
-                    <About language={language} />
+                {activeTrackId === 'computer-vision' ? (
+                  <>
+                    <div ref={aboutRef} style={{ width: '100%' }}>
+                      <About language={language} />
+                    </div>
+                    <div ref={experienceRef} style={{ width: '100%' }}>
+                      <Experience language={language} />
+                    </div>
+                  </>
+                ) : (
+                  <div className={styles.trackContextWrap}>
+                    <div className={styles.trackContextBar}>
+                      <span>
+                        {language === 'ko'
+                          ? '현재 재직 중: 시냅스이미징 Vision Software R&D Engineer (C++/MFC · Vision Intelligence Platform)'
+                          : 'Current Role: Vision Software R&D Engineer at Synapse Imaging (C++/MFC & Vision Platform)'}
+                      </span>
+                      <button
+                        type='button'
+                        onClick={() => navigateTrack('computer-vision')}
+                      >
+                        {language === 'ko'
+                          ? '메인 C++ / Vision 포트폴리오 보기 →'
+                          : 'View Primary C++ / Vision Portfolio →'}
+                      </button>
+                    </div>
                   </div>
                 )}
-                <div ref={experienceRef} style={{ width: '100%' }}>
-                  <Experience language={language} />
-                </div>
                 <div ref={projectsRef} style={{ width: '100%' }}>
                   {activeTrackId === 'computer-vision' && (
                     <ProfessionalWork
