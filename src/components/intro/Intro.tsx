@@ -31,17 +31,17 @@ const PROFILE_LINKS = [
 const HERO_METRICS = {
   ko: [
     {
-      label: 'Current Role',
+      label: '현재 직무',
       value: 'Vision SW R&D Engineer',
       detail: '시냅스이미징 · C++/MFC 검사 SW & 플랫폼 (2026.07~)',
     },
     {
-      label: 'Measured Inference',
+      label: '실측 추론 최적화',
       value: '300ms → 80ms (-73.3%)',
       detail: 'YOLO · Custom CNN · PaddleOCR · ONNX / TensorRT',
     },
     {
-      label: 'Research & Honors',
+      label: '연구 및 수상',
       value: 'KIIT Gold · Silver · KCI',
       detail: '한국정보기술학회 2년 연속 수상 및 KCI 등재 논문',
     },
@@ -129,15 +129,15 @@ export const Intro = ({
         </div>
 
         {isVisionTrack && (
-          <div className={styles.metricsStrip} aria-label='Key highlights'>
+          <dl className={styles.metricsStrip} aria-label='Key highlights'>
             {metrics.map((metric) => (
               <div key={metric.label} className={styles.metricCell}>
-                <span className={styles.metricLabel}>{metric.label}</span>
-                <strong className={styles.metricValue}>{metric.value}</strong>
-                <span className={styles.metricDetail}>{metric.detail}</span>
+                <dt className={styles.metricLabel}>{metric.label}</dt>
+                <dd className={styles.metricValue}>{metric.value}</dd>
+                <dd className={styles.metricDetail}>{metric.detail}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         )}
       </div>
     </section>

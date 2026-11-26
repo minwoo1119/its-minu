@@ -31,12 +31,12 @@ const PRIMARY_HIGHLIGHTS = {
 
 const SECONDARY_TRACKS: {
   id: TrackId;
-  eyebrow: { ko: string; en: string };
+  label: { ko: string; en: string };
   highlights: { ko: string; en: string }[];
 }[] = [
   {
     id: 'ai-service-engineer',
-    eyebrow: { ko: 'AI Systems', en: 'AI Systems' },
+    label: { ko: 'AI Systems', en: 'AI Systems' },
     highlights: [
       {
         ko: 'Offline RAG Platform (dograc) — FastAPI · 로컬 LLM · Windows 런처 · 스토리지 폴백',
@@ -54,7 +54,7 @@ const SECONDARY_TRACKS: {
   },
   {
     id: 'app-dev',
-    eyebrow: { ko: 'Mobile Apps', en: 'Mobile Apps' },
+    label: { ko: 'Mobile Apps', en: 'Mobile Apps' },
     highlights: [
       {
         ko: '예상(Yesang) · 사상(SaSang) · 금품타 — App Store & Google Play 출시 경험',
@@ -72,7 +72,7 @@ const SECONDARY_TRACKS: {
   },
   {
     id: 'software-engineer',
-    eyebrow: { ko: 'Web & Full-Stack', en: 'Web & Full-Stack' },
+    label: { ko: 'Web & Full-Stack', en: 'Web & Full-Stack' },
     highlights: [
       {
         ko: 'React / TypeScript 프론트엔드 및 NestJS / FastAPI 백엔드 시스템 구축',
@@ -109,10 +109,9 @@ export const Portal = ({
       />
 
       <main className={styles.main}>
-        {/* Hero */}
         <section className={styles.hero}>
-          <p className={styles.eyebrow}>
-            Portfolio Track Portal · C++ / Computer Vision / Systems Engineering
+          <p className={styles.metaTop}>
+            C++ / Computer Vision / Systems Engineering
           </p>
           <h1>
             {isKo
@@ -146,20 +145,18 @@ export const Portal = ({
           </div>
         </section>
 
-        {/* Primary Track */}
         <section className={styles.section}>
           <SectionHeading
-            eyebrow='Primary Track'
             title={
               isKo
-                ? 'C++ Software Engineer · Computer Vision · Systems'
-                : 'C++ Software Engineer · Computer Vision · Systems'
+                ? '메인 트랙 · C++ / Computer Vision / Systems'
+                : 'Primary Track · C++ / Computer Vision / Systems'
             }
             compact
           />
 
           <article
-            className={styles.primaryCard}
+            className={styles.primaryEntry}
             onClick={() => onSelectTrack('computer-vision')}
             role='button'
             tabIndex={0}
@@ -171,20 +168,17 @@ export const Portal = ({
             }}
           >
             <div className={styles.primaryBody}>
-              <div className={styles.cardMeta}>
-                <span className={styles.primaryBadge}>PRIMARY</span>
-                <span className={styles.metaCount}>
-                  {isKo ? '실무 2 + 핵심 3 프로젝트' : '2 Professional + 3 Core Projects'}
-                </span>
-              </div>
+              <p className={styles.metaLine}>
+                {isKo ? '실무 2 + 핵심 3 프로젝트' : '2 Professional + 3 Core Projects'}
+              </p>
 
-              <h3 className={styles.cardTitle}>
+              <h3 className={styles.entryTitle}>
                 {isKo
                   ? '산업용 Vision 검사 SW, AI 추론 최적화 및 시스템 연동'
                   : 'Industrial Vision Software, AI Inference & Systems Integration'}
               </h3>
 
-              <p className={styles.cardDesc}>
+              <p className={styles.entryDesc}>
                 {getText(language, primaryTrack.intro.sub)}
               </p>
 
@@ -195,14 +189,10 @@ export const Portal = ({
               </ul>
             </div>
 
-            <div className={styles.cardFooter}>
-              <div className={styles.tagRow}>
-                {['C++', 'MFC', 'Windows IPC', 'OpenCV', 'ONNX / TensorRT', 'Python'].map(
-                  (tag) => (
-                    <span key={tag}>{tag}</span>
-                  )
-                )}
-              </div>
+            <div className={styles.entryFooter}>
+              <p className={styles.techLine}>
+                {['C++', 'MFC', 'Windows IPC', 'OpenCV', 'ONNX / TensorRT', 'Python'].join(' · ')}
+              </p>
               <span className={styles.openCue}>
                 {isKo ? '트랙 열기 →' : 'Open Track →'}
               </span>
@@ -210,10 +200,8 @@ export const Portal = ({
           </article>
         </section>
 
-        {/* Secondary Specializations */}
         <section className={styles.section}>
           <SectionHeading
-            eyebrow='Secondary Specializations'
             title={isKo ? '보조 전문 분야 트랙' : 'Secondary Specializations'}
             description={
               isKo
@@ -224,12 +212,12 @@ export const Portal = ({
           />
 
           <div className={styles.secondaryGrid}>
-            {SECONDARY_TRACKS.map(({ id, eyebrow, highlights }) => {
+            {SECONDARY_TRACKS.map(({ id, label, highlights }) => {
               const track = tracksData[id];
               return (
                 <article
                   key={id}
-                  className={styles.secondaryCard}
+                  className={styles.secondaryEntry}
                   onClick={() => onSelectTrack(id)}
                   role='button'
                   tabIndex={0}
@@ -241,15 +229,10 @@ export const Portal = ({
                   }}
                 >
                   <div className={styles.secondaryBody}>
-                    <div className={styles.cardMeta}>
-                      <span className={styles.secondaryBadge}>
-                        {getText(language, eyebrow)}
-                      </span>
-                      <span className={styles.metaCount}>
-                        {track.projects.items.length}
-                        {isKo ? '개 프로젝트' : ' projects'}
-                      </span>
-                    </div>
+                    <p className={styles.metaLine}>
+                      {getText(language, label)} · {track.projects.items.length}
+                      {isKo ? '개 프로젝트' : ' projects'}
+                    </p>
 
                     <h3 className={styles.secondaryTitle}>
                       {getText(language, track.intro.role)}
@@ -266,12 +249,10 @@ export const Portal = ({
                     </ul>
                   </div>
 
-                  <div className={styles.cardFooter}>
-                    <div className={styles.tagRow}>
-                      {track.heroTags.slice(0, 3).map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </div>
+                  <div className={styles.entryFooter}>
+                    <p className={styles.techLine}>
+                      {track.heroTags.slice(0, 3).join(' · ')}
+                    </p>
                     <span className={styles.openCue}>
                       {isKo ? '열기 →' : 'Open →'}
                     </span>
@@ -282,10 +263,8 @@ export const Portal = ({
           </div>
         </section>
 
-        {/* Honors & Research */}
         <section className={styles.section}>
           <SectionHeading
-            eyebrow='Honors & Research'
             title={isKo ? '주요 수상 및 연구' : 'Honors & Research'}
             compact
           />

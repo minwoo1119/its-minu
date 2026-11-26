@@ -1,7 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.9rem;
+  gap: 1.5rem 2.5rem;
 
   @media (min-width: 720px) {
     grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
@@ -9,18 +9,18 @@
 }
 
 .card {
-  padding: 1.15rem 1.25rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  background: var(--bg-subtle);
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
   display: flex;
   flex-direction: column;
-  gap: 0.95rem;
+  gap: 0.9rem;
 }
 
 .header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem;
   flex-wrap: wrap;
@@ -28,31 +28,28 @@
 
 .metric {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .badge {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.16rem 0.5rem;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: var(--accent-fg);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .bars {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.7rem;
 }
 
 .barRow {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.28rem;
 }
 
 .barMeta {
@@ -64,43 +61,41 @@
 }
 
 .barLabel {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  font-weight: 500;
   color: var(--text-muted);
 }
 
 .barValue {
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .barValueAfter {
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
 .track {
   width: 100%;
-  height: 0.55rem;
-  border-radius: var(--radius-pill);
-  background: var(--border-subtle);
+  height: 0.45rem;
+  border-radius: 2px;
+  background: var(--bg-muted);
   overflow: hidden;
 }
 
 .fillBefore {
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: 2px;
   background: var(--border-strong);
 }
 
 .fillAfter {
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: 2px;
   background: var(--accent);
 }
 
@@ -111,7 +106,7 @@
 
   p {
     margin: 0.25rem 0 0;
-    font-size: 0.84rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
   }
 }

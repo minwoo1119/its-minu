@@ -18,28 +18,28 @@
 .item {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.45rem;
-  padding: 1.15rem 0;
+  gap: 0.4rem;
+  padding: 1.2rem 0;
   border-bottom: 1px solid var(--border-subtle);
 
   @media (min-width: 768px) {
     grid-template-columns: 10.5rem minmax(0, 1fr);
-    gap: 1.75rem;
+    gap: 2rem;
     align-items: start;
-    padding: 1.2rem 0;
+    padding: 1.25rem 0;
   }
 }
 
 .dateCol {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.5rem;
 
   @media (min-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.35rem;
+    gap: 0.2rem;
     padding-top: 0.1rem;
   }
 }
@@ -52,19 +52,15 @@
 }
 
 .badge {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 0.14rem 0.48rem;
-  border-radius: var(--radius-xs);
-  background: var(--bg-muted);
-  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 .bodyCol {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.28rem;
 }
 
 .titleRow {
@@ -80,30 +76,30 @@
   font-size: 0.98rem;
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.38;
+  line-height: 1.4;
   word-break: keep-all;
 }
 
 .org {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--text-muted);
 }
 
 .subtitle {
-  margin: 0.1rem 0 0;
-  font-size: 0.86rem;
-  font-weight: 550;
+  margin: 0.05rem 0 0;
+  font-size: 0.87rem;
+  font-weight: 500;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.52;
   word-break: keep-all;
 }
 
 .description {
-  margin: 0.15rem 0 0;
+  margin: 0.1rem 0 0;
   font-size: 0.84rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.62;
   word-break: keep-all;
 
   @media (max-width: 639px) {

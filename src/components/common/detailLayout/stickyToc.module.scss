@@ -12,12 +12,9 @@
 }
 
 .heading {
-  margin: 0 0 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--text-muted);
 }
 
@@ -34,13 +31,13 @@
   width: 100%;
   border: 0;
   background: transparent;
-  padding: 0.32rem 0;
+  padding: 0.3rem 0;
   text-align: left;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.81rem;
+  font-weight: 450;
   color: var(--text-muted);
   cursor: pointer;
-  line-height: 1.4;
+  line-height: 1.45;
   transition: color var(--transition-fast);
 
   &:hover {

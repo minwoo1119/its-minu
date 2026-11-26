@@ -30,7 +30,6 @@ export const Techs = ({ language, trackData }: TechsProps) => {
     <section className={styles.wrapper}>
       <div className={styles.container}>
         <SectionHeading
-          eyebrow='Tech Stack'
           title={language === 'ko' ? '트랙 기술 스택' : 'Track Tech Stack'}
           description={getText(language, techs.subText)}
           compact

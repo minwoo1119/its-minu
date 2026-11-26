@@ -1,6 +1,5 @@
 import type { Language } from '../../i18n';
 import { SectionHeading } from '../common/sectionHeading/SectionHeading';
-import { SkillCard } from '../common/skillCard/SkillCard';
 import styles from './coreExpertise.module.scss';
 
 interface CoreExpertiseProps {
@@ -9,7 +8,6 @@ interface CoreExpertiseProps {
 
 const expertise = [
   {
-    index: '01',
     title: { ko: 'C++ & Windows Development', en: 'C++ & Windows Development' },
     description: {
       ko: 'C++/MFC 기반 산업용 Vision 검사 소프트웨어의 ROI 판정 로직과 결과 로깅 구조를 개발하고, Windows Named Pipe IPC 및 DLL 인터페이스를 연동했습니다.',
@@ -18,7 +16,6 @@ const expertise = [
     tools: ['C++', 'MFC', 'Windows', 'Named Pipe IPC', 'DLL'],
   },
   {
-    index: '02',
     title: { ko: 'Debugging & System Reliability', en: 'Debugging & System Reliability' },
     description: {
       ko: '로그 표시 스레드 분리로 설비 Client UI 프리징을 해결하고, 모델 무결성 검증·원자적 교체·장애 복구를 구현했으며, 멀티스레드 결과 저장 구간의 Heap Corruption 원인을 분석하고 있습니다.',
@@ -27,7 +24,6 @@ const expertise = [
     tools: ['Multithreading', 'Debugging', 'Heap Diagnostics', 'Crash Recovery'],
   },
   {
-    index: '03',
     title: { ko: 'Computer Vision & AI Inference', en: 'Computer Vision & AI Inference' },
     description: {
       ko: 'YOLO·Custom CNN·PaddleOCR 파이프라인의 ONNX Runtime·TensorRT 추론 최적화(300ms → 80ms)와 C# 기반 HDBSCAN·Gaussian KDE 결함 분석, PatchCore·EfficientAD 이상 탐지 검토를 수행했습니다.',
@@ -36,7 +32,6 @@ const expertise = [
     tools: ['OpenCV', 'ONNX Runtime', 'TensorRT', 'HDBSCAN / KDE', 'PatchCore'],
   },
   {
-    index: '04',
     title: { ko: 'Systems & AI Platform Integration', en: 'Systems & AI Platform Integration' },
     description: {
       ko: '관리자 웹, Python 설비 Client TUI, WebSocket 통신, 대용량 파일 스트리밍, DINOv2·DINOv3 기반 AI Experiment Lab 및 로컬 RAG 서비스 런처·스토리지 폴백을 구현했습니다.',
@@ -51,7 +46,6 @@ export const CoreExpertise = ({ language }: CoreExpertiseProps) => (
     <div className={styles.container}>
       <SectionHeading
         id='expertise-title'
-        eyebrow='Technical Skills'
         title={language === 'ko' ? '핵심 기술 역량' : 'Core Technical Skills'}
         description={
           language === 'ko'
@@ -62,13 +56,11 @@ export const CoreExpertise = ({ language }: CoreExpertiseProps) => (
 
       <div className={styles.grid}>
         {expertise.map((item) => (
-          <SkillCard
-            key={item.index}
-            index={item.index}
-            title={item.title[language]}
-            description={item.description[language]}
-            items={item.tools}
-          />
+          <div key={item.title.en} className={styles.item}>
+            <h3 className={styles.title}>{item.title[language]}</h3>
+            <p className={styles.description}>{item.description[language]}</p>
+            <p className={styles.tools}>{item.tools.join(' · ')}</p>
+          </div>
         ))}
       </div>
     </div>

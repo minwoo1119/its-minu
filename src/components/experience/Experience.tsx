@@ -24,39 +24,26 @@ export const Experience = ({ language }: ExperienceProps) => (
     <div className={styles.container}>
       <SectionHeading
         id='experience-section-title'
-        eyebrow='Experience'
         title={language === 'ko' ? '경력 사항' : 'Work Experience'}
         compact
       />
 
       <div className={styles.list}>
         {experienceData.map((exp) => (
-          <article key={exp.id} className={styles.card}>
+          <article key={exp.id} className={styles.entry}>
             <div className={styles.metaCol}>
-              <div className={styles.companyRow}>
-                <h3 className={styles.companyName}>
-                  {getText(language, exp.company)}
-                </h3>
-                <span className={styles.statusBadge}>
+              <p className={styles.period}>
+                {getText(language, exp.period)}
+                <span className={styles.statusText}>
+                  {' · '}
                   {getText(language, exp.statusBadge)}
                 </span>
-              </div>
+              </p>
+              <h3 className={styles.companyName}>
+                {getText(language, exp.company)}
+              </h3>
               <p className={styles.role}>{getText(language, exp.role)}</p>
-              <p className={styles.period}>{getText(language, exp.period)}</p>
               <p className={styles.domain}>{getText(language, exp.domain)}</p>
-
-              <div className={styles.techRow}>
-                {exp.techStack.map((tech, index) => (
-                  <span
-                    key={tech}
-                    className={`${styles.techTag} ${
-                      index >= 6 ? styles.hideOnMobile : ''
-                    }`}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
             </div>
 
             <div className={styles.detailCol}>
@@ -73,6 +60,10 @@ export const Experience = ({ language }: ExperienceProps) => (
                   );
                 })}
               </ul>
+
+              <p className={styles.techLine} aria-label='Technologies'>
+                {exp.techStack.join(' · ')}
+              </p>
 
               {exp.note && (
                 <p className={styles.note}>{getText(language, exp.note)}</p>

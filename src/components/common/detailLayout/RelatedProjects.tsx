@@ -97,12 +97,9 @@ export const RelatedProjects = ({
 
   return (
     <section className={styles.section} aria-labelledby='related-projects-title'>
-      <div className={styles.header}>
-        <p className={styles.eyebrow}>Continue Reading</p>
-        <h2 id='related-projects-title'>
-          {language === 'ko' ? '관련 프로젝트 탐색' : 'Related Projects'}
-        </h2>
-      </div>
+      <h2 id='related-projects-title' className={styles.heading}>
+        {language === 'ko' ? '관련 프로젝트' : 'Related Projects'}
+      </h2>
 
       <div className={styles.grid}>
         {items.map((item) => (

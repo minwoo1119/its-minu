@@ -60,7 +60,7 @@ export const StickyToc = ({ language, items }: StickyTocProps) => {
       aria-label={language === 'ko' ? '목차' : 'Table of contents'}
     >
       <p className={styles.heading}>
-        {language === 'ko' ? 'On This Page' : 'On This Page'}
+        {language === 'ko' ? '목차' : 'Contents'}
       </p>
       <nav>
         <ul>

@@ -3,10 +3,7 @@ import {
   projectsDetailData,
   type ProjectImage,
 } from '../../data/projectsDetail';
-import {
-  ProjectSchematic,
-  type SchematicVariant,
-} from '../common/visualDiagram/ProjectSchematic';
+import { ProjectSchematic } from '../common/visualDiagram/ProjectSchematic';
 import { StickyToc, type TocItem } from '../common/detailLayout/StickyToc';
 import { PerformanceChart } from '../common/detailLayout/PerformanceChart';
 import { RelatedProjects } from '../common/detailLayout/RelatedProjects';
@@ -67,12 +64,6 @@ const categoryLabels: Record<string, LocalizedText> = {
   },
 };
 
-const SCHEMATIC_BY_ID: Record<number, SchematicVariant> = {
-  1: 'vision-pipeline',
-  21: 'anomaly-patchcore',
-  18: 'local-rag',
-};
-
 const resolveAssetUrl = (path: string) =>
   `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`;
 
@@ -126,28 +117,28 @@ export const DetailProjects = ({
   const tocItems: TocItem[] = useMemo(() => {
     if (!project) return [];
     const list: TocItem[] = [
-      { id: 'overview', label: language === 'ko' ? '01. 개요 및 역할' : '01. Overview' },
+      { id: 'overview', label: language === 'ko' ? '개요 및 역할' : 'Overview' },
     ];
     if (project.problemStatement || (project.constraints && project.constraints.length > 0)) {
-      list.push({ id: 'problem', label: language === 'ko' ? '02. 기술적 문제' : '02. Problem' });
+      list.push({ id: 'problem', label: language === 'ko' ? '기술적 문제' : 'Problem' });
     }
     list.push({
       id: 'implementation',
-      label: language === 'ko' ? '03. 아키텍처 및 구현' : '03. Implementation',
+      label: language === 'ko' ? '파이프라인 및 구현' : 'Implementation',
     });
     if (project.troubleshooting.length > 0) {
       list.push({
         id: 'challenges',
-        label: language === 'ko' ? '04. 트러블슈팅' : '04. Challenges',
+        label: language === 'ko' ? '트러블슈팅' : 'Troubleshooting',
       });
     }
     list.push({
       id: 'results',
-      label: language === 'ko' ? '05. 검증 및 결과' : '05. Results',
+      label: language === 'ko' ? '검증 및 결과' : 'Results',
     });
     list.push({
       id: 'tech-stack',
-      label: language === 'ko' ? '06. 기술 스택' : '06. Tech Stack',
+      label: language === 'ko' ? '기술 스택' : 'Tech Stack',
     });
     return list;
   }, [project, language]);
@@ -200,7 +191,7 @@ export const DetailProjects = ({
     ? getText(language, categoryLabels[project.category])
     : project.category;
 
-  const schematicVariant = SCHEMATIC_BY_ID[project.id];
+  const showLocalRagSchematic = project.id === 18;
   const primaryMetric = project.resultMetrics[0]
     ? `${getText(language, project.resultMetrics[0].label)}: ${getText(
         language,
@@ -208,7 +199,7 @@ export const DetailProjects = ({
       )}`
     : '';
 
-  // Deduplicate images so the same image is never repeated between Hero and Feature cards
+  // Deduplicate images so the same image is never repeated between Hero and Feature sections
   const featureImageUrls = new Set<string>();
   project.keyFeatures.forEach((f) =>
     f.images?.forEach((img) => featureImageUrls.add(img.imageUrl))
@@ -218,7 +209,6 @@ export const DetailProjects = ({
   const heroImages: ProjectImage[] = [];
   if (project.images.length > 0) {
     if (featureImageUrls.size > 0) {
-      // Show only the first unique lead image in hero if feature cards have images
       const lead = project.images[0];
       heroImages.push(lead);
       usedUrls.add(lead.imageUrl);
@@ -248,42 +238,43 @@ export const DetailProjects = ({
   return (
     <article className={styles.page}>
       <header className={styles.hero}>
-        <div className={styles.heroTop}>
-          <span className={styles.eyebrow}>{categoryLabel}</span>
+        <p className={styles.metaTop}>
+          <span>{categoryLabel}</span>
           {project.isInProgress && (
-            <span className={styles.statusPill}>
+            <span className={styles.statusText}>
+              {' · '}
               {language === 'ko' ? '진행 중' : 'In Progress'}
             </span>
           )}
-        </div>
+        </p>
 
         <h1>{localizedTitle}</h1>
         <p className={styles.oneLiner}>{getText(language, project.oneLiner)}</p>
 
-        <div className={styles.metaGrid}>
+        <dl className={styles.metaGrid}>
           <div className={styles.metaCell}>
-            <span className={styles.metaLabel}>
+            <dt className={styles.metaLabel}>
               {language === 'ko' ? '기간' : 'Duration'}
-            </span>
-            <span className={styles.metaValue}>{periodData}</span>
+            </dt>
+            <dd className={styles.metaValue}>{periodData}</dd>
           </div>
           <div className={styles.metaCell}>
-            <span className={styles.metaLabel}>
+            <dt className={styles.metaLabel}>
               {language === 'ko' ? '개발 형태' : 'Role / Setup'}
-            </span>
-            <span className={styles.metaValue}>
+            </dt>
+            <dd className={styles.metaValue}>
               {getText(language, project.teamInfo)}
-            </span>
+            </dd>
           </div>
           {primaryMetric && (
             <div className={styles.metaCell}>
-              <span className={styles.metaLabel}>
+              <dt className={styles.metaLabel}>
                 {language === 'ko' ? '핵심 결과' : 'Key Result'}
-              </span>
-              <span className={styles.metaValue}>{primaryMetric}</span>
+              </dt>
+              <dd className={styles.metaValue}>{primaryMetric}</dd>
             </div>
           )}
-        </div>
+        </dl>
 
         {hasHeroVisual && (
           <div className={styles.heroMedia}>
@@ -303,13 +294,11 @@ export const DetailProjects = ({
 
       <div className={styles.layout}>
         <div className={styles.mainCol}>
-          {/* 01. Overview */}
           <section id='overview' className={styles.section}>
-            <p className={styles.sectionEyebrow}>01 / Overview</p>
             <h2>{language === 'ko' ? '프로젝트 목표와 담당 범위' : 'Project Goal & Scope'}</h2>
             <p className={styles.bodyCopy}>{getText(language, project.overview)}</p>
 
-            <div className={styles.scopeBox}>
+            <div className={styles.scopeNote}>
               {project.affiliation && (
                 <p>
                   <strong>{language === 'ko' ? '소속: ' : 'Affiliation: '}</strong>
@@ -323,10 +312,8 @@ export const DetailProjects = ({
             </div>
           </section>
 
-          {/* 02. Problem */}
           {(project.problemStatement || (project.constraints && project.constraints.length > 0)) && (
             <section id='problem' className={styles.section}>
-              <p className={styles.sectionEyebrow}>02 / Problem</p>
               <h2>{language === 'ko' ? '해결하려는 기술적 문제' : 'Technical Problem'}</h2>
 
               {project.problemStatement && (
@@ -336,59 +323,51 @@ export const DetailProjects = ({
               )}
 
               {project.constraints && project.constraints.length > 0 && (
-                <div className={styles.constraintsGrid}>
+                <dl className={styles.constraintsGrid}>
                   {project.constraints.map((c, idx) => (
-                    <div key={idx} className={styles.constraintCard}>
-                      <span className={styles.constraintType}>
-                        {getText(language, c.type)}
-                      </span>
-                      <p>{getText(language, c.description)}</p>
+                    <div key={idx} className={styles.constraintItem}>
+                      <dt>{getText(language, c.type)}</dt>
+                      <dd>{getText(language, c.description)}</dd>
                     </div>
                   ))}
-                </div>
+                </dl>
               )}
             </section>
           )}
 
-          {/* 03. Implementation & Pipeline */}
           <section id='implementation' className={styles.section}>
-            <p className={styles.sectionEyebrow}>03 / Architecture &amp; Implementation</p>
             <h2>
               {language === 'ko'
                 ? '파이프라인 및 핵심 구현'
                 : 'Pipeline & Core Implementation'}
             </h2>
 
-            {schematicVariant && (
-              <ProjectSchematic variant={schematicVariant} language={language} />
+            {showLocalRagSchematic && (
+              <ProjectSchematic variant='local-rag' language={language} />
             )}
 
             {project.architectureSteps && project.architectureSteps.length > 0 && (
-              <div className={styles.archGrid}>
+              <ol className={styles.archGrid}>
                 {project.architectureSteps.map((step) => (
-                  <div key={step.step} className={styles.archCard}>
-                    <span className={styles.archStep}>{step.step}</span>
+                  <li key={step.step} className={styles.archItem}>
                     <h3>{getText(language, step.title)}</h3>
                     <p>{getText(language, step.description)}</p>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
             )}
 
             <div className={styles.featureList}>
-              {dedupedFeatures.map((feature, index) => {
+              {dedupedFeatures.map((feature) => {
                 const hasUniqueImgs = feature.uniqueImgs.length > 0;
                 return (
                   <div
                     key={getText(language, feature.title)}
-                    className={`${styles.featureCard} ${
+                    className={`${styles.featureItem} ${
                       hasUniqueImgs ? styles.featureWithMedia : ''
                     }`}
                   >
                     <div className={styles.featureCopy}>
-                      <span className={styles.itemNum}>
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
                       <h3>{getText(language, feature.title)}</h3>
                       <p>{getText(language, feature.description)}</p>
                     </div>
@@ -425,10 +404,8 @@ export const DetailProjects = ({
             )}
           </section>
 
-          {/* 04. Engineering Challenges */}
           {project.troubleshooting.length > 0 && (
             <section id='challenges' className={styles.section}>
-              <p className={styles.sectionEyebrow}>04 / Engineering Challenges</p>
               <h2>
                 {language === 'ko'
                   ? '어려웠던 점과 접근 방법'
@@ -437,7 +414,7 @@ export const DetailProjects = ({
 
               <div className={styles.troubleList}>
                 {project.troubleshooting.map((item, index) => (
-                  <article key={index} className={styles.troubleCard}>
+                  <article key={index} className={styles.troubleItem}>
                     <dl>
                       <div>
                         <dt>Problem</dt>
@@ -458,9 +435,7 @@ export const DetailProjects = ({
             </section>
           )}
 
-          {/* 05. Results & Validation */}
           <section id='results' className={styles.section}>
-            <p className={styles.sectionEyebrow}>05 / Results &amp; Validation</p>
             <h2>{language === 'ko' ? '검증 가능한 결과 및 현황' : 'Results & Validation'}</h2>
 
             {project.performanceComparisons &&
@@ -472,27 +447,29 @@ export const DetailProjects = ({
               )}
 
             {project.resultMetrics.length > 0 && (
-              <div className={styles.metricGrid}>
+              <dl className={styles.metricGrid}>
                 {project.resultMetrics.map((metric) => (
                   <div
                     key={getText(language, metric.label)}
-                    className={styles.metricCard}
+                    className={styles.metricItem}
                   >
-                    <span className={styles.metricLabel}>
+                    <dt className={styles.metricLabel}>
                       {getText(language, metric.label)}
-                    </span>
-                    <strong className={styles.metricValue}>
+                    </dt>
+                    <dd className={styles.metricValue}>
                       {getText(language, metric.value)}
-                    </strong>
-                    <p>{getText(language, metric.description)}</p>
+                    </dd>
+                    <dd className={styles.metricDesc}>
+                      {getText(language, metric.description)}
+                    </dd>
                   </div>
                 ))}
-              </div>
+              </dl>
             )}
 
-            <div className={styles.notesGrid}>
+            <div className={styles.notesStack}>
               {project.lessonsLearned.length > 0 && (
-                <div className={styles.noteCard}>
+                <div className={styles.noteBlock}>
                   <h3>{language === 'ko' ? '핵심 학습 및 정리' : 'Key Takeaways'}</h3>
                   <ul className={styles.bulletList}>
                     {project.lessonsLearned.map((item, idx) => (
@@ -502,7 +479,7 @@ export const DetailProjects = ({
                 </div>
               )}
               {project.limitations.length > 0 && (
-                <div className={styles.noteCard}>
+                <div className={styles.noteBlock}>
                   <h3>
                     {language === 'ko'
                       ? '현재 한계 및 미구현 범위'
@@ -516,7 +493,7 @@ export const DetailProjects = ({
                 </div>
               )}
               {project.nextSteps.length > 0 && (
-                <div className={styles.noteCard}>
+                <div className={styles.noteBlock}>
                   <h3>{language === 'ko' ? '향후 계획' : 'Next Steps'}</h3>
                   <ul className={styles.bulletList}>
                     {project.nextSteps.map((item, idx) => (
@@ -528,53 +505,49 @@ export const DetailProjects = ({
             </div>
           </section>
 
-          {/* 06. Tech Stack & Links */}
           <section id='tech-stack' className={styles.section}>
-            <p className={styles.sectionEyebrow}>06 / Tech Stack</p>
             <h2>
               {language === 'ko' ? '실제 사용한 기술 및 링크' : 'Tech Stack & Links'}
             </h2>
 
-            <div className={styles.techGrid}>
+            <dl className={styles.techGrid}>
               {project.techChoices.map((tech) => (
-                <div key={tech.name} className={styles.techCard}>
-                  <h3>{tech.name}</h3>
-                  <p>{getText(language, tech.reason)}</p>
+                <div key={tech.name} className={styles.techItem}>
+                  <dt>{tech.name}</dt>
+                  <dd>{getText(language, tech.reason)}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
 
             {project.links.length > 0 && (
-              <div className={styles.linkGrid}>
-                {project.links.map((link, index) =>
-                  link.url ? (
-                    <a
-                      key={`${link.url}-${index}`}
-                      href={link.url}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className={styles.linkCard}
-                    >
-                      <span className={styles.linkTitle}>
-                        {getText(language, link.label)} ↗
-                      </span>
-                      <span className={styles.linkUrl}>{link.url}</span>
-                    </a>
-                  ) : (
-                    <div
-                      key={`${getText(language, link.label)}-${index}`}
-                      className={styles.linkCard}
-                    >
-                      <span className={styles.linkTitle}>
-                        {getText(language, link.label)}
-                      </span>
-                      <span className={styles.linkNote}>
-                        {link.note ? getText(language, link.note) : ''}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
+              <ul className={styles.linkList}>
+                {project.links.map((link, index) => (
+                  <li key={`${link.url || getText(language, link.label)}-${index}`}>
+                    {link.url ? (
+                      <a
+                        href={link.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className={styles.linkAnchor}
+                      >
+                        <span className={styles.linkTitle}>
+                          {getText(language, link.label)} ↗
+                        </span>
+                        <span className={styles.linkUrl}>{link.url}</span>
+                      </a>
+                    ) : (
+                      <div className={styles.linkStatic}>
+                        <span className={styles.linkTitle}>
+                          {getText(language, link.label)}
+                        </span>
+                        <span className={styles.linkNote}>
+                          {link.note ? getText(language, link.note) : ''}
+                        </span>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
             )}
           </section>
         </div>

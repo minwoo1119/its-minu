@@ -5,7 +5,6 @@ import type { TrackData, ProjectCardInfo } from '../../data/tracks';
 import { SectionHeading } from '../common/sectionHeading/SectionHeading';
 import { ProjectCard } from '../common/projectCard/ProjectCard';
 import { SelectTabBar } from '../common/selectTabBar/SelectTabBar';
-import type { SchematicVariant } from '../common/visualDiagram/ProjectSchematic';
 import styles from './projects.module.scss';
 
 interface ProjectsProps {
@@ -15,32 +14,18 @@ interface ProjectsProps {
   onArchiveClick?: () => void;
 }
 
-const SELECTED_META: Record<
-  number,
-  {
-    schematic?: SchematicVariant;
-    outcome: { ko: string; en: string };
-  }
-> = {
+const SELECTED_OUTCOME: Record<number, { ko: string; en: string }> = {
   1: {
-    outcome: {
-      ko: 'ONNX Runtime · TensorRT 추론 최적화로 실측 처리 시간 300ms → 80ms (-73.3%)',
-      en: 'Measured inference latency cut from 300ms to 80ms (-73.3%) via ONNX Runtime & TensorRT',
-    },
+    ko: 'ONNX Runtime · TensorRT 추론 최적화로 실측 처리 시간 300ms → 80ms (-73.3%)',
+    en: 'Measured inference latency cut from 300ms to 80ms (-73.3%) via ONNX Runtime & TensorRT',
   },
   21: {
-    schematic: 'anomaly-patchcore',
-    outcome: {
-      ko: '사전학습 CNN 특징 추출 · Memory Bank · Coreset Sampling 구현 (ONNX/TRT 진행 중)',
-      en: 'Pretrained CNN features, Memory Bank & Coreset Sampling built (ONNX/TRT in progress)',
-    },
+    ko: '사전학습 CNN 특징 추출 · Memory Bank · Coreset Sampling 구현 (ONNX/TRT 진행 중)',
+    en: 'Pretrained CNN features, Memory Bank & Coreset Sampling built (ONNX/TRT in progress)',
   },
   18: {
-    schematic: 'local-rag',
-    outcome: {
-      ko: 'Windows 런처 · 프로세스 트리 정리 · Docker/SQLite 스토리지 자동 폴백 구현',
-      en: 'Windows launcher, process-tree cleanup & adaptive Docker/SQLite storage fallback built',
-    },
+    ko: 'Windows 런처 · 프로세스 트리 정리 · Docker/SQLite 스토리지 자동 폴백 구현',
+    en: 'Windows launcher, process-tree cleanup & adaptive Docker/SQLite storage fallback built',
   },
 };
 
@@ -65,6 +50,13 @@ export const Projects = ({
       ? projects.items
       : projects.items.filter((p) => p.category === selectedMainCategory);
 
+  const leadWithPhoto = isVisionTrack
+    ? filteredMainProjects.find((p) => Boolean(p.imgUrl))
+    : undefined;
+  const secondaryMainProjects = leadWithPhoto
+    ? filteredMainProjects.filter((p) => p.id !== leadWithPhoto.id)
+    : filteredMainProjects;
+
   const otherConfig = projects.otherProjects;
   const otherItems = otherConfig?.items ?? [];
 
@@ -88,7 +80,6 @@ export const Projects = ({
       <section className={styles.section} id='selected-projects'>
         <div className={styles.container}>
           <SectionHeading
-            eyebrow={isVisionTrack ? 'Selected Projects' : 'Projects'}
             title={
               isVisionTrack
                 ? language === 'ko'
@@ -118,14 +109,35 @@ export const Projects = ({
             />
           )}
 
-          <div
-            className={`${styles.mainGrid} ${
-              isVisionTrack ? styles.threeCol : styles.twoCol
-            }`}
-          >
-            {filteredMainProjects.map((item) => {
-              const meta = SELECTED_META[item.id];
-              return (
+          {leadWithPhoto && (
+            <div className={styles.leadFeature}>
+              <ProjectCard
+                language={language}
+                variant='featureRow'
+                period={
+                  leadWithPhoto.period
+                    ? getText(language, leadWithPhoto.period)
+                    : undefined
+                }
+                statusBadge={
+                  leadWithPhoto.statusBadge
+                    ? getText(language, leadWithPhoto.statusBadge)
+                    : undefined
+                }
+                title={getText(language, leadWithPhoto.title)}
+                summary={getText(language, leadWithPhoto.description)}
+                outcome={SELECTED_OUTCOME[leadWithPhoto.id]?.[language]}
+                techs={leadWithPhoto.techs}
+                maxTechsDesktop={6}
+                imgUrl={leadWithPhoto.imgUrl || undefined}
+                onClick={() => onProjectClick(leadWithPhoto.id)}
+              />
+            </div>
+          )}
+
+          {secondaryMainProjects.length > 0 && (
+            <div className={styles.twoColGrid}>
+              {secondaryMainProjects.map((item) => (
                 <ProjectCard
                   key={item.id}
                   language={language}
@@ -136,16 +148,15 @@ export const Projects = ({
                   }
                   title={getText(language, item.title)}
                   summary={getText(language, item.description)}
-                  outcome={meta ? meta.outcome[language] : undefined}
+                  outcome={SELECTED_OUTCOME[item.id]?.[language]}
                   techs={item.techs}
                   maxTechsDesktop={5}
                   imgUrl={item.imgUrl || undefined}
-                  schematicVariant={meta?.schematic}
                   onClick={() => onProjectClick(item.id)}
                 />
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -154,7 +165,6 @@ export const Projects = ({
         <section className={`${styles.section} ${styles.archivePreview}`} id='other-projects'>
           <div className={styles.container}>
             <SectionHeading
-              eyebrow='Archive Preview'
               title={language === 'ko' ? '기타 프로젝트' : 'Additional Projects'}
               description={
                 language === 'ko'
@@ -165,7 +175,7 @@ export const Projects = ({
                 onArchiveClick && (
                   <button
                     type='button'
-                    className={styles.archiveBtn}
+                    className={styles.archiveLink}
                     onClick={onArchiveClick}
                   >
                     {language === 'ko'

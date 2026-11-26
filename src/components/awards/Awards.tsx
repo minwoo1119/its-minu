@@ -13,7 +13,6 @@ export const Awards = ({ language }: AwardsProps) => (
     <div className={styles.container}>
       <SectionHeading
         id='awards-section-title'
-        eyebrow='Honors & Research'
         title={language === 'ko' ? '수상 및 연구 실적' : 'Honors & Research'}
         compact
       />

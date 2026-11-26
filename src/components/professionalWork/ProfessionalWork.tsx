@@ -2,8 +2,6 @@ import type { Language } from '../../i18n';
 import { getText } from '../../i18n';
 import { professionalProjects } from '../../data/professionalProjects';
 import { SectionHeading } from '../common/sectionHeading/SectionHeading';
-import { ProjectCard } from '../common/projectCard/ProjectCard';
-import type { SchematicVariant } from '../common/visualDiagram/ProjectSchematic';
 import styles from './professionalWork.module.scss';
 
 interface ProfessionalWorkProps {
@@ -11,26 +9,14 @@ interface ProfessionalWorkProps {
   onProjectClick: (projectId: number) => void;
 }
 
-const CARD_META: Record<
-  number,
-  {
-    schematic: SchematicVariant;
-    outcome: { ko: string; en: string };
-  }
-> = {
+const OUTCOME_BY_ID: Record<number, { ko: string; en: string }> = {
   31: {
-    schematic: 'systems-sw',
-    outcome: {
-      ko: '양품조건 ROI 통합 · Variation 분리 로깅 구현 완료 (Heap Corruption 분석 진행 중)',
-      en: 'Good-condition ROI & separated Variation logging implemented (Heap Corruption analysis in progress)',
-    },
+    ko: '양품조건 ROI 통합 · Variation 분리 로깅 구현 완료 (Heap Corruption 분석 진행 중)',
+    en: 'Good-condition ROI & separated Variation logging implemented (Heap Corruption analysis in progress)',
   },
   30: {
-    schematic: 'platform',
-    outcome: {
-      ko: 'Monitoring·Teaching·Engineering 연동, Client UI 프리징 해결 및 원자적 모델 배포 구현',
-      en: 'Monitoring/Teaching/Engineering integrated, Client UI freeze resolved & atomic model deployment built',
-    },
+    ko: 'Monitoring·Teaching·Engineering 연동, Client UI 프리징 해결 및 원자적 모델 배포 구현',
+    en: 'Monitoring/Teaching/Engineering integrated, Client UI freeze resolved & atomic model deployment built',
   },
 };
 
@@ -45,7 +31,6 @@ export const ProfessionalWork = ({
       <div className={styles.container}>
         <SectionHeading
           id='professional-work-title'
-          eyebrow='Professional Work'
           title={language === 'ko' ? '실무 프로젝트' : 'Professional Projects'}
           description={
             language === 'ko'
@@ -54,35 +39,70 @@ export const ProfessionalWork = ({
           }
         />
 
-        <div className={styles.grid}>
+        <div className={styles.list}>
           {orderedProjects.map((project) => {
-            const meta = CARD_META[project.id];
+            const outcome = OUTCOME_BY_ID[project.id]?.[language];
+            const statusText =
+              project.status === 'mixed'
+                ? language === 'ko'
+                  ? '일부 진행 중'
+                  : 'Partly in progress'
+                : undefined;
+
             return (
-              <ProjectCard
+              <article
                 key={project.id}
-                language={language}
-                variant='featured'
-                eyebrow={`Project ${project.index}`}
-                period={getText(language, project.period)}
-                statusBadge={
-                  project.status === 'mixed'
-                    ? language === 'ko'
-                      ? '일부 진행 중'
-                      : 'Partly in progress'
-                    : undefined
-                }
-                title={getText(language, project.title)}
-                role={getText(language, project.role)}
-                summary={getText(language, project.summary)}
-                outcome={meta ? meta.outcome[language] : undefined}
-                highlights={project.cardContributions
-                  .slice(0, 3)
-                  .map((item) => getText(language, item))}
-                techs={project.technologies}
-                maxTechsDesktop={6}
-                schematicVariant={meta?.schematic}
+                className={styles.entry}
                 onClick={() => onProjectClick(project.id)}
-              />
+                role='button'
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onProjectClick(project.id);
+                  }
+                }}
+              >
+                <div className={styles.leadCol}>
+                  <p className={styles.meta}>
+                    <span>{getText(language, project.period)}</span>
+                    {statusText && (
+                      <span className={styles.status}> · {statusText}</span>
+                    )}
+                  </p>
+
+                  <h3 className={styles.title}>
+                    {getText(language, project.title)}
+                  </h3>
+
+                  <p className={styles.role}>{getText(language, project.role)}</p>
+
+                  <p className={styles.summary}>
+                    {getText(language, project.summary)}
+                  </p>
+
+                  {outcome && <p className={styles.outcome}>{outcome}</p>}
+                </div>
+
+                <div className={styles.detailCol}>
+                  <ul className={styles.highlights}>
+                    {project.cardContributions.slice(0, 3).map((item) => (
+                      <li key={getText(language, item)}>
+                        {getText(language, item)}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className={styles.footer}>
+                    <p className={styles.techLine} aria-label='Technologies'>
+                      {project.technologies.slice(0, 6).join(' · ')}
+                    </p>
+                    <span className={styles.detailCue} aria-hidden='true'>
+                      {language === 'ko' ? '상세 보기 →' : 'Details →'}
+                    </span>
+                  </div>
+                </div>
+              </article>
             );
           })}
         </div>

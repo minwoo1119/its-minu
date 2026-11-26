@@ -4,7 +4,6 @@ import styles from './sectionHeading.module.scss';
 interface SectionHeadingProps {
   id?: string;
   as?: 'h1' | 'h2';
-  eyebrow?: string;
   title: string;
   description?: string;
   action?: ReactNode;
@@ -14,7 +13,6 @@ interface SectionHeadingProps {
 export const SectionHeading = ({
   id,
   as = 'h2',
-  eyebrow,
   title,
   description,
   action,
@@ -24,7 +22,6 @@ export const SectionHeading = ({
   return (
     <header className={`${styles.header} ${compact ? styles.compact : ''}`}>
       <div className={styles.copy}>
-        {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
         <HeadingTag id={id} className={styles.title}>
           {title}
         </HeadingTag>
