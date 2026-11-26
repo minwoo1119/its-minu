@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   projectsDetailData,
   type ProjectImage,
 } from '../../data/projectsDetail';
+import {
+  ProjectSchematic,
+  type SchematicVariant,
+} from '../common/visualDiagram/ProjectSchematic';
+import { StickyToc, type TocItem } from '../common/detailLayout/StickyToc';
+import { PerformanceChart } from '../common/detailLayout/PerformanceChart';
+import { RelatedProjects } from '../common/detailLayout/RelatedProjects';
 import styles from './detailProjects.module.scss';
 import type { Language, LocalizedText } from '../../i18n';
 import { getText } from '../../i18n';
@@ -10,6 +17,7 @@ import { getText } from '../../i18n';
 interface Props {
   language: Language;
   projectId: number;
+  onProjectClick: (projectId: number) => void;
 }
 
 const categoryLabels: Record<string, LocalizedText> = {
@@ -18,45 +26,51 @@ const categoryLabels: Record<string, LocalizedText> = {
     en: 'Computer Vision & AI Inference',
   },
   app: {
-    ko: 'Mobile App Project',
-    en: 'Mobile App Project',
+    ko: 'Mobile Application',
+    en: 'Mobile Application',
   },
   cross: {
-    ko: 'Cross-Platform Project',
-    en: 'Cross-Platform Project',
+    ko: 'Cross-Platform Software',
+    en: 'Cross-Platform Software',
   },
   fullstack: {
     ko: 'Systems & AI Platform',
     en: 'Systems & AI Platform',
   },
   frontend: {
-    ko: 'Frontend & Web Project',
-    en: 'Frontend & Web Project',
+    ko: 'Web Frontend',
+    en: 'Web Frontend',
   },
   webFrontend: {
-    ko: 'Web Frontend Project',
-    en: 'Web Frontend Project',
+    ko: 'Web System',
+    en: 'Web System',
   },
   backend: {
-    ko: 'Backend System Project',
-    en: 'Backend System Project',
+    ko: 'Backend System',
+    en: 'Backend System',
   },
   desktop: {
-    ko: 'Desktop Software Project',
-    en: 'Desktop Software Project',
+    ko: 'Desktop Software',
+    en: 'Desktop Software',
   },
   ai: {
-    ko: 'AI & Machine Learning Project',
-    en: 'AI & Machine Learning Project',
+    ko: 'AI / Machine Learning',
+    en: 'AI / Machine Learning',
   },
   research: {
-    ko: 'Research & Awards',
-    en: 'Research & Awards',
+    ko: 'Research & Publications',
+    en: 'Research & Publications',
   },
   other: {
     ko: 'Engineering Project',
     en: 'Engineering Project',
   },
+};
+
+const SCHEMATIC_BY_ID: Record<number, SchematicVariant> = {
+  1: 'vision-pipeline',
+  21: 'anomaly-patchcore',
+  18: 'local-rag',
 };
 
 const resolveAssetUrl = (path: string) =>
@@ -86,57 +100,58 @@ const ImageCard = ({
     }
   };
 
+  if (hasError) return null;
+
   return (
     <figure className={`${className} ${isPortrait ? styles.portraitCard : ''}`}>
-      {hasError ? (
-        <div
-          className={`${styles.imageFallback} ${isPortrait ? styles.portraitFallback : ''}`}
-        >
-          <span>{language === 'ko' ? '이미지 준비 중' : 'Image unavailable'}</span>
-        </div>
-      ) : (
-        <img
-          src={resolveAssetUrl(image.imageUrl)}
-          alt={caption}
-          className={`${imageClassName} ${isPortrait ? styles.portraitImage : ''}`}
-          onLoad={handleImageLoad}
-          onError={() => setHasError(true)}
-        />
-      )}
+      <img
+        src={resolveAssetUrl(image.imageUrl)}
+        alt={caption}
+        loading='lazy'
+        className={`${imageClassName} ${isPortrait ? styles.portraitImage : ''}`}
+        onLoad={handleImageLoad}
+        onError={() => setHasError(true)}
+      />
       <figcaption className={captionClassName}>{caption}</figcaption>
     </figure>
   );
 };
 
-const ImageGallery = ({
-  images,
+export const DetailProjects = ({
   language,
-  cardClassName,
-  imageClassName,
-  captionClassName,
-}: {
-  images: ProjectImage[];
-  language: Language;
-  cardClassName: string;
-  imageClassName: string;
-  captionClassName: string;
-}) => (
-  <div className={styles.imageGallery}>
-    {images.map((image, index) => (
-      <ImageCard
-        key={`${image.imageUrl}-${index}`}
-        image={image}
-        language={language}
-        className={cardClassName}
-        imageClassName={imageClassName}
-        captionClassName={captionClassName}
-      />
-    ))}
-  </div>
-);
-
-export const DetailProjects = ({ language, projectId }: Props) => {
+  projectId,
+  onProjectClick,
+}: Props) => {
   const project = projectsDetailData.find((item) => item.id === projectId);
+
+  const tocItems: TocItem[] = useMemo(() => {
+    if (!project) return [];
+    const list: TocItem[] = [
+      { id: 'overview', label: language === 'ko' ? '01. 개요 및 역할' : '01. Overview' },
+    ];
+    if (project.problemStatement || (project.constraints && project.constraints.length > 0)) {
+      list.push({ id: 'problem', label: language === 'ko' ? '02. 기술적 문제' : '02. Problem' });
+    }
+    list.push({
+      id: 'implementation',
+      label: language === 'ko' ? '03. 아키텍처 및 구현' : '03. Implementation',
+    });
+    if (project.troubleshooting.length > 0) {
+      list.push({
+        id: 'challenges',
+        label: language === 'ko' ? '04. 트러블슈팅' : '04. Challenges',
+      });
+    }
+    list.push({
+      id: 'results',
+      label: language === 'ko' ? '05. 검증 및 결과' : '05. Results',
+    });
+    list.push({
+      id: 'tech-stack',
+      label: language === 'ko' ? '06. 기술 스택' : '06. Tech Stack',
+    });
+    return list;
+  }, [project, language]);
 
   if (!project) {
     return (
@@ -178,329 +193,401 @@ export const DetailProjects = ({ language, projectId }: Props) => {
           ? '진행 중'
           : 'In Progress'
         : language === 'ko'
-          ? '학술 연구 및 프로젝트 성과'
+          ? '학술 연구 성과'
           : 'Research & Honors';
 
   const localizedTitle = getText(language, project.title);
   const categoryLabel = categoryLabels[project.category]
     ? getText(language, categoryLabels[project.category])
     : project.category;
-  const hasHeroImages = project.images && project.images.length > 0;
+
+  const schematicVariant = SCHEMATIC_BY_ID[project.id];
+  const primaryMetric = project.resultMetrics[0]
+    ? `${getText(language, project.resultMetrics[0].label)}: ${getText(
+        language,
+        project.resultMetrics[0].value
+      )}`
+    : '';
+
+  // Deduplicate images so the same image is never repeated between Hero and Feature cards
+  const featureImageUrls = new Set<string>();
+  project.keyFeatures.forEach((f) =>
+    f.images?.forEach((img) => featureImageUrls.add(img.imageUrl))
+  );
+
+  const usedUrls = new Set<string>();
+  const heroImages: ProjectImage[] = [];
+  if (project.images.length > 0) {
+    if (featureImageUrls.size > 0) {
+      // Show only the first unique lead image in hero if feature cards have images
+      const lead = project.images[0];
+      heroImages.push(lead);
+      usedUrls.add(lead.imageUrl);
+    } else {
+      for (const img of project.images) {
+        if (!usedUrls.has(img.imageUrl)) {
+          heroImages.push(img);
+          usedUrls.add(img.imageUrl);
+        }
+      }
+    }
+  }
+
+  const dedupedFeatures = project.keyFeatures.map((feature) => {
+    const uniqueImgs: ProjectImage[] = [];
+    for (const img of feature.images || []) {
+      if (!usedUrls.has(img.imageUrl)) {
+        uniqueImgs.push(img);
+        usedUrls.add(img.imageUrl);
+      }
+    }
+    return { ...feature, uniqueImgs };
+  });
+
+  const hasHeroVisual = heroImages.length > 0;
 
   return (
-    <article className={styles.container}>
-      <section
-        className={`${styles.heroSection} ${
-          !hasHeroImages ? styles.heroSingleCol : ''
-        }`}
-      >
-        <div className={styles.heroCopy}>
-          <div className={styles.heroMeta}>
-            <div className={styles.category}>{categoryLabel}</div>
-            {project.isInProgress && (
-              <span className={styles.inProgressBadge}>
-                {language === 'ko' ? '진행 중' : 'In Progress'}
+    <article className={styles.page}>
+      <header className={styles.hero}>
+        <div className={styles.heroTop}>
+          <span className={styles.eyebrow}>{categoryLabel}</span>
+          {project.isInProgress && (
+            <span className={styles.statusPill}>
+              {language === 'ko' ? '진행 중' : 'In Progress'}
+            </span>
+          )}
+        </div>
+
+        <h1>{localizedTitle}</h1>
+        <p className={styles.oneLiner}>{getText(language, project.oneLiner)}</p>
+
+        <div className={styles.metaGrid}>
+          <div className={styles.metaCell}>
+            <span className={styles.metaLabel}>
+              {language === 'ko' ? '기간' : 'Duration'}
+            </span>
+            <span className={styles.metaValue}>{periodData}</span>
+          </div>
+          <div className={styles.metaCell}>
+            <span className={styles.metaLabel}>
+              {language === 'ko' ? '개발 형태' : 'Role / Setup'}
+            </span>
+            <span className={styles.metaValue}>
+              {getText(language, project.teamInfo)}
+            </span>
+          </div>
+          {primaryMetric && (
+            <div className={styles.metaCell}>
+              <span className={styles.metaLabel}>
+                {language === 'ko' ? '핵심 결과' : 'Key Result'}
               </span>
-            )}
-          </div>
-          <h1 className={styles.title}>{localizedTitle}</h1>
-          <p className={styles.oneLiner}>{getText(language, project.oneLiner)}</p>
-          <p className={styles.overview}>{getText(language, project.overview)}</p>
-        </div>
-        {hasHeroImages && (
-          <ImageGallery
-            images={project.images}
-            language={language}
-            cardClassName={styles.heroImageCard}
-            imageClassName={styles.heroImage}
-            captionClassName={styles.heroCaption}
-          />
-        )}
-      </section>
-
-      {/* 01. Overview */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <div className={styles.sectionEyebrow}>01 · Overview</div>
-          <h2>{language === 'ko' ? '프로젝트 목표와 담당 범위' : 'Project Goal & Scope'}</h2>
-        </div>
-
-        <div className={styles.overviewGrid}>
-          {project.affiliation && (
-            <div className={`${styles.infoCard} ${styles.infoCardFull}`}>
-              <div className={styles.cardLabel}>
-                {language === 'ko' ? '소속 및 배경' : 'Affiliation'}
-              </div>
-              <div className={styles.cardValue}>{getText(language, project.affiliation)}</div>
+              <span className={styles.metaValue}>{primaryMetric}</span>
             </div>
           )}
-          <div className={styles.infoCard}>
-            <div className={styles.cardLabel}>
-              {language === 'ko' ? '개발 기간' : 'Duration'}
-            </div>
-            <div className={styles.cardValue}>{periodData}</div>
-          </div>
-          <div className={styles.infoCard}>
-            <div className={styles.cardLabel}>
-              {language === 'ko' ? '개발 형태' : 'Team Setup'}
-            </div>
-            <div className={styles.cardValue}>{getText(language, project.teamInfo)}</div>
-          </div>
-          <div className={`${styles.infoCard} ${styles.infoCardFull}`}>
-            <div className={styles.cardLabel}>
-              {language === 'ko' ? '담당 역할 및 범위' : 'Role & Scope'}
-            </div>
-            <div className={styles.cardValue}>{getText(language, project.contribution)}</div>
-          </div>
-        </div>
-      </section>
-
-      {/* 02. Problem */}
-      {(project.problemStatement || (project.constraints && project.constraints.length > 0)) && (
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <div className={styles.sectionEyebrow}>02 · Problem</div>
-            <h2>{language === 'ko' ? '해결하려는 기술적 문제' : 'Technical Problem'}</h2>
-          </div>
-
-          {project.problemStatement && (
-            <div className={styles.problemBox}>
-              <p>{getText(language, project.problemStatement)}</p>
-            </div>
-          )}
-
-          {project.constraints && project.constraints.length > 0 && (
-            <div className={styles.constraintsGrid}>
-              {project.constraints.map((c, idx) => (
-                <div key={idx} className={styles.constraintCard}>
-                  <div className={styles.constraintType}>{getText(language, c.type)}</div>
-                  <p>{getText(language, c.description)}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {/* 03. Implementation */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <div className={styles.sectionEyebrow}>03 · Implementation</div>
-          <h2>{language === 'ko' ? '실제 구현한 기능과 아키텍처' : 'Implementation & Architecture'}</h2>
         </div>
 
-        {project.architectureSteps && project.architectureSteps.length > 0 && (
-          <div className={styles.archStepsGrid}>
-            {project.architectureSteps.map((step) => (
-              <div key={step.step} className={styles.archStepCard}>
-                <div className={styles.stepNum}>{step.step}</div>
-                <div className={styles.stepContent}>
-                  <div className={styles.stepTitle}>{getText(language, step.title)}</div>
-                  <p>{getText(language, step.description)}</p>
-                </div>
-              </div>
+        {hasHeroVisual && (
+          <div className={styles.heroMedia}>
+            {heroImages.map((img, idx) => (
+              <ImageCard
+                key={`${img.imageUrl}-${idx}`}
+                image={img}
+                language={language}
+                className={styles.heroFigure}
+                imageClassName={styles.heroImage}
+                captionClassName={styles.caption}
+              />
             ))}
           </div>
         )}
+      </header>
 
-        <div className={styles.featureGrid}>
-          {project.keyFeatures.map((feature, index) => {
-            const hasImages = feature.images && feature.images.length > 0;
-            return (
-              <div
-                key={getText(language, feature.title)}
-                className={`${styles.featureCard} ${hasImages ? styles.featureCardWithImage : ''}`}
-              >
-                <div className={styles.featureInfo}>
-                  <div className={styles.featureBadge}>
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                  <div className={styles.featureTitle}>
-                    {getText(language, feature.title)}
-                  </div>
-                  <p className={styles.featureDescription}>
-                    {getText(language, feature.description)}
-                  </p>
-                </div>
-                {hasImages && (
-                  <div className={styles.featureVisual}>
-                    <ImageGallery
-                      images={feature.images}
-                      language={language}
-                      cardClassName={styles.featureImageCard}
-                      imageClassName={styles.featureImage}
-                      captionClassName={styles.featureCaption}
-                    />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+      <div className={styles.layout}>
+        <div className={styles.mainCol}>
+          {/* 01. Overview */}
+          <section id='overview' className={styles.section}>
+            <p className={styles.sectionEyebrow}>01 / Overview</p>
+            <h2>{language === 'ko' ? '프로젝트 목표와 담당 범위' : 'Project Goal & Scope'}</h2>
+            <p className={styles.bodyCopy}>{getText(language, project.overview)}</p>
 
-        {project.roleDetails.length > 0 && (
-          <>
-            <div className={styles.subSectionTitle}>
-              {language === 'ko' ? '세부 구현 내역' : 'Detailed Implementation'}
+            <div className={styles.scopeBox}>
+              {project.affiliation && (
+                <p>
+                  <strong>{language === 'ko' ? '소속: ' : 'Affiliation: '}</strong>
+                  {getText(language, project.affiliation)}
+                </p>
+              )}
+              <p>
+                <strong>{language === 'ko' ? '담당 역할: ' : 'Scope: '}</strong>
+                {getText(language, project.contribution)}
+              </p>
             </div>
-            <ul className={styles.bulletList}>
-              {project.roleDetails.map((item, index) => (
-                <li key={index}>{getText(language, item)}</li>
-              ))}
-            </ul>
-          </>
-        )}
-      </section>
+          </section>
 
-      {/* 04. Engineering Challenges */}
-      {project.troubleshooting.length > 0 && (
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <div className={styles.sectionEyebrow}>04 · Engineering Challenges</div>
+          {/* 02. Problem */}
+          {(project.problemStatement || (project.constraints && project.constraints.length > 0)) && (
+            <section id='problem' className={styles.section}>
+              <p className={styles.sectionEyebrow}>02 / Problem</p>
+              <h2>{language === 'ko' ? '해결하려는 기술적 문제' : 'Technical Problem'}</h2>
+
+              {project.problemStatement && (
+                <p className={styles.bodyCopy}>
+                  {getText(language, project.problemStatement)}
+                </p>
+              )}
+
+              {project.constraints && project.constraints.length > 0 && (
+                <div className={styles.constraintsGrid}>
+                  {project.constraints.map((c, idx) => (
+                    <div key={idx} className={styles.constraintCard}>
+                      <span className={styles.constraintType}>
+                        {getText(language, c.type)}
+                      </span>
+                      <p>{getText(language, c.description)}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* 03. Implementation & Pipeline */}
+          <section id='implementation' className={styles.section}>
+            <p className={styles.sectionEyebrow}>03 / Architecture &amp; Implementation</p>
             <h2>
               {language === 'ko'
-                ? '어려웠던 점과 접근 방법'
-                : 'Engineering Challenges & Approach'}
+                ? '파이프라인 및 핵심 구현'
+                : 'Pipeline & Core Implementation'}
             </h2>
-          </div>
 
-          <div className={styles.troubleGrid}>
-            {project.troubleshooting.map((item, index) => (
-              <div key={index} className={styles.troubleCard}>
-                <div className={styles.troubleBlock}>
-                  <div className={styles.troubleLabel}>Problem</div>
-                  <p>{getText(language, item.problem)}</p>
-                </div>
-                <div className={styles.troubleBlock}>
-                  <div className={styles.troubleLabel}>Approach</div>
-                  <p>{getText(language, item.solution)}</p>
-                </div>
-                <div className={styles.troubleBlock}>
-                  <div className={styles.troubleLabel}>Result / Status</div>
-                  <p>{getText(language, item.result)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 05. Results & Validation */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <div className={styles.sectionEyebrow}>05 · Results &amp; Validation</div>
-          <h2>{language === 'ko' ? '검증 가능한 결과 및 현황' : 'Results & Validation'}</h2>
-        </div>
-
-        {project.performanceComparisons && project.performanceComparisons.length > 0 && (
-          <div className={styles.comparisonGrid}>
-            {project.performanceComparisons.map((comp, idx) => (
-              <div key={idx} className={styles.comparisonCard}>
-                <div className={styles.compMetric}>{getText(language, comp.metric)}</div>
-                <div className={styles.compRow}>
-                  <span className={styles.compBefore}>Before: {getText(language, comp.before)}</span>
-                  <span className={styles.compAfter}>After: {getText(language, comp.after)}</span>
-                </div>
-                <div className={styles.compBadge}>{getText(language, comp.improvement)}</div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {project.resultMetrics.length > 0 && (
-          <div className={styles.metricGrid}>
-            {project.resultMetrics.map((metric) => (
-              <div key={getText(language, metric.label)} className={styles.metricCard}>
-                <div className={styles.metricLabel}>{getText(language, metric.label)}</div>
-                <div className={styles.metricValue}>{getText(language, metric.value)}</div>
-                <p>{getText(language, metric.description)}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div className={styles.reflectionGrid}>
-          {project.lessonsLearned.length > 0 && (
-            <div className={styles.reflectionCard}>
-              <div className={styles.reflectionTitle}>
-                {language === 'ko' ? '핵심 학습 및 정리' : 'Key Takeaways'}
-              </div>
-              <ul className={styles.bulletList}>
-                {project.lessonsLearned.map((item, index) => (
-                  <li key={index}>{getText(language, item)}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {project.limitations.length > 0 && (
-            <div className={styles.reflectionCard}>
-              <div className={styles.reflectionTitle}>
-                {language === 'ko' ? '현재 한계 및 미구현 범위' : 'Limitations & Remaining Scope'}
-              </div>
-              <ul className={styles.bulletList}>
-                {project.limitations.map((item, index) => (
-                  <li key={index}>{getText(language, item)}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {project.nextSteps.length > 0 && (
-            <div className={styles.reflectionCard}>
-              <div className={styles.reflectionTitle}>
-                {language === 'ko' ? '향후 계획' : 'Next Steps'}
-              </div>
-              <ul className={styles.bulletList}>
-                {project.nextSteps.map((item, index) => (
-                  <li key={index}>{getText(language, item)}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* 06. Tech Stack & References */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <div className={styles.sectionEyebrow}>06 · Tech Stack</div>
-          <h2>{language === 'ko' ? '실제 사용한 기술 및 링크' : 'Tech Stack & References'}</h2>
-        </div>
-
-        <div className={styles.techChoiceGrid}>
-          {project.techChoices.map((tech) => (
-            <div key={tech.name} className={styles.techChoiceCard}>
-              <div className={styles.techChoiceName}>{tech.name}</div>
-              <p>{getText(language, tech.reason)}</p>
-            </div>
-          ))}
-        </div>
-
-        {project.links.length > 0 && (
-          <div className={styles.linkGrid}>
-            {project.links.map((link, index) =>
-              link.url ? (
-                <a
-                  key={`${link.url}-${index}`}
-                  href={link.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className={styles.linkCard}
-                >
-                  <div className={styles.linkTitle}>{getText(language, link.label)}</div>
-                  <div className={styles.linkBody}>{link.url}</div>
-                </a>
-              ) : (
-                <div key={`${getText(language, link.label)}-${index}`} className={styles.linkCard}>
-                  <div className={styles.linkTitle}>{getText(language, link.label)}</div>
-                  <div className={styles.linkBody}>
-                    {link.note ? getText(language, link.note) : ''}
-                  </div>
-                </div>
-              )
+            {schematicVariant && (
+              <ProjectSchematic variant={schematicVariant} language={language} />
             )}
-          </div>
-        )}
-      </section>
+
+            {project.architectureSteps && project.architectureSteps.length > 0 && (
+              <div className={styles.archGrid}>
+                {project.architectureSteps.map((step) => (
+                  <div key={step.step} className={styles.archCard}>
+                    <span className={styles.archStep}>{step.step}</span>
+                    <h3>{getText(language, step.title)}</h3>
+                    <p>{getText(language, step.description)}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className={styles.featureList}>
+              {dedupedFeatures.map((feature, index) => {
+                const hasUniqueImgs = feature.uniqueImgs.length > 0;
+                return (
+                  <div
+                    key={getText(language, feature.title)}
+                    className={`${styles.featureCard} ${
+                      hasUniqueImgs ? styles.featureWithMedia : ''
+                    }`}
+                  >
+                    <div className={styles.featureCopy}>
+                      <span className={styles.itemNum}>
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <h3>{getText(language, feature.title)}</h3>
+                      <p>{getText(language, feature.description)}</p>
+                    </div>
+                    {hasUniqueImgs && (
+                      <div className={styles.featureMedia}>
+                        {feature.uniqueImgs.map((img, idx) => (
+                          <ImageCard
+                            key={`${img.imageUrl}-${idx}`}
+                            image={img}
+                            language={language}
+                            className={styles.featureFigure}
+                            imageClassName={styles.featureImage}
+                            captionClassName={styles.caption}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {project.roleDetails.length > 0 && (
+              <div className={styles.subBlock}>
+                <h3 className={styles.subHeading}>
+                  {language === 'ko' ? '세부 구현 내역' : 'Detailed Implementation'}
+                </h3>
+                <ul className={styles.bulletList}>
+                  {project.roleDetails.map((item, index) => (
+                    <li key={index}>{getText(language, item)}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </section>
+
+          {/* 04. Engineering Challenges */}
+          {project.troubleshooting.length > 0 && (
+            <section id='challenges' className={styles.section}>
+              <p className={styles.sectionEyebrow}>04 / Engineering Challenges</p>
+              <h2>
+                {language === 'ko'
+                  ? '어려웠던 점과 접근 방법'
+                  : 'Challenges & Troubleshooting'}
+              </h2>
+
+              <div className={styles.troubleList}>
+                {project.troubleshooting.map((item, index) => (
+                  <article key={index} className={styles.troubleCard}>
+                    <dl>
+                      <div>
+                        <dt>Problem</dt>
+                        <dd>{getText(language, item.problem)}</dd>
+                      </div>
+                      <div>
+                        <dt>Approach</dt>
+                        <dd>{getText(language, item.solution)}</dd>
+                      </div>
+                      <div>
+                        <dt>Result</dt>
+                        <dd>{getText(language, item.result)}</dd>
+                      </div>
+                    </dl>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 05. Results & Validation */}
+          <section id='results' className={styles.section}>
+            <p className={styles.sectionEyebrow}>05 / Results &amp; Validation</p>
+            <h2>{language === 'ko' ? '검증 가능한 결과 및 현황' : 'Results & Validation'}</h2>
+
+            {project.performanceComparisons &&
+              project.performanceComparisons.length > 0 && (
+                <PerformanceChart
+                  language={language}
+                  items={project.performanceComparisons}
+                />
+              )}
+
+            {project.resultMetrics.length > 0 && (
+              <div className={styles.metricGrid}>
+                {project.resultMetrics.map((metric) => (
+                  <div
+                    key={getText(language, metric.label)}
+                    className={styles.metricCard}
+                  >
+                    <span className={styles.metricLabel}>
+                      {getText(language, metric.label)}
+                    </span>
+                    <strong className={styles.metricValue}>
+                      {getText(language, metric.value)}
+                    </strong>
+                    <p>{getText(language, metric.description)}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className={styles.notesGrid}>
+              {project.lessonsLearned.length > 0 && (
+                <div className={styles.noteCard}>
+                  <h3>{language === 'ko' ? '핵심 학습 및 정리' : 'Key Takeaways'}</h3>
+                  <ul className={styles.bulletList}>
+                    {project.lessonsLearned.map((item, idx) => (
+                      <li key={idx}>{getText(language, item)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {project.limitations.length > 0 && (
+                <div className={styles.noteCard}>
+                  <h3>
+                    {language === 'ko'
+                      ? '현재 한계 및 미구현 범위'
+                      : 'Limitations & Remaining Scope'}
+                  </h3>
+                  <ul className={styles.bulletList}>
+                    {project.limitations.map((item, idx) => (
+                      <li key={idx}>{getText(language, item)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {project.nextSteps.length > 0 && (
+                <div className={styles.noteCard}>
+                  <h3>{language === 'ko' ? '향후 계획' : 'Next Steps'}</h3>
+                  <ul className={styles.bulletList}>
+                    {project.nextSteps.map((item, idx) => (
+                      <li key={idx}>{getText(language, item)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* 06. Tech Stack & Links */}
+          <section id='tech-stack' className={styles.section}>
+            <p className={styles.sectionEyebrow}>06 / Tech Stack</p>
+            <h2>
+              {language === 'ko' ? '실제 사용한 기술 및 링크' : 'Tech Stack & Links'}
+            </h2>
+
+            <div className={styles.techGrid}>
+              {project.techChoices.map((tech) => (
+                <div key={tech.name} className={styles.techCard}>
+                  <h3>{tech.name}</h3>
+                  <p>{getText(language, tech.reason)}</p>
+                </div>
+              ))}
+            </div>
+
+            {project.links.length > 0 && (
+              <div className={styles.linkGrid}>
+                {project.links.map((link, index) =>
+                  link.url ? (
+                    <a
+                      key={`${link.url}-${index}`}
+                      href={link.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className={styles.linkCard}
+                    >
+                      <span className={styles.linkTitle}>
+                        {getText(language, link.label)} ↗
+                      </span>
+                      <span className={styles.linkUrl}>{link.url}</span>
+                    </a>
+                  ) : (
+                    <div
+                      key={`${getText(language, link.label)}-${index}`}
+                      className={styles.linkCard}
+                    >
+                      <span className={styles.linkTitle}>
+                        {getText(language, link.label)}
+                      </span>
+                      <span className={styles.linkNote}>
+                        {link.note ? getText(language, link.note) : ''}
+                      </span>
+                    </div>
+                  )
+                )}
+              </div>
+            )}
+          </section>
+        </div>
+
+        <StickyToc language={language} items={tocItems} />
+      </div>
+
+      <RelatedProjects
+        language={language}
+        currentProjectId={project.id}
+        onProjectClick={onProjectClick}
+      />
     </article>
   );
 };

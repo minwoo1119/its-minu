@@ -452,11 +452,13 @@ function App() {
                   <ProfessionalProjectDetail
                     language={language}
                     project={getProfessionalProject(route.projectId)!}
+                    onProjectClick={handleProjectOpen}
                   />
                 ) : (
                   <DetailProjects
                     language={language}
                     projectId={route.projectId}
+                    onProjectClick={handleProjectOpen}
                   />
                 )}
               </main>
